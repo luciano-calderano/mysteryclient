@@ -30,6 +30,8 @@
 		04BCAD2D1EFA97B900745556 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD2C1EFA97B900745556 /* MainCell.swift */; };
 		04BCAD311EFA9A8900745556 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD301EFA9A8900745556 /* Loader.swift */; };
 		04BCAD341EFA9DCF00745556 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD331EFA9DCF00745556 /* User.swift */; };
+		04BCAD381EFAB7FC00745556 /* MYHttpAlamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD371EFAB7FC00745556 /* MYHttpAlamo.swift */; };
+		5F1BB5DE48EC86B1B8BAB5DF /* Pods_MisteryClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 749E76EC3301FB6DF0D30FA0 /* Pods_MisteryClient.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,10 @@
 		04BCAD2C1EFA97B900745556 /* MainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainCell.swift; path = Main/MainCell.swift; sourceTree = SOURCE_ROOT; };
 		04BCAD301EFA9A8900745556 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Loader.swift; path = Main/Loader.swift; sourceTree = SOURCE_ROOT; };
 		04BCAD331EFA9DCF00745556 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Model/User.swift; sourceTree = "<group>"; };
+		04BCAD371EFAB7FC00745556 /* MYHttpAlamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYHttpAlamo.swift; sourceTree = "<group>"; };
+		749E76EC3301FB6DF0D30FA0 /* Pods_MisteryClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MisteryClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		752D794568D16841B97AA1CF /* Pods-MisteryClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MisteryClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MisteryClient/Pods-MisteryClient.debug.xcconfig"; sourceTree = "<group>"; };
+		DAE263F73FC7B0E517697385 /* Pods-MisteryClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MisteryClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-MisteryClient/Pods-MisteryClient.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F1BB5DE48EC86B1B8BAB5DF /* Pods_MisteryClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +84,8 @@
 				044619EC1EFA66A7008CD1E2 /* Cls */,
 				044619E51EFA645F008CD1E2 /* Main */,
 				044619D21EFA640F008CD1E2 /* MisteryClient */,
+				4C60E8A0A1C835C44E80CFC8 /* Pods */,
+				10BE02BFF0AE8026C48A4C7A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -161,6 +170,7 @@
 		04461A251EFA8558008CD1E2 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				04BCAD371EFAB7FC00745556 /* MYHttpAlamo.swift */,
 				04461A261EFA8558008CD1E2 /* MYLanguage.swift */,
 				04461A271EFA8558008CD1E2 /* MYWheel.swift */,
 			);
@@ -175,6 +185,23 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		10BE02BFF0AE8026C48A4C7A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				749E76EC3301FB6DF0D30FA0 /* Pods_MisteryClient.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4C60E8A0A1C835C44E80CFC8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				752D794568D16841B97AA1CF /* Pods-MisteryClient.debug.xcconfig */,
+				DAE263F73FC7B0E517697385 /* Pods-MisteryClient.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -182,9 +209,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 044619E21EFA6410008CD1E2 /* Build configuration list for PBXNativeTarget "MisteryClient" */;
 			buildPhases = (
+				CE243D1C5F7B19B75748E054 /* [CP] Check Pods Manifest.lock */,
 				044619CC1EFA640F008CD1E2 /* Sources */,
 				044619CD1EFA640F008CD1E2 /* Frameworks */,
 				044619CE1EFA640F008CD1E2 /* Resources */,
+				829B30E3DC90C861FAC3E3EC /* [CP] Embed Pods Frameworks */,
+				C234FA720E77BE73D000DF74 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -245,6 +275,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		829B30E3DC90C861FAC3E3EC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MisteryClient/Pods-MisteryClient-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C234FA720E77BE73D000DF74 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MisteryClient/Pods-MisteryClient-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE243D1C5F7B19B75748E054 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		044619CC1EFA640F008CD1E2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -266,6 +344,7 @@
 				04461A041EFA66A7008CD1E2 /* MYButton.swift in Sources */,
 				04BCAD341EFA9DCF00745556 /* User.swift in Sources */,
 				04461A241EFA84B9008CD1E2 /* Login.swift in Sources */,
+				04BCAD381EFAB7FC00745556 /* MYHttpAlamo.swift in Sources */,
 				04BCAD2D1EFA97B900745556 /* MainCell.swift in Sources */,
 				04461A2F1EFA85F7008CD1E2 /* Ext.String.swift in Sources */,
 			);
@@ -369,6 +448,7 @@
 		};
 		044619E31EFA6410008CD1E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 752D794568D16841B97AA1CF /* Pods-MisteryClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V95QH5CSXX;
@@ -383,6 +463,7 @@
 		};
 		044619E41EFA6410008CD1E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAE263F73FC7B0E517697385 /* Pods-MisteryClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V95QH5CSXX;
