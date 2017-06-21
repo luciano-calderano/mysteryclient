@@ -35,7 +35,19 @@ class Login: MYViewController {
     }
     
     private func checkUser () {
-        self.httpResponse(dict: [:])
+        let token = "UPqwU7vHXGtHk6JyXrA5"
+        let request = MYHttpRequest.get("oauth/grant")
+        request.json = [
+            "grant_type"   : "password",
+            "client_id"    : "mistery_app",
+            "client_secret": token,
+            "username"     : self.userText.text!,
+            "password"     : self.passText.text!,
+        ]
+        request.start() { (result, response) in
+            print (response)
+            self.httpResponse(dict: [:])
+        }
     }
     
     private func httpResponse (dict: JsonDict) {

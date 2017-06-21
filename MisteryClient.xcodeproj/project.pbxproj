@@ -27,6 +27,7 @@
 		04461A2F1EFA85F7008CD1E2 /* Ext.String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A2E1EFA85F7008CD1E2 /* Ext.String.swift */; };
 		04461A311EFA8629008CD1E2 /* Lang.txt in Resources */ = {isa = PBXBuildFile; fileRef = 04461A301EFA8629008CD1E2 /* Lang.txt */; };
 		04461A331EFA8955008CD1E2 /* Ext.UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */; };
+		0472E2A91EFAC74D001CE358 /* Ext.Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472E2A81EFAC74D001CE358 /* Ext.Dictionary.swift */; };
 		04BCAD2D1EFA97B900745556 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD2C1EFA97B900745556 /* MainCell.swift */; };
 		04BCAD311EFA9A8900745556 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD301EFA9A8900745556 /* Loader.swift */; };
 		04BCAD341EFA9DCF00745556 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD331EFA9DCF00745556 /* User.swift */; };
@@ -57,6 +58,7 @@
 		04461A2E1EFA85F7008CD1E2 /* Ext.String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.String.swift; sourceTree = "<group>"; };
 		04461A301EFA8629008CD1E2 /* Lang.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Lang.txt; sourceTree = "<group>"; };
 		04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.UIViewController.swift; sourceTree = "<group>"; };
+		0472E2A81EFAC74D001CE358 /* Ext.Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.Dictionary.swift; sourceTree = "<group>"; };
 		04BCAD2C1EFA97B900745556 /* MainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainCell.swift; path = Main/MainCell.swift; sourceTree = SOURCE_ROOT; };
 		04BCAD301EFA9A8900745556 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Loader.swift; path = Main/Loader.swift; sourceTree = SOURCE_ROOT; };
 		04BCAD331EFA9DCF00745556 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Model/User.swift; sourceTree = "<group>"; };
@@ -84,14 +86,14 @@
 				044619EC1EFA66A7008CD1E2 /* Cls */,
 				044619E51EFA645F008CD1E2 /* Main */,
 				044619D21EFA640F008CD1E2 /* MisteryClient */,
-				4C60E8A0A1C835C44E80CFC8 /* Pods */,
-				10BE02BFF0AE8026C48A4C7A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		044619D21EFA640F008CD1E2 /* MisteryClient */ = {
 			isa = PBXGroup;
 			children = (
+				10BE02BFF0AE8026C48A4C7A /* Frameworks */,
+				4C60E8A0A1C835C44E80CFC8 /* Pods */,
 				04461A301EFA8629008CD1E2 /* Lang.txt */,
 				044619E61EFA64BB008CD1E2 /* LaunchScreen.storyboard */,
 				044619D31EFA640F008CD1E2 /* AppDelegate.swift */,
@@ -149,6 +151,7 @@
 		044619FA1EFA66A7008CD1E2 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				0472E2A81EFAC74D001CE358 /* Ext.Dictionary.swift */,
 				04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */,
 				04461A2A1EFA85CF008CD1E2 /* Ext.Date.swift */,
 				04461A2B1EFA85CF008CD1E2 /* Ext.UIFont.swift */,
@@ -191,6 +194,7 @@
 				749E76EC3301FB6DF0D30FA0 /* Pods_MisteryClient.framework */,
 			);
 			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		4C60E8A0A1C835C44E80CFC8 /* Pods */ = {
@@ -200,6 +204,7 @@
 				DAE263F73FC7B0E517697385 /* Pods-MisteryClient.release.xcconfig */,
 			);
 			name = Pods;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,6 +337,7 @@
 				04461A331EFA8955008CD1E2 /* Ext.UIViewController.swift in Sources */,
 				04461A201EFA705C008CD1E2 /* Main.swift in Sources */,
 				04461A071EFA66A7008CD1E2 /* MYTextField.swift in Sources */,
+				0472E2A91EFAC74D001CE358 /* Ext.Dictionary.swift in Sources */,
 				044619D41EFA640F008CD1E2 /* AppDelegate.swift in Sources */,
 				04461A2D1EFA85CF008CD1E2 /* Ext.UIFont.swift in Sources */,
 				04461A051EFA66A7008CD1E2 /* MYLabel.swift in Sources */,

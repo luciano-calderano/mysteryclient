@@ -11,22 +11,19 @@ import Alamofire
 
 class MYHttpRequest {
     struct HttpConfig {
-        static let url = "http://api.kanito.it/"
-        static let token = "olihGYTYV57856-=gg"
+        static let url = "http://mysteryclient.mebius.it/default/"
     }
     static let printJson = true
     
     class func get (_ page: String) -> MYHttpRequest {
-        let req = MYHttpRequest (token: HttpConfig.token,
-                                 baseUrl: HttpConfig.url,
+        let req = MYHttpRequest (baseUrl: HttpConfig.url,
                                  page: page,
                                  type: .get)
         return req
     }
     
     class func post (_ page: String) -> MYHttpRequest {
-        let req = MYHttpRequest (token: HttpConfig.token,
-                                 baseUrl: HttpConfig.url,
+        let req = MYHttpRequest (baseUrl: HttpConfig.url,
                                  page: page,
                                  type: .post)
         return req
@@ -41,18 +38,10 @@ class MYHttpRequest {
     fileprivate var url = ""
     fileprivate var token = ""
     fileprivate var myWheel:MYWheel?
-    fileprivate var parameters: JsonDict {
-        get {
-            var parameters = self.json
-            parameters["token"] = self.token
-            return parameters
-        }
-    }
 
-    init(token: String, baseUrl: String, page: String, type: HTTPMethod) {
+    init(baseUrl: String, page: String, type: HTTPMethod) {
         self.page = page
         self.url = baseUrl + page
-        self.token = token
         self.type = type
     }
 
@@ -63,7 +52,7 @@ class MYHttpRequest {
             self.startWheel(true)
         }
         self.printJson(self.json)
-        Alamofire.request(self.url, method: self.type, parameters: self.parameters).responseString { response in
+        Alamofire.request(self.url, method: self.type, parameters: self.json).responseString { response in
 //        Alamofire.request(self.url, method: self.type, parameters: self.parameters).responseJSON { (response) in
             if showWheel {
                 self.startWheel(false)
