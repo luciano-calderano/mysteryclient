@@ -14,7 +14,8 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     @IBOutlet private var menuButton: MYButton!
     
     private var menuView = MenuView.Instance()
-    
+    private var menuArray = [String]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadData()
@@ -37,6 +38,17 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
             "Riga 6",
             "Riga 7",
         ]
+        
+        self.menuArray = [
+            "Riga 1",
+            "Riga 2",
+            "Riga 3",
+            "Riga 4",
+            "Riga 5",
+            "Riga 6",
+            "Logout",
+        ]
+        self.menuView.loadData(items: self.menuArray)
     }
     
     @IBAction func menuTapped () {
@@ -66,6 +78,11 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     
     func menuSelectedItem(item: Int) {
         self.hideMenu()
+        if item == self.menuArray.count - 1 {
+            User.shared.logout()
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+
     }
     
     func menuHide() {
@@ -94,8 +111,6 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let ctrl = Login.Instance()
-        self.navigationController?.show(ctrl, sender: self)
     }
 }
 

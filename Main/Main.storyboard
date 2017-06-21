@@ -18,17 +18,36 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="xrv-9U-Mlc" kind="relationship" relationship="rootViewController" id="L9f-jv-1X8"/>
+                        <segue destination="Zqp-lk-iuA" kind="relationship" relationship="rootViewController" id="i4P-GI-D7J"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="URR-wT-FuC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1202" y="61"/>
         </scene>
+        <!--Loader-->
+        <scene sceneID="xEb-cQ-VQh">
+            <objects>
+                <viewController id="Zqp-lk-iuA" customClass="Loader" customModule="MisteryClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hFQ-H0-3W5"/>
+                        <viewControllerLayoutGuide type="bottom" id="nFF-GQ-wJh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a8h-bq-ssf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0030266508680000001" green="1" blue="0.7032528388" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="E0i-i5-6tu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KmB-aq-pxm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-449" y="61"/>
+        </scene>
         <!--Main-->
         <scene sceneID="Ze6-Zm-a8R">
             <objects>
-                <viewController id="xrv-9U-Mlc" customClass="Main" customModule="MisteryClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Main" id="xrv-9U-Mlc" customClass="Main" customModule="MisteryClient" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jwn-R4-wgt"/>
                         <viewControllerLayoutGuide type="bottom" id="dRr-Lz-hNC"/>
@@ -103,7 +122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0je-DA-O1I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-396" y="60.719640179910051"/>
+            <point key="canvasLocation" x="926" y="61"/>
         </scene>
         <!--Login-->
         <scene sceneID="Ee9-Xw-9Yb">
@@ -146,7 +165,10 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="t35-uP-n1c"/>
                                                 </constraints>
-                                                <state key="normal" title="Button"/>
+                                                <state key="normal" title="#login"/>
+                                                <connections>
+                                                    <action selector="loginTapped" destination="L6h-9s-rfc" eventType="touchUpInside" id="tn0-F0-SWa"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#user" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wT6-dI-qHC" customClass="MYLabel" customModule="MisteryClient" customModuleProvider="target">
                                                 <rect key="frame" x="54" y="120" width="276" height="21"/>
@@ -205,10 +227,14 @@
                             <constraint firstAttribute="trailing" secondItem="qxs-oz-T6C" secondAttribute="trailing" id="vLc-wG-Fun"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="passText" destination="b2K-CR-Tzd" id="DtX-gs-oDP"/>
+                        <outlet property="userText" destination="6qq-Zm-jCA" id="JeM-d0-Cc7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rAw-kl-eih" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="396" y="60.719640179910051"/>
+            <point key="canvasLocation" x="252" y="61"/>
         </scene>
     </scenes>
     <resources>

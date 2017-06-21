@@ -1,2 +1,3 @@
 user=Utente
 pass=Password
+login=Login

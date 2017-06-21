@@ -32,21 +32,10 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.cellId)
         let tapBack = UITapGestureRecognizer.init(target: self, action: #selector(menuHide))
         self.backView.addGestureRecognizer(tapBack)
-        self.loadData()
     }
     
-    
-    
-    private func loadData() {
-        self.dataArray = [
-            "Riga 1",
-            "Riga 2",
-            "Riga 3",
-            "Riga 4",
-            "Riga 5",
-            "Riga 6",
-            "Riga 7",
-        ]
+    func loadData(items: [String]) {
+        self.dataArray = items
     }
     
     func menuHide () {
