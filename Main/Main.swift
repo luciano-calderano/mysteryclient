@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Main: MYViewController, UITableViewDelegate, UITableViewDataSource {
+class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuViewDelegate {
 
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var menuButton: MYButton!
@@ -18,8 +18,12 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadData()
-        self.menuView.frame = self.view.frame
-        self.hideMenu()
+        
+        var rect = self.view.frame
+        rect.origin.x = -rect.size.width
+        self.menuView.frame = rect
+        self.menuView.isHidden = true
+        self.menuView.delegate = self
         self.view.addSubview(self.menuView)
     }
     
@@ -40,17 +44,32 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func showMenu () {
-        var rect = self.menuView.frame
-        rect.origin.x = 0
-        self.menuView.frame = rect
         self.menuView.isHidden = false
+        UIView.animate(withDuration: 0.3) {
+            var rect = self.menuView.frame
+            rect.origin.x = 0
+            self.menuView.frame = rect
+        }
     }
     
     private func hideMenu () {
-        var rect = self.menuView.frame
-        rect.origin.x = -rect.size.width
-        self.menuView.frame = rect
-        self.menuView.isHidden = true
+        UIView.animate(withDuration: 0.2, animations: {
+            var rect = self.menuView.frame
+            rect.origin.x = -rect.size.width
+            self.menuView.frame = rect
+        }) { (true) in
+            self.menuView.isHidden = true
+        }
+    }
+    
+    // MARK: menu delegate
+    
+    func menuSelectedItem(item: Int) {
+        self.hideMenu()
+    }
+    
+    func menuHide() {
+        self.hideMenu()
     }
     
     // MARK: table view
