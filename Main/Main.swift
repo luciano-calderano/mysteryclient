@@ -94,7 +94,8 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print(indexPath.row)
+        let ctrl = Login.Instance()
+        self.navigationController?.show(ctrl, sender: self)
     }
 }
 

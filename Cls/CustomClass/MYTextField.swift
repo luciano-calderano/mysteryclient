@@ -1,6 +1,6 @@
 //
 //  MYTextField
-//  Enci
+//  Lc
 //
 //  Created by Luciano Calderano on 03/11/16.
 //  Copyright © 2016 Kanito. All rights reserved.
@@ -28,6 +28,7 @@ class MYTextField: UITextField {
     }
     
     fileprivate func initialize () {
+        self.placeholder = self.placeholder?.tryLang()
         self.spellCheckingType = .no
         self.autocorrectionType = .no
         self.autocapitalizationType = (self.keyboardType == .default) ? .sentences : .none

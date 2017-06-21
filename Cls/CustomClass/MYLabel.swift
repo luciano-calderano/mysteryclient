@@ -1,6 +1,6 @@
 //
 //  MYButton.swift
-//  Enci
+//  Lc
 //
 //  Created by Luciano Calderano on 03/11/16.
 //  Copyright © 2016 Kanito. All rights reserved.
@@ -9,7 +9,14 @@
 import UIKit
 
 class MYLabel: UILabel {
-    
+    var title: String {
+        get {
+            return self.text!
+        }
+        set {
+            self.text = newValue.tryLang()
+        }
+    }
     required internal init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initialize()
@@ -28,5 +35,8 @@ class MYLabel: UILabel {
         self.minimumScaleFactor = 0.75
         self.adjustsFontSizeToFitWidth = true
         self.font = UIFont.mySize(self.font.pointSize)
+        if (self.text != nil) {
+            self.title = self.text!
+        }
     }
 }

@@ -13,8 +13,8 @@ extension UIColor {
         return UIColor.init(netHex: Int(hex, radix: 16)!)
     }
     
-    @nonobjc static let myGreyLight  = UIColor.hexColor("f9f9f9")
-    @nonobjc static let myGreyMedium = UIColor.hexColor("a9a9a9")
+    @nonobjc static let myGreenLight  = UIColor.hexColor("f9f9f9")
+    @nonobjc static let myGreenDark = UIColor.hexColor("a9a9a9")
     
     convenience init(r: Int, g: Int, b: Int) {
         assert(r >= 0 && r <= 255, "Invalid red component")

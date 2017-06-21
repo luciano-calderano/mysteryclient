@@ -15,13 +15,18 @@ class MYButton: UIButton {
             self.layer.borderColor = borderColor.cgColor
         }
     }
-
+    
     @IBInspectable var cornerRadius:CGFloat = 3 {
         didSet {
             self.layer.cornerRadius = cornerRadius
         }
     }
 
+    var title: String {
+        get { return self.titleLabel!.text! }
+        set { self.setTitle(newValue.tryLang(), for: UIControlState()) }
+    }
+    
     required internal init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initialize()
@@ -32,10 +37,12 @@ class MYButton: UIButton {
         
         self.showsTouchWhenHighlighted = true
         if self.backgroundColor == nil {
+            self.borderColor = UIColor.myGreenDark
         }
         if self.titleColor(for: .normal) == nil {
             self.setTitleColor(UIColor.white, for: UIControlState.normal)
         }
         self.titleLabel?.font = UIFont.mySize((self.titleLabel?.font.pointSize)!)
+        self.title = self.currentTitle ?? ""
     }
 }

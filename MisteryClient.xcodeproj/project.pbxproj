@@ -15,12 +15,19 @@
 		04461A071EFA66A7008CD1E2 /* MYTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044619F21EFA66A7008CD1E2 /* MYTextField.swift */; };
 		04461A0B1EFA66A7008CD1E2 /* MYViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044619F71EFA66A7008CD1E2 /* MYViewController.swift */; };
 		04461A0E1EFA66A7008CD1E2 /* Ext.Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044619FB1EFA66A7008CD1E2 /* Ext.Color.swift */; };
-		04461A171EFA67B8008CD1E2 /* Ext.UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A161EFA67B8008CD1E2 /* Ext.UIFont.swift */; };
 		04461A191EFA687A008CD1E2 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A181EFA687A008CD1E2 /* MainCell.swift */; };
 		04461A1C1EFA6FE9008CD1E2 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04461A1B1EFA6FE9008CD1E2 /* MenuView.xib */; };
 		04461A1F1EFA705C008CD1E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04461A1D1EFA705C008CD1E2 /* Main.storyboard */; };
 		04461A201EFA705C008CD1E2 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A1E1EFA705C008CD1E2 /* Main.swift */; };
 		04461A221EFA7073008CD1E2 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A211EFA7073008CD1E2 /* MenuView.swift */; };
+		04461A241EFA84B9008CD1E2 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A231EFA84B9008CD1E2 /* Login.swift */; };
+		04461A281EFA8558008CD1E2 /* MYLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A261EFA8558008CD1E2 /* MYLanguage.swift */; };
+		04461A291EFA8558008CD1E2 /* MYWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A271EFA8558008CD1E2 /* MYWheel.swift */; };
+		04461A2C1EFA85CF008CD1E2 /* Ext.Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A2A1EFA85CF008CD1E2 /* Ext.Date.swift */; };
+		04461A2D1EFA85CF008CD1E2 /* Ext.UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A2B1EFA85CF008CD1E2 /* Ext.UIFont.swift */; };
+		04461A2F1EFA85F7008CD1E2 /* Ext.String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A2E1EFA85F7008CD1E2 /* Ext.String.swift */; };
+		04461A311EFA8629008CD1E2 /* Lang.txt in Resources */ = {isa = PBXBuildFile; fileRef = 04461A301EFA8629008CD1E2 /* Lang.txt */; };
+		04461A331EFA8955008CD1E2 /* Ext.UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,12 +41,19 @@
 		044619F21EFA66A7008CD1E2 /* MYTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYTextField.swift; sourceTree = "<group>"; };
 		044619F71EFA66A7008CD1E2 /* MYViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYViewController.swift; sourceTree = "<group>"; };
 		044619FB1EFA66A7008CD1E2 /* Ext.Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.Color.swift; sourceTree = "<group>"; };
-		04461A161EFA67B8008CD1E2 /* Ext.UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.UIFont.swift; sourceTree = "<group>"; };
 		04461A181EFA687A008CD1E2 /* MainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainCell.swift; path = ../../Main/MainCell.swift; sourceTree = "<group>"; };
 		04461A1B1EFA6FE9008CD1E2 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MenuView.xib; path = Main/Menu/MenuView.xib; sourceTree = SOURCE_ROOT; };
 		04461A1D1EFA705C008CD1E2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Main/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		04461A1E1EFA705C008CD1E2 /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Main.swift; path = Main/Main.swift; sourceTree = SOURCE_ROOT; };
 		04461A211EFA7073008CD1E2 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuView.swift; path = Main/Menu/MenuView.swift; sourceTree = SOURCE_ROOT; };
+		04461A231EFA84B9008CD1E2 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Login.swift; path = Main/Login.swift; sourceTree = SOURCE_ROOT; };
+		04461A261EFA8558008CD1E2 /* MYLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYLanguage.swift; sourceTree = "<group>"; };
+		04461A271EFA8558008CD1E2 /* MYWheel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYWheel.swift; sourceTree = "<group>"; };
+		04461A2A1EFA85CF008CD1E2 /* Ext.Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.Date.swift; sourceTree = "<group>"; };
+		04461A2B1EFA85CF008CD1E2 /* Ext.UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.UIFont.swift; sourceTree = "<group>"; };
+		04461A2E1EFA85F7008CD1E2 /* Ext.String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.String.swift; sourceTree = "<group>"; };
+		04461A301EFA8629008CD1E2 /* Lang.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Lang.txt; sourceTree = "<group>"; };
+		04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.UIViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,29 +70,21 @@
 		044619C71EFA640F008CD1E2 = {
 			isa = PBXGroup;
 			children = (
-				044619D21EFA640F008CD1E2 /* MisteryClient */,
 				044619EC1EFA66A7008CD1E2 /* Cls */,
 				044619E51EFA645F008CD1E2 /* Main */,
+				044619D21EFA640F008CD1E2 /* MisteryClient */,
 			);
-			sourceTree = "<group>";
-		};
-		044619D11EFA640F008CD1E2 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				044619D01EFA640F008CD1E2 /* MisteryClient.app */,
-			);
-			name = Products;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		044619D21EFA640F008CD1E2 /* MisteryClient */ = {
 			isa = PBXGroup;
 			children = (
-				044619D11EFA640F008CD1E2 /* Products */,
-				044619D31EFA640F008CD1E2 /* AppDelegate.swift */,
+				04461A301EFA8629008CD1E2 /* Lang.txt */,
 				044619E61EFA64BB008CD1E2 /* LaunchScreen.storyboard */,
-				044619DA1EFA640F008CD1E2 /* Assets.xcassets */,
+				044619D31EFA640F008CD1E2 /* AppDelegate.swift */,
 				044619DF1EFA6410008CD1E2 /* Info.plist */,
+				044619D01EFA640F008CD1E2 /* MisteryClient.app */,
+				044619DA1EFA640F008CD1E2 /* Assets.xcassets */,
 			);
 			path = MisteryClient;
 			sourceTree = "<group>";
@@ -88,6 +94,7 @@
 			children = (
 				04461A1A1EFA6FD1008CD1E2 /* Menu */,
 				04461A1D1EFA705C008CD1E2 /* Main.storyboard */,
+				04461A231EFA84B9008CD1E2 /* Login.swift */,
 				04461A1E1EFA705C008CD1E2 /* Main.swift */,
 				04461A181EFA687A008CD1E2 /* MainCell.swift */,
 			);
@@ -98,6 +105,7 @@
 		044619EC1EFA66A7008CD1E2 /* Cls */ = {
 			isa = PBXGroup;
 			children = (
+				04461A251EFA8558008CD1E2 /* Class */,
 				044619ED1EFA66A7008CD1E2 /* CustomClass */,
 				044619FA1EFA66A7008CD1E2 /* Extension */,
 			);
@@ -126,8 +134,11 @@
 		044619FA1EFA66A7008CD1E2 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */,
+				04461A2A1EFA85CF008CD1E2 /* Ext.Date.swift */,
+				04461A2B1EFA85CF008CD1E2 /* Ext.UIFont.swift */,
 				044619FB1EFA66A7008CD1E2 /* Ext.Color.swift */,
-				04461A161EFA67B8008CD1E2 /* Ext.UIFont.swift */,
+				04461A2E1EFA85F7008CD1E2 /* Ext.String.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -139,6 +150,15 @@
 				04461A211EFA7073008CD1E2 /* MenuView.swift */,
 			);
 			name = Menu;
+			sourceTree = "<group>";
+		};
+		04461A251EFA8558008CD1E2 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				04461A261EFA8558008CD1E2 /* MYLanguage.swift */,
+				04461A271EFA8558008CD1E2 /* MYWheel.swift */,
+			);
+			path = Class;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,7 +207,7 @@
 				Base,
 			);
 			mainGroup = 044619C71EFA640F008CD1E2;
-			productRefGroup = 044619D11EFA640F008CD1E2 /* Products */;
+			productRefGroup = 044619C71EFA640F008CD1E2;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -201,6 +221,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04461A311EFA8629008CD1E2 /* Lang.txt in Resources */,
 				04461A1C1EFA6FE9008CD1E2 /* MenuView.xib in Resources */,
 				044619DB1EFA640F008CD1E2 /* Assets.xcassets in Resources */,
 				044619E71EFA64BB008CD1E2 /* LaunchScreen.storyboard in Resources */,
@@ -215,15 +236,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04461A2C1EFA85CF008CD1E2 /* Ext.Date.swift in Sources */,
+				04461A331EFA8955008CD1E2 /* Ext.UIViewController.swift in Sources */,
 				04461A201EFA705C008CD1E2 /* Main.swift in Sources */,
 				04461A071EFA66A7008CD1E2 /* MYTextField.swift in Sources */,
 				044619D41EFA640F008CD1E2 /* AppDelegate.swift in Sources */,
-				04461A171EFA67B8008CD1E2 /* Ext.UIFont.swift in Sources */,
+				04461A2D1EFA85CF008CD1E2 /* Ext.UIFont.swift in Sources */,
 				04461A051EFA66A7008CD1E2 /* MYLabel.swift in Sources */,
+				04461A281EFA8558008CD1E2 /* MYLanguage.swift in Sources */,
 				04461A221EFA7073008CD1E2 /* MenuView.swift in Sources */,
 				04461A0B1EFA66A7008CD1E2 /* MYViewController.swift in Sources */,
 				04461A0E1EFA66A7008CD1E2 /* Ext.Color.swift in Sources */,
+				04461A291EFA8558008CD1E2 /* MYWheel.swift in Sources */,
 				04461A041EFA66A7008CD1E2 /* MYButton.swift in Sources */,
+				04461A241EFA84B9008CD1E2 /* Login.swift in Sources */,
+				04461A2F1EFA85F7008CD1E2 /* Ext.String.swift in Sources */,
 				04461A191EFA687A008CD1E2 /* MainCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
