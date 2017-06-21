@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wAd-bu-3Li">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="AOo-pM-74G">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="wAd-bu-3Li" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rWs-8j-VeP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="xrv-9U-Mlc" kind="relationship" relationship="rootViewController" id="L9f-jv-1X8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="URR-wT-FuC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1202" y="61"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="Ze6-Zm-a8R">
+            <objects>
+                <viewController id="xrv-9U-Mlc" customClass="Main" customModule="MisteryClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Jwn-R4-wgt"/>
+                        <viewControllerLayoutGuide type="bottom" id="dRr-Lz-hNC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aDA-oi-WY0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UWW-I4-SOU">
+                                <rect key="frame" x="0.0" y="100" width="375" height="512"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MainCell" rowHeight="80" id="1j0-2L-t3d" customClass="MainCell" customModule="MisteryClient" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1j0-2L-t3d" id="Kep-S8-GAK">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zsF-ap-DZY" customClass="MYLabel" customModule="MisteryClient" customModuleProvider="target">
+                                                    <rect key="frame" x="20" y="15" width="335" height="50"/>
+                                                    <color key="backgroundColor" red="0.34998574710000002" green="0.82832739639999997" blue="0.055772930759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="zsF-ap-DZY" firstAttribute="leading" secondItem="Kep-S8-GAK" secondAttribute="leading" constant="20" id="8sz-Cg-UvN"/>
+                                                <constraint firstAttribute="trailing" secondItem="zsF-ap-DZY" secondAttribute="trailing" constant="20" id="ATs-Me-K7N"/>
+                                                <constraint firstItem="zsF-ap-DZY" firstAttribute="top" secondItem="Kep-S8-GAK" secondAttribute="top" constant="15" id="D7B-5a-cMK"/>
+                                                <constraint firstAttribute="bottom" secondItem="zsF-ap-DZY" secondAttribute="bottom" constant="15" id="Sax-Z0-4tI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="zsF-ap-DZY" id="XuV-N9-NSL"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="xrv-9U-Mlc" id="eD2-Lu-1Es"/>
+                                    <outlet property="delegate" destination="xrv-9U-Mlc" id="5Ok-Tf-Yze"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCX-ZL-tUw" customClass="MYButton" customModule="MisteryClient" customModuleProvider="target">
+                                <rect key="frame" x="10" y="20" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="ewh-FU-Dbd"/>
+                                    <constraint firstAttribute="width" constant="32" id="kqF-I6-IqH"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="hamburger"/>
+                                <connections>
+                                    <action selector="menuTapped" destination="xrv-9U-Mlc" eventType="touchUpInside" id="beW-XW-3KE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0030266508679285264" green="1" blue="0.70325283884601542" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="xCX-ZL-tUw" firstAttribute="top" secondItem="Jwn-R4-wgt" secondAttribute="bottom" id="Ivv-FL-Xra"/>
+                            <constraint firstAttribute="trailing" secondItem="UWW-I4-SOU" secondAttribute="trailing" id="W51-an-07b"/>
+                            <constraint firstItem="UWW-I4-SOU" firstAttribute="top" secondItem="Jwn-R4-wgt" secondAttribute="bottom" constant="80" id="bNP-Nj-kwa"/>
+                            <constraint firstItem="dRr-Lz-hNC" firstAttribute="top" secondItem="UWW-I4-SOU" secondAttribute="bottom" constant="55" id="cTr-Ec-EiA"/>
+                            <constraint firstItem="xCX-ZL-tUw" firstAttribute="leading" secondItem="aDA-oi-WY0" secondAttribute="leading" constant="10" id="dBd-aA-LjT"/>
+                            <constraint firstItem="UWW-I4-SOU" firstAttribute="leading" secondItem="aDA-oi-WY0" secondAttribute="leading" id="gi8-rz-eDW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="HMm-3n-H3I"/>
+                    <connections>
+                        <outlet property="menuButton" destination="xCX-ZL-tUw" id="XJR-Wr-Ner"/>
+                        <outlet property="tableView" destination="UWW-I4-SOU" id="ehV-Nd-6Pe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0je-DA-O1I" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-396" y="60.719640179910051"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="hamburger" width="128" height="128"/>
+    </resources>
+</document>
