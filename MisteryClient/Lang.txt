@@ -1,3 +1,4 @@
-user=Utente
+user=Username
 pass=Password
 login=Login
+iscri=Iscriviti
