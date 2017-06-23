@@ -94,13 +94,11 @@
 		044619D21EFA640F008CD1E2 /* MisteryClient */ = {
 			isa = PBXGroup;
 			children = (
-				10BE02BFF0AE8026C48A4C7A /* Frameworks */,
-				4C60E8A0A1C835C44E80CFC8 /* Pods */,
+				10BE02BFF0AE8026C48A4C7A /* Altro */,
 				04461A301EFA8629008CD1E2 /* Lang.txt */,
 				044619E61EFA64BB008CD1E2 /* LaunchScreen.storyboard */,
 				044619D31EFA640F008CD1E2 /* AppDelegate.swift */,
 				044619DF1EFA6410008CD1E2 /* Info.plist */,
-				044619D01EFA640F008CD1E2 /* MisteryClient.app */,
 				044619DA1EFA640F008CD1E2 /* Assets.xcassets */,
 			);
 			path = MisteryClient;
@@ -191,12 +189,14 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		10BE02BFF0AE8026C48A4C7A /* Frameworks */ = {
+		10BE02BFF0AE8026C48A4C7A /* Altro */ = {
 			isa = PBXGroup;
 			children = (
+				4C60E8A0A1C835C44E80CFC8 /* Pods */,
+				044619D01EFA640F008CD1E2 /* MisteryClient.app */,
 				749E76EC3301FB6DF0D30FA0 /* Pods_MisteryClient.framework */,
 			);
-			name = Frameworks;
+			name = Altro;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -207,7 +207,6 @@
 				DAE263F73FC7B0E517697385 /* Pods-MisteryClient.release.xcconfig */,
 			);
 			name = Pods;
-			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

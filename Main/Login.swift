@@ -51,7 +51,8 @@ class Login: MYViewController, UITextFieldDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let userName = "Prova" // User.shared.getUser()
+        let userName = "Prova"
+        //let userName =  User.shared.getUser()
         
         if userName.isEmpty {
             self.loginView.isHidden = false

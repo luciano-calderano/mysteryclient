@@ -24,7 +24,7 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var backView: UIView!
     
-    private var dataArray = [String]()
+    private var dataArray = [MenuItem]()
     private let cellId = "MenuCell"
 
     override func awakeFromNib() {
@@ -34,7 +34,7 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
         self.backView.addGestureRecognizer(tapBack)
     }
     
-    func loadData(items: [String]) {
+    func loadData(items: [MenuItem]) {
         self.dataArray = items
     }
     
@@ -53,13 +53,16 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 45
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {        
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellId,
                                                  for: indexPath) as UITableViewCell
-        cell.textLabel?.text = self.dataArray[indexPath.row]
+        let item = self.dataArray[indexPath.row]
+        cell.imageView!.image = item.icon
+        cell.textLabel?.text = item.type.rawValue
+        cell.textLabel?.font = UIFont.size(14)
         return cell
     }
     

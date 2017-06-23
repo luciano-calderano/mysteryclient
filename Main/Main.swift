@@ -14,7 +14,7 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     @IBOutlet private var menuButton: MYButton!
     
     private var menuView = MenuView.Instance()
-    private var menuArray = [String]()
+    private var menuArray = [MenuItem]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,16 +41,30 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
             "Riga 7",
         ]
         
+        
         self.menuArray = [
-            "Riga 1",
-            "Riga 2",
-            "Riga 3",
-            "Riga 4",
-            "Riga 5",
-            "Riga 6",
-            "Logout",
+            self.addMenuItem("ico.home",      type: .home),
+            self.addMenuItem("ico.incarichi", type: .inca),
+            self.addMenuItem("ico.ricInc",    type: .rInc),
+            self.addMenuItem("ico.profilo",   type: .prof),
+            self.addMenuItem("ico.cercando",  type: .cerc),
+            self.addMenuItem("ico.news",      type: .news),
+            self.addMenuItem("ico.cont",      type: .cont),
+            self.addMenuItem("ico.logout",    type: .logout),
         ]
         self.menuView.loadData(items: self.menuArray)
+    }
+    
+    private func addMenuItem (_ iconName: String, type: MenuItemEnum) -> MenuItem {
+        let icon = UIImage.init(named: iconName)!
+        let size = 24
+        UIGraphicsBeginImageContext(CGSize(width: size, height: size))
+        icon.draw(in: CGRect(x: 0, y: 0, width: size, height: size))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        let item = MenuItem.init(icon: newImage, type: type)
+        return item
     }
     
     override func headerViewSxTapped() {
@@ -64,6 +78,8 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     
     private func showMenu () {
         self.menuView.isHidden = false
+        self.header?.header.sxButton.setImage(UIImage.init(named: "ico.back"), for: .normal)
+        self.header?.header.titleLabel.text = Lng("incarichi")
         UIView.animate(withDuration: 0.3) {
             var rect = self.menuView.frame
             rect.origin.x = 0
@@ -72,6 +88,8 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     }
 
     private func hideMenu () {
+        self.header?.header.sxButton.setImage(UIImage.init(named: "ico.menu"), for: .normal)
+        self.header?.header.titleLabel.text = Lng("home")
         UIView.animate(withDuration: 0.2, animations: {
             var rect = self.menuView.frame
             rect.origin.x = -rect.size.width
@@ -119,5 +137,22 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+}
+
+enum MenuItemEnum: String {
+    case home = "Home"
+    case inca = "Incarichi"
+    case rInc = "Ricerca incarichi"
+    case prof = "Profilo"
+    case cerc = "Stiamo cercando"
+    case news = "Mistery News"
+    case cont = "Contattaci"
+    case logout = "Logout"
+    case _none = ""
+}
+
+struct MenuItem {
+    var icon: UIImage!
+    var type: MenuItemEnum
 }
 
