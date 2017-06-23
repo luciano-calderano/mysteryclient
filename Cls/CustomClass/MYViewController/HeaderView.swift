@@ -1,0 +1,72 @@
+//
+//  HeaderView
+//  Kanito
+//
+//  Created by Luciano Calderano on 17/11/16.
+//  Copyright © 2016 Kanito. All rights reserved.
+//
+
+import UIKit
+
+public protocol HeaderViewDelegate: class {
+    func headerViewSxTapped()
+}
+
+class HeaderContainerView : UIView, HeaderViewDelegate {
+    weak var delegate:HeaderViewDelegate?
+    let header = HeaderView.Instance()
+    
+    @IBInspectable var title:String = ""
+    @IBInspectable var sxImage: UIImage?
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.initialize()
+    }
+    
+    func initialize() {
+        self.addSubview(header)
+        header.delegate = self
+        header.frame = self.bounds
+        header.backgroundColor = self.backgroundColor
+        header.titleLabel.text = self.title.tryLang()
+
+        if self.sxImage == nil {
+            header.sxButton.isHidden = true
+        }
+        else {
+            header.sxButton.isHidden = false
+            header.sxButton.setImage(self.sxImage, for: .normal)
+        }
+    }
+    
+    func headerViewSxTapped() {
+        self.delegate?.headerViewSxTapped()
+    }
+}
+
+
+class HeaderView : UIView {
+    class func Instance() -> HeaderView {
+        let nib = UINib(nibName: "HeaderView", bundle: nil)
+        let view = nib.instantiate(withOwner: self, options: nil).first as! HeaderView
+        return view
+    }
+
+    @IBOutlet var titleLabel: MYLabel!
+    @IBOutlet var sxButton: UIButton!
+    
+    weak var delegate:HeaderViewDelegate?
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    @IBAction func sxButtonTapped() {
+        self.delegate?.headerViewSxTapped()
+    }
+}

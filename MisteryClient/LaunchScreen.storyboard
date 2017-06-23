@@ -24,11 +24,23 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="PWw-gB-GdP">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading ..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mbd-Ek-6q3">
+                                <rect key="frame" x="16" y="625" width="343" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="hna-TT-JSD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Mbd-Ek-6q3" secondAttribute="trailing" constant="16" id="2Dk-xz-7FN"/>
                             <constraint firstItem="PWw-gB-GdP" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="C1r-8v-icg"/>
+                            <constraint firstItem="Mbd-Ek-6q3" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="16" id="g8j-6w-Vfk"/>
                             <constraint firstItem="PWw-gB-GdP" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="kKO-FI-kMb"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Mbd-Ek-6q3" secondAttribute="bottom" constant="20" id="mMj-kv-v6W"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="PWw-gB-GdP" secondAttribute="bottom" id="nC0-7X-dit"/>
                             <constraint firstAttribute="trailing" secondItem="PWw-gB-GdP" secondAttribute="trailing" id="oNQ-99-yoa"/>
                         </constraints>
@@ -41,6 +53,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back" width="748" height="1101"/>
+        <image name="back" width="1440" height="2559"/>
     </resources>
 </document>

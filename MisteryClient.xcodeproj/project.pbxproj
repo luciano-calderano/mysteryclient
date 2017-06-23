@@ -31,6 +31,8 @@
 		04BCAD2D1EFA97B900745556 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD2C1EFA97B900745556 /* MainCell.swift */; };
 		04BCAD341EFA9DCF00745556 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD331EFA9DCF00745556 /* User.swift */; };
 		04BCAD381EFAB7FC00745556 /* MYHttpAlamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD371EFAB7FC00745556 /* MYHttpAlamo.swift */; };
+		04C910B31EFD2131000D2DB8 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C910B11EFD2131000D2DB8 /* HeaderView.swift */; };
+		04C910B41EFD2131000D2DB8 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C910B21EFD2131000D2DB8 /* HeaderView.xib */; };
 		5F1BB5DE48EC86B1B8BAB5DF /* Pods_MisteryClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 749E76EC3301FB6DF0D30FA0 /* Pods_MisteryClient.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +63,8 @@
 		04BCAD2C1EFA97B900745556 /* MainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainCell.swift; path = Main/MainCell.swift; sourceTree = SOURCE_ROOT; };
 		04BCAD331EFA9DCF00745556 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Model/User.swift; sourceTree = "<group>"; };
 		04BCAD371EFAB7FC00745556 /* MYHttpAlamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYHttpAlamo.swift; sourceTree = "<group>"; };
+		04C910B11EFD2131000D2DB8 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		04C910B21EFD2131000D2DB8 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		749E76EC3301FB6DF0D30FA0 /* Pods_MisteryClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MisteryClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		752D794568D16841B97AA1CF /* Pods-MisteryClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MisteryClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MisteryClient/Pods-MisteryClient.debug.xcconfig"; sourceTree = "<group>"; };
 		DAE263F73FC7B0E517697385 /* Pods-MisteryClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MisteryClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-MisteryClient/Pods-MisteryClient.release.xcconfig"; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				044619F71EFA66A7008CD1E2 /* MYViewController.swift */,
+				04C910B11EFD2131000D2DB8 /* HeaderView.swift */,
+				04C910B21EFD2131000D2DB8 /* HeaderView.xib */,
 			);
 			path = MYViewController;
 			sourceTree = "<group>";
@@ -270,6 +276,7 @@
 				04461A311EFA8629008CD1E2 /* Lang.txt in Resources */,
 				04461A1C1EFA6FE9008CD1E2 /* MenuView.xib in Resources */,
 				044619DB1EFA640F008CD1E2 /* Assets.xcassets in Resources */,
+				04C910B41EFD2131000D2DB8 /* HeaderView.xib in Resources */,
 				044619E71EFA64BB008CD1E2 /* LaunchScreen.storyboard in Resources */,
 				04461A1F1EFA705C008CD1E2 /* Main.storyboard in Resources */,
 			);
@@ -345,6 +352,7 @@
 				04461A291EFA8558008CD1E2 /* MYWheel.swift in Sources */,
 				04461A041EFA66A7008CD1E2 /* MYButton.swift in Sources */,
 				04BCAD341EFA9DCF00745556 /* User.swift in Sources */,
+				04C910B31EFD2131000D2DB8 /* HeaderView.swift in Sources */,
 				04461A241EFA84B9008CD1E2 /* Login.swift in Sources */,
 				04BCAD381EFAB7FC00745556 /* MYHttpAlamo.swift in Sources */,
 				04BCAD2D1EFA97B900745556 /* MainCell.swift in Sources */,

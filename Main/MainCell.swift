@@ -26,6 +26,7 @@ class MainCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.titleLabel.layer.cornerRadius = self.titleLabel.frame.size.height / 2
+        self.titleLabel.layer.masksToBounds = true
     }
 }
 

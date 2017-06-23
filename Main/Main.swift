@@ -22,6 +22,8 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
         
         var rect = self.view.frame
         rect.origin.x = -rect.size.width
+        rect.origin.y = (self.header?.frame.origin.y)! + (self.header?.frame.size.height)!
+        rect.size.height -= rect.origin.y
         self.menuView.frame = rect
         self.menuView.isHidden = true
         self.menuView.delegate = self
@@ -51,8 +53,13 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
         self.menuView.loadData(items: self.menuArray)
     }
     
-    @IBAction func menuTapped () {
-        self.showMenu()
+    override func headerViewSxTapped() {
+        if self.menuView.isHidden == true {
+            self.showMenu()
+        }
+        else {
+            self.hideMenu()
+        }
     }
     
     private func showMenu () {
@@ -63,7 +70,7 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
             self.menuView.frame = rect
         }
     }
-    
+
     private func hideMenu () {
         UIView.animate(withDuration: 0.2, animations: {
             var rect = self.menuView.frame

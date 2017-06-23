@@ -51,7 +51,8 @@ class Login: MYViewController, UITextFieldDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let userName = User.shared.getUser()
+        let userName = "Prova" // User.shared.getUser()
+        
         if userName.isEmpty {
             self.loginView.isHidden = false
         }
@@ -84,7 +85,7 @@ class Login: MYViewController, UITextFieldDelegate {
             return
         }
         self.view.endEditing(true)
-        self.checkUser()
+        self.loadUser()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -98,34 +99,16 @@ class Login: MYViewController, UITextFieldDelegate {
         return true
     }
     
-    private func checkUser () {
-        let token = "UPqwU7vHXGtHk6JyXrA5"
-        let request = MYHttpRequest.get("oauth/grant")
-        request.json = [
-            "grant_type"   : "password",
-            "client_id"    : "mistery_app",
-            "client_secret": token,
-            "username"     : self.userText.text!,
-            "password"     : self.passText.text!,
-        ]
-        request.start() { (result, response) in
-            self.httpResponse(dict: response)
+    private func loadUser () {
+        User.shared.checkUser(saveCredential: self.saveCred,
+                              userName: self.userText.text!,
+                              password: self.passText.text!,
+                              completion: { Bool in
+                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "Main")
+                                self.navigationController?.show(vc!, sender: self)
+
+        }) { (errorCode, message) in
+            self.alert("Error: \(errorCode)", message: message, okBlock: nil)
         }
-    }
-    
-    private func httpResponse (dict: JsonDict) {
-        print (dict)
-        let code = dict.int("code")
-//        let status = dict.string("status")
-        let msg = dict.string("message")
-        if code == 200 {
-            User.shared.saveUser(user: self.userText.text!,
-                                 pass: self.passText.text!,
-                                 token: dict.string("token"))
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Main")
-            self.navigationController?.show(vc!, sender: self)
-            return
-        }
-        self.alert("Error: \(code)", message: msg, okBlock: nil)
     }
 }
