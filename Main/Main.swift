@@ -11,7 +11,6 @@ import UIKit
 class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuViewDelegate {
 
     @IBOutlet private var tableView: UITableView!
-    @IBOutlet private var menuButton: MYButton!
     
     private var menuView = MenuView.Instance()
     private var menuArray = [MenuItem]()
@@ -32,15 +31,13 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     
     private func loadData() {
         self.dataArray = [
-            "Riga 1",
-            "Riga 2",
-            "Riga 3",
-            "Riga 4",
-            "Riga 5",
-            "Riga 6",
-            "Riga 7",
+            self.addMenuItem("ico.incarichi", type: .inca),
+            self.addMenuItem("ico.ricInc",    type: .rInc),
+            self.addMenuItem("ico.profilo",   type: .prof),
+            self.addMenuItem("ico.cercando",  type: .cerc),
+            self.addMenuItem("ico.news",      type: .news),
+            self.addMenuItem("ico.learning",  type: .lear),
         ]
-        
         
         self.menuArray = [
             self.addMenuItem("ico.home",      type: .home),
@@ -125,12 +122,13 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 64
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MainCell.dequeue(tableView, indexPath)
-        cell.title = self.dataArray[indexPath.row] as! String
+        let item = self.dataArray[indexPath.row] as! MenuItem
+        cell.title = item.type.rawValue
         return cell
     }
     
@@ -146,6 +144,7 @@ enum MenuItemEnum: String {
     case prof = "Profilo"
     case cerc = "Stiamo cercando"
     case news = "Mistery News"
+    case lear = "Learning"
     case cont = "Contattaci"
     case logout = "Logout"
     case _none = ""
