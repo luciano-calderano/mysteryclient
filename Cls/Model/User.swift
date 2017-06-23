@@ -1,6 +1,6 @@
 //
 //  User.swift
-//  MisteryClient
+//  MysteryClient
 //
 //  Created by mac on 21/06/17.
 //  Copyright © 2017 Mebius. All rights reserved.
@@ -43,10 +43,10 @@ class User: NSObject {
                     completion: @escaping () -> () = { success in },
                     failed: @escaping (Int, String) -> () = { errorCode, message in }) {
         let token = "UPqwU7vHXGtHk6JyXrA5"
-        let request = MYHttpRequest.get("oauth/grant")
+        let request = MYHttpRequest.post("oauth/grant")
         request.json = [
             "grant_type"   : "password",
-            "client_id"    : "mistery_app",
+            "client_id"    : "mystery_app",
             "client_secret": token,
             "username"     : userName,
             "password"     : password,
@@ -55,7 +55,7 @@ class User: NSObject {
             let code = response.int("code")
             //        let status = dict.string("status")
             if code == 200 {
-                self.token = response.string("token")
+                self.token = response.string("access_token")
                 if saveCredential == true {
                     self.user = userName
                     self.pass = password

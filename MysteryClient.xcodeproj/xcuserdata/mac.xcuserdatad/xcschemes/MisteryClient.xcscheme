@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "044619CF1EFA640F008CD1E2"
-               BuildableName = "MisteryClient.app"
-               BlueprintName = "MisteryClient"
-               ReferencedContainer = "container:MisteryClient.xcodeproj">
+               BuildableName = "MysteryClient.app"
+               BlueprintName = "MysteryClient"
+               ReferencedContainer = "container:MysteryClient.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "044619CF1EFA640F008CD1E2"
-            BuildableName = "MisteryClient.app"
-            BlueprintName = "MisteryClient"
-            ReferencedContainer = "container:MisteryClient.xcodeproj">
+            BuildableName = "MysteryClient.app"
+            BlueprintName = "MysteryClient"
+            ReferencedContainer = "container:MysteryClient.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "044619CF1EFA640F008CD1E2"
-            BuildableName = "MisteryClient.app"
-            BlueprintName = "MisteryClient"
-            ReferencedContainer = "container:MisteryClient.xcodeproj">
+            BuildableName = "MysteryClient.app"
+            BlueprintName = "MysteryClient"
+            ReferencedContainer = "container:MysteryClient.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "044619CF1EFA640F008CD1E2"
-            BuildableName = "MisteryClient.app"
-            BlueprintName = "MisteryClient"
-            ReferencedContainer = "container:MisteryClient.xcodeproj">
+            BuildableName = "MysteryClient.app"
+            BlueprintName = "MysteryClient"
+            ReferencedContainer = "container:MysteryClient.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

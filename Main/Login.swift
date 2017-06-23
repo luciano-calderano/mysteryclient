@@ -1,6 +1,6 @@
 //
 //  Login.swift
-//  MisteryClient
+//  MysteryClient
 //
 //  Created by Lc on 21/06/17.
 //  Copyright © 2017 Mebius. All rights reserved.
@@ -51,15 +51,14 @@ class Login: MYViewController, UITextFieldDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let userName = "Prova"
-        //let userName =  User.shared.getUser()
+//        let userName = "Prova"
+        let userName =  User.shared.getUser()
         
         if userName.isEmpty {
             self.loginView.isHidden = false
         }
         else {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Main")
-            self.navigationController?.show(vc!, sender: self)
+            self.userLogged()
         }
         self.myWheel?.stop()
         self.myWheel = nil
@@ -105,11 +104,15 @@ class Login: MYViewController, UITextFieldDelegate {
                               userName: self.userText.text!,
                               password: self.passText.text!,
                               completion: { Bool in
-                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "Main")
-                                self.navigationController?.show(vc!, sender: self)
+                                self.userLogged()
 
         }) { (errorCode, message) in
             self.alert("Error: \(errorCode)", message: message, okBlock: nil)
         }
+    }
+    
+    private func userLogged () {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
+        self.navigationController?.show(vc!, sender: self)
     }
 }

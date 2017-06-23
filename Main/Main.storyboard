@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="-551" y="61"/>
         </scene>
-        <!--Main-->
+        <!--Home-->
         <scene sceneID="Ze6-Zm-a8R">
             <objects>
-                <viewController storyboardIdentifier="Main" id="xrv-9U-Mlc" customClass="Main" customModule="MisteryClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Home" id="xrv-9U-Mlc" customClass="Home" customModule="MisteryClient" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jwn-R4-wgt"/>
                         <viewControllerLayoutGuide type="bottom" id="dRr-Lz-hNC"/>
@@ -41,10 +41,12 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="W7o-Tw-1xj">
                                 <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Be0-MM-sf1" customClass="HeaderContainerView" customModule="MisteryClient" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Be0-MM-sf1" customClass="HeaderContainerView" customModule="MisteryClient" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="320" height="55"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.81960784310000001" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="Hdq-aW-3hd"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="#home"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="sxImage" value="ico.menu"/>
@@ -54,7 +56,7 @@
                                 <rect key="frame" x="16" y="100" width="288" height="372"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MainCell" rowHeight="66" id="1j0-2L-t3d" customClass="MainCell" customModule="MisteryClient" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeCell" rowHeight="66" id="1j0-2L-t3d" customClass="HomeCell" customModule="MisteryClient" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="288" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1j0-2L-t3d" id="Kep-S8-GAK">
@@ -93,13 +95,16 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="W7o-Tw-1xj" secondAttribute="trailing" id="3GU-bg-byj"/>
+                            <constraint firstItem="Be0-MM-sf1" firstAttribute="top" secondItem="Jwn-R4-wgt" secondAttribute="bottom" id="FSG-ID-F0f"/>
                             <constraint firstItem="W7o-Tw-1xj" firstAttribute="leading" secondItem="aDA-oi-WY0" secondAttribute="leading" id="Gk7-fe-asY"/>
                             <constraint firstItem="W7o-Tw-1xj" firstAttribute="top" secondItem="Jwn-R4-wgt" secondAttribute="bottom" id="GsA-FC-cwh"/>
                             <constraint firstAttribute="trailing" secondItem="UWW-I4-SOU" secondAttribute="trailing" constant="16" id="W51-an-07b"/>
+                            <constraint firstAttribute="trailing" secondItem="Be0-MM-sf1" secondAttribute="trailing" id="Yes-fj-Lqx"/>
                             <constraint firstItem="UWW-I4-SOU" firstAttribute="top" secondItem="Jwn-R4-wgt" secondAttribute="bottom" constant="80" id="bNP-Nj-kwa"/>
                             <constraint firstItem="dRr-Lz-hNC" firstAttribute="top" secondItem="UWW-I4-SOU" secondAttribute="bottom" constant="8" id="cTr-Ec-EiA"/>
                             <constraint firstItem="UWW-I4-SOU" firstAttribute="leading" secondItem="aDA-oi-WY0" secondAttribute="leading" constant="16" id="gi8-rz-eDW"/>
                             <constraint firstItem="dRr-Lz-hNC" firstAttribute="top" secondItem="W7o-Tw-1xj" secondAttribute="bottom" id="jsZ-5z-JBJ"/>
+                            <constraint firstItem="Be0-MM-sf1" firstAttribute="leading" secondItem="aDA-oi-WY0" secondAttribute="leading" id="lsc-l9-xDQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HMm-3n-H3I"/>

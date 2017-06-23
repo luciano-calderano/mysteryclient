@@ -1,6 +1,6 @@
 //
-//  MainCell.swift
-//  MisteryClient
+//  HomeCell.swift
+//  MysteryClient
 //
 //  Created by Lc on 21/06/17.
 //  Copyright © 2017 Mebius. All rights reserved.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-class MainCell: UITableViewCell {
+class HomeCell: UITableViewCell {
     class func dequeue (_ tableView: UITableView,
-                        _ indexPath: IndexPath) -> MainCell {
+                        _ indexPath: IndexPath) -> HomeCell {
         let id = String (describing: self)
         return tableView.dequeueReusableCell(withIdentifier: id, for: indexPath)
-            as! MainCell
+            as! HomeCell
     }
     
     var title: String {

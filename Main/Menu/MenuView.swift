@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  MisteryClient
+//  MysteryClient
 //
 //  Created by mac on 21/06/17.
 //  Copyright © 2017 Mebius. All rights reserved.

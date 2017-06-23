@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  MisteryClient
+//  MysteryClient
 //
 //  Created by mac on 21/06/17.
 //  Copyright © 2017 Mebius. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuViewDelegate {
+class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuViewDelegate {
 
     @IBOutlet private var tableView: UITableView!
     
@@ -126,7 +126,7 @@ class Main: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = MainCell.dequeue(tableView, indexPath)
+        let cell = HomeCell.dequeue(tableView, indexPath)
         let item = self.dataArray[indexPath.row] as! MenuItem
         cell.title = item.type.rawValue
         return cell
@@ -143,7 +143,7 @@ enum MenuItemEnum: String {
     case rInc = "Ricerca incarichi"
     case prof = "Profilo"
     case cerc = "Stiamo cercando"
-    case news = "Mistery News"
+    case news = "Mystery News"
     case lear = "Learning"
     case cont = "Contattaci"
     case logout = "Logout"
