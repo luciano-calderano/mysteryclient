@@ -29,7 +29,6 @@
 		04461A331EFA8955008CD1E2 /* Ext.UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */; };
 		0472E2A91EFAC74D001CE358 /* Ext.Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472E2A81EFAC74D001CE358 /* Ext.Dictionary.swift */; };
 		04BCAD2D1EFA97B900745556 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD2C1EFA97B900745556 /* MainCell.swift */; };
-		04BCAD311EFA9A8900745556 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD301EFA9A8900745556 /* Loader.swift */; };
 		04BCAD341EFA9DCF00745556 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD331EFA9DCF00745556 /* User.swift */; };
 		04BCAD381EFAB7FC00745556 /* MYHttpAlamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD371EFAB7FC00745556 /* MYHttpAlamo.swift */; };
 		5F1BB5DE48EC86B1B8BAB5DF /* Pods_MisteryClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 749E76EC3301FB6DF0D30FA0 /* Pods_MisteryClient.framework */; };
@@ -60,7 +59,6 @@
 		04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.UIViewController.swift; sourceTree = "<group>"; };
 		0472E2A81EFAC74D001CE358 /* Ext.Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.Dictionary.swift; sourceTree = "<group>"; };
 		04BCAD2C1EFA97B900745556 /* MainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainCell.swift; path = Main/MainCell.swift; sourceTree = SOURCE_ROOT; };
-		04BCAD301EFA9A8900745556 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Loader.swift; path = Main/Loader.swift; sourceTree = SOURCE_ROOT; };
 		04BCAD331EFA9DCF00745556 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Model/User.swift; sourceTree = "<group>"; };
 		04BCAD371EFAB7FC00745556 /* MYHttpAlamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYHttpAlamo.swift; sourceTree = "<group>"; };
 		749E76EC3301FB6DF0D30FA0 /* Pods_MisteryClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MisteryClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,7 +106,6 @@
 			isa = PBXGroup;
 			children = (
 				04461A1D1EFA705C008CD1E2 /* Main.storyboard */,
-				04BCAD301EFA9A8900745556 /* Loader.swift */,
 				04461A231EFA84B9008CD1E2 /* Login.swift */,
 				04461A1E1EFA705C008CD1E2 /* Main.swift */,
 				04BCAD2C1EFA97B900745556 /* MainCell.swift */,
@@ -242,7 +239,7 @@
 				TargetAttributes = {
 					044619CF1EFA640F008CD1E2 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = V95QH5CSXX;
+						DevelopmentTeam = K2DWY28S5B;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -342,7 +339,6 @@
 				04461A2D1EFA85CF008CD1E2 /* Ext.UIFont.swift in Sources */,
 				04461A051EFA66A7008CD1E2 /* MYLabel.swift in Sources */,
 				04461A281EFA8558008CD1E2 /* MYLanguage.swift in Sources */,
-				04BCAD311EFA9A8900745556 /* Loader.swift in Sources */,
 				04461A221EFA7073008CD1E2 /* MenuView.swift in Sources */,
 				04461A0B1EFA66A7008CD1E2 /* MYViewController.swift in Sources */,
 				04461A0E1EFA66A7008CD1E2 /* Ext.Color.swift in Sources */,
@@ -400,7 +396,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -444,7 +440,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -457,7 +453,7 @@
 			baseConfigurationReference = 752D794568D16841B97AA1CF /* Pods-MisteryClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = V95QH5CSXX;
+				DEVELOPMENT_TEAM = K2DWY28S5B;
 				INFOPLIST_FILE = MisteryClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -472,7 +468,7 @@
 			baseConfigurationReference = DAE263F73FC7B0E517697385 /* Pods-MisteryClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = V95QH5CSXX;
+				DEVELOPMENT_TEAM = K2DWY28S5B;
 				INFOPLIST_FILE = MisteryClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
