@@ -106,9 +106,12 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
             let ctrl = sb.instantiateInitialViewController()
             self.navigationController?.show(ctrl!, sender: self)
         case .prof :
-            let sb = UIStoryboard.init(name: "Profile", bundle: nil)
-            let ctrl = sb.instantiateInitialViewController()
-            self.navigationController?.show(ctrl!, sender: self)
+            let ctrl = WebPage.Instance(type: .profile)
+            self.navigationController?.show(ctrl, sender: self)
+//
+//            let sb = UIStoryboard.init(name: "Profile", bundle: nil)
+//            let ctrl = sb.instantiateInitialViewController()
+//            self.navigationController?.show(ctrl!, sender: self)
         case .logout :
             User.shared.logout()
             self.navigationController?.popToRootViewController(animated: true)

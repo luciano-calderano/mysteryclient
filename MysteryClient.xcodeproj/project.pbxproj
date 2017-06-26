@@ -42,6 +42,8 @@
 		04FC171F1F01195900226F1A /* Incarichi.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04FC171D1F01195900226F1A /* Incarichi.storyboard */; };
 		04FC17201F01195900226F1A /* IncarichiHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC171E1F01195900226F1A /* IncarichiHome.swift */; };
 		04FC17221F011CA600226F1A /* Incarichi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC17211F011CA600226F1A /* Incarichi.swift */; };
+		04FC17261F01330000226F1A /* WebPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04FC17241F01330000226F1A /* WebPage.storyboard */; };
+		04FC17271F01330000226F1A /* WebPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC17251F01330000226F1A /* WebPage.swift */; };
 		477A5EDDA92FBB0E32E9092D /* Pods_MysteryClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D49868019DDD33475B413ED8 /* Pods_MysteryClient.framework */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +84,8 @@
 		04FC171D1F01195900226F1A /* Incarichi.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Incarichi.storyboard; sourceTree = "<group>"; };
 		04FC171E1F01195900226F1A /* IncarichiHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncarichiHome.swift; sourceTree = "<group>"; };
 		04FC17211F011CA600226F1A /* Incarichi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Incarichi.swift; path = Model/Incarichi.swift; sourceTree = "<group>"; };
+		04FC17241F01330000226F1A /* WebPage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WebPage.storyboard; path = WebPage/WebPage.storyboard; sourceTree = "<group>"; };
+		04FC17251F01330000226F1A /* WebPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebPage.swift; path = WebPage/WebPage.swift; sourceTree = "<group>"; };
 		92A0ADA7AC428E0280CB7A9D /* Pods-MysteryClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.release.xcconfig"; sourceTree = "<group>"; };
 		96089E4665AB951BC88709F2 /* Pods-MysteryClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.debug.xcconfig"; sourceTree = "<group>"; };
 		D49868019DDD33475B413ED8 /* Pods_MysteryClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MysteryClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +106,7 @@
 		044619C71EFA640F008CD1E2 = {
 			isa = PBXGroup;
 			children = (
+				04FC17231F0132CA00226F1A /* WebPage */,
 				044619EC1EFA66A7008CD1E2 /* Cls */,
 				044619E51EFA645F008CD1E2 /* Main */,
 				04FC171C1F01195900226F1A /* Incarichi */,
@@ -238,6 +243,15 @@
 			path = Incarichi;
 			sourceTree = "<group>";
 		};
+		04FC17231F0132CA00226F1A /* WebPage */ = {
+			isa = PBXGroup;
+			children = (
+				04FC17241F01330000226F1A /* WebPage.storyboard */,
+				04FC17251F01330000226F1A /* WebPage.swift */,
+			);
+			name = WebPage;
+			sourceTree = "<group>";
+		};
 		10BE02BFF0AE8026C48A4C7A /* Altro */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,6 +346,7 @@
 				04BC64141EFD830E00C0912D /* Info.plist in Resources */,
 				04461A1C1EFA6FE9008CD1E2 /* MenuView.xib in Resources */,
 				04FC171F1F01195900226F1A /* Incarichi.storyboard in Resources */,
+				04FC17261F01330000226F1A /* WebPage.storyboard in Resources */,
 				04FC17181F0108DE00226F1A /* Recover.storyboard in Resources */,
 				04FC17121F00F63C00226F1A /* Profile.storyboard in Resources */,
 				04BC64161EFD830E00C0912D /* LaunchScreen.storyboard in Resources */,
@@ -402,6 +417,7 @@
 				04461A331EFA8955008CD1E2 /* Ext.UIViewController.swift in Sources */,
 				04461A201EFA705C008CD1E2 /* Home.swift in Sources */,
 				04461A071EFA66A7008CD1E2 /* MYTextField.swift in Sources */,
+				04FC17271F01330000226F1A /* WebPage.swift in Sources */,
 				0472E2A91EFAC74D001CE358 /* Ext.Dictionary.swift in Sources */,
 				04461A2D1EFA85CF008CD1E2 /* Ext.UIFont.swift in Sources */,
 				04461A051EFA66A7008CD1E2 /* MYLabel.swift in Sources */,
