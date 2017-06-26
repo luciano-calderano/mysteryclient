@@ -29,7 +29,7 @@
         <!--Home-->
         <scene sceneID="Ze6-Zm-a8R">
             <objects>
-                <viewController storyboardIdentifier="Home" id="xrv-9U-Mlc" customClass="Home" customModule="MisteryClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Home" id="xrv-9U-Mlc" customClass="Home" customModule="MysteryClient" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jwn-R4-wgt"/>
                         <viewControllerLayoutGuide type="bottom" id="dRr-Lz-hNC"/>
@@ -41,7 +41,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="W7o-Tw-1xj">
                                 <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Be0-MM-sf1" customClass="HeaderContainerView" customModule="MisteryClient" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Be0-MM-sf1" customClass="HeaderContainerView" customModule="MysteryClient" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="320" height="55"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.81960784310000001" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -56,14 +56,14 @@
                                 <rect key="frame" x="16" y="100" width="288" height="372"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeCell" rowHeight="66" id="1j0-2L-t3d" customClass="HomeCell" customModule="MisteryClient" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeCell" rowHeight="66" id="1j0-2L-t3d" customClass="HomeCell" customModule="MysteryClient" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="288" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1j0-2L-t3d" id="Kep-S8-GAK">
                                             <rect key="frame" x="0.0" y="0.0" width="288" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zsF-ap-DZY" customClass="MYLabel" customModule="MisteryClient" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zsF-ap-DZY" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="8" width="288" height="48"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -121,7 +121,7 @@
         <!--Login-->
         <scene sceneID="Ee9-Xw-9Yb">
             <objects>
-                <viewController storyboardIdentifier="Login" id="L6h-9s-rfc" customClass="Login" customModule="MisteryClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login" id="L6h-9s-rfc" customClass="Login" customModule="MysteryClient" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="col-2U-otE"/>
                         <viewControllerLayoutGuide type="bottom" id="aqw-nL-Slo"/>
@@ -139,7 +139,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kms-hd-ZlG">
                                         <rect key="frame" x="0.0" y="0.0" width="286" height="48"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="#user" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6qq-Zm-jCA" customClass="MYTextField" customModule="MisteryClient" customModuleProvider="target">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="#user" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6qq-Zm-jCA" customClass="MYTextField" customModule="MysteryClient" customModuleProvider="target">
                                                 <rect key="frame" x="40" y="10" width="230" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="bBP-ey-wCf"/>
@@ -172,7 +172,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQr-Pa-Kkw">
                                         <rect key="frame" x="0.0" y="57" width="286" height="48"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="#pass" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8a5-4e-uQI" customClass="MYTextField" customModule="MisteryClient" customModuleProvider="target">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="#pass" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8a5-4e-uQI" customClass="MYTextField" customModule="MysteryClient" customModuleProvider="target">
                                                 <rect key="frame" x="40" y="10" width="230" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="IRm-9e-PFp"/>
@@ -202,7 +202,7 @@
                                             <constraint firstItem="8a5-4e-uQI" firstAttribute="centerY" secondItem="CQr-Pa-Kkw" secondAttribute="centerY" constant="1" id="w7I-g6-A5n"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uuu-0M-ABM" customClass="MYButton" customModule="MisteryClient" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uuu-0M-ABM" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                         <rect key="frame" x="153.5" y="220" width="132.5" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -220,7 +220,7 @@
                                             <action selector="loginTapped" destination="L6h-9s-rfc" eventType="touchUpInside" id="FCX-ZM-efk"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTu-Ap-ohA" customClass="MYButton" customModule="MisteryClient" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTu-Ap-ohA" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="220" width="132.5" height="40"/>
                                         <color key="backgroundColor" red="0.67843137254901964" green="0.81960784313725488" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -238,7 +238,7 @@
                                             <action selector="loginTapped" destination="L6h-9s-rfc" eventType="touchUpInside" id="tn0-F0-SWa"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#memoCred" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvD-HI-qnq" customClass="MYLabel" customModule="MisteryClient" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#memoCred" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvD-HI-qnq" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
                                         <rect key="frame" x="40" y="117" width="220" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="vOJ-lH-30e"/>
@@ -247,7 +247,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31V-Ux-M9K" customClass="MYButton" customModule="MisteryClient" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31V-Ux-M9K" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                         <rect key="frame" x="10" y="118" width="20" height="20"/>
                                         <color key="backgroundColor" red="0.67843137249999996" green="0.81960784310000001" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -266,7 +266,7 @@
                                             <action selector="saveCredTapped" destination="L6h-9s-rfc" eventType="touchUpInside" id="DsS-Xi-iL1"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtk-FJ-VaY" customClass="MYButton" customModule="MisteryClient" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rtk-FJ-VaY" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="314" width="288" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="eVO-h0-aZp"/>
@@ -279,6 +279,9 @@
                                                 <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="credRecoverTapped" destination="L6h-9s-rfc" eventType="touchUpInside" id="4yR-tO-kP9"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

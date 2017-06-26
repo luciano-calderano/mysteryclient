@@ -9,7 +9,6 @@
 import UIKit
 
 typealias JsonDict = Dictionary<String, Any>
-let webUrl = "www.mebius.it"
 
 class Login: MYViewController, UITextFieldDelegate {
     class func Instance() -> Login {
@@ -26,7 +25,7 @@ class Login: MYViewController, UITextFieldDelegate {
 
     @IBOutlet var saveCredButton: MYButton!
     var checkImg: UIImage?
-    var saveCred = true
+    var saveCred = false
 
     private var myWheel: MYWheel?
 
@@ -39,22 +38,26 @@ class Login: MYViewController, UITextFieldDelegate {
         self.userView.layer.cornerRadius = self.userView.frame.size.height / 2
         self.passView.layer.cornerRadius = self.passView.frame.size.height / 2
         
-        self.userText.text = "utente_gen"
-        self.passText.text = "novella44"
+        self.saveCredButton.setImage(nil, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.myWheel = MYWheel()
         self.myWheel?.start(self.view)
+
+        let credential = User.shared.credential()
+        self.userText.text = credential.user
+        self.passText.text = credential.pass
+//        self.userText.text = "utente_gen"
+//        self.passText.text = "novella44"
+        self.saveCred = !credential.user.isEmpty
+        self.updateCheckCredential()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        let userName = "Prova"
-        let userName =  User.shared.getUser()
-        
-        if userName.isEmpty {
+        if User.shared.getToken().isEmpty {
             self.loginView.isHidden = false
         }
         else {
@@ -65,14 +68,14 @@ class Login: MYViewController, UITextFieldDelegate {
     }
 
     @IBAction func saveCredTapped () {
-        if self.saveCred == true {
-            self.saveCredButton.setImage(nil, for: .normal)
-            self.saveCred = false
-        }
-        else {
-            self.saveCredButton.setImage(self.checkImg, for: .normal)
-            self.saveCred = true
-        }
+        self.saveCred = !self.saveCred
+        self.updateCheckCredential()
+    }
+
+    @IBAction func credRecoverTapped () {
+        let sb = UIStoryboard.init(name: "Recover", bundle: nil)
+        let ctrl = sb.instantiateInitialViewController()
+        self.navigationController?.show(ctrl!, sender: self)
     }
     
     @IBAction func loginTapped () {
@@ -85,8 +88,31 @@ class Login: MYViewController, UITextFieldDelegate {
             return
         }
         self.view.endEditing(true)
-        self.loadUser()
+
+        User.shared.checkUser(saveCredential: self.saveCred,
+                              userName: self.userText.text!,
+                              password: self.passText.text!,
+                              completion: { Bool in
+                                self.userLogged()
+                                
+        }) { (errorCode, message) in
+            self.alert("Error: \(errorCode)", message: message, okBlock: nil)
+        }
     }
+    
+    //MARK: - private
+    
+    private func updateCheckCredential() {
+        let img: UIImage? = self.saveCred == true ? self.checkImg : nil
+        self.saveCredButton.setImage(img, for: .normal)
+    }
+    
+    private func userLogged () {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
+        self.navigationController?.show(vc!, sender: self)
+    }
+    
+    //MARK: - text field delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.userText {
@@ -97,22 +123,5 @@ class Login: MYViewController, UITextFieldDelegate {
             self.view.endEditing(true)
         }
         return true
-    }
-    
-    private func loadUser () {
-        User.shared.checkUser(saveCredential: self.saveCred,
-                              userName: self.userText.text!,
-                              password: self.passText.text!,
-                              completion: { Bool in
-                                self.userLogged()
-
-        }) { (errorCode, message) in
-            self.alert("Error: \(errorCode)", message: message, okBlock: nil)
-        }
-    }
-    
-    private func userLogged () {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
-        self.navigationController?.show(vc!, sender: self)
     }
 }

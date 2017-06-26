@@ -10,20 +10,17 @@ import UIKit
 import Alamofire
 
 class MYHttpRequest {
-    struct HttpConfig {
-        static let url = "http://mysteryclient.mebius.it/default/"
-    }
     static let printJson = true
     
     class func get (_ page: String) -> MYHttpRequest {
-        let req = MYHttpRequest (baseUrl: HttpConfig.url,
+        let req = MYHttpRequest (baseUrl: Config.url,
                                  page: page,
                                  type: .get)
         return req
     }
     
     class func post (_ page: String) -> MYHttpRequest {
-        let req = MYHttpRequest (baseUrl: HttpConfig.url,
+        let req = MYHttpRequest (baseUrl: Config.url,
                                  page: page,
                                  type: .post)
         return req
@@ -52,7 +49,14 @@ class MYHttpRequest {
             self.startWheel(true)
         }
         self.printJson(self.json)
-        Alamofire.request(self.url, method: self.type, parameters: self.json).responseString { response in
+
+        let token = User.shared.getToken()
+        var headers = [String: String]()
+        if token.isEmpty == false {
+            headers["Authorization"] = "Bearer " + token
+        }
+        
+        Alamofire.request(self.url, method: self.type, parameters: self.json, headers: headers).responseString { response in
 //        Alamofire.request(self.url, method: self.type, parameters: self.parameters).responseJSON { (response) in
             if showWheel {
                 self.startWheel(false)

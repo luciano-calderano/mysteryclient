@@ -7,3 +7,6 @@ memoCred=Memorizza le credenziali
 
 home=Home
 incarichi=Incarichi
+
+profile=Profile
+recuperaPass=Recupera password

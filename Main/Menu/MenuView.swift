@@ -8,9 +8,27 @@
 
 import UIKit
 
+enum MenuItemEnum: String {
+    case home = "Home"
+    case inca = "Incarichi"
+    case rInc = "Ricerca incarichi"
+    case prof = "Profilo"
+    case cerc = "Stiamo cercando"
+    case news = "Mystery News"
+    case lear = "Learning"
+    case cont = "Contattaci"
+    case logout = "Logout"
+    case _none = ""
+}
+
+struct MenuItem {
+    var icon: UIImage!
+    var type: MenuItemEnum
+}
+
 protocol MenuViewDelegate {
     func menuHide()
-    func menuSelectedItem(item: Int)
+    func menuSelectedItem(_ item: MenuItem)
 }
 
 class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
@@ -23,6 +41,8 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var backView: UIView!
+    
+    var currentItem = MenuItemEnum._none
     
     private var dataArray = [MenuItem]()
     private let cellId = "MenuCell"
@@ -63,12 +83,19 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
         cell.imageView!.image = item.icon
         cell.textLabel?.text = item.type.rawValue
         cell.textLabel?.font = UIFont.size(14)
+        if item.type == self.currentItem {
+            cell.backgroundColor = UIColor.lightGray
+        }
+        else {
+            cell.backgroundColor = UIColor.white            
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.delegate?.menuSelectedItem(item: indexPath.row)
+        let item = self.dataArray[indexPath.row]
+        self.delegate?.menuSelectedItem(item)
     }
 }
 

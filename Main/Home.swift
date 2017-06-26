@@ -29,6 +29,17 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
         self.view.addSubview(self.menuView)
     }
     
+    override func headerViewSxTapped() {
+        if self.menuView.isHidden == true {
+            self.showMenu()
+        }
+        else {
+            self.hideMenu()
+        }
+    }
+    
+    // MARK: - private
+    
     private func loadData() {
         self.dataArray = [
             self.addMenuItem("ico.incarichi", type: .inca),
@@ -64,15 +75,6 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
         return item
     }
     
-    override func headerViewSxTapped() {
-        if self.menuView.isHidden == true {
-            self.showMenu()
-        }
-        else {
-            self.hideMenu()
-        }
-    }
-    
     private func showMenu () {
         self.menuView.isHidden = false
         self.header?.header.sxButton.setImage(UIImage.init(named: "ico.back"), for: .normal)
@@ -96,22 +98,37 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
         }
     }
     
-    // MARK: menu delegate
-    
-    func menuSelectedItem(item: Int) {
+    private func selectedItem(_ item: MenuItem) {
         self.hideMenu()
-        if item == self.menuArray.count - 1 {
+        switch item.type {
+        case .inca :
+            let sb = UIStoryboard.init(name: "Incarichi", bundle: nil)
+            let ctrl = sb.instantiateInitialViewController()
+            self.navigationController?.show(ctrl!, sender: self)
+        case .prof :
+            let sb = UIStoryboard.init(name: "Profile", bundle: nil)
+            let ctrl = sb.instantiateInitialViewController()
+            self.navigationController?.show(ctrl!, sender: self)
+        case .logout :
             User.shared.logout()
             self.navigationController?.popToRootViewController(animated: true)
+        default:
+            return
         }
+        
+    }
+    
+    // MARK: - menu delegate
 
+    func menuSelectedItem(_ item: MenuItem) {
+        self.selectedItem(item)
     }
     
     func menuHide() {
         self.hideMenu()
     }
     
-    // MARK: table view
+    // MARK: - table view
     
     func maxItemOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -134,24 +151,7 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let item = self.dataArray[indexPath.row] as! MenuItem
+        self.selectedItem(item)
     }
 }
-
-enum MenuItemEnum: String {
-    case home = "Home"
-    case inca = "Incarichi"
-    case rInc = "Ricerca incarichi"
-    case prof = "Profilo"
-    case cerc = "Stiamo cercando"
-    case news = "Mystery News"
-    case lear = "Learning"
-    case cont = "Contattaci"
-    case logout = "Logout"
-    case _none = ""
-}
-
-struct MenuItem {
-    var icon: UIImage!
-    var type: MenuItemEnum
-}
-
