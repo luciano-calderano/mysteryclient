@@ -15,6 +15,10 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     private var menuView = MenuView.Instance()
     private var menuArray = [MenuItem]()
 
+    struct HomeItem {
+        var type: HomeItemEnum
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadData()
@@ -42,13 +46,21 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     
     private func loadData() {
         self.dataArray = [
-            self.addMenuItem("ico.incarichi", type: .inca),
-            self.addMenuItem("ico.ricInc",    type: .rInc),
-            self.addMenuItem("ico.profilo",   type: .prof),
-            self.addMenuItem("ico.cercando",  type: .cerc),
-            self.addMenuItem("ico.news",      type: .news),
-            self.addMenuItem("ico.learning",  type: .lear),
-        ]
+            self.addHomeItem(type: .daComp),
+            self.addHomeItem(type: .daConv),
+            self.addHomeItem(type: .irrego),
+            self.addHomeItem(type: .annull),
+            self.addHomeItem(type: .inPaga),
+            self.addHomeItem(type: .conclu),
+            ]
+//        self.dataArray = [
+//            self.addMenuItem("ico.incarichi", type: .inca),
+//            self.addMenuItem("ico.ricInc",    type: .rInc),
+//            self.addMenuItem("ico.profilo",   type: .prof),
+//            self.addMenuItem("ico.cercando",  type: .cerc),
+//            self.addMenuItem("ico.news",      type: .news),
+//            self.addMenuItem("ico.learning",  type: .lear),
+//        ]
         
         self.menuArray = [
             self.addMenuItem("ico.home",      type: .home),
@@ -62,7 +74,13 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
         ]
         self.menuView.loadData(items: self.menuArray)
     }
+
+    private func addHomeItem (type: HomeItemEnum) -> HomeItem {
+        let item = HomeItem.init(type: type)
+        return item
+    }
     
+
     private func addMenuItem (_ iconName: String, type: MenuItemEnum) -> MenuItem {
         let icon = UIImage.init(named: iconName)!
         let size = 24
@@ -98,7 +116,7 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
         }
     }
     
-    private func selectedItem(_ item: MenuItem) {
+    private func selectedIMenutem(_ item: MenuItem) {
         self.hideMenu()
         switch item.type {
         case .inca :
@@ -108,23 +126,22 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
         case .prof :
             let ctrl = WebPage.Instance(type: .profile)
             self.navigationController?.show(ctrl, sender: self)
-//
-//            let sb = UIStoryboard.init(name: "Profile", bundle: nil)
-//            let ctrl = sb.instantiateInitialViewController()
-//            self.navigationController?.show(ctrl!, sender: self)
         case .logout :
+            self.menuView.isHidden = true
             User.shared.logout()
             self.navigationController?.popToRootViewController(animated: true)
         default:
             return
         }
-        
+    }
+    
+    private func selectedHomeItem (_ item: HomeItem) {
     }
     
     // MARK: - menu delegate
 
-    func menuSelectedItem(_ item: MenuItem) {
-        self.selectedItem(item)
+    func menuselectedIMenutem(_ item: MenuItem) {
+        self.selectedIMenutem(item)
     }
     
     func menuHide() {
@@ -147,14 +164,14 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = HomeCell.dequeue(tableView, indexPath)
-        let item = self.dataArray[indexPath.row] as! MenuItem
+        let item = self.dataArray[indexPath.row] as! HomeItem
         cell.title = item.type.rawValue
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = self.dataArray[indexPath.row] as! MenuItem
-        self.selectedItem(item)
+        let item = self.dataArray[indexPath.row] as! HomeItem
+        self.selectedHomeItem(item)
     }
 }

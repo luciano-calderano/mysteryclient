@@ -33,12 +33,12 @@
                                     <constraint firstAttribute="height" constant="55" id="CJv-Am-iDu"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="#recuperaPass"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="#home"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="sxImage" value="ico.back"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QcW-Nw-1K2">
-                                <rect key="frame" x="16" y="83" width="343" height="576"/>
+                                <rect key="frame" x="8" y="83" width="359" height="576"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="adJ-sP-hVP" id="qhG-It-0Gb"/>
@@ -49,8 +49,8 @@
                         <constraints>
                             <constraint firstItem="KCU-Kf-66O" firstAttribute="top" secondItem="QcW-Nw-1K2" secondAttribute="bottom" constant="8" id="28Q-Xj-XeS"/>
                             <constraint firstAttribute="trailing" secondItem="TgE-AS-Fsa" secondAttribute="trailing" id="4Ys-Df-Uyr"/>
-                            <constraint firstItem="QcW-Nw-1K2" firstAttribute="leading" secondItem="7sz-Gz-G3q" secondAttribute="leadingMargin" id="H10-ui-oVD"/>
-                            <constraint firstItem="QcW-Nw-1K2" firstAttribute="trailing" secondItem="7sz-Gz-G3q" secondAttribute="trailingMargin" id="PyL-qp-rF7"/>
+                            <constraint firstItem="QcW-Nw-1K2" firstAttribute="leading" secondItem="7sz-Gz-G3q" secondAttribute="leadingMargin" constant="-8" id="H10-ui-oVD"/>
+                            <constraint firstItem="QcW-Nw-1K2" firstAttribute="trailing" secondItem="7sz-Gz-G3q" secondAttribute="trailingMargin" constant="8" id="PyL-qp-rF7"/>
                             <constraint firstItem="QcW-Nw-1K2" firstAttribute="top" secondItem="TgE-AS-Fsa" secondAttribute="bottom" constant="8" id="fib-kq-4AN"/>
                             <constraint firstItem="TgE-AS-Fsa" firstAttribute="leading" secondItem="7sz-Gz-G3q" secondAttribute="leading" id="oPh-1e-Mwo"/>
                             <constraint firstItem="TgE-AS-Fsa" firstAttribute="top" secondItem="sGi-ru-2RN" secondAttribute="bottom" id="wJz-Lo-lbM"/>

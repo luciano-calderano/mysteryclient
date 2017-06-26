@@ -73,9 +73,12 @@ class Login: MYViewController, UITextFieldDelegate {
     }
 
     @IBAction func credRecoverTapped () {
-        let sb = UIStoryboard.init(name: "Recover", bundle: nil)
-        let ctrl = sb.instantiateInitialViewController()
-        self.navigationController?.show(ctrl!, sender: self)
+        
+        let ctrl = WebPage.Instance(type: .recover)
+//
+//        let sb = UIStoryboard.init(name: "Recover", bundle: nil)
+//        let ctrl = sb.instantiateInitialViewController()
+        self.navigationController?.show(ctrl, sender: self)
     }
     
     @IBAction func loginTapped () {

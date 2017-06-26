@@ -27,6 +27,8 @@ class HomeCell: UITableViewCell {
         super.awakeFromNib()
         self.titleLabel.layer.cornerRadius = self.titleLabel.frame.size.height / 2
         self.titleLabel.layer.masksToBounds = true
+        self.titleLabel.backgroundColor = UIColor.myGreenLight
+        self.titleLabel.textColor = UIColor.white
     }
 }
 

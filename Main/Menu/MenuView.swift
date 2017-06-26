@@ -8,19 +8,6 @@
 
 import UIKit
 
-enum MenuItemEnum: String {
-    case home = "Home"
-    case inca = "Incarichi"
-    case rInc = "Ricerca incarichi"
-    case prof = "Profilo"
-    case cerc = "Stiamo cercando"
-    case news = "Mystery News"
-    case lear = "Learning"
-    case cont = "Contattaci"
-    case logout = "Logout"
-    case _none = ""
-}
-
 struct MenuItem {
     var icon: UIImage!
     var type: MenuItemEnum
@@ -28,7 +15,7 @@ struct MenuItem {
 
 protocol MenuViewDelegate {
     func menuHide()
-    func menuSelectedItem(_ item: MenuItem)
+    func menuselectedIMenutem(_ item: MenuItem)
 }
 
 class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
@@ -95,7 +82,7 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = self.dataArray[indexPath.row]
-        self.delegate?.menuSelectedItem(item)
+        self.delegate?.menuselectedIMenutem(item)
     }
 }
 

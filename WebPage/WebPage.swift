@@ -9,7 +9,7 @@
 import UIKit
 
 enum WebPageEnum: String {
-    case recover = "login/retrieve-password?app=1"
+    case recover = "login/retrieve-password" // ?app=1"
     case register = "login/register?app=1"
     
     case profile = "mystery/profile"
@@ -61,7 +61,9 @@ class WebPage: MYViewController, UIWebViewDelegate {
         self.requestObj = URLRequest.init(url: url!)
         
         let token = User.shared.getToken()
-        self.requestObj.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        if token.isEmpty == false {
+            self.requestObj.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        }
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
