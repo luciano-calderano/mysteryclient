@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Incarichi {
+class Job {
     var id = 0
         //Mandatory. Job ID. It should not be shown to the user.
     

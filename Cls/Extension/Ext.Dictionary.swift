@@ -57,14 +57,14 @@ extension Dictionary {
         guard let ret = self.getVal(key) as? String else {
             return 0
         }
-        return Double(ret)!
+        return ret.isEmpty ? 0 : Double(ret)!
     }
 
     func int (_ key: String) -> Int {
         guard let ret = self.getVal(key) as? String else {
             return 0
         }
-        return Int(ret)!
+        return ret.isEmpty ? 0 : Int(ret)!
     }
     
     func string (_ key: String) -> String {

@@ -38,62 +38,64 @@ class IncarichiHome: MYViewController {
         request.start() { (result, response) in
             let code = response.int("code")
             if code == 200 && response.string("status") == "ok" {
-                let jobs = response.array("jobs")
+                let jobs = response.array("jobs") as! [JsonDict]
                 self.fileConfig?.setValue(jobs, forKey: "jobs")
+                self.dataArray = self.jobsWithArray(jobs)
             }
         }
     }
     
-    private func jobs(jobs: [JsonDict]) {
-        for dict in jobs {
-            let inc = Incarichi()
-            inc.id = dict.int("id")
-            inc.reference = dict.string("reference")
+    private func jobsWithArray(_ jobsArray: [JsonDict]) -> [Job] {
+        var jobs = [Job]()
+        for dict in jobsArray {
+            let job = Job()
+            job.id = dict.int("id")
+            job.reference = dict.string("reference")
             
-            inc.description = dict.string("description")
-            inc.additional_description = dict.string("additional_description")
-            inc.details = dict.string("details")
-            inc.start_date = dict.string("start_date") // [aaaa-mm-dd]
-            inc.end_date = dict.string("end_date") // [aaaa-mm-dd]
-            inc.estimate_date = dict.string("estimate_date") // [aaaa-mm-dd]
+            job.description = dict.string("description")
+            job.additional_description = dict.string("additional_description")
+            job.details = dict.string("details")
+            job.start_date = dict.string("start_date") // [aaaa-mm-dd]
+            job.end_date = dict.string("end_date") // [aaaa-mm-dd]
+            job.estimate_date = dict.string("estimate_date") // [aaaa-mm-dd]
             
-            inc.fee_desc = dict.string("fee_desc")
-            inc.status = dict.string("status")
-            inc.booked = dict.int("booked") // Boolean [0/1]
-            inc.booking_date = dict.string("booking_date") // [aaaa-mm-dd hh:mm:ss]
-            inc.compiled = dict.int("compiled") // Boolean [0/1]
-            inc.compilation_date = dict.string("compilation_date") // [aaaa-mm-dd hh:mm:ss]
-            inc.updated = dict.int("updated") // Boolean [0/1]
-            inc.update_date = dict.string("update_date") // [aaaa-mm-dd hh:mm:ss]
-            inc.validated = dict.int("validated") // Boolean [0/1]
-            inc.validation_date = dict.string("validation_date") // and Time
-            inc.irregular = dict.int("irregular") // Boolean [0/1]
-            inc.notes = dict.string("notes")
-            inc.execution_date = dict.string("execution_date") // [aaaa-mm-dd]
-            inc.execution_start_time = dict.string("execution_start_time") // Time [hh:mm]
-            inc.execution_end_time = dict.string("execution_end_time") // Time [hh:mm]
-            inc.comment = dict.string("comment")
-            inc.learning_done = dict.int("learning_done") // Boolean [0/1]
-            inc.learning_url = dict.string("learning_url")
-            inc.store_closed = dict.int("store_closed") // Boolean [0/1]
+            job.fee_desc = dict.string("fee_desc")
+            job.status = dict.string("status")
+            job.booked = dict.int("booked") // Boolean [0/1]
+            job.booking_date = dict.string("booking_date") // [aaaa-mm-dd hh:mm:ss]
+            job.compiled = dict.int("compiled") // Boolean [0/1]
+            job.compilation_date = dict.string("compilation_date") // [aaaa-mm-dd hh:mm:ss]
+            job.updated = dict.int("updated") // Boolean [0/1]
+            job.update_date = dict.string("update_date") // [aaaa-mm-dd hh:mm:ss]
+            job.validated = dict.int("validated") // Boolean [0/1]
+            job.validation_date = dict.string("validation_date") // and Time
+            job.irregular = dict.int("irregular") // Boolean [0/1]
+            job.notes = dict.string("notes")
+            job.execution_date = dict.string("execution_date") // [aaaa-mm-dd]
+            job.execution_start_time = dict.string("execution_start_time") // Time [hh:mm]
+            job.execution_end_time = dict.string("execution_end_time") // Time [hh:mm]
+            job.comment = dict.string("comment")
+            job.learning_done = dict.int("learning_done") // Boolean [0/1]
+            job.learning_url = dict.string("learning_url")
+            job.store_closed = dict.int("store_closed") // Boolean [0/1]
 
             let store = dict.dictionary("store")
-            inc.store.name = store.string("name")
-            inc.store.type = store.string("type")
-            inc.store.address = store.string("address")
-            inc.store.latitude = store.double("latitude")
-            inc.store.longitude = store.double("longitude")
+            job.store.name = store.string("name")
+            job.store.type = store.string("type")
+            job.store.address = store.string("address")
+            job.store.latitude = store.double("latitude")
+            job.store.longitude = store.double("longitude")
 
             let positioning = dict.dictionary("positioning")
-            inc.positioning.required = positioning.int("required") // Boolean [0/1]
-            inc.positioning.start = positioning.int("start") // Boolean [0/1]
-            inc.positioning.start_date = positioning.string("start_date") // [aaaa-mm-dd hh:mm:ss]
-            inc.positioning.start_lat = positioning.double("start_lat")
-            inc.positioning.start_lng = positioning.double("start_lng")
-            inc.positioning.end = positioning.int("required") // Boolean [0/1]
-            inc.positioning.end_date = positioning.string("end_date") // [aaaa-mm-dd hh:mm:ss]
-            inc.positioning.end_lat = positioning.double("end_lat")
-            inc.positioning.end_lng = positioning.double("end_lng")
+            job.positioning.required = positioning.int("required") // Boolean [0/1]
+            job.positioning.start = positioning.int("start") // Boolean [0/1]
+            job.positioning.start_date = positioning.string("start_date") // [aaaa-mm-dd hh:mm:ss]
+            job.positioning.start_lat = positioning.double("start_lat")
+            job.positioning.start_lng = positioning.double("start_lng")
+            job.positioning.end = positioning.int("required") // Boolean [0/1]
+            job.positioning.end_date = positioning.string("end_date") // [aaaa-mm-dd hh:mm:ss]
+            job.positioning.end_lat = positioning.double("end_lat")
+            job.positioning.end_lng = positioning.double("end_lng")
 
             for attachment in dict.array("attachments") as! [JsonDict] {
                 let att = Attachment()
@@ -101,7 +103,7 @@ class IncarichiHome: MYViewController {
                 att.name = attachment.string("name")
                 att.filename = attachment.string("filename")
                 att.url = attachment.string("url")
-                inc.attachments.append(att)
+                job.attachments.append(att)
             }
             for kpiDict in dict.array("kpis") as! [JsonDict] {
                 let kpi = Kpi()
@@ -148,10 +150,10 @@ class IncarichiHome: MYViewController {
                 kpi.result.attachment = result.string("attachment")
                 kpi.result.url = result.string("url")
                 
-                inc.kpis.append(kpi)
+                job.kpis.append(kpi)
             }
-            self.dataArray.append(inc)
+            jobs.append(job)
         }
-        print(self.dataArray)
+        return jobs
     }
 }
