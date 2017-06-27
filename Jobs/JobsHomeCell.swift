@@ -22,6 +22,7 @@ class JobsHomeCell: UITableViewCell {
     
     var job: Job!
     
+    @IBOutlet fileprivate var name: MYLabel!
     @IBOutlet fileprivate var address: MYLabel!
     @IBOutlet fileprivate var rif: MYLabel!
     @IBOutlet fileprivate var day: MYLabel!
@@ -33,10 +34,11 @@ class JobsHomeCell: UITableViewCell {
     
     func item (item: Job) {
         self.job = item
+        self.name.text = self.job.store.name
         self.address.text = self.job.store.address
         self.rif.text = "Rif. " + self.job.reference
-        self.day.text = self.job.booking_date.toString(withFormat: "dd")
-        self.month.text = self.job.booking_date.toString(withFormat: "MMM")
+        self.day.text = self.job.estimate_date.toString(withFormat: "dd")
+        self.month.text = self.job.estimate_date.toString(withFormat: "MMM")
     }
     
     @IBAction func mapTapped () {

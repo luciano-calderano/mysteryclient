@@ -10,3 +10,10 @@ incarichi=Incarichi
 
 profile=Profile
 recuperaPass=Recupera password
+
+jobDesc=Descrizione
+jobAlle=Allegati
+jobSpre=Sprenota incarico
+jobDate=Cambia data
+jobCont=Continua compilazione
+jobTick=Apri un ticket

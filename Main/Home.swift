@@ -57,7 +57,7 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
             self.addMenuItem("ico.profilo",   type: .prof),
             self.addMenuItem("ico.cercando",  type: .cerc),
             self.addMenuItem("ico.news",      type: .news),
-            self.addMenuItem("ico.cont",      type: .cont),
+            self.addMenuItem("ico.mail",      type: .cont),
             self.addMenuItem("ico.logout",    type: .logout),
         ]
         self.menuView.loadData(items: self.menuArray)

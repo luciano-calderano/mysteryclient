@@ -50,6 +50,9 @@ extension Dictionary {
         if value is Int {
             return String (describing: value)
         }
+        if value is Bool {
+            return String (describing: value)
+        }
         return nil
     }
 
@@ -66,7 +69,14 @@ extension Dictionary {
         }
         return ret.isEmpty ? 0 : Int(ret)!
     }
-    
+
+    func bool (_ key: String) -> Bool {
+        guard let ret = self.getVal(key) as? String else {
+            return false
+        }
+        return ret == "1"
+    }
+
     func date (_ key: String, fmt: String) -> Date? {
         guard let ret = self.getVal(key) as? String else {
             return Date.init(timeIntervalSince1970: 0)
