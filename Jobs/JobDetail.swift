@@ -17,9 +17,48 @@ class JobDetail: MYViewController {
 
     var job: Job!
     
+    @IBOutlet var infoLabel: MYLabel!
+    @IBOutlet var nameLabel: MYLabel!
+    @IBOutlet var addrLabel: MYLabel!
+
+    @IBOutlet var descBtn: MYButton!
+    @IBOutlet var alleBtn: MYButton!
+    @IBOutlet var spreBtn: MYButton!
+    @IBOutlet var dateBtn: MYButton!
+
+    @IBOutlet var contBtn: MYButton!
+    @IBOutlet var tickBtn: MYButton!
+    @IBOutlet var strtBtn: MYButton!
+    @IBOutlet var stopBtn: MYButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(self.job)
+        
+        for btn in [self.contBtn, self.tickBtn] as! [MYButton] {
+            let ico = btn.image(for: .normal)?.resize(16)
+            btn.setImage(ico, for: .normal)
+            btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10)
+            btn.layer.shadowColor = UIColor.darkGray.cgColor
+            btn.layer.shadowOffset = CGSize.init(width: 0, height: 5)
+            btn.layer.borderColor = UIColor.lightGray.cgColor
+            btn.layer.borderWidth = 0.5
+            btn.layer.shadowOpacity = 0.2
+            btn.layer.masksToBounds = false
+        }
+//        
+//        self.contBtn.layer.shadowColor = UIColor.darkGray.cgColor
+//        self.contBtn.layer.shadowOffset = CGSize.init(width: 0, height: 5)
+//        self.contBtn.layer.borderColor = UIColor.lightGray.cgColor
+//        self.contBtn.layer.borderWidth = 0.5
+//        self.contBtn.layer.shadowOpacity = 0.2
+//        self.contBtn.layer.masksToBounds = false
+//        
+//        self.tickBtn.layer.shadowColor = UIColor.darkGray.cgColor
+//        self.tickBtn.layer.shadowOffset = CGSize.init(width: 0, height: 5)
+//        self.contBtn.layer.borderColor = UIColor.lightGray.cgColor
+//        self.tickBtn.layer.borderWidth = 0.5
+//        self.tickBtn.layer.shadowOpacity = 0.2
+//        self.tickBtn.layer.masksToBounds = false
     }
 }
 

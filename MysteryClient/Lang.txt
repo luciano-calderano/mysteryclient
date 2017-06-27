@@ -18,5 +18,5 @@ jobDate=Cambia data
 jobCont=Continua compilazione
 jobTick=Apri un ticket
 
-timerStart=Start timer
-timerStop=Stop timer
+timerStart=Start tempo
+timerStop=Stop tempo

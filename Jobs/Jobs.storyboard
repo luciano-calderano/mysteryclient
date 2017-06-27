@@ -164,7 +164,7 @@
                         <viewControllerLayoutGuide type="bottom" id="9J0-V0-Hk9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Amj-dB-b6a">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rNs-30-P4x" customClass="HeaderContainerView" customModule="MysteryClient" customModuleProvider="target">
@@ -179,13 +179,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eqW-eh-1Cr">
-                                <rect key="frame" x="0.0" y="75" width="375" height="925"/>
+                                <rect key="frame" x="0.0" y="75" width="375" height="625"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgH-8t-sWY">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="925"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="625"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LpZ-Xy-liU">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="925"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="625"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W71-hN-Xg6">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="189"/>
@@ -193,7 +193,7 @@
                                                             <constraint firstAttribute="width" secondItem="W71-hN-Xg6" secondAttribute="height" multiplier="375:187" constant="-4.0106951871657657" id="C1s-7D-Ybq"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cuA-Pf-pMu">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cuA-Pf-pMu" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
                                                         <rect key="frame" x="8" y="160" width="359" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -206,7 +206,7 @@
                                                             <constraint firstAttribute="height" constant="40" id="hgn-DS-Iea"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VrF-YZ-Gww">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VrF-YZ-Gww" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
                                                         <rect key="frame" x="58" y="197" width="309" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="N1c-mJ-z5a"/>
@@ -222,7 +222,7 @@
                                                             <constraint firstAttribute="height" constant="40" id="x2i-SU-k2I"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFc-Th-4vF">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFc-Th-4vF" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
                                                         <rect key="frame" x="58" y="247" width="309" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="vD1-hT-Rvf"/>
@@ -315,7 +315,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ReD-uP-KVj">
-                                                        <rect key="frame" x="10" y="405" width="357" height="100"/>
+                                                        <rect key="frame" x="10" y="405" width="357" height="120"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njB-2Y-bKe" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="357" height="46"/>
@@ -333,7 +333,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8w-Tp-Wyx" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="54" width="357" height="46"/>
+                                                                <rect key="frame" x="0.0" y="59" width="357" height="46"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="46" id="u8m-FM-jTK"/>
@@ -353,14 +353,14 @@
                                                             <constraint firstAttribute="trailing" secondItem="Q8w-Tp-Wyx" secondAttribute="trailing" id="ArV-CM-y8T"/>
                                                             <constraint firstItem="Q8w-Tp-Wyx" firstAttribute="leading" secondItem="ReD-uP-KVj" secondAttribute="leading" id="C4b-xh-6XA"/>
                                                             <constraint firstItem="njB-2Y-bKe" firstAttribute="top" secondItem="ReD-uP-KVj" secondAttribute="top" id="G2Q-Ot-BNQ"/>
-                                                            <constraint firstAttribute="height" constant="100" id="LPr-o5-mUa"/>
+                                                            <constraint firstAttribute="height" constant="120" id="LPr-o5-mUa"/>
                                                             <constraint firstItem="njB-2Y-bKe" firstAttribute="leading" secondItem="ReD-uP-KVj" secondAttribute="leading" id="QIW-jk-440"/>
                                                             <constraint firstAttribute="trailing" secondItem="njB-2Y-bKe" secondAttribute="trailing" id="WBV-8s-NjL"/>
-                                                            <constraint firstAttribute="bottom" secondItem="Q8w-Tp-Wyx" secondAttribute="bottom" id="bVE-RH-Pxe"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Q8w-Tp-Wyx" secondAttribute="bottom" constant="15" id="bVE-RH-Pxe"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IC6-RO-MEG">
-                                                        <rect key="frame" x="10" y="513" width="355" height="60"/>
+                                                        <rect key="frame" x="10" y="556" width="355" height="60"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWu-x4-jcP" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="170" height="60"/>
@@ -418,12 +418,12 @@
                                                     <constraint firstItem="ISX-2N-sif" firstAttribute="top" secondItem="LpZ-Xy-liU" secondAttribute="top" constant="295" id="Stp-hS-0Ei"/>
                                                     <constraint firstItem="aFc-Th-4vF" firstAttribute="leading" secondItem="st1-Lb-IDi" secondAttribute="trailing" constant="8" id="Ufq-16-Trm"/>
                                                     <constraint firstItem="ISX-2N-sif" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" constant="10" id="Y4I-Mc-CWy"/>
-                                                    <constraint firstAttribute="height" constant="925" id="caC-ck-oNo"/>
+                                                    <constraint firstAttribute="bottom" secondItem="IC6-RO-MEG" secondAttribute="bottom" constant="9" id="awM-5y-LDM"/>
+                                                    <constraint firstAttribute="height" constant="625" id="caC-ck-oNo"/>
                                                     <constraint firstAttribute="trailing" secondItem="ReD-uP-KVj" secondAttribute="trailing" constant="8" id="d1d-Qy-Old"/>
                                                     <constraint firstItem="VLj-6D-rCH" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" constant="10" id="ei7-i7-IJ3"/>
                                                     <constraint firstItem="W71-hN-Xg6" firstAttribute="top" secondItem="LpZ-Xy-liU" secondAttribute="top" id="fEb-oE-5Uo"/>
                                                     <constraint firstItem="VLj-6D-rCH" firstAttribute="top" secondItem="LpZ-Xy-liU" secondAttribute="top" constant="197" id="fiz-g8-ac2"/>
-                                                    <constraint firstItem="IC6-RO-MEG" firstAttribute="top" secondItem="ReD-uP-KVj" secondAttribute="bottom" constant="8" id="gBz-Bb-0ie"/>
                                                     <constraint firstItem="st1-Lb-IDi" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" constant="10" id="lBS-xF-TFe"/>
                                                     <constraint firstItem="VrF-YZ-Gww" firstAttribute="leading" secondItem="VLj-6D-rCH" secondAttribute="trailing" constant="8" id="mMj-YM-1yd"/>
                                                     <constraint firstItem="W71-hN-Xg6" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" id="uW0-0k-3Wc"/>
@@ -464,11 +464,25 @@
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="1000"/>
+                    <size key="freeformSize" width="375" height="700"/>
+                    <connections>
+                        <outlet property="addrLabel" destination="aFc-Th-4vF" id="avU-xK-veq"/>
+                        <outlet property="alleBtn" destination="0xc-kd-AyD" id="EBu-KR-ZeT"/>
+                        <outlet property="contBtn" destination="njB-2Y-bKe" id="YVC-XT-8Ss"/>
+                        <outlet property="dateBtn" destination="xfo-3m-nur" id="JSx-se-lV9"/>
+                        <outlet property="descBtn" destination="gwQ-P8-eYu" id="ZqJ-Q3-KXJ"/>
+                        <outlet property="header" destination="rNs-30-P4x" id="cqK-1z-6ae"/>
+                        <outlet property="infoLabel" destination="cuA-Pf-pMu" id="5jK-MN-2XD"/>
+                        <outlet property="nameLabel" destination="VrF-YZ-Gww" id="cAi-5p-q1a"/>
+                        <outlet property="spreBtn" destination="GRj-3Y-azG" id="qFy-tH-vNp"/>
+                        <outlet property="stopBtn" destination="7wn-xV-krV" id="w1V-2E-bVf"/>
+                        <outlet property="strtBtn" destination="AWu-x4-jcP" id="MAB-CC-4XJ"/>
+                        <outlet property="tickBtn" destination="Q8w-Tp-Wyx" id="IKu-Kt-3Zl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oUC-4b-URO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="664.79999999999995" y="75.562218890554732"/>
+            <point key="canvasLocation" x="722.39999999999998" y="-58.47076461769116"/>
         </scene>
     </scenes>
     <resources>
