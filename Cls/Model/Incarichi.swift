@@ -110,9 +110,9 @@ class Store {
         // Mandatory. It is the store type of the store to check. The label which is shown to the user is Type.
     var address = ""
         // Mandatory. Store address. Must be showed with the store name.
-    var latitude: Float = 0 // Numeric
+    var latitude: Double = 0 // Numeric
         // Optional. Store latitude. If available must be used to locate the store in the map. It should not be shown to the user.
-    var longitude: Float = 0
+    var longitude: Double = 0
         // Optional. Store longitude. If available must be used to locate the store in the map. It should not be shown to the user.
 }
 
@@ -123,18 +123,18 @@ class Positioning  {
         // Optional. Flag showing if the data to geolocate the user at the beginning of the job have been collected. Must the populate automatically when the user press Start. It should not be shown to the user.
     var start_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
         // Optional. Date and time the user press Start. It should not be shown to the user..
-    var start_lat:Float = 0
+    var start_lat:Double = 0
         // Optional. Latitude where the user press Start. It should not be shown to the user.
-    var start_lng:Float = 0
+    var start_lng:Double = 0
         // Optional. Longitude where the user press Start. It should not be shown to the user.
     var end = 0 // Boolean [0/1]
         // Optional. Flag showing the the data for the golocation of the user at the and of the job are been collected. Must be populate automatically when the user press Stop. It should not be shown to the user.
 
     var end_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
         // Optional. Date and time when the user press Stop. It should not be shown to the user.
-    var end_lat:Float = 0
+    var end_lat:Double = 0
         // Optional. Latitude where the user press Stop. It should not be shown to the user.
-    var end_lng:Float = 0
+    var end_lng:Double = 0
         // Optional. Longitude where the user press Stop. It should not be shown to the user.
 }
 
@@ -208,7 +208,7 @@ class Kpi {
     var valuations = [Valutations]()
         // Optional. Array of Valuation type objects. Contains the possible answers the user can choose. The display of the answer depends from the Kpi Type.
     
-    var result = [Result]()
+    var result = Result()
         // Mandatory. Result type object. Contains the information the user insert related to the current answer. The data in the Object will be used to populate the answer already insert from the user in case the user want to complete or up
 }
 
