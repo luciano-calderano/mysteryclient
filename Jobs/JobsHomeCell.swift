@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol JobsHomeCellDelegate {
+    func mapTapped (job: Job)
+}
+
 class JobsHomeCell: UITableViewCell {
     class func dequeue (_ tableView: UITableView,
                         _ indexPath: IndexPath) -> JobsHomeCell {
@@ -16,19 +20,27 @@ class JobsHomeCell: UITableViewCell {
             as! JobsHomeCell
     }
     
-    var title: String {
-        set { self.titleLabel.text = newValue }
-        get { return self.titleLabel.text! }
-    }
+    var job: Job!
     
-    @IBOutlet fileprivate var titleLabel: MYLabel!
+    @IBOutlet fileprivate var address: MYLabel!
+    @IBOutlet fileprivate var rif: MYLabel!
+    @IBOutlet fileprivate var day: MYLabel!
+    @IBOutlet fileprivate var month: MYLabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.titleLabel.layer.cornerRadius = self.titleLabel.frame.size.height / 2
-        self.titleLabel.layer.masksToBounds = true
-        self.titleLabel.backgroundColor = UIColor.myGreenLight
-        self.titleLabel.textColor = UIColor.white
+    }
+    
+    func item (item: Job) {
+        self.job = item
+        self.address.text = self.job.store.address
+        self.rif.text = "Rif. " + self.job.reference
+        self.day.text = self.job.booking_date.toString(withFormat: "dd")
+        self.month.text = self.job.booking_date.toString(withFormat: "MMM")
+    }
+    
+    @IBAction func mapTapped () {
+    
     }
 }
 

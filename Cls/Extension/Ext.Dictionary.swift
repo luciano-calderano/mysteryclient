@@ -67,6 +67,17 @@ extension Dictionary {
         return ret.isEmpty ? 0 : Int(ret)!
     }
     
+    func date (_ key: String, fmt: String) -> Date? {
+        guard let ret = self.getVal(key) as? String else {
+            return Date.init(timeIntervalSince1970: 0)
+        }
+        if ret.isEmpty {
+            return nil
+        }
+        let d = ret.toDate(withFormat: fmt)
+        return d
+    }
+    
     func string (_ key: String) -> String {
         guard let ret = self.getVal(key) as? String else {
             return ""

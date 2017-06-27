@@ -27,13 +27,13 @@ class Job {
     var details = ""
         // Mandatory. Detail of the time the job can be done. The label which is shown in the system Può essere eseguito.
     
-    var start_date = "" // Date [aaaa-mm-dd]
+    var start_date: Date! // = "" // Date [aaaa-mm-dd]
         // Mandatory. Date from when the visit can be done. It should not be shown to the user.
     
-    var end_date = "" // Date [aaaa-mm-dd]
+    var end_date: Date! //  = "" // Date [aaaa-mm-dd]
         // Mandatory. Date within the job can be done. It should [aaaa-mm-dd] not be shown to the user..
     
-    var estimate_date = "" // Date [aaaa-mm-dd]
+    var estimate_date: Date! //  = "" // Date [aaaa-mm-dd]
         //Date Mandatory. Date the user likes to do the job. The label [aaaa-mm-dd] which is shown in the system Data stimata di esecuzione.
     
     var fee_desc = ""
@@ -45,25 +45,25 @@ class Job {
     var booked = 0 // Boolean [0/1]
         // Mandatory. Flag showing that the job it’s been booked. It should not be shown to the user.
     
-    var booking_date = "" //Date and Time [aaaa-mm-dd hh:mm:ss]
+    var booking_date: Date! // = "" //Date and Time [aaaa-mm-dd hh:mm:ss]
         // Mandatory. Date when the job it’s been booked. The label which is shown in the system is Data di prenotazione.
     
     var compiled = 0 // Boolean [0/1]
         // Mandatory. Flag showing that the job it’s been filled in. Should be automatically enhanced with 1 when the user finishes to fill the job in and the user label the job ready to be sent. It should not be shown to the user.
     
-    var compilation_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
+    var compilation_date: Date! //  = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
         // Optional. Date and time when the user fills in the job. The date should be populate automatically with the date and the time when the user fills in the job and label it ready to be sent. It should not be shown to the user.
     
     var updated = 0 // Boolean [0/1]
         // Mandatory. Flag showing if the job it’s been updated from the user. Should be automatically enhanced with 1 when the user finishes to fill the job in and the user label the job ready to be sent only if the job was already been completed previously and sign like irregular. It should not be shown to the user.
     
-    var update_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
+    var update_date: Date? //  = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
         // Optional. Date and time whe the user updated the job. Should be automatically enhanced with Date and time when the user finishes to fill the job in and the user label the job ready to be sent only if the job was already been completed previously and sign like irregular. It should not be shown to the user.
     
     var validated = 0 // Boolean [0/1]
         // Mandatory. Flag showing if the job it’s been validated. It should not be shown to the user.
     
-    var validation_date = "" // Date and Time
+    var validation_date: Date? //  = "" // Date and Time
         // Optional. Date and time when the job it’s been [aaaa-mm-dd validated. It should not be shown to the user.hh:mm:ss]
     
     var irregular = 0 // Boolean [0/1]
@@ -75,7 +75,7 @@ class Job {
     var positioning = Positioning() // Object
         // Mandatory. Object of type Positioning. Contains the information to geolocate the beginning and the end of the job.
     
-    var execution_date = "" // Date [aaaa-mm-dd]
+    var execution_date: Date? //  = "" // Date [aaaa-mm-dd]
         // Optional. Date when the user has done the job. Must [aaaa-mm-dd] be the same date of the execution. If a different date is insert is necessary to say to the user to move the date before the job is filled in. The label which is shown in the system is Date di esecuzione. Should be possible to modify by the user
     
     var execution_start_time = "" // Time [hh:mm]

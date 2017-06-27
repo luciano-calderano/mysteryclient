@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,38 +41,82 @@
                                 <rect key="frame" x="8" y="83" width="359" height="576"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="JobsHomeCell" rowHeight="66" id="dlN-xa-jb3" customClass="JobsHomeCell" customModule="MysteryClient" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="359" height="66"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="JobsHomeCell" rowHeight="100" id="dlN-xa-jb3" customClass="JobsHomeCell" customModule="MysteryClient" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="359" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dlN-xa-jb3" id="SUC-Ks-xWJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="359" height="66"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnJ-zf-ORg" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="8" width="359" height="48"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Addr." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnJ-zf-ORg" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
+                                                    <rect key="frame" x="50" y="8" width="270" height="70"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="70" id="9l7-av-6bj"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rif. " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sLZ-Tj-CAi" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
+                                                    <rect key="frame" x="50" y="78" width="270" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="PTA-x9-vEd"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dd" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHV-a4-ZbS" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
+                                                    <rect key="frame" x="2" y="26" width="44" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="BYF-we-InR"/>
+                                                        <constraint firstAttribute="height" constant="30" id="Um4-cq-zZK"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mmm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnW-jk-5LL" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
+                                                    <rect key="frame" x="2" y="56" width="44" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="HaN-sR-Y3m"/>
+                                                        <constraint firstAttribute="width" constant="44" id="O1q-WA-qdU"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="haH-R7-rk4">
+                                                    <rect key="frame" x="323" y="34" width="32" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="32" id="Gb1-8O-8s4"/>
+                                                        <constraint firstAttribute="height" constant="32" id="XnC-Vi-dg0"/>
+                                                    </constraints>
+                                                    <state key="normal" backgroundImage="ico.pinMap"/>
+                                                    <connections>
+                                                        <action selector="mapTapped" destination="dlN-xa-jb3" eventType="touchUpInside" id="kTV-gR-21i"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="lnJ-zf-ORg" secondAttribute="trailing" id="1Ch-yq-6VQ"/>
-                                                <constraint firstAttribute="bottom" secondItem="lnJ-zf-ORg" secondAttribute="bottom" constant="10" id="2eo-D7-raY"/>
-                                                <constraint firstItem="lnJ-zf-ORg" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="top" constant="8" id="6CW-b4-AYI"/>
-                                                <constraint firstAttribute="bottom" secondItem="lnJ-zf-ORg" secondAttribute="bottom" constant="10" id="G44-UF-Lrd"/>
-                                                <constraint firstItem="lnJ-zf-ORg" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" id="GTy-6O-WVR"/>
-                                                <constraint firstItem="lnJ-zf-ORg" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" id="J8L-8T-xdK"/>
-                                                <constraint firstAttribute="bottom" secondItem="lnJ-zf-ORg" secondAttribute="bottom" constant="10" id="Z2C-mA-OXQ"/>
-                                                <constraint firstAttribute="trailing" secondItem="lnJ-zf-ORg" secondAttribute="trailing" id="eVP-Ce-l52"/>
-                                                <constraint firstAttribute="trailing" secondItem="lnJ-zf-ORg" secondAttribute="trailing" id="ekY-43-Y6k"/>
-                                                <constraint firstItem="lnJ-zf-ORg" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" id="f6O-O0-igH"/>
-                                                <constraint firstItem="lnJ-zf-ORg" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="top" constant="8" id="thv-qc-pfZ"/>
-                                                <constraint firstItem="lnJ-zf-ORg" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="top" constant="8" id="yzd-ei-PWQ"/>
+                                                <constraint firstItem="sLZ-Tj-CAi" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" constant="50" id="1z2-Lg-8R0"/>
+                                                <constraint firstItem="LnW-jk-5LL" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" constant="2" id="3bl-jL-9Cv"/>
+                                                <constraint firstAttribute="trailing" secondItem="sLZ-Tj-CAi" secondAttribute="trailing" constant="39" id="3zT-sQ-GjV"/>
+                                                <constraint firstItem="lnJ-zf-ORg" firstAttribute="leading" secondItem="LnW-jk-5LL" secondAttribute="trailing" constant="4" id="4pT-p6-oAU"/>
+                                                <constraint firstItem="haH-R7-rk4" firstAttribute="centerY" secondItem="SUC-Ks-xWJ" secondAttribute="centerY" id="9G0-fI-EUG"/>
+                                                <constraint firstItem="haH-R7-rk4" firstAttribute="leading" secondItem="lnJ-zf-ORg" secondAttribute="trailing" constant="3" id="QEE-SV-exO"/>
+                                                <constraint firstItem="sLZ-Tj-CAi" firstAttribute="top" secondItem="lnJ-zf-ORg" secondAttribute="bottom" id="V2n-aS-E8V"/>
+                                                <constraint firstItem="LnW-jk-5LL" firstAttribute="top" secondItem="XHV-a4-ZbS" secondAttribute="bottom" id="aQE-NW-bX0"/>
+                                                <constraint firstItem="lnJ-zf-ORg" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="topMargin" id="cnh-wb-9oh"/>
+                                                <constraint firstItem="XHV-a4-ZbS" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" constant="2" id="f11-Xc-MtN"/>
+                                                <constraint firstItem="XHV-a4-ZbS" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="top" constant="26" id="oy6-OW-ySk"/>
+                                                <constraint firstAttribute="trailing" secondItem="haH-R7-rk4" secondAttribute="trailing" constant="4" id="pv9-Wj-aZt"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="titleLabel" destination="lnJ-zf-ORg" id="sgy-Pt-Oqa"/>
+                                            <outlet property="address" destination="lnJ-zf-ORg" id="q2F-ow-aCk"/>
+                                            <outlet property="day" destination="XHV-a4-ZbS" id="LDU-Bq-0JT"/>
+                                            <outlet property="month" destination="LnW-jk-5LL" id="RTh-Wa-73H"/>
+                                            <outlet property="rif" destination="sLZ-Tj-CAi" id="DLc-Xv-huw"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -105,5 +150,6 @@
     <resources>
         <image name="back" width="1440" height="2559"/>
         <image name="ico.back" width="128" height="128"/>
+        <image name="ico.pinMap" width="256" height="256"/>
     </resources>
 </document>

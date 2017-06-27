@@ -8,11 +8,11 @@
 
 import UIKit
 
-class JobsHome: MYViewController {
+class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet private var tableView: UITableView!
     
-    private let fileConfig  = UserDefaults.init(suiteName: "incarichi.save")
+    private let fileConfig  = UserDefaults.init(suiteName: "jobs.saved")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +20,16 @@ class JobsHome: MYViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let saved = self.fileConfig?.value(forKey: "jobs")
+        if saved != nil {
+            let jobs = saved as! [JsonDict]
+            if jobs.count > 0 {
+                self.dataArray = self.jobsWithArray(jobs)
+                return
+            }
+        }
+        
         User.shared.getUserToken(completion: {
             self.loadData()
         }) { (errorCode, message) in
@@ -45,7 +55,40 @@ class JobsHome: MYViewController {
         }
     }
     
+    
+    
+    // MARK: - table view
+    
+    func maxItemOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.dataArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = JobsHomeCell.dequeue(tableView, indexPath)
+        cell.item(item: self.dataArray[indexPath.row] as! Job)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let item = self.dataArray[indexPath.row] as! Job
+        print(item)
+    }
+
+    // MARK: - Dict -> Job Class
+    
     private func jobsWithArray(_ jobsArray: [JsonDict]) -> [Job] {
+        let dateFmt = "yyyy-MM-dd"
+        let dateTimeFmt = "yyyy-MM-dd HH:mm:ss"
+        let timeFmt = "HH:mm"
         var jobs = [Job]()
         for dict in jobsArray {
             let job = Job()
@@ -55,23 +98,23 @@ class JobsHome: MYViewController {
             job.description = dict.string("description")
             job.additional_description = dict.string("additional_description")
             job.details = dict.string("details")
-            job.start_date = dict.string("start_date") // [aaaa-mm-dd]
-            job.end_date = dict.string("end_date") // [aaaa-mm-dd]
-            job.estimate_date = dict.string("estimate_date") // [aaaa-mm-dd]
+            job.start_date = dict.date("start_date", fmt: dateFmt)
+            job.end_date = dict.date("end_date", fmt: dateFmt)
+            job.estimate_date = dict.date("estimate_date", fmt: dateFmt)
             
             job.fee_desc = dict.string("fee_desc")
             job.status = dict.string("status")
             job.booked = dict.int("booked") // Boolean [0/1]
-            job.booking_date = dict.string("booking_date") // [aaaa-mm-dd hh:mm:ss]
+            job.booking_date = dict.date("booking_date", fmt: dateTimeFmt)
             job.compiled = dict.int("compiled") // Boolean [0/1]
-            job.compilation_date = dict.string("compilation_date") // [aaaa-mm-dd hh:mm:ss]
+            job.compilation_date = dict.date("compilation_date", fmt: dateTimeFmt)
             job.updated = dict.int("updated") // Boolean [0/1]
-            job.update_date = dict.string("update_date") // [aaaa-mm-dd hh:mm:ss]
+            job.update_date = dict.date("update_date", fmt: dateTimeFmt)
             job.validated = dict.int("validated") // Boolean [0/1]
-            job.validation_date = dict.string("validation_date") // and Time
+            job.validation_date = dict.date("validation_date", fmt: dateTimeFmt)
             job.irregular = dict.int("irregular") // Boolean [0/1]
             job.notes = dict.string("notes")
-            job.execution_date = dict.string("execution_date") // [aaaa-mm-dd]
+            job.execution_date = dict.date("execution_date", fmt: dateFmt)
             job.execution_start_time = dict.string("execution_start_time") // Time [hh:mm]
             job.execution_end_time = dict.string("execution_end_time") // Time [hh:mm]
             job.comment = dict.string("comment")
@@ -155,32 +198,6 @@ class JobsHome: MYViewController {
             jobs.append(job)
         }
         return jobs
-    }
-    
-    
-    // MARK: - table view
-    
-    func maxItemOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = JobsHomeCell.dequeue(tableView, indexPath)
-        let item = self.dataArray[indexPath.row] as! Job
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let item = self.dataArray[indexPath.row] as! Job
     }
 
 }
