@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IncarichiHome: MYViewController {
+class JobsHome: MYViewController {
     
     @IBOutlet private var tableView: UITableView!
     
@@ -156,4 +156,31 @@ class IncarichiHome: MYViewController {
         }
         return jobs
     }
+    
+    
+    // MARK: - table view
+    
+    func maxItemOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.dataArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = JobsHomeCell.dequeue(tableView, indexPath)
+        let item = self.dataArray[indexPath.row] as! Job
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let item = self.dataArray[indexPath.row] as! Job
+    }
+
 }

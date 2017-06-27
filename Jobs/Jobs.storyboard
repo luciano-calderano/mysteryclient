@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Incarichi Home-->
+        <!--Jobs Home-->
         <scene sceneID="xJH-Oa-3v3">
             <objects>
-                <viewController storyboardIdentifier="Incarichi" id="adJ-sP-hVP" customClass="IncarichiHome" customModule="MysteryClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JobsHome" id="adJ-sP-hVP" customClass="JobsHome" customModule="MysteryClient" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sGi-ru-2RN"/>
                         <viewControllerLayoutGuide type="bottom" id="KCU-Kf-66O"/>
@@ -40,7 +40,7 @@
                                 <rect key="frame" x="8" y="83" width="359" height="576"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeCell" rowHeight="66" id="dlN-xa-jb3" customClass="HomeCell" customModule="MysteryClient" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="JobsHomeCell" rowHeight="66" id="dlN-xa-jb3" customClass="JobsHomeCell" customModule="MysteryClient" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="359" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dlN-xa-jb3" id="SUC-Ks-xWJ">
@@ -75,6 +75,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="adJ-sP-hVP" id="47q-pg-KUR"/>
+                                    <outlet property="delegate" destination="adJ-sP-hVP" id="Y3s-Jv-jdy"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -90,6 +94,7 @@
                     </view>
                     <connections>
                         <outlet property="header" destination="TgE-AS-Fsa" id="zVz-mK-vJD"/>
+                        <outlet property="tableView" destination="whg-Gp-Bfe" id="68K-5r-hwS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eAd-fF-g1i" userLabel="First Responder" sceneMemberID="firstResponder"/>

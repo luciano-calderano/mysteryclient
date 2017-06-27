@@ -104,7 +104,7 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
         var webType = WebPage.WebPageEnum.none
         switch item.type {
         case .inca :
-            let sb = UIStoryboard.init(name: "Incarichi", bundle: nil)
+            let sb = UIStoryboard.init(name: "Jobs", bundle: nil)
             let ctrl = sb.instantiateInitialViewController()
             self.navigationController?.show(ctrl!, sender: self)
             return
