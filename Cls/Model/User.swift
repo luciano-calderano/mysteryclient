@@ -14,6 +14,7 @@ class User: NSObject {
     private let userKey = "userKey"
     private let kUsr = "keyUser"
     private let kPwd = "keyPass"
+    private let kSav = "keySave"
     private let kTkn = "keyToken"
     
     var userData = [String: String]()
@@ -26,6 +27,7 @@ class User: NSObject {
         super.init()
         self.userData[kUsr] = ""
         self.userData[kPwd] = ""
+        self.userData[kSav] = ""
         self.userData[kTkn] = ""
 
         let userDefault = UserDefaults.standard
@@ -41,6 +43,9 @@ class User: NSObject {
     }
     
     func credential () -> (user: String, pass: String) {
+        if self.userData[self.kSav] != "1" {
+            return ("", "")
+        }
         return (self.userData[self.kUsr]!, self.userData[self.kPwd]!)
     }
     
@@ -56,28 +61,34 @@ class User: NSObject {
     func checkUser (saveCredential: Bool, userName: String, password: String,
                     completion: @escaping () -> () = { success in },
                     failure: @escaping (Int, String) -> () = { errorCode, message in }) {
+        self.userData[self.kUsr] = userName
+        self.userData[self.kPwd] = password
+        self.userData[self.kSav] = saveCredential ? "1" : "0"
+        self.userData[self.kTkn] = ""
+        self.saveUserData()
+        
+        self.getUserToken(completion: { 
+            completion()
+        }) { (errorCode, message) in
+            failure(errorCode, message)
+        }
+    }
+    
+    func getUserToken(completion: @escaping () -> () = { success in },
+                      failure: @escaping (Int, String) -> () = { errorCode, message in }) {
         let request = MYHttpRequest.post("oauth/grant")
         request.json = [
             "grant_type"   : self.grant_type,
             "client_id"    : self.client_id,
             "client_secret": self.client_secret,
-            "username"     : userName,
-            "password"     : password,
+            "username"     : self.userData[self.kUsr]!,
+            "password"     : self.userData[self.kPwd]!,
         ]
         request.start() { (result, response) in
             let code = response.int("code")
             if code == 200 && response.string("status") == "ok"{
                 let dict = response.dictionary("token")
                 self.userData[self.kTkn] = dict.string("access_token")
-
-                if saveCredential == true {
-                    self.userData[self.kUsr] = userName
-                    self.userData[self.kPwd] = password
-                }
-                else {
-                    self.userData[self.kUsr] = ""
-                    self.userData[self.kPwd] = ""
-                }
                 self.saveUserData()
                 completion ()
             }

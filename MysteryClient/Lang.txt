@@ -1,7 +1,7 @@
 user=Username
 pass=Password
-login=Login
-iscri=Iscriviti
+signIn=Login
+signUp=Iscriviti
 passForg=Problemi di accesso?
 memoCred=Memorizza le credenziali
 

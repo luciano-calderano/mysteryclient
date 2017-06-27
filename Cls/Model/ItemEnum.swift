@@ -11,7 +11,7 @@ import Foundation
 enum MenuItemEnum: String {
     case home = "Home"
     case inca = "Incarichi"
-    case rInc = "Ricerca incarichi"
+    case stor = "Storico incarichi"
     case prof = "Profilo"
     case cerc = "Stiamo cercando"
     case news = "Mystery News"
@@ -21,12 +21,12 @@ enum MenuItemEnum: String {
     case _none = ""
 }
 
-enum HomeItemEnum: String {
-    case daComp = "Da compilare"
-    case daConv = "Da convalidare"
-    case irrego = "Irregolari"
-    case annull = "Annullati"
-    case inPaga = "In pagamento"
-    case conclu = "Conclusi"
-}
-
+//enum HomeItemEnum: String {
+//    case daComp = "Da compilare"
+//    case daConv = "Da convalidare"
+//    case irrego = "Irregolari"
+//    case annull = "Annullati"
+//    case inPaga = "In pagamento"
+//    case conclu = "Conclusi"
+//}
+//

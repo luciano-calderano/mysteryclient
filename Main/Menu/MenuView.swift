@@ -15,7 +15,7 @@ struct MenuItem {
 
 protocol MenuViewDelegate {
     func menuHide()
-    func menuselectedIMenutem(_ item: MenuItem)
+    func menuSelectedItem(_ item: MenuItem)
 }
 
 class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
@@ -82,7 +82,7 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = self.dataArray[indexPath.row]
-        self.delegate?.menuselectedIMenutem(item)
+        self.delegate?.menuSelectedItem(item)
     }
 }
 

@@ -185,9 +185,9 @@
                                                 </connections>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pass" translatesAutoresizingMaskIntoConstraints="NO" id="JMq-Fo-pcr">
-                                                <rect key="frame" x="10" y="14" width="22" height="26"/>
+                                                <rect key="frame" x="10" y="14" width="22" height="22"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="XTk-sq-p7d"/>
+                                                    <constraint firstAttribute="height" constant="22" id="XTk-sq-p7d"/>
                                                     <constraint firstAttribute="width" constant="22" id="zzy-uQ-GCk"/>
                                                 </constraints>
                                             </imageView>
@@ -197,7 +197,7 @@
                                             <constraint firstItem="JMq-Fo-pcr" firstAttribute="leading" secondItem="CQr-Pa-Kkw" secondAttribute="leading" constant="10" id="BBP-ta-Ilc"/>
                                             <constraint firstAttribute="trailing" secondItem="8a5-4e-uQI" secondAttribute="trailing" constant="16" id="EVb-td-ryb"/>
                                             <constraint firstItem="8a5-4e-uQI" firstAttribute="leading" secondItem="JMq-Fo-pcr" secondAttribute="trailing" constant="8" id="Mve-ne-mxV"/>
-                                            <constraint firstItem="JMq-Fo-pcr" firstAttribute="centerY" secondItem="CQr-Pa-Kkw" secondAttribute="centerY" constant="3" id="aDC-8Y-Fw1"/>
+                                            <constraint firstItem="JMq-Fo-pcr" firstAttribute="centerY" secondItem="CQr-Pa-Kkw" secondAttribute="centerY" constant="1" id="aDC-8Y-Fw1"/>
                                             <constraint firstAttribute="height" constant="48" id="k4U-3K-m2j"/>
                                             <constraint firstItem="8a5-4e-uQI" firstAttribute="centerY" secondItem="CQr-Pa-Kkw" secondAttribute="centerY" constant="1" id="w7I-g6-A5n"/>
                                         </constraints>
@@ -208,7 +208,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="nES-ej-DpC"/>
                                         </constraints>
-                                        <state key="normal" title="#iscri">
+                                        <state key="normal" title="#signUp">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -217,7 +217,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="loginTapped" destination="L6h-9s-rfc" eventType="touchUpInside" id="FCX-ZM-efk"/>
+                                            <action selector="signUpTapped" destination="L6h-9s-rfc" eventType="touchUpInside" id="CPb-LY-GwE"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTu-Ap-ohA" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
@@ -226,7 +226,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="u50-SJ-QjH"/>
                                         </constraints>
-                                        <state key="normal" title="#login">
+                                        <state key="normal" title="#signIn">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -235,7 +235,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="loginTapped" destination="L6h-9s-rfc" eventType="touchUpInside" id="tn0-F0-SWa"/>
+                                            <action selector="signInTapped" destination="L6h-9s-rfc" eventType="touchUpInside" id="jXH-br-O1Y"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#memoCred" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvD-HI-qnq" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">

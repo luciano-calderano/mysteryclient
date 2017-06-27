@@ -87,7 +87,7 @@ class Incarichi {
     var comment = ""
     // Optional. Final comment made from the user. The label which is shown to the user is Commento. Should be possible to modify by the user
     
-    var attachments = [String]()
+    var attachments = [Attachment]()
         // Optional. Array of Attachment type objects. Contains links to documents to attach.
     
     var kpis = [Kpi]()

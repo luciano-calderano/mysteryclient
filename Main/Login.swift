@@ -81,7 +81,7 @@ class Login: MYViewController, UITextFieldDelegate {
         self.navigationController?.show(ctrl, sender: self)
     }
     
-    @IBAction func loginTapped () {
+    @IBAction func signInTapped () {
         if self.userText.text!.isEmpty {
             self.userText.becomeFirstResponder()
             return
@@ -101,6 +101,10 @@ class Login: MYViewController, UITextFieldDelegate {
         }) { (errorCode, message) in
             self.alert("Error: \(errorCode)", message: message, okBlock: nil)
         }
+    }
+    @IBAction func signUpTapped () {
+        let ctrl = WebPage.Instance(type: .register)
+        self.navigationController?.show(ctrl, sender: self)
     }
     
     //MARK: - private

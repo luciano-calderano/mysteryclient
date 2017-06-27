@@ -8,26 +8,25 @@
 
 import UIKit
 
-enum WebPageEnum: String {
-    case recover = "login/retrieve-password" // ?app=1"
-    case register = "login/register?app=1"
-    
-    case profile = "mystery/profile"
-    case storico = "checking/validated"
-    case cercando = "mystery/communications"
-    case news = "mystery/news"
-    case contattaci = "ticket"
-    
-    case learning = "learning"
-    
-    case bookingRemove = "checking/booking-remove?id="
-    case bookingMove = "checking/booking-move?id="
-    case ticketView = "checking/ticket-view?id="
-    case none = ""
-}
 
 class WebPage: MYViewController, UIWebViewDelegate {
-    
+    enum WebPageEnum: String {
+        case recover = "login/retrieve-password?app=1"
+        case register = "login/register?app=1"
+        
+        case profile = "mystery/profile"
+        case storico = "checking/validated"
+        case cercando = "mystery/communications"
+        case news = "mystery/news"
+        case contattaci = "ticket"
+        case learning = "learning"
+        
+        case bookingRemove = "checking/booking-remove?id="
+        case bookingMove = "checking/booking-move?id="
+        case ticketView = "checking/ticket-view?id="
+        case none = ""
+    }
+   
     class func Instance (type: WebPageEnum, id: Int = 0) -> WebPage {
         let vcName = String (describing: self)
         let sb = UIStoryboard.init(name: "WebPage", bundle: nil)
