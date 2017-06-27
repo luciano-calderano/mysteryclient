@@ -45,20 +45,6 @@ class JobDetail: MYViewController {
             btn.layer.shadowOpacity = 0.2
             btn.layer.masksToBounds = false
         }
-//        
-//        self.contBtn.layer.shadowColor = UIColor.darkGray.cgColor
-//        self.contBtn.layer.shadowOffset = CGSize.init(width: 0, height: 5)
-//        self.contBtn.layer.borderColor = UIColor.lightGray.cgColor
-//        self.contBtn.layer.borderWidth = 0.5
-//        self.contBtn.layer.shadowOpacity = 0.2
-//        self.contBtn.layer.masksToBounds = false
-//        
-//        self.tickBtn.layer.shadowColor = UIColor.darkGray.cgColor
-//        self.tickBtn.layer.shadowOffset = CGSize.init(width: 0, height: 5)
-//        self.contBtn.layer.borderColor = UIColor.lightGray.cgColor
-//        self.tickBtn.layer.borderWidth = 0.5
-//        self.tickBtn.layer.shadowOpacity = 0.2
-//        self.tickBtn.layer.masksToBounds = false
     }
 }
 
