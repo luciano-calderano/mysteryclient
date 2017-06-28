@@ -21,6 +21,7 @@ class JobsHomeCell: UITableViewCell {
     }
     
     var job: Job!
+    var delegate: JobsHomeCellDelegate?
     
     @IBOutlet fileprivate var name: MYLabel!
     @IBOutlet fileprivate var address: MYLabel!
@@ -42,7 +43,7 @@ class JobsHomeCell: UITableViewCell {
     }
     
     @IBAction func mapTapped () {
-    
+        self.delegate?.mapTapped(job: self.job)
     }
 }
 

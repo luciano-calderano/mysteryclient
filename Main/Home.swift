@@ -8,8 +8,19 @@
 
 import UIKit
 
+class Maps {
+    init(job: Job) {
+        if job.store.latitude == 0 || job.store.longitude == 0 {
+            return
+        }
+        let name = job.store.name.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
+        let page = "ll=\(job.store.latitude),\(job.store.longitude)&q=" + name + "&z=10"
+        let url = URL.init(string: Config.mapUrl + page)!
+        UIApplication.shared.openURL(url)
+    }
+}
+
 class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuViewDelegate {
-    
     @IBOutlet private var tableView: UITableView!
     
     private var menuView = MenuView.Instance()

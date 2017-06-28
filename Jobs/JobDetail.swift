@@ -16,6 +16,7 @@ class JobDetail: MYViewController {
     }
 
     var job: Job!
+    private var jobResult = JobResult()
     
     @IBOutlet var infoLabel: MYLabel!
     @IBOutlet var nameLabel: MYLabel!
@@ -68,6 +69,17 @@ class JobDetail: MYViewController {
             Lng("verEnd") + ": " + self.job.end_date.toString(withFormat: "dd/MM/yyyy") + "\n"
         self.nameLabel.text = self.job.store.name
         self.addrLabel.text = self.job.store.address
+        
+        self.jobResult.load(id: self.job.id)
+        self.executionTime()
+        
+        let resultsArray = self.jobResult.getResults()
+        let title = resultsArray.count == 0 ? "kpiInit" : "kpiCont"
+        self.contBtn.setTitle(Lng(title), for: .normal)
+    }
+
+    @IBAction func mapsTapped () {
+        _ = Maps(job: self.job)
     }
     
     @IBAction func descTapped () {
@@ -102,10 +114,28 @@ class JobDetail: MYViewController {
     }
     
     @IBAction func strtTapped () {
-        
+        self.jobResult.executionStart()
+        self.executionTime()
     }
     @IBAction func stopTapped () {
+        self.jobResult.executionEnd()
+        self.executionTime()
+    }
+    
+    private func executionTime () {
+        self.strtBtn.isEnabled = false
+        self.stopBtn.isEnabled = false
+        self.strtBtn.backgroundColor = UIColor.lightGray
+        self.stopBtn.backgroundColor = UIColor.lightGray
         
+        if self.jobResult.executionNotStarted {
+            self.strtBtn.isEnabled = true
+            self.strtBtn.backgroundColor = UIColor.white
+        }
+        else if self.jobResult.executionNotEnded {
+            self.stopBtn.isEnabled = true
+            self.stopBtn.backgroundColor = UIColor.white
+        }
     }
 }
 

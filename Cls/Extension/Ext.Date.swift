@@ -22,10 +22,11 @@ extension String {
 }
 
 extension Date {
-    static let fmtOra     = "HH:mm"
-    static let fmtDb      = "yyyy-MM-dd HH:mm:ss"
-    static let fmtData    = "dd/MM/yyyy"
-    static let fmtDataOra = "dd/MM/yyyy HH:mm"
+    static let fmtOra           = "HH:mm"
+    static let fmtDataJson      = "yyyy-MM-dd"
+    static let fmtDataOraJson   = "yyyy-MM-dd HH:mm:ss"
+    static let fmtData          = "dd/MM/yyyy"
+    static let fmtDataOra       = "dd/MM/yyyy HH:mm"
 
     func toString(withFormat fmt: String) -> String {
         let df = DateFormatter()

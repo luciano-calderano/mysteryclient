@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource {
+class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, JobsHomeCellDelegate {
     
     @IBOutlet private var tableView: UITableView!
     
@@ -31,15 +31,23 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource {
                 return
             }
         }
-        
+        self.loadData()
+//        self.jobsDownload()
+    }
+
+    override func headerViewDxTapped() {
+        self.jobsDownload()
+    }
+
+    // MARK: - private
+    
+    private func jobsDownload () {
         User.shared.getUserToken(completion: {
             self.loadData()
         }) { (errorCode, message) in
             self.alert("Error: \(errorCode)", message: message, okBlock: nil)
-        }
+        }        
     }
-
-    // MARK: - private
     
     private func loadData() {
         let request = MYHttpRequest.get("rest/get")
@@ -63,6 +71,16 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource {
         self.tableView.reloadData()
     }
     
+    // MARK: - cell delegate
+    
+    func mapTapped(job: Job) {
+        if job.store.latitude == 0 || job.store.longitude == 0 {
+            return
+        }
+        _ = Maps(job: job)
+    }
+    
+    
     // MARK: - table view
     
     func maxItemOfSections(in tableView: UITableView) -> Int {
@@ -79,6 +97,7 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = JobsHomeCell.dequeue(tableView, indexPath)
+        cell.delegate = self
         cell.item(item: self.dataArray[indexPath.row] as! Job)
         return cell
     }

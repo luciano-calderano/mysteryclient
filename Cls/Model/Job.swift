@@ -103,6 +103,8 @@ class Job {
         //Mandatory. Flag showing if it is possible to perform the job. Default value is 0. If it is not possible to perform the job flag must be set to 1. In this case you have to ask for the reason, store it in the comment field and exit compile page. The label which is shown to the user is Sei riuscito a svolgere l’incarico? Should be possible to modify by the user
 }
 
+//MARK: -
+
 class Store {
     var name = ""
         // Mandatory. Store name. The label which is shown to the user is Punto vendita.
@@ -115,6 +117,8 @@ class Store {
     var longitude: Double = 0
         // Optional. Store longitude. If available must be used to locate the store in the map. It should not be shown to the user.
 }
+
+//MARK: -
 
 class Positioning  {
     var required = false
@@ -138,6 +142,8 @@ class Positioning  {
         // Optional. Longitude where the user press Stop. It should not be shown to the user.
 }
 
+//MARK: -
+
 class Attachment {
 
     var id = 0
@@ -149,6 +155,8 @@ class Attachment {
     var url = ""
         // Mandatory. Url to call to download the file. The Url is already completed and does not require any modification. It should not be shown to the user.
 }
+
+//MARK: -
 
 class Kpi {
     var id = 0
@@ -212,6 +220,8 @@ class Kpi {
         // Mandatory. Result type object. Contains the information the user insert related to the current answer. The data in the Object will be used to populate the answer already insert from the user in case the user want to complete or up
 }
 
+//MARK: -
+
 class Valutations {
     var id = 0
         // Mandatory. Valuation ID. It should not be shown to the user.
@@ -235,6 +245,8 @@ class Valutations {
         // Optional. Array of Dependency type objects. Contain actions activated from the answer to this section Essentially is necessary to enhance others Kpi or the respective notes.
 }
 
+//MARK: -
+
 class Dependency {
     var key = 0
         // Mandatory. Related kpi ID. Corresponds with the active Kpi only if the valuation selected require the cancellation of the note or to insert a specific note. It should not be shown to the user.
@@ -245,6 +257,8 @@ class Dependency {
     var notes = ""
         // Optional. Value to set up as note in the relative Kpi answer. It should not be shown to the user.
 }
+
+//MARK: -
 
 class Result {
     var id = 0
@@ -261,7 +275,156 @@ class Result {
     
     var url = ""
         // Optional. Url to call to download the file. The call is already completed and does not require any modification. It should not be shown to the user.
-    
-    
 }
 
+//MARK: - Response
+//MARK: -
+
+class JobResult {
+    private let fileConfig  = UserDefaults.init(suiteName: "job.result")
+    enum Keys:String {
+        case id             = "id"
+        case execDate       = "execution_date"
+        case execStrt       = "execution_start_time"
+        case execStop       = "execution_end_time"
+        case results        = "results"
+        case positioning    = "positioning"
+    }
+    private var result:JsonDict!
+    
+    func load(id: Int) {
+        self.result = [
+            Keys.id.rawValue            : 0,
+            "estimate_date"             : "",
+            "compiled"                  : 0,
+            "compilation_date"          : "",
+            "updated"                   : 0,
+            "update_date"               : "",
+            Keys.execDate.rawValue      : "",
+            Keys.execStrt.rawValue      : "",
+            Keys.execStop.rawValue      : "",
+            "store_closed"              : 0,
+            "comment"                   : "",
+            Keys.results.rawValue       : [JsonDict](),
+            Keys.positioning.rawValue   :  JsonDict()
+        ]
+
+        let result = self.fileConfig?.value(forKey: String(id))
+        if result != nil {
+            self.result = result as! JsonDict
+        }
+        else {
+            let pos = PositioningResult()
+            self.result[Keys.id.rawValue] = String(id)
+            self.result[Keys.id.rawValue] = pos.dict
+            self.save()            
+        }
+    }
+    
+    private func save() {
+        let id = String(self.result.int(Keys.id.rawValue))
+        self.fileConfig?.setValue(self.result, forKey: id)
+    }
+    
+    func getResults () -> [JsonDict] {
+        return self.result.array(Keys.results.rawValue) as! [JsonDict]
+    }
+    
+    //MARK: - execution
+    
+    var executionNotStarted:Bool {
+        get { return self.result.string(Keys.execStrt.rawValue).isEmpty }
+    }
+    var executionNotEnded:Bool {
+        get { return self.result.string(Keys.execStop.rawValue).isEmpty }
+    }
+    
+    func executionStart () {
+        self.result[Keys.execDate.rawValue] = Date().toString(withFormat: Date.fmtDataJson)
+        self.result[Keys.execStrt.rawValue] = Date().toString(withFormat: Date.fmtOra)
+        self.save()
+    }
+    func executionEnd () {
+        self.result[Keys.execStop.rawValue] = Date().toString(withFormat: Date.fmtOra)
+        self.save()
+    }
+}
+
+class KpiResult {
+    var dict:JsonDict = [
+        "kpi_id"     : 0,
+        "value"      : "",
+        "notes"      : "",
+        "attachment" : "",
+        ]
+}
+
+//MARK: -
+
+class PositioningResult  {
+    var dict:JsonDict = [
+        "start"      : 0,
+        "start_date" : "",
+        "start_lat"  : 0,
+        "start_lng"  : 0,
+        "end"        : 0,
+        ]
+}
+//
+//class JobResponse {
+//    var id = 0
+//        // Mandatory. Job ID
+//    var estimate_date = "" // Date [aaaa-mm-dd]
+//        // Mandatory. Date the user would like to do the job.
+//    var compiled = 0 // Boolean [0/1]
+//        // Mandatory. Flag if the job it’s been completed from the user. Must be enhanced automatically with 1 when the user finish to fill in the job and label the job ready to be sent.
+//    var compilation_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
+//        // Mandatory. Date and time when the user filled in the job. The date should be populate automatically with the date and the time when the user fills in the job and label it ready to be sent.
+//    var updated = 0 // Boolean [0/1]
+//        // Mandatory. Flag showing if the job it’s been updated from the user. Must be enhanced automatically with 1 when the user completed the job and label it to be sent only if the job was already completed and labeled like irregular.
+//    var update_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
+//        // Optional. Date and time the user updated the job. Must be populate automatically with date and time when the user completed the update and label the job like ready to be sent only if the job was previously competed and labeled like irregular.
+//    var execution_date = "" // Date [aaaa-mm-dd]
+//        // Mandatory. Date when the user executed the job. Must correspond with the estimated date for the execution. Id the date is different must inform the user to modify the date before the compilation.
+//    var execution_start_time = "" // Time [hh:mm]
+//        //Mandatory. Time the user started the job.
+//    var execution_end_time = "" // Time [hh:mm]
+//        // Mandatory. Time the user finished the job.
+//    var store_closed = 0 // Boolean [0/1]
+//        // Mandatory. Flag showing if it is possible to perform the job. Default value is 0. If it is not possible to perform the job flag must be set to 1. In this case you have to ask for the reason, store it in the comment field and exit compile page. The label which is shown to the user is Sei riuscito a svolgere l’incarico? Should be possible to modify by the user
+//    var comment = ""
+//        // Mandatory. Final comment from the user.
+//    var results = [KpiResponse]() // Array
+//        // Mandatory. Array of Result type objects. Must contain the user’s answers.
+//    var positioning = PositioningResponse()
+//        // Mandatory. Object of type Positioning. Contains the information to geolocate the beginning and the end of the job.
+//}
+//
+////MARK: -
+//
+//class KpiResponse {
+//    var kpi_id = 0
+//        //Mandatory. Kpi ID.
+//    var value = ""
+//        // Optional. The valuation the user gave to kpi. Depending of a kpi the value coul be text or valuation id (separated with ,). Is mandatory only if specified by kpi settings.
+//    var notes = ""
+//        // Optional. The note the user insert to give additional details to the answer (when necessary). Is mandatory only if indicated in the kpi settings.
+//    var attachment = ""
+//        // Optional. Name of the t file attached to the answer. Is present only if the kpi require to insert the attachment. Is mandatory only if indicated in the settings of the related kpi’s. the name indicated in the filed must be the same of the file insert in the .zip file.
+//        // Note: All the attachment present in the object Result must be insert in the file (.zip) that contains the file scheme (job.json).
+//}
+//
+////MARK: -
+//
+//class PositioningResponse  {
+//    var start = false
+//    // Optional. Flag showing if the data to geolocate the user at the beginning of the job have been collected. Must the populate automatically when the user press Start. It should not be shown to the user.
+//    var start_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
+//    // Optional. Date and time the user press Start. It should not be shown to the user..
+//    var start_lat:Double = 0
+//    // Optional. Latitude where the user press Start. It should not be shown to the user.
+//    var start_lng:Double = 0
+//    // Optional. Longitude where the user press Start. It should not be shown to the user.
+//    var end = false
+//    // Optional. Flag showing the the data for the golocation of the user at the and of the job are been collected. Must be populate automatically when the user press Stop. It should not be shown to the user.
+//}

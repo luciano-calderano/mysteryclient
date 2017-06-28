@@ -25,4 +25,6 @@ rifNum=Riferimento
 verIni=Inizio verifica
 verEnd=Fine verifica
 
+kpiInit=Compila incarico
+kpiCont=Continua compilazione
 cancel=Annulla
