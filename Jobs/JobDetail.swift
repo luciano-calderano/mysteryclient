@@ -69,5 +69,43 @@ class JobDetail: MYViewController {
         self.nameLabel.text = self.job.store.name
         self.addrLabel.text = self.job.store.address
     }
+    
+    @IBAction func descTapped () {
+        let subView = JobDetailDesc.Instance()
+        subView.frame = self.view.frame
+        subView.jobDesc.text = self.job.description
+        self.view.addSubview(subView)
+    }
+    
+    @IBAction func alleTapped () {
+        let subView = JobDetailAlle.Instance()
+        subView.frame = self.view.frame
+        subView.job = self.job
+        self.view.addSubview(subView)
+    }
+    
+    @IBAction func spreTapped () {
+        let ctrl = WebPage.Instance(type: .bookingRemove)
+        self.navigationController?.show(ctrl, sender: self)
+    }
+    @IBAction func dateTapped () {
+        let ctrl = WebPage.Instance(type: .bookingMove)
+        self.navigationController?.show(ctrl, sender: self)
+    }
+    
+    @IBAction func contTapped () {
+        
+    }
+    @IBAction func tickTapped () {
+        let ctrl = WebPage.Instance(type: .ticketView)
+        self.navigationController?.show(ctrl, sender: self)
+    }
+    
+    @IBAction func strtTapped () {
+        
+    }
+    @IBAction func stopTapped () {
+        
+    }
 }
 

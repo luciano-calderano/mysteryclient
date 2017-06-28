@@ -267,6 +267,9 @@
                                                                         <real key="value" value="23"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="descTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="MNS-FF-J2M"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0xc-kd-AyD" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                                                 <rect key="frame" x="193" y="10" width="170" height="46"/>
@@ -282,6 +285,9 @@
                                                                         <real key="value" value="23"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="alleTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="fU7-gt-BWU"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GRj-3Y-azG" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                                                 <rect key="frame" x="8" y="64" width="170" height="46"/>
@@ -297,6 +303,9 @@
                                                                         <real key="value" value="23"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="spreTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="XXi-A1-TSm"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfo-3m-nur" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                                                 <rect key="frame" x="193" y="64" width="170" height="46"/>
@@ -312,6 +321,9 @@
                                                                         <real key="value" value="23"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="dateTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="5en-Nw-oaJ"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -350,6 +362,9 @@
                                                                         <real key="value" value="23"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="contTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="32T-JY-iPc"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8w-Tp-Wyx" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                                                 <rect key="frame" x="10" y="66" width="357" height="46"/>
@@ -365,6 +380,9 @@
                                                                         <real key="value" value="23"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="tickTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="ETP-so-ywq"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -388,6 +406,9 @@
                                                                 <state key="normal" title="#timerStart" image="ico.start_tempo">
                                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="strtTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="iWa-5p-av5"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wn-xV-krV" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                                                 <rect key="frame" x="187" y="0.0" width="187" height="60"/>
@@ -396,6 +417,9 @@
                                                                 <state key="normal" title="#timerStop" image="ico.stop_tempo">
                                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="stopTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="zRf-Xp-KX0"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
