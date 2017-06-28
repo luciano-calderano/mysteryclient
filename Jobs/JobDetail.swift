@@ -45,6 +45,29 @@ class JobDetail: MYViewController {
             btn.layer.shadowOpacity = 0.2
             btn.layer.masksToBounds = false
         }
+        
+        for btn in [self.strtBtn, self.stopBtn] as! [MYButton] {
+            let ico = btn.image(for: .normal)?.resize(16)
+            btn.setImage(ico, for: .normal)
+            
+            let spacing: CGFloat = 10
+            let titleSize = btn.titleLabel!.frame.size
+            let imageSize = btn.imageView!.frame.size
+            let center = btn.frame.size.width / 2
+            
+            btn.imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: center - imageSize.width/2, bottom: 0, right: -titleSize.width)
+
+            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: -(titleSize.width + imageSize.width) / 2, bottom: -(imageSize.height + spacing), right: 0)
+        }
+        
+        
+        self.header?.header.titleLabel.text = self.job.store.name
+        
+        self.infoLabel.text = Lng("rifNum") + ": \(self.job.reference)\n" +
+            Lng("verIni") + ": " + self.job.start_date.toString(withFormat: "dd/MM/yyyy") + "\n" +
+            Lng("verEnd") + ": " + self.job.end_date.toString(withFormat: "dd/MM/yyyy") + "\n"
+        self.nameLabel.text = self.job.store.name
+        self.addrLabel.text = self.job.store.address
     }
 }
 

@@ -10,6 +10,7 @@ import UIKit
 
 public protocol HeaderViewDelegate: class {
     func headerViewSxTapped()
+    func headerViewDxTapped()
 }
 
 class HeaderContainerView : UIView, HeaderViewDelegate {
@@ -18,6 +19,7 @@ class HeaderContainerView : UIView, HeaderViewDelegate {
     
     @IBInspectable var title:String = ""
     @IBInspectable var sxImage: UIImage?
+    @IBInspectable var dxImage: UIImage?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -47,6 +49,9 @@ class HeaderContainerView : UIView, HeaderViewDelegate {
     func headerViewSxTapped() {
         self.delegate?.headerViewSxTapped()
     }
+    func headerViewDxTapped() {
+        self.delegate?.headerViewDxTapped()
+    }
 }
 
 
@@ -59,6 +64,7 @@ class HeaderView : UIView {
 
     @IBOutlet var titleLabel: MYLabel!
     @IBOutlet var sxButton: UIButton!
+    @IBOutlet var dxButton: UIButton!
     
     weak var delegate:HeaderViewDelegate?
     
@@ -68,5 +74,9 @@ class HeaderView : UIView {
     
     @IBAction func sxButtonTapped() {
         self.delegate?.headerViewSxTapped()
+    }
+    
+    @IBAction func dxButtonTapped() {
+        self.delegate?.headerViewDxTapped()
     }
 }

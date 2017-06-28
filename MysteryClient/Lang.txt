@@ -20,3 +20,7 @@ jobTick=Apri un ticket
 
 timerStart=Start tempo
 timerStop=Stop tempo
+
+rifNum=Riferimento
+verIni=Inizio verifica
+verEnd=Fine verifica
