@@ -197,8 +197,8 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
                 kpi.standard = kpiDict.string("standard")
                 kpi.instructions = kpiDict.string("instructions")
                 
-                for valutation in kpiDict.array("valutation") as! [JsonDict] {
-                    let val = Valutations()
+                for valutation in kpiDict.array("valuations") as! [JsonDict] {
+                    let val = Valuations()
                     val.id = valutation.int("id")
                     val.name = valutation.string("name")
                     val.order = valutation.int("order")

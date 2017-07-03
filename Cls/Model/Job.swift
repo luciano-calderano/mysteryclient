@@ -213,7 +213,7 @@ class Kpi {
     var instructions = ""
         // Optional. Additional instruction to fill in the job. Must be show after the question only if present.
     
-    var valuations = [Valutations]()
+    var valuations = [Valuations]()
         // Optional. Array of Valuation type objects. Contains the possible answers the user can choose. The display of the answer depends from the Kpi Type.
     
     var result = Result()
@@ -222,7 +222,7 @@ class Kpi {
 
 //MARK: -
 
-class Valutations {
+class Valuations {
     var id = 0
         // Mandatory. Valuation ID. It should not be shown to the user.
     

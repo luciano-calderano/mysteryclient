@@ -401,7 +401,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IC6-RO-MEG">
-                                                        <rect key="frame" x="0.0" y="530" width="374" height="60"/>
+                                                        <rect key="frame" x="0.0" y="530" width="375" height="60"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWu-x4-jcP" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="187" height="60"/>
@@ -433,7 +433,7 @@
                                                             <constraint firstAttribute="bottom" secondItem="7wn-xV-krV" secondAttribute="bottom" id="Lpy-Y4-lVF"/>
                                                             <constraint firstAttribute="height" constant="60" id="N7e-iZ-0wK"/>
                                                             <constraint firstItem="7wn-xV-krV" firstAttribute="width" secondItem="AWu-x4-jcP" secondAttribute="width" id="Qdh-DU-Ysc"/>
-                                                            <constraint firstAttribute="trailing" secondItem="7wn-xV-krV" secondAttribute="trailing" id="jmw-AN-VUt"/>
+                                                            <constraint firstAttribute="trailing" secondItem="7wn-xV-krV" secondAttribute="trailing" constant="1" id="jmw-AN-VUt"/>
                                                             <constraint firstAttribute="bottom" secondItem="AWu-x4-jcP" secondAttribute="bottom" id="kkL-Z5-IK9"/>
                                                             <constraint firstItem="7wn-xV-krV" firstAttribute="top" secondItem="IC6-RO-MEG" secondAttribute="top" id="m3f-ec-LP4"/>
                                                             <constraint firstItem="7wn-xV-krV" firstAttribute="leading" secondItem="AWu-x4-jcP" secondAttribute="trailing" id="mO7-Gl-BDK"/>
@@ -450,7 +450,7 @@
                                                     <constraint firstItem="cuA-Pf-pMu" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" constant="8" id="8Zb-D8-eOS"/>
                                                     <constraint firstAttribute="trailing" secondItem="W71-hN-Xg6" secondAttribute="trailing" id="9yb-5c-4gD"/>
                                                     <constraint firstItem="ReD-uP-KVj" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" id="AAJ-bF-IrH"/>
-                                                    <constraint firstAttribute="trailing" secondItem="IC6-RO-MEG" secondAttribute="trailing" constant="1" id="OzI-Sw-L0w"/>
+                                                    <constraint firstAttribute="trailing" secondItem="IC6-RO-MEG" secondAttribute="trailing" id="OzI-Sw-L0w"/>
                                                     <constraint firstAttribute="trailing" secondItem="cuA-Pf-pMu" secondAttribute="trailing" constant="8" id="RJM-pL-jlz"/>
                                                     <constraint firstItem="ISX-2N-sif" firstAttribute="top" secondItem="LpZ-Xy-liU" secondAttribute="top" constant="285" id="Stp-hS-0Ei"/>
                                                     <constraint firstItem="ISX-2N-sif" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" id="Y4I-Mc-CWy"/>
@@ -637,14 +637,56 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EyI-v7-z2A">
-                                <rect key="frame" x="0.0" y="75" width="375" height="592"/>
+                                <rect key="frame" x="0.0" y="75" width="375" height="547"/>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xxs-tW-RU9">
+                                <rect key="frame" x="0.0" y="622" width="375" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bMP-gu-ZA8" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
+                                        <rect key="frame" x="1" y="1" width="186" height="43"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="#back" image="ico.backBlack">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="strtTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="Yvv-2Y-2k4"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Rn-00-a5U" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
+                                        <rect key="frame" x="188" y="1" width="186" height="43"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="#next" image="ico.nextGreen">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="stopTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="B3g-mM-rdh"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="8Rn-00-a5U" firstAttribute="top" secondItem="Xxs-tW-RU9" secondAttribute="top" constant="1" id="87p-Z5-xY6"/>
+                                    <constraint firstItem="bMP-gu-ZA8" firstAttribute="top" secondItem="Xxs-tW-RU9" secondAttribute="top" constant="1" id="BfN-U6-hZk"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Rn-00-a5U" secondAttribute="trailing" constant="1" id="S9H-3S-QcC"/>
+                                    <constraint firstAttribute="height" constant="45" id="XWZ-5C-Xx1"/>
+                                    <constraint firstItem="bMP-gu-ZA8" firstAttribute="leading" secondItem="Xxs-tW-RU9" secondAttribute="leading" constant="1" id="e4c-L7-MPj"/>
+                                    <constraint firstItem="8Rn-00-a5U" firstAttribute="leading" secondItem="bMP-gu-ZA8" secondAttribute="trailing" constant="1" id="to8-fK-Fyh"/>
+                                    <constraint firstAttribute="bottom" secondItem="8Rn-00-a5U" secondAttribute="bottom" constant="1" id="uBX-Su-XTo"/>
+                                    <constraint firstAttribute="bottom" secondItem="bMP-gu-ZA8" secondAttribute="bottom" constant="1" id="wfc-hh-5u4"/>
+                                    <constraint firstItem="8Rn-00-a5U" firstAttribute="width" secondItem="bMP-gu-ZA8" secondAttribute="width" id="yqC-Hj-hEF"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="aLO-IK-d1j" firstAttribute="top" secondItem="Xxs-tW-RU9" secondAttribute="bottom" id="9WL-VX-1FS"/>
                             <constraint firstItem="EyI-v7-z2A" firstAttribute="top" secondItem="7ag-aN-fJJ" secondAttribute="bottom" id="ILQ-As-O2P"/>
                             <constraint firstAttribute="trailing" secondItem="EyI-v7-z2A" secondAttribute="trailing" id="OXq-EO-hTd"/>
-                            <constraint firstItem="aLO-IK-d1j" firstAttribute="top" secondItem="EyI-v7-z2A" secondAttribute="bottom" id="XCH-om-8if"/>
+                            <constraint firstItem="aLO-IK-d1j" firstAttribute="top" secondItem="EyI-v7-z2A" secondAttribute="bottom" constant="45" id="XCH-om-8if"/>
+                            <constraint firstItem="Xxs-tW-RU9" firstAttribute="leading" secondItem="NIz-4H-cRx" secondAttribute="leading" id="Zp7-II-uhI"/>
+                            <constraint firstAttribute="trailing" secondItem="Xxs-tW-RU9" secondAttribute="trailing" id="eHv-iA-uYC"/>
                             <constraint firstItem="EyI-v7-z2A" firstAttribute="leading" secondItem="NIz-4H-cRx" secondAttribute="leading" id="m6i-nc-YbE"/>
                             <constraint firstItem="7ag-aN-fJJ" firstAttribute="top" secondItem="o1K-jH-PcL" secondAttribute="bottom" id="vFR-uS-AKk"/>
                             <constraint firstAttribute="trailing" secondItem="7ag-aN-fJJ" secondAttribute="trailing" id="xij-H9-GeI"/>
@@ -652,7 +694,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backBtn" destination="bMP-gu-ZA8" id="L03-j2-Zlx"/>
                         <outlet property="header" destination="7ag-aN-fJJ" id="Tz8-zn-BCA"/>
+                        <outlet property="nextBtn" destination="8Rn-00-a5U" id="8zs-ky-9bu"/>
                         <outlet property="scroll" destination="EyI-v7-z2A" id="gHe-DT-xHS"/>
                     </connections>
                 </viewController>
@@ -663,8 +707,10 @@
     </scenes>
     <resources>
         <image name="ico.back" width="128" height="128"/>
+        <image name="ico.backBlack" width="44" height="71"/>
         <image name="ico.matita" width="80" height="80"/>
         <image name="ico.menu" width="200" height="200"/>
+        <image name="ico.nextGreen" width="44" height="71"/>
         <image name="ico.pinMap" width="256" height="256"/>
         <image name="ico.reload" width="100" height="100"/>
         <image name="ico.shop" width="104" height="104"/>

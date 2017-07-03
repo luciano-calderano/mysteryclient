@@ -29,4 +29,7 @@ kpiInit=Compila incarico
 kpiCont=Continua compilazione
 cancel=Annulla
 
-#note=Note
+note=Note
+back=Indietro
+next=Avanti
+
