@@ -31,6 +31,8 @@ class Login: MYViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(NSTemporaryDirectory())
+        
         self.loginView.isHidden = true
         self.checkImg = self.saveCredButton.image(for: .normal)
         self.saveCredButton.imageEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2)

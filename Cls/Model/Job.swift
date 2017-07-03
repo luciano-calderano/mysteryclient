@@ -277,11 +277,10 @@ class Result {
         // Optional. Url to call to download the file. The call is already completed and does not require any modification. It should not be shown to the user.
 }
 
-//MARK: - Response
+//MARK: - Result
 //MARK: -
 
 class JobResult {
-    private let fileConfig  = UserDefaults.init(suiteName: "job.result")
     enum Keys:String {
         case id             = "id"
         case execDate       = "execution_date"
@@ -290,7 +289,15 @@ class JobResult {
         case results        = "results"
         case positioning    = "positioning"
     }
+
+    private let fileConfig  = UserDefaults.init(suiteName: "job.result")
     private var result:JsonDict!
+    private func save() {
+        let id = String(self.result.int(Keys.id.rawValue))
+        self.fileConfig?.setValue(self.result, forKey: id)
+    }
+    
+    //MARK: - public
     
     func load(id: Int) {
         self.result = [
@@ -319,11 +326,6 @@ class JobResult {
             self.result[Keys.id.rawValue] = pos.dict
             self.save()            
         }
-    }
-    
-    private func save() {
-        let id = String(self.result.int(Keys.id.rawValue))
-        self.fileConfig?.setValue(self.result, forKey: id)
     }
     
     func getResults () -> [JsonDict] {

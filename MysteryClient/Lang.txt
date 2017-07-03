@@ -12,7 +12,7 @@ profile=Profile
 recuperaPass=Recupera password
 
 jobDesc=Descrizione
-jobAlle=Allegati
+jobAtch=Allegati
 jobSpre=Sprenota incarico
 jobDate=Cambia data
 jobCont=Continua compilazione

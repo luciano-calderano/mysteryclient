@@ -31,32 +31,36 @@ class WebPage: MYViewController, UIWebViewDelegate {
         let vcName = String (describing: self)
         let sb = UIStoryboard.init(name: "WebPage", bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: vcName) as! WebPage
-        vc.openPage(type: type, id: id)
+        if type != .none {
+            let homepage = "http://mysteryclient.mebius.it/"
+            var page = homepage + type.rawValue
+            if id > 0 {
+                page += String(id)
+            }
+            vc.openPage(page)
+        }
         return vc
     }
 
     @IBOutlet private var webView: UIWebView!
-    
-//    var pageType = WebPageEnum.none
-//    var id = 0
-//
-    private let homepage = "http://mysteryclient.mebius.it/"
 
     private var myWheel = MYWheel()
     private var requestObj: URLRequest!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.myWheel.start(self.view)
+        self.webView.delegate = self
         self.webView.loadRequest(requestObj)
     }
     
-    func openPage(type: WebPageEnum, id: Int = 0) {
-        var page = self.homepage + type.rawValue
-        if id > 0 {
-            page += String(id)
-        }
-        let url = URL.init(string: page)
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.myWheel.start(self.webView)
+    }
+    
+    func openPage(_ page: String) {
+        let url = URL.init(string: page.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)!)
         self.requestObj = URLRequest.init(url: url!)
         
         let token = User.shared.getToken()

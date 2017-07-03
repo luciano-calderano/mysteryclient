@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JobDetail: MYViewController {
+class JobDetail: MYViewController, JobDetailAtchDelegate {
     class func Instance(job: Job) -> JobDetail {
         let vc = self.load(storyboardName: "Jobs") as! JobDetail
         vc.job = job
@@ -61,23 +61,12 @@ class JobDetail: MYViewController {
             btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: -(titleSize.width + imageSize.width) / 2, bottom: -(imageSize.height + spacing), right: 0)
         }
         
-        
-        self.header?.header.titleLabel.text = self.job.store.name
-        
-        self.infoLabel.text = Lng("rifNum") + ": \(self.job.reference)\n" +
-            Lng("verIni") + ": " + self.job.start_date.toString(withFormat: "dd/MM/yyyy") + "\n" +
-            Lng("verEnd") + ": " + self.job.end_date.toString(withFormat: "dd/MM/yyyy") + "\n"
-        self.nameLabel.text = self.job.store.name
-        self.addrLabel.text = self.job.store.address
-        
-        self.jobResult.load(id: self.job.id)
-        self.executionTime()
-        
-        let resultsArray = self.jobResult.getResults()
-        let title = resultsArray.count == 0 ? "kpiInit" : "kpiCont"
-        self.contBtn.setTitle(Lng(title), for: .normal)
+        self.showData()
+        self.loadResult()
     }
 
+    // MARK: - actions
+    
     @IBAction func mapsTapped () {
         _ = Maps(job: self.job)
     }
@@ -89,10 +78,11 @@ class JobDetail: MYViewController {
         self.view.addSubview(subView)
     }
     
-    @IBAction func alleTapped () {
-        let subView = JobDetailAlle.Instance()
+    @IBAction func atchTapped () {
+        let subView = JobDetailAtch.Instance()
         subView.frame = self.view.frame
         subView.job = self.job
+        subView.delegate = self
         self.view.addSubview(subView)
     }
     
@@ -106,8 +96,10 @@ class JobDetail: MYViewController {
     }
     
     @IBAction func contTapped () {
-        
+        let ctrl = KpisList.Instance(job: self.job, jobResult: self.jobResult)
+        self.navigationController?.show(ctrl, sender: self)
     }
+    
     @IBAction func tickTapped () {
         let ctrl = WebPage.Instance(type: .ticketView)
         self.navigationController?.show(ctrl, sender: self)
@@ -120,6 +112,33 @@ class JobDetail: MYViewController {
     @IBAction func stopTapped () {
         self.jobResult.executionEnd()
         self.executionTime()
+    }
+
+    // MARK: - Attachment delegate
+    
+    func openFileFromUrlWithString(_ page: String) {
+        let ctrl = WebPage.Instance(type: .none)
+        ctrl.openPage(page)
+        self.navigationController?.show(ctrl, sender: self)
+    }
+
+    // MARK: - private
+    
+    private func showData () {
+        self.header?.header.titleLabel.text = self.job.store.name
+        self.infoLabel.text = Lng("rifNum") + ": \(self.job.reference)\n" +
+            Lng("verIni") + ": " + self.job.start_date.toString(withFormat: "dd/MM/yyyy") + "\n" +
+            Lng("verEnd") + ": " + self.job.end_date.toString(withFormat: "dd/MM/yyyy") + "\n"
+        self.nameLabel.text = self.job.store.name
+        self.addrLabel.text = self.job.store.address
+    }
+    
+    private func loadResult () {
+        self.jobResult.load(id: self.job.id)
+        self.executionTime()
+        let resultsArray = self.jobResult.getResults()
+        let title = resultsArray.count == 0 ? "kpiInit" : "kpiCont"
+        self.contBtn.setTitle(Lng(title), for: .normal)
     }
     
     private func executionTime () {
