@@ -28,3 +28,5 @@ verEnd=Fine verifica
 kpiInit=Compila incarico
 kpiCont=Continua compilazione
 cancel=Annulla
+
+#note=Note

@@ -118,8 +118,9 @@ class JobDetail: MYViewController, JobDetailAtchDelegate {
     
     func openFileFromUrlWithString(_ page: String) {
         let ctrl = WebPage.Instance(type: .none)
-        ctrl.openPage(page)
+        ctrl.page = page
         self.navigationController?.show(ctrl, sender: self)
+//        ctrl.openPdfPage(pdfPage: page)
     }
 
     // MARK: - private

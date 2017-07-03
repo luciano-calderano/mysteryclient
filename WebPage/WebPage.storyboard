@@ -58,7 +58,7 @@
                     </view>
                     <connections>
                         <outlet property="header" destination="TgE-AS-Fsa" id="e6Z-7Y-NnN"/>
-                        <outlet property="webView" destination="QcW-Nw-1K2" id="vwj-Uq-BTN"/>
+                        <outlet property="webView" destination="QcW-Nw-1K2" id="tFX-ac-Fjb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eAd-fF-g1i" userLabel="First Responder" sceneMemberID="firstResponder"/>

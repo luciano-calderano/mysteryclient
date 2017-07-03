@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import WebKit
 
 class WebPage: MYViewController, UIWebViewDelegate {
     enum WebPageEnum: String {
@@ -37,36 +37,38 @@ class WebPage: MYViewController, UIWebViewDelegate {
             if id > 0 {
                 page += String(id)
             }
-            vc.openPage(page)
+            vc.page = page
         }
         return vc
     }
 
     @IBOutlet private var webView: UIWebView!
 
+    var page = ""
+    
     private var myWheel = MYWheel()
     private var requestObj: URLRequest!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.webView.delegate = self
-        self.webView.loadRequest(requestObj)
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.myWheel.start(self.webView)
-    }
-    
-    func openPage(_ page: String) {
-        let url = URL.init(string: page.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)!)
-        self.requestObj = URLRequest.init(url: url!)
+        if self.page.isEmpty {
+            return
+        }
+        
+        self.requestObj = URLRequest.init(url: URL.init(string: self.page)!)
         
         let token = User.shared.getToken()
         if token.isEmpty == false {
             self.requestObj.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
         }
+
+        self.webView.loadRequest(requestObj)
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {

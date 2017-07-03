@@ -332,6 +332,10 @@ class JobResult {
         return self.result.array(Keys.results.rawValue) as! [JsonDict]
     }
     
+    func getKpiResultId (kpiResult: JsonDict) -> Int {
+        return kpiResult.int(Keys.id.rawValue)
+    }
+    
     //MARK: - execution
     
     var executionNotStarted:Bool {
