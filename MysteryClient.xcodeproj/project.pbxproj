@@ -25,7 +25,7 @@
 		04461A331EFA8955008CD1E2 /* Ext.UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */; };
 		0472E2A91EFAC74D001CE358 /* Ext.Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472E2A81EFAC74D001CE358 /* Ext.Dictionary.swift */; };
 		047DD4621F0A7E4C007C4A02 /* KpiRadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047DD4611F0A7E4C007C4A02 /* KpiRadioCell.xib */; };
-		0494893D1F0A2B6E00A40122 /* KpisList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0494893C1F0A2B6E00A40122 /* KpisList.swift */; };
+		0494893D1F0A2B6E00A40122 /* KpiHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0494893C1F0A2B6E00A40122 /* KpiHome.swift */; };
 		0494893F1F0A4CF300A40122 /* KpisDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0494893E1F0A4CF300A40122 /* KpisDetail.swift */; };
 		049489421F0A4E8B00A40122 /* KpiRadio.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049489411F0A4E8B00A40122 /* KpiRadio.xib */; };
 		049489441F0A50EB00A40122 /* KpiRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049489431F0A50EB00A40122 /* KpiRadio.swift */; };
@@ -76,7 +76,7 @@
 		04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.UIViewController.swift; sourceTree = "<group>"; };
 		0472E2A81EFAC74D001CE358 /* Ext.Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.Dictionary.swift; sourceTree = "<group>"; };
 		047DD4611F0A7E4C007C4A02 /* KpiRadioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = KpiRadioCell.xib; path = Kpis/Sub/KpiRadioCell.xib; sourceTree = "<group>"; };
-		0494893C1F0A2B6E00A40122 /* KpisList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpisList.swift; path = Kpis/KpisList.swift; sourceTree = "<group>"; };
+		0494893C1F0A2B6E00A40122 /* KpiHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpiHome.swift; path = Kpis/KpiHome.swift; sourceTree = "<group>"; };
 		0494893E1F0A4CF300A40122 /* KpisDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpisDetail.swift; path = Kpis/KpisDetail.swift; sourceTree = "<group>"; };
 		049489411F0A4E8B00A40122 /* KpiRadio.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = KpiRadio.xib; path = Kpis/Sub/KpiRadio.xib; sourceTree = "<group>"; };
 		049489431F0A50EB00A40122 /* KpiRadio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpiRadio.swift; path = Kpis/Sub/KpiRadio.swift; sourceTree = "<group>"; };
@@ -215,7 +215,7 @@
 		0494893B1F0A2B3F00A40122 /* Kpis */ = {
 			isa = PBXGroup;
 			children = (
-				0494893C1F0A2B6E00A40122 /* KpisList.swift */,
+				0494893C1F0A2B6E00A40122 /* KpiHome.swift */,
 				0494893E1F0A4CF300A40122 /* KpisDetail.swift */,
 				049489401F0A4E6400A40122 /* Sub */,
 			);
@@ -490,7 +490,7 @@
 				04FC17221F011CA600226F1A /* Job.swift in Sources */,
 				04461A2F1EFA85F7008CD1E2 /* Ext.String.swift in Sources */,
 				04FCF19D1F0265D50087FBDF /* JobsHomeCell.swift in Sources */,
-				0494893D1F0A2B6E00A40122 /* KpisList.swift in Sources */,
+				0494893D1F0A2B6E00A40122 /* KpiHome.swift in Sources */,
 				04D609BA1F028BA30030968B /* JobDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

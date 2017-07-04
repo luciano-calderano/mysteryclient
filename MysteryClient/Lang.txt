@@ -1,3 +1,6 @@
+yes=Si
+no=No
+
 user=Username
 pass=Password
 signIn=Login
@@ -28,6 +31,10 @@ verEnd=Fine verifica
 kpiInit=Compila incarico
 kpiCont=Continua compilazione
 cancel=Annulla
+
+jobStarted=Sei riuscito a svolgere l'incarico?
+jobNotDone=Inserisci il motivo per cui non hai potuto svolgerlo
+jobStartTime=Inserisci data e ora di inizio dell'incarico
 
 note=Note
 back=Indietro

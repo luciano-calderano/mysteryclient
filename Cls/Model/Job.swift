@@ -406,6 +406,12 @@ class JobResult {
         // Optional. Longitude where the user press Start. It should not be shown to the user.
         var end = false
         // Optional. Flag showing the the data for the golocation of the user at the and of the job are been collected. Must be populate automatically when the user press Stop. It should not be shown to the user.
+        var end_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
+        // Optional. Date and time the user press end. It should not be shown to the user..
+        var end_lat:Double = 0
+        // Optional. Latitude where the user press end. It should not be shown to the user.
+        var end_lng:Double = 0
+        // Optional. Longitude where the user press end. It should not be shown to the user.
     }
 
     var id = 0
@@ -435,7 +441,7 @@ class JobResult {
     var positioning = PositioningResult()
         // Mandatory. Object of type Positioning. Contains the information to geolocate the beginning and the end of the job.
     
-    private let fileConfig  = UserDefaults.init(suiteName: "job.result")
+    private let fileConfig  = UserDefaults.init(suiteName: "result")
 
     func load (id: Int) {
         let result = self.fileConfig?.value(forKey: String(id)) as? JsonDict
@@ -462,6 +468,9 @@ class JobResult {
         self.positioning.start_lat  = pos.double("start_lat")
         self.positioning.start_lng  = pos.double("start_lng")
         self.positioning.end        = pos.bool("end")
+        self.positioning.end_date   = pos.string("end_date")
+        self.positioning.end_lat    = pos.double("end_lat")
+        self.positioning.end_lng    = pos.double("end_lng")
         
         for kpiDict in dict.array("results") as! [JsonDict] {
             let kpiResult = KpiResult()
@@ -491,6 +500,9 @@ class JobResult {
             "start_lat"  : self.positioning.start_lat,
             "start_lng"  : self.positioning.start_lng,
             "end"        : self.positioning.end,
+            "end_date"   : self.positioning.end_date,
+            "end_lat"    : self.positioning.end_lat,
+            "end_lng"    : self.positioning.end_lng,
             ]
 
         let dict = [
@@ -512,6 +524,3 @@ class JobResult {
         self.fileConfig?.setValue(dict, forKey: String(self.id))
     }
 }
-
-//MARK: -
-

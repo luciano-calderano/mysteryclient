@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreLocation
 
-class JobDetail: MYViewController, JobDetailAtchDelegate {
+class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDelegate {
     class func Instance(job: Job) -> JobDetail {
         let vc = self.load(storyboardName: "Jobs") as! JobDetail
         vc.job = job
@@ -17,7 +18,9 @@ class JobDetail: MYViewController, JobDetailAtchDelegate {
 
     var job: Job!
     private var jobResult = JobResult()
-    
+    private let locationManager = CLLocationManager()
+    private var locationValue = CLLocationCoordinate2D()
+
     @IBOutlet var infoLabel: MYLabel!
     @IBOutlet var nameLabel: MYLabel!
     @IBOutlet var addrLabel: MYLabel!
@@ -34,6 +37,12 @@ class JobDetail: MYViewController, JobDetailAtchDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.isAuthorizedtoGetUserLocation()
+        if CLLocationManager.locationServicesEnabled() {
+            self.locationManager.delegate = self
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        }
         
         for btn in [self.contBtn, self.tickBtn] as! [MYButton] {
             let ico = btn.image(for: .normal)?.resize(16)
@@ -64,7 +73,30 @@ class JobDetail: MYViewController, JobDetailAtchDelegate {
         self.showData()
         self.loadResult()
     }
-
+    // MARK: - Location manager
+    
+    func isAuthorizedtoGetUserLocation() {
+        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
+            self.locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            print("User allowed us to access location")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.locationValue = (manager.location?.coordinate)!
+        print("Did location updates is called")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Did location updates is called but failed getting location \(error)")
+    }
+    
     // MARK: - actions
     
     @IBAction func mapsTapped () {
@@ -96,7 +128,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate {
     }
     
     @IBAction func contTapped () {
-        let ctrl = KpisList.Instance(job: self.job, jobResult: self.jobResult)
+        let ctrl = KpiHome.Instance(job: self.job, jobResult: self.jobResult)
         self.navigationController?.show(ctrl, sender: self)
     }
     
@@ -106,15 +138,40 @@ class JobDetail: MYViewController, JobDetailAtchDelegate {
     }
     
     @IBAction func strtTapped () {
-        self.jobResult.execution_date = Date().toString(withFormat: Date.fmtData)
-        self.jobResult.execution_start_time = Date().toString(withFormat: Date.fmtOra)
-        self.jobResult.save()
+        self.locationManager.startUpdatingLocation()
         self.executionTime()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.jobResult.positioning.start = true
+            self.jobResult.positioning.start_date = Date().toString(withFormat: Date.fmtDataOraJson)
+            self.jobResult.positioning.start_lat = self.locationValue.latitude
+            self.jobResult.positioning.start_lng = self.locationValue.longitude
+            if self.jobResult.execution_date.isEmpty {
+                self.jobResult.execution_date = Date().toString(withFormat: Date.fmtDataJson)
+            }
+            if self.jobResult.execution_start_time.isEmpty {
+                self.jobResult.execution_start_time = Date().toString(withFormat: Date.fmtOra)
+            }
+            self.jobResult.save()
+            
+            self.locationManager.stopUpdatingLocation()
+        }
     }
     @IBAction func stopTapped () {
-        self.jobResult.execution_end_time = Date().toString(withFormat: Date.fmtOra)
-        self.jobResult.save()
+        self.locationManager.startUpdatingLocation()
         self.executionTime()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            
+            self.jobResult.positioning.end = true
+            self.jobResult.positioning.end_date = Date().toString(withFormat: Date.fmtDataOraJson)
+            self.jobResult.positioning.end_lat = self.locationValue.latitude
+            self.jobResult.positioning.end_lng = self.locationValue.longitude
+            if self.jobResult.execution_end_time.isEmpty {
+                self.jobResult.execution_end_time = Date().toString(withFormat: Date.fmtOra)
+            }
+            self.jobResult.save()
+            
+            self.locationManager.stopUpdatingLocation()
+        }
     }
 
     // MARK: - Attachment delegate
@@ -123,16 +180,16 @@ class JobDetail: MYViewController, JobDetailAtchDelegate {
         let ctrl = WebPage.Instance(type: .none)
         ctrl.page = page
         self.navigationController?.show(ctrl, sender: self)
-//        ctrl.openPdfPage(pdfPage: page)
     }
 
     // MARK: - private
     
     private func showData () {
         self.header?.header.titleLabel.text = self.job.store.name
-        self.infoLabel.text = Lng("rifNum") + ": \(self.job.reference)\n" +
-            Lng("verIni") + ": " + self.job.start_date.toString(withFormat: "dd/MM/yyyy") + "\n" +
-            Lng("verEnd") + ": " + self.job.end_date.toString(withFormat: "dd/MM/yyyy") + "\n"
+        self.infoLabel.text =
+            Lng("rifNum") + ": \(self.job.reference)\n" +
+            Lng("verIni") + ": \(self.job.start_date.toString(withFormat: Date.fmtData))\n" +
+            Lng("verEnd") + ": \(self.job.end_date.toString(withFormat: Date.fmtData))\n"
         self.nameLabel.text = self.job.store.name
         self.addrLabel.text = self.job.store.address
     }
@@ -151,11 +208,11 @@ class JobDetail: MYViewController, JobDetailAtchDelegate {
         self.strtBtn.backgroundColor = UIColor.lightGray
         self.stopBtn.backgroundColor = UIColor.lightGray
         
-        if self.jobResult.execution_start_time.isEmpty {
+        if self.jobResult.positioning.start == false {
             self.strtBtn.isEnabled = true
             self.strtBtn.backgroundColor = UIColor.white
         }
-        else if self.jobResult.execution_end_time.isEmpty {
+        else if self.jobResult.positioning.end == false {
             self.stopBtn.isEnabled = true
             self.stopBtn.backgroundColor = UIColor.white
         }
