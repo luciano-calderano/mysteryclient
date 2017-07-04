@@ -106,11 +106,14 @@ class JobDetail: MYViewController, JobDetailAtchDelegate {
     }
     
     @IBAction func strtTapped () {
-        self.jobResult.executionStart()
+        self.jobResult.execution_date = Date().toString(withFormat: Date.fmtData)
+        self.jobResult.execution_start_time = Date().toString(withFormat: Date.fmtOra)
+        self.jobResult.save()
         self.executionTime()
     }
     @IBAction func stopTapped () {
-        self.jobResult.executionEnd()
+        self.jobResult.execution_end_time = Date().toString(withFormat: Date.fmtOra)
+        self.jobResult.save()
         self.executionTime()
     }
 
@@ -137,7 +140,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate {
     private func loadResult () {
         self.jobResult.load(id: self.job.id)
         self.executionTime()
-        let resultsArray = self.jobResult.getResults()
+        let resultsArray = self.jobResult.results
         let title = resultsArray.count == 0 ? "kpiInit" : "kpiCont"
         self.contBtn.setTitle(Lng(title), for: .normal)
     }
@@ -148,11 +151,11 @@ class JobDetail: MYViewController, JobDetailAtchDelegate {
         self.strtBtn.backgroundColor = UIColor.lightGray
         self.stopBtn.backgroundColor = UIColor.lightGray
         
-        if self.jobResult.executionNotStarted {
+        if self.jobResult.execution_start_time.isEmpty {
             self.strtBtn.isEnabled = true
             self.strtBtn.backgroundColor = UIColor.white
         }
-        else if self.jobResult.executionNotEnded {
+        else if self.jobResult.execution_end_time.isEmpty {
             self.stopBtn.isEnabled = true
             self.stopBtn.backgroundColor = UIColor.white
         }

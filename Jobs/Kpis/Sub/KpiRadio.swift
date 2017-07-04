@@ -34,6 +34,12 @@ class KpiRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource, UITextVi
     
     override func updateKpi (kpi: Kpi) {
         super.updateKpi(kpi: kpi)
+        
+        self.kpiNote.text = self.notes
+        if self.value.isEmpty == false {
+            self.indexSelected = Int(self.value)!
+        }
+        
         self.kpiTitle.text = kpi.standard
         self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(self.kpi.valuations.count)
         self.tableView.reloadData()
@@ -51,6 +57,10 @@ class KpiRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource, UITextVi
                 return false
             }
         }
+        
+        self.value = String(self.indexSelected)
+        self.notes = self.kpiNote.text
+
         return true
     }
     
