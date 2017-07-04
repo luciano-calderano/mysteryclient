@@ -279,10 +279,11 @@ class Result {
 
 //MARK: - Result
 //MARK: -
-
+/*
 class JobResult {
     enum Keys:String {
         case id             = "id"
+        case estiDate       = "estimate_date"
         case execDate       = "execution_date"
         case execStrt       = "execution_start_time"
         case execStop       = "execution_end_time"
@@ -302,7 +303,7 @@ class JobResult {
     func load(id: Int) {
         self.result = [
             Keys.id.rawValue            : 0,
-            "estimate_date"             : "",
+            Keys.estiDate.rawValue      : "",
             "compiled"                  : 0,
             "compilation_date"          : "",
             "updated"                   : 0,
@@ -376,61 +377,141 @@ class PositioningResult  {
         "end"        : 0,
         ]
 }
-//
-//class JobResponse {
-//    var id = 0
-//        // Mandatory. Job ID
-//    var estimate_date = "" // Date [aaaa-mm-dd]
-//        // Mandatory. Date the user would like to do the job.
-//    var compiled = 0 // Boolean [0/1]
-//        // Mandatory. Flag if the job it’s been completed from the user. Must be enhanced automatically with 1 when the user finish to fill in the job and label the job ready to be sent.
-//    var compilation_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
-//        // Mandatory. Date and time when the user filled in the job. The date should be populate automatically with the date and the time when the user fills in the job and label it ready to be sent.
-//    var updated = 0 // Boolean [0/1]
-//        // Mandatory. Flag showing if the job it’s been updated from the user. Must be enhanced automatically with 1 when the user completed the job and label it to be sent only if the job was already completed and labeled like irregular.
-//    var update_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
-//        // Optional. Date and time the user updated the job. Must be populate automatically with date and time when the user completed the update and label the job like ready to be sent only if the job was previously competed and labeled like irregular.
-//    var execution_date = "" // Date [aaaa-mm-dd]
-//        // Mandatory. Date when the user executed the job. Must correspond with the estimated date for the execution. Id the date is different must inform the user to modify the date before the compilation.
-//    var execution_start_time = "" // Time [hh:mm]
-//        //Mandatory. Time the user started the job.
-//    var execution_end_time = "" // Time [hh:mm]
-//        // Mandatory. Time the user finished the job.
-//    var store_closed = 0 // Boolean [0/1]
-//        // Mandatory. Flag showing if it is possible to perform the job. Default value is 0. If it is not possible to perform the job flag must be set to 1. In this case you have to ask for the reason, store it in the comment field and exit compile page. The label which is shown to the user is Sei riuscito a svolgere l’incarico? Should be possible to modify by the user
-//    var comment = ""
-//        // Mandatory. Final comment from the user.
-//    var results = [KpiResponse]() // Array
-//        // Mandatory. Array of Result type objects. Must contain the user’s answers.
-//    var positioning = PositioningResponse()
-//        // Mandatory. Object of type Positioning. Contains the information to geolocate the beginning and the end of the job.
-//}
-//
-////MARK: -
-//
-//class KpiResponse {
-//    var kpi_id = 0
-//        //Mandatory. Kpi ID.
-//    var value = ""
-//        // Optional. The valuation the user gave to kpi. Depending of a kpi the value coul be text or valuation id (separated with ,). Is mandatory only if specified by kpi settings.
-//    var notes = ""
-//        // Optional. The note the user insert to give additional details to the answer (when necessary). Is mandatory only if indicated in the kpi settings.
-//    var attachment = ""
-//        // Optional. Name of the t file attached to the answer. Is present only if the kpi require to insert the attachment. Is mandatory only if indicated in the settings of the related kpi’s. the name indicated in the filed must be the same of the file insert in the .zip file.
-//        // Note: All the attachment present in the object Result must be insert in the file (.zip) that contains the file scheme (job.json).
-//}
-//
-////MARK: -
-//
-//class PositioningResponse  {
-//    var start = false
-//    // Optional. Flag showing if the data to geolocate the user at the beginning of the job have been collected. Must the populate automatically when the user press Start. It should not be shown to the user.
-//    var start_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
-//    // Optional. Date and time the user press Start. It should not be shown to the user..
-//    var start_lat:Double = 0
-//    // Optional. Latitude where the user press Start. It should not be shown to the user.
-//    var start_lng:Double = 0
-//    // Optional. Longitude where the user press Start. It should not be shown to the user.
-//    var end = false
-//    // Optional. Flag showing the the data for the golocation of the user at the and of the job are been collected. Must be populate automatically when the user press Stop. It should not be shown to the user.
-//}
+
+*/
+
+class JobResult {
+    class KpiResult {
+        var kpi_id = 0
+        //Mandatory. Kpi ID.
+        var value = ""
+        // Optional. The valuation the user gave to kpi. Depending of a kpi the value coul be text or valuation id (separated with ,). Is mandatory only if specified by kpi settings.
+        var notes = ""
+        // Optional. The note the user insert to give additional details to the answer (when necessary). Is mandatory only if indicated in the kpi settings.
+        var attachment = ""
+        // Optional. Name of the t file attached to the answer. Is present only if the kpi require to insert the attachment. Is mandatory only if indicated in the settings of the related kpi’s. the name indicated in the filed must be the same of the file insert in the .zip file.
+        // Note: All the attachment present in the object Result must be insert in the file (.zip) that contains the file scheme (job.json).
+    }
+    
+    //MARK: -
+    
+    class PositioningResult  {
+        var start = false
+        // Optional. Flag showing if the data to geolocate the user at the beginning of the job have been collected. Must the populate automatically when the user press Start. It should not be shown to the user.
+        var start_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
+        // Optional. Date and time the user press Start. It should not be shown to the user..
+        var start_lat:Double = 0
+        // Optional. Latitude where the user press Start. It should not be shown to the user.
+        var start_lng:Double = 0
+        // Optional. Longitude where the user press Start. It should not be shown to the user.
+        var end = false
+        // Optional. Flag showing the the data for the golocation of the user at the and of the job are been collected. Must be populate automatically when the user press Stop. It should not be shown to the user.
+    }
+
+    var id = 0
+        // Mandatory. Job ID
+    var estimate_date = "" // Date [aaaa-mm-dd]
+        // Mandatory. Date the user would like to do the job.
+    var compiled = 0 // Boolean [0/1]
+        // Mandatory. Flag if the job it’s been completed from the user. Must be enhanced automatically with 1 when the user finish to fill in the job and label the job ready to be sent.
+    var compilation_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
+        // Mandatory. Date and time when the user filled in the job. The date should be populate automatically with the date and the time when the user fills in the job and label it ready to be sent.
+    var updated = 0 // Boolean [0/1]
+        // Mandatory. Flag showing if the job it’s been updated from the user. Must be enhanced automatically with 1 when the user completed the job and label it to be sent only if the job was already completed and labeled like irregular.
+    var update_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
+        // Optional. Date and time the user updated the job. Must be populate automatically with date and time when the user completed the update and label the job like ready to be sent only if the job was previously competed and labeled like irregular.
+    var execution_date = "" // Date [aaaa-mm-dd]
+        // Mandatory. Date when the user executed the job. Must correspond with the estimated date for the execution. Id the date is different must inform the user to modify the date before the compilation.
+    var execution_start_time = "" // Time [hh:mm]
+        //Mandatory. Time the user started the job.
+    var execution_end_time = "" // Time [hh:mm]
+        // Mandatory. Time the user finished the job.
+    var store_closed = 0 // Boolean [0/1]
+        // Mandatory. Flag showing if it is possible to perform the job. Default value is 0. If it is not possible to perform the job flag must be set to 1. In this case you have to ask for the reason, store it in the comment field and exit compile page. The label which is shown to the user is Sei riuscito a svolgere l’incarico? Should be possible to modify by the user
+    var comment = ""
+        // Mandatory. Final comment from the user.
+    var results = [KpiResult]() // Array
+        // Mandatory. Array of Result type objects. Must contain the user’s answers.
+    var positioning = PositioningResult()
+        // Mandatory. Object of type Positioning. Contains the information to geolocate the beginning and the end of the job.
+    
+    private let fileConfig  = UserDefaults.init(suiteName: "job.result")
+
+    func load (id: Int) {
+        let result = self.fileConfig?.value(forKey: String(id)) as? JsonDict
+        guard results.isEmpty == false else {
+            self.id = id
+            return
+        }
+        let dict = result!
+        self.id                     = dict.int("id")
+        self.estimate_date          = dict.string("estimate_date")
+        self.compiled               = dict.int("compiled")
+        self.compilation_date       = dict.string("compilation_date")
+        self.updated                = dict.int("updated")
+        self.update_date            = dict.string("update_date")
+        self.execution_date         = dict.string("execution_date")
+        self.execution_start_time   = dict.string("execution_start_time")
+        self.execution_end_time     = dict.string("execution_end_time")
+        self.store_closed           = dict.int("store_closed")
+        self.comment                = dict.string("comment")
+        
+        let pos = dict.dictionary("positioning")
+        self.positioning.start      = pos.bool("start")
+        self.positioning.start_date = pos.string("start_date")
+        self.positioning.start_lat  = pos.double("start_lat")
+        self.positioning.start_lng  = pos.double("start_lng")
+        self.positioning.end        = pos.bool("end")
+        
+        for kpiDict in dict.array("results") as! [JsonDict] {
+            let kpiResult = KpiResult()
+            kpiResult.kpi_id        = kpiDict.int("kpi_id")
+            kpiResult.value         = kpiDict.string("value")
+            kpiResult.notes         = kpiDict.string("notes")
+            kpiResult.attachment    = kpiDict.string("attachment")
+            self.results.append(kpiResult)
+        }
+    }
+    
+    func save () {
+        var resultArray = [JsonDict]()
+        for kpiResult in self.results {
+            let dict:JsonDict = [
+                    "kpi_id"     : kpiResult.kpi_id,
+                    "value"      : kpiResult.value,
+                    "notes"      : kpiResult.notes,
+                    "attachment" : kpiResult.attachment,
+                ]
+            resultArray.append(dict)
+        }
+        
+        let dictPos:JsonDict = [
+            "start"      : self.positioning.start,
+            "start_date" : self.positioning.start_date,
+            "start_lat"  : self.positioning.start_lat,
+            "start_lng"  : self.positioning.start_lng,
+            "end"        : self.positioning.end,
+            ]
+
+        let dict = [
+            "id"                        : self.id,
+            "estimate_date"             : self.estimate_date,
+            "compiled"                  : self.compiled,
+            "compilation_date"          : self.compilation_date,
+            "updated"                   : self.updated,
+            "update_date"               : self.update_date,
+            "execution_date"            : self.execution_date,
+            "execution_start_time"      : self.execution_start_time,
+            "execution_end_time"        : self.execution_end_time,
+            "store_closed"              : self.store_closed,
+            "comment"                   : self.comment,
+            "results"                   : resultArray,
+            "positioning"               : dictPos
+        ] as JsonDict
+        
+        self.fileConfig?.setValue(dict, forKey: String(self.id))
+    }
+}
+
+//MARK: -
+

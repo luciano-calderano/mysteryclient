@@ -57,8 +57,6 @@ class KpisDetail: MYViewController, KpiSubViewDelegate {
         self.scroll.addSubviewWithConstraints(kpiSub)
         kpiSub.updateKpi(kpi: self.kpi)
         kpiSub.delegate = self
-        
-        
     }
     
     private func addKeybNotification () {
@@ -80,7 +78,6 @@ class KpisDetail: MYViewController, KpiSubViewDelegate {
         let sizeValue = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as! NSValue
         let h = sizeValue.cgRectValue.size.height
         self.scroll.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: h, right: 0)
-        self.updateOffset()
     }
     
     func keyboardWillHide (notification: NSNotification) {
@@ -88,32 +85,21 @@ class KpisDetail: MYViewController, KpiSubViewDelegate {
     }
     
     var prevOffset = CGPoint.zero
-    func subViewStartEditing(y: CGFloat) {
-        if y < 0 {
-            self.scroll.contentOffset = self.prevOffset
-        }
-        else {
-            self.prevOffset = self.scroll.contentOffset
-            var offset = self.scroll.contentOffset
-            offset.y = y
-            self.scroll.contentOffset = offset
-        }
+    func subViewEndEditing() {
+        self.scroll.contentOffset = self.prevOffset
     }
     
-    private func updateOffset () {
-//        var offset = self.scroll.contentOffset
-//        offset.y += self.scroll.contentInset.bottom
-//        let a = self.view.frame.size.height - offset.y
-//        let b = self.editRect.origin.y + self.editRect.size.height + self.scroll.frame.origin.y
-//        if a < b {
-//            self.scroll.contentOffset = offset
-//        }
+    func subViewStartEditing(y: CGFloat) {
+        self.prevOffset = self.scroll.contentOffset
+        var offset = self.scroll.contentOffset
+        offset.y = y
+        self.scroll.contentOffset = offset
     }
-
 }
 
 protocol KpiSubViewDelegate {
     func subViewStartEditing (y: CGFloat)
+    func subViewEndEditing ()
 }
 
 class KpiSubView: UIView {
@@ -121,6 +107,10 @@ class KpiSubView: UIView {
     var delegate: KpiSubViewDelegate?
     func updateKpi (kpi: Kpi) {
         self.kpi = kpi
+    }
+    
+    func checkResult () -> Bool {
+        return false
     }
 }
 

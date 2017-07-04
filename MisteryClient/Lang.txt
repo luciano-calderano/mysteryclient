@@ -1,9 +1,0 @@
-user=Username
-pass=Password
-login=Login
-iscri=Iscriviti
-passForg=Problemi di accesso?
-memoCred=Memorizza le credenziali
-
-home=Home
-incarichi=Incarichi

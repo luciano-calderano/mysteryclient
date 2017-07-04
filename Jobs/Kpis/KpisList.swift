@@ -25,8 +25,8 @@ class KpisList: MYViewController, UITableViewDelegate, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        for result in self.jobResult.getResults() {
-            self.resultKeys.append(self.jobResult.getKpiResultId(kpiResult: result))
+        for result in self.jobResult.results {
+            self.resultKeys.append(result.kpi_id)
         }
     }
 

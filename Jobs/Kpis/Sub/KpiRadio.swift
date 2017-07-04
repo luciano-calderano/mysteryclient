@@ -19,9 +19,7 @@ class KpiRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource, UITextVi
     @IBOutlet private var kpiTitle: MYLabel!
     @IBOutlet private var kpiNote: UITextView!
 
-    
-//    private let cellId = "cellId"
-//    private let radioIco = UIImage.init(named: "ico.radioBtn")?.resize(16)
+    private var attachmentPath = ""
     private var indexSelected = 0
     
     override func awakeFromNib() {
@@ -30,13 +28,8 @@ class KpiRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource, UITextVi
         self.kpiNote.delegate = self
         self.kpiNote.layer.borderColor = UIColor.lightGray.cgColor
         self.kpiNote.layer.borderWidth = 1
-        let nib = UINib(nibName: "KpiRadioCell", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: "KpiRadioCell")
-//        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.cellId)
-    }
-    
-    @IBAction func okTapped () {
-        self.removeFromSuperview()
+        
+        KpiRadioCell.register(tableView: self.tableView)
     }
     
     override func updateKpi (kpi: Kpi) {
@@ -46,6 +39,23 @@ class KpiRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource, UITextVi
         self.tableView.reloadData()
     }
     
+    override func checkResult() -> Bool {
+        let item = self.kpi.valuations[self.indexSelected]
+        if item.attachment_required == true {
+            if self.attachmentPath.isEmpty {
+                return false
+            }
+        }
+        if item.note_required == true {
+            if self.kpiNote.text.isEmpty {
+                return false
+            }
+        }
+        return true
+    }
+    
+    //MARK: - text view delegate
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         self.delegate?.subViewStartEditing(y: self.kpiNote.frame.origin.y - 30)
     }
@@ -53,7 +63,7 @@ class KpiRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource, UITextVi
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()
-            self.delegate?.subViewStartEditing(y: -1)
+            self.delegate?.subViewEndEditing()
             return false
         }
         return true
@@ -80,19 +90,6 @@ class KpiRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource, UITextVi
         cell.selectedView.isHidden = !(indexPath.row == self.indexSelected)
         cell.icoNote.isHidden = item.note_required == false
         cell.icoAtch.isHidden = item.attachment_required == false
-//        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellId)
-
-//        cell?.imageView?.image = UIImage.init(named: "ico.radioBtn")?.resize(16)
-//        var rect = cell?.frame
-//        rect?.origin.y = (rect?.size.height)! - 1
-//        rect?.size.height = 1
-//        let line = UIView.init(frame: rect!)
-//        line.backgroundColor = UIColor.myGreenDark
-//        cell?.addSubview(line)
-//        
-//        cell?.imageView?.isHidden = !(indexPath.row == self.indexSelected)
-//        cell?.textLabel?.text = item.name
-//        cell?.textLabel?.textColor = UIColor.darkGray
         return cell
     }
     
@@ -103,7 +100,16 @@ class KpiRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource, UITextVi
     }
 }
 
+// MARK: -
+
 class KpiRadioCell: UITableViewCell {
+    class func register (tableView: UITableView) {
+        let id = String (describing: self)
+
+        let nib = UINib(nibName: id, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: id)
+    }
+    
     class func dequeue (_ tableView: UITableView,
                         _ indexPath: IndexPath) -> KpiRadioCell {
         
