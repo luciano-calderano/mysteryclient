@@ -101,290 +101,182 @@ class Job {
     
     var store_closed = false
         //Mandatory. Flag showing if it is possible to perform the job. Default value is 0. If it is not possible to perform the job flag must be set to 1. In this case you have to ask for the reason, store it in the comment field and exit compile page. The label which is shown to the user is Sei riuscito a svolgere l’incarico? Should be possible to modify by the user
-}
 
-//MARK: -
-
-class Store {
-    var name = ""
+    //MARK: -
+    
+    class Store {
+        var name = ""
         // Mandatory. Store name. The label which is shown to the user is Punto vendita.
-    var type = ""
+        var type = ""
         // Mandatory. It is the store type of the store to check. The label which is shown to the user is Type.
-    var address = ""
+        var address = ""
         // Mandatory. Store address. Must be showed with the store name.
-    var latitude: Double = 0 // Numeric
+        var latitude: Double = 0 // Numeric
         // Optional. Store latitude. If available must be used to locate the store in the map. It should not be shown to the user.
-    var longitude: Double = 0
+        var longitude: Double = 0
         // Optional. Store longitude. If available must be used to locate the store in the map. It should not be shown to the user.
-}
-
-//MARK: -
-
-class Positioning  {
-    var required = false
-        // Mandatory. Flag showing if the geolocation of the user is required at the beginning and at the end of the job. It should not be shown to the user.
-    var start = false
-        // Optional. Flag showing if the data to geolocate the user at the beginning of the job have been collected. Must the populate automatically when the user press Start. It should not be shown to the user.
-    var start_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
-        // Optional. Date and time the user press Start. It should not be shown to the user..
-    var start_lat:Double = 0
-        // Optional. Latitude where the user press Start. It should not be shown to the user.
-    var start_lng:Double = 0
-        // Optional. Longitude where the user press Start. It should not be shown to the user.
-    var end = false
-        // Optional. Flag showing the the data for the golocation of the user at the and of the job are been collected. Must be populate automatically when the user press Stop. It should not be shown to the user.
-
-    var end_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
-        // Optional. Date and time when the user press Stop. It should not be shown to the user.
-    var end_lat:Double = 0
-        // Optional. Latitude where the user press Stop. It should not be shown to the user.
-    var end_lng:Double = 0
-        // Optional. Longitude where the user press Stop. It should not be shown to the user.
-}
-
-//MARK: -
-
-class Attachment {
-
-    var id = 0
+    }
+    
+    //MARK: -
+    
+    class Attachment {
+        var id = 0
         // Mandatory. Attachment ID. It should not be shown to the user.
-    var filename = ""
+        var filename = ""
         // Mandatory. Name of the file saved on the user device.
-    var name = ""
+        var name = ""
         // Mandatory. Description of the attached file. Must be used to prepare the link or button to download the file.
-    var url = ""
+        var url = ""
         // Mandatory. Url to call to download the file. The Url is already completed and does not require any modification. It should not be shown to the user.
-}
+    }
 
-//MARK: -
+    //MARK: -
+    
+    class Positioning  {
+        var required = false
+        // Mandatory. Flag showing if the geolocation of the user is required at the beginning and at the end of the job. It should not be shown to the user.
+        var start = false
+        // Optional. Flag showing if the data to geolocate the user at the beginning of the job have been collected. Must the populate automatically when the user press Start. It should not be shown to the user.
+        var start_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
+        // Optional. Date and time the user press Start. It should not be shown to the user..
+        var start_lat:Double = 0
+        // Optional. Latitude where the user press Start. It should not be shown to the user.
+        var start_lng:Double = 0
+        // Optional. Longitude where the user press Start. It should not be shown to the user.
+        var end = false
+        // Optional. Flag showing the the data for the golocation of the user at the and of the job are been collected. Must be populate automatically when the user press Stop. It should not be shown to the user.
+        
+        var end_date = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
+        // Optional. Date and time when the user press Stop. It should not be shown to the user.
+        var end_lat:Double = 0
+        // Optional. Latitude where the user press Stop. It should not be shown to the user.
+        var end_lng:Double = 0
+        // Optional. Longitude where the user press Stop. It should not be shown to the user.
+    }
+    
+    //MARK: -
 
-class Kpi {
-    var id = 0
+    class Kpi {
+        var id = 0
         // Mandatory. Kpi ID. It should not be shown to the user.
-    var name = ""
+        var name = ""
         // Mandatory. Kpi Name. It should not be shown to the user.
-    var section = 0 //  Boolean [0/1]
+        var section = 0 //  Boolean [0/1]
         // Mandatory. Flag to show that the Kpi contains the main question of a specific section. It should not be shown to the user.
-    var note = ""
+        var note = ""
         // Optional. Message to use if the section cannot the completed. If the answer to the question of this kpi is negative the notes of all the other questions in the same section must have the same message. Populate only if section = 1. It should not be shown to the user..
-
-    var section_id = 0
+        
+        var section_id = 0
         // Optional. Kpi section: show this kpi only if the kpi that has section = 1 has a postiive answer. It should not be shown to the user.
-
-    var required = false
+        
+        var required = false
         // Mandatory. Flag showing if the answer to this Kpi is mandatory. It should not be shown to the user.
-
-    var note_required = false
+        
+        var note_required = false
         // Mandatory. Flag showing if the note is mandatory for this Kpi. It should not be shown to the user.
-    var note_error_message = ""
+        var note_error_message = ""
         // Optional. Error Message to show to the user if the note is not filled in. To use only if the note is mandatory. It should not be shown to the user.
-    
-    var attachment = false
+        
+        var attachment = false
         // Mandatory. Flag showing if this Kpi require to insert the attachement from the user. It should not be shown to the user.
-
-    var attachment_required = false
+        
+        var attachment_required = false
         // Mandatory. Flag showing if it is mandatory to insert an attachement for this kpi. This kpi must the verified only if the Kpi require to insert an attachment. It should not be shown to the user.
-
-    var attachment_error_message = ""
+        
+        var attachment_error_message = ""
         // Optional. Messaggio di errore da mostrare all'utente se non viene inserito l'allegato. Da utilizzare solamente se l'allegato è richiesto. It should not be shown to the user.
-    
-    var type = ""
-    // Optional. Show the Type of answer expected and identify the Type of control to show at the user. “date”: The user must insert a date. The user can use a calendar. The format for the date is yyyy-mm- dd.
-    // “datetime”: The user must insert a date completed with time. The user can use a calendar that has the possibility to select also the time. The format for the date is è yyyy-mm-dd hh:mm:ss.
-    // “label”: The user cannot insert the information for this queation. It is used only to give information. “multicheckbox”: the user can select one o more answer within the proposed answers.
-    // “radio”: The user can select only one answer among the proposed answer. The selection is made from a list.
-    // “select”: the user can select only an answer among the proposed answers. The selection is made from a select.
-    // “text”: the user can fill in a text camp to insert the answer.
-    // “time”: the user must insert a timeo. It is possible to select the time from a selector. The format used from the system is hh:mm.
-    //  It should not be shown to the user.
-    
-    var order = 0
+        
+        var type = ""
+        // Optional. Show the Type of answer expected and identify the Type of control to show at the user. “date”: The user must insert a date. The user can use a calendar. The format for the date is yyyy-mm- dd.
+        // “datetime”: The user must insert a date completed with time. The user can use a calendar that has the possibility to select also the time. The format for the date is è yyyy-mm-dd hh:mm:ss.
+        // “label”: The user cannot insert the information for this queation. It is used only to give information. “multicheckbox”: the user can select one o more answer within the proposed answers.
+        // “radio”: The user can select only one answer among the proposed answer. The selection is made from a list.
+        // “select”: the user can select only an answer among the proposed answers. The selection is made from a select.
+        // “text”: the user can fill in a text camp to insert the answer.
+        // “time”: the user must insert a timeo. It is possible to select the time from a selector. The format used from the system is hh:mm.
+        //  It should not be shown to the user.
+        
+        var order = 0
         // Mandatory. Progressive order number of the question.
-    
-    var factor = ""
+        
+        var factor = ""
         // Mandatory. Name of the Kpi’s factor
-    
-    var service = ""
+        
+        var service = ""
         // Mandatory. Nome of the Kpi’s service.
-    
-    var standard = ""
+        
+        var standard = ""
         // Mandatory. Question to be answer from the user.
-    
-    var instructions = ""
+        
+        var instructions = ""
         // Optional. Additional instruction to fill in the job. Must be show after the question only if present.
-    
-    var valuations = [Valuations]()
+        
+        var valuations = [Valuations]()
         // Optional. Array of Valuation type objects. Contains the possible answers the user can choose. The display of the answer depends from the Kpi Type.
-    
-    var result = Result()
+        
+        var result = Result()
         // Mandatory. Result type object. Contains the information the user insert related to the current answer. The data in the Object will be used to populate the answer already insert from the user in case the user want to complete or up
-}
-
-//MARK: -
-
-class Valuations {
-    var id = 0
-        // Mandatory. Valuation ID. It should not be shown to the user.
-    
-    var name = ""
-        // Mandatory. Valuation name. Is the name show in the select or in the list used from the user to select the answers.
-    
-    var order = 0
-        // Mandatory. Progressive order number of the valuation
-    
-    var positive = false
-        // Mandatory. Flag showing is this valuation can be positve or negative. To be considered only if the Kpi has the flag section = 1. If the valuation is positive show the other Kpi in the same section, otherwise no. It should not be shown to the user.
-    
-    var note_required = false
-        // Mandatory. Flag if the valution require a not from the user. It should not be shown to the user.
-    
-    var attachment_required = false
-        // Mandatory. Flag showing if the valuation requires an attachement from the user. It should not be shown to the user.
-    
-    var dependencies = [Dependency]()
-        // Optional. Array of Dependency type objects. Contain actions activated from the answer to this section Essentially is necessary to enhance others Kpi or the respective notes.
-}
-
-//MARK: -
-
-class Dependency {
-    var key = 0
-        // Mandatory. Related kpi ID. Corresponds with the active Kpi only if the valuation selected require the cancellation of the note or to insert a specific note. It should not be shown to the user.
-    
-    var value = ""
-        // Optional. Value to set up as value in the relative Kpi answer. It should not be shown to the user.
-    
-    var notes = ""
-        // Optional. Value to set up as note in the relative Kpi answer. It should not be shown to the user.
-}
-
-//MARK: -
-
-class Result {
-    var id = 0
-        // Optional. Answer id. It should not be shown to the user.
-    
-    var value = ""
-        // Optional. The valuation given by the user to the Kpi. Depending of a kpi the value could be text or valuation id (separated from ;). Should be enhanced with the answer given from the user at the kpi question. The label which is shown to the user is Valutazione.
-    
-    var notes = ""
-        // Optional. The note insert by the user to give additional details on the answer if necessary. The label which is shown to the user is Note.
-    
-    var attachment = ""
-        // Optional. File mane attached to the answer. Is present only if the Kpi require to insert an attachment. The label which is shown to the user is Allegato.
-    
-    var url = ""
-        // Optional. Url to call to download the file. The call is already completed and does not require any modification. It should not be shown to the user.
+        
+        class Result {
+            var id = 0
+            // Optional. Answer id. It should not be shown to the user.
+            
+            var value = ""
+            // Optional. The valuation given by the user to the Kpi. Depending of a kpi the value could be text or valuation id (separated from ;). Should be enhanced with the answer given from the user at the kpi question. The label which is shown to the user is Valutazione.
+            
+            var notes = ""
+            // Optional. The note insert by the user to give additional details on the answer if necessary. The label which is shown to the user is Note.
+            
+            var attachment = ""
+            // Optional. File mane attached to the answer. Is present only if the Kpi require to insert an attachment. The label which is shown to the user is Allegato.
+            
+            var url = ""
+            // Optional. Url to call to download the file. The call is already completed and does not require any modification. It should not be shown to the user.
+        }
+        
+        class Valuations {
+            var id = 0
+            // Mandatory. Valuation ID. It should not be shown to the user.
+            
+            var name = ""
+            // Mandatory. Valuation name. Is the name show in the select or in the list used from the user to select the answers.
+            
+            var order = 0
+            // Mandatory. Progressive order number of the valuation
+            
+            var positive = false
+            // Mandatory. Flag showing is this valuation can be positve or negative. To be considered only if the Kpi has the flag section = 1. If the valuation is positive show the other Kpi in the same section, otherwise no. It should not be shown to the user.
+            
+            var note_required = false
+            // Mandatory. Flag if the valution require a not from the user. It should not be shown to the user.
+            
+            var attachment_required = false
+            // Mandatory. Flag showing if the valuation requires an attachement from the user. It should not be shown to the user.
+            
+            var dependencies = [Dependency]()
+            // Optional. Array of Dependency type objects. Contain actions activated from the answer to this section Essentially is necessary to enhance others Kpi or the respective notes.
+            class Dependency {
+                var key = 0
+                // Mandatory. Related kpi ID. Corresponds with the active Kpi only if the valuation selected require the cancellation of the note or to insert a specific note. It should not be shown to the user.
+                
+                var value = ""
+                // Optional. Value to set up as value in the relative Kpi answer. It should not be shown to the user.
+                
+                var notes = ""
+                // Optional. Value to set up as note in the relative Kpi answer. It should not be shown to the user.
+            }
+        }
+    }
 }
 
 //MARK: - Result
 //MARK: -
-/*
-class JobResult {
-    enum Keys:String {
-        case id             = "id"
-        case estiDate       = "estimate_date"
-        case execDate       = "execution_date"
-        case execStrt       = "execution_start_time"
-        case execStop       = "execution_end_time"
-        case results        = "results"
-        case positioning    = "positioning"
-    }
-
-    private let fileConfig  = UserDefaults.init(suiteName: "job.result")
-    private var result:JsonDict!
-    private func save() {
-        let id = String(self.result.int(Keys.id.rawValue))
-        self.fileConfig?.setValue(self.result, forKey: id)
-    }
-    
-    //MARK: - public
-    
-    func load(id: Int) {
-        self.result = [
-            Keys.id.rawValue            : 0,
-            Keys.estiDate.rawValue      : "",
-            "compiled"                  : 0,
-            "compilation_date"          : "",
-            "updated"                   : 0,
-            "update_date"               : "",
-            Keys.execDate.rawValue      : "",
-            Keys.execStrt.rawValue      : "",
-            Keys.execStop.rawValue      : "",
-            "store_closed"              : 0,
-            "comment"                   : "",
-            Keys.results.rawValue       : [JsonDict](),
-            Keys.positioning.rawValue   :  JsonDict()
-        ]
-
-        let result = self.fileConfig?.value(forKey: String(id))
-        if result != nil {
-            self.result = result as! JsonDict
-        }
-        else {
-            let pos = PositioningResult()
-            self.result[Keys.id.rawValue] = String(id)
-            self.result[Keys.id.rawValue] = pos.dict
-            self.save()            
-        }
-    }
-    
-    func getResults () -> [JsonDict] {
-        return self.result.array(Keys.results.rawValue) as! [JsonDict]
-    }
-    
-    func getKpiResultId (kpiResult: JsonDict) -> Int {
-        return kpiResult.int(Keys.id.rawValue)
-    }
-    
-    //MARK: - execution
-    
-    var executionNotStarted:Bool {
-        get { return self.result.string(Keys.execStrt.rawValue).isEmpty }
-    }
-    var executionNotEnded:Bool {
-        get { return self.result.string(Keys.execStop.rawValue).isEmpty }
-    }
-    
-    func executionStart () {
-        self.result[Keys.execDate.rawValue] = Date().toString(withFormat: Date.fmtDataJson)
-        self.result[Keys.execStrt.rawValue] = Date().toString(withFormat: Date.fmtOra)
-        self.save()
-    }
-    func executionEnd () {
-        self.result[Keys.execStop.rawValue] = Date().toString(withFormat: Date.fmtOra)
-        self.save()
-    }
-}
-
-class KpiResult {
-    var dict:JsonDict = [
-        "kpi_id"     : 0,
-        "value"      : "",
-        "notes"      : "",
-        "attachment" : "",
-        ]
-}
-
-//MARK: -
-
-class PositioningResult  {
-    var dict:JsonDict = [
-        "start"      : 0,
-        "start_date" : "",
-        "start_lat"  : 0,
-        "start_lng"  : 0,
-        "end"        : 0,
-        ]
-}
-
-*/
 
 class JobResult {
     class KpiResult {
         var kpi_id = 0
         //Mandatory. Kpi ID.
-        var value = ""
+        var value = [Int]()
         // Optional. The valuation the user gave to kpi. Depending of a kpi the value coul be text or valuation id (separated with ,). Is mandatory only if specified by kpi settings.
         var notes = ""
         // Optional. The note the user insert to give additional details to the answer (when necessary). Is mandatory only if indicated in the kpi settings.
@@ -474,17 +366,29 @@ class JobResult {
         
         for kpiDict in dict.array("results") as! [JsonDict] {
             let kpiResult = KpiResult()
+            for value in kpiDict.string("value").components(separatedBy: ",") {
+                kpiResult.value.append(Int(value)!)
+            }
             kpiResult.kpi_id        = kpiDict.int("kpi_id")
-            kpiResult.value         = kpiDict.string("value")
+//            kpiResult.value         = kpiDict.string("value").components(separatedBy: ",")
             kpiResult.notes         = kpiDict.string("notes")
             kpiResult.attachment    = kpiDict.string("attachment")
             self.results.append(kpiResult)
         }
     }
     
+
     func save () {
         var resultArray = [JsonDict]()
         for kpiResult in self.results {
+            var value = ""
+            for i in kpiResult.value {
+                if value.isEmpty == false {
+                    value += ","
+                }
+                value += String(i)
+            }
+
             let dict:JsonDict = [
                     "kpi_id"     : kpiResult.kpi_id,
                     "value"      : kpiResult.value,

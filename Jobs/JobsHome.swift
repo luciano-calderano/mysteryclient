@@ -170,7 +170,7 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
             job.positioning.end_lng = positioning.double("end_lng")
 
             for attachment in dict.array("attachments") as! [JsonDict] {
-                let att = Attachment()
+                let att = Job.Attachment()
                 att.id = attachment.int("id")
                 att.name = attachment.string("name")
                 att.filename = attachment.string("filename")
@@ -178,7 +178,7 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
                 job.attachments.append(att)
             }
             for kpiDict in dict.array("kpis") as! [JsonDict] {
-                let kpi = Kpi()
+                let kpi = Job.Kpi()
                 kpi.id = kpiDict.int("id")
                 kpi.name = kpiDict.string("name")
                 kpi.section = kpiDict.int("section") //  Boolean [0/1]
@@ -198,7 +198,7 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
                 kpi.instructions = kpiDict.string("instructions")
                 
                 for valutation in kpiDict.array("valuations") as! [JsonDict] {
-                    let val = Valuations()
+                    let val = Job.Kpi.Valuations()
                     val.id = valutation.int("id")
                     val.name = valutation.string("name")
                     val.order = valutation.int("order")
@@ -206,7 +206,7 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
                     val.note_required = valutation.bool("note_required") // Boolean [0/1]
                     val.attachment_required = valutation.bool("attachment_required") // Boolean [0/1]
                     for dependency in kpiDict.array("dependencies") as! [JsonDict] {
-                        let dep = Dependency()
+                        let dep = Job.Kpi.Valuations.Dependency()
                         dep.key = dependency.int("key")
                         dep.value = dependency.string("value")
                         dep.notes = dependency.string("notes")

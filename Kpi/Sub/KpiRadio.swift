@@ -29,14 +29,15 @@ class KpiRadio: KpiViewController, UITableViewDelegate, UITableViewDataSource, U
         self.kpiNote.layer.borderColor = UIColor.lightGray.cgColor
         self.kpiNote.layer.borderWidth = 1
         
-        self.updateKpi()
-//        KpiRadioCell.register(tableView: self.tableView)
-    }
-    
-    private func updateKpi () {
         self.kpiNote.text = self.kpiResult.notes
-        if self.kpiResult.value.isEmpty == false {
-            self.indexSelected = Int(self.kpiResult.value)!
+        if self.kpiResult.value.count > 0 {
+            let index = self.kpiResult.value.first!
+            for item in self.kpi.valuations {
+                if item.id == index {
+                    break
+                }
+                self.indexSelected += 1
+            }
         }
         
         self.kpiTitle.text = self.kpi.standard
@@ -45,20 +46,21 @@ class KpiRadio: KpiViewController, UITableViewDelegate, UITableViewDataSource, U
     }
     
     override func checkData() -> KpiResultType {
-//        let item = self.kpi.valuations[self.indexSelected]
-//        if item.attachment_required == true {
-//            if self.attachmentPath.isEmpty {
-//                return false
-//            }
-//        }
-//        if item.note_required == true {
-//            if self.kpiNote.text.isEmpty {
-//                return false
-//            }
-//        }
-//        
-//        self.value = String(self.indexSelected)
-//        self.notes = self.kpiNote.text
+        if self.kpi.attachment_required == true {
+            if self.attachmentPath.isEmpty {
+                return .err
+            }
+        }
+        if self.kpi.note_required == true {
+            if self.kpiNote.text.isEmpty {
+                return .err
+            }
+        }
+        
+        let item = self.kpi.valuations[self.indexSelected]
+
+        self.kpiResult.value.append(item.id)
+        self.kpiResult.notes = self.kpiNote.text
 
         return .next
     }

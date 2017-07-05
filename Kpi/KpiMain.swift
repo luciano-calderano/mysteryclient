@@ -153,7 +153,7 @@ protocol KpiViewControllerDelegate {
 
 class KpiViewController: UIViewController {
     var job: Job!
-    var kpi: Kpi!
+    var kpi: Job.Kpi!
     var jobResult: JobResult!
     var kpiResult: JobResult.KpiResult!
     var delegate: KpiViewControllerDelegate?
