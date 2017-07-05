@@ -61,9 +61,11 @@ class KpiRadio: KpiViewController, UITableViewDelegate, UITableViewDataSource, U
         }
         
         let item = self.kpi.valuations[self.indexSelected]
+        self.kpiResult.kpi_id = self.kpi.id
         self.kpiResult.value = String(item.id)
         self.kpiResult.notes = self.kpiNote.text
-        self.jobResult.save()
+        Config.jobResult.save()
+        self.view.endEditing(true)
         return .next
     }
     
@@ -75,8 +77,8 @@ class KpiRadio: KpiViewController, UITableViewDelegate, UITableViewDataSource, U
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
-            textView.resignFirstResponder()
             self.delegate?.endEditing()
+            textView.resignFirstResponder()
             return false
         }
         return true

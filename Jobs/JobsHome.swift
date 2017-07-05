@@ -23,6 +23,9 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        Config.job = Job()
+        Config.jobResult = JobResult()
+        
         let saved = self.fileConfig?.value(forKey: "jobs")
         if saved != nil {
             let jobs = saved as! [JsonDict]
@@ -104,18 +107,15 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = self.dataArray[indexPath.row] as! Job
-        let vc = JobDetail.Instance(job: item)
+        Config.job = self.dataArray[indexPath.row] as! Job
+        Config.jobResult.load(id: Config.job.id)
+        let vc = JobDetail.Instance()
         self.navigationController?.show(vc, sender: self)
     }
 
     // MARK: - Dict -> Job Class
     
     private func jobsWithArray(_ jobsArray: [JsonDict]) {
-        let dateFmt = "yyyy-MM-dd"
-        let dateTimeFmt = "yyyy-MM-dd HH:mm:ss"
-//        let timeFmt = "HH:mm"
-        
         self.jobsDone = [Job]()
         self.jobsTodo = [Job]()
         
@@ -127,23 +127,23 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
             job.description = dict.string("description")
             job.additional_description = dict.string("additional_description")
             job.details = dict.string("details")
-            job.start_date = dict.date("start_date", fmt: dateFmt)
-            job.end_date = dict.date("end_date", fmt: dateFmt)
-            job.estimate_date = dict.date("estimate_date", fmt: dateFmt)
+            job.start_date = dict.date("start_date", fmt: Date.fmtDataJson)
+            job.end_date = dict.date("end_date", fmt: Date.fmtDataJson)
+            job.estimate_date = dict.date("estimate_date", fmt: Date.fmtDataJson)
             
             job.fee_desc = dict.string("fee_desc")
             job.status = dict.string("status")
             job.booked = dict.bool("booked") // Boolean [0/1]
-            job.booking_date = dict.date("booking_date", fmt: dateTimeFmt)
+            job.booking_date = dict.date("booking_date", fmt: Date.fmtDataOraJson)
             job.compiled = dict.bool("compiled") // Boolean [0/1]
-            job.compilation_date = dict.date("compilation_date", fmt: dateTimeFmt)
+            job.compilation_date = dict.date("compilation_date", fmt: Date.fmtDataOraJson)
             job.updated = dict.bool("updated") // Boolean [0/1]
-            job.update_date = dict.date("update_date", fmt: dateTimeFmt)
+            job.update_date = dict.date("update_date", fmt: Date.fmtDataOraJson)
             job.validated = dict.bool("validated") // Boolean [0/1]
-            job.validation_date = dict.date("validation_date", fmt: dateTimeFmt)
+            job.validation_date = dict.date("validation_date", fmt: Date.fmtDataOraJson)
             job.irregular = dict.bool("irregular") // Boolean [0/1]
             job.notes = dict.string("notes")
-            job.execution_date = dict.date("execution_date", fmt: dateFmt)
+            job.execution_date = dict.date("execution_date", fmt: Date.fmtDataJson)
             job.execution_start_time = dict.string("execution_start_time") // Time [hh:mm]
             job.execution_end_time = dict.string("execution_end_time") // Time [hh:mm]
             job.comment = dict.string("comment")

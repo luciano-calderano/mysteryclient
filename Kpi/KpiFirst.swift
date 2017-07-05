@@ -26,9 +26,12 @@ class KpiFirst: KpiViewController {
             btn?.layer.cornerRadius = (btn?.frame.size.height)! / 2
         }
         self.yesTapped()
-        self.undondeText.text = self.jobResult.comment
-        if self.jobResult.execution_date.isEmpty == false {
-            let d = self.jobResult.execution_date + " " + self.jobResult.execution_start_time + ":00"
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.undondeText.text = Config.jobResult.comment
+        if Config.jobResult.execution_date.isEmpty == false {
+            let d = Config.jobResult.execution_date + " " + Config.jobResult.execution_start_time + ":00"
             self.datePicker.date = d.toDate(withFormat: Date.fmtDataOraJson)
         }
     }
@@ -39,15 +42,15 @@ class KpiFirst: KpiViewController {
                 self.undondeText.becomeFirstResponder()
                 return .err
             }
-            self.jobResult.comment = self.undondeText.text!
-            self.jobResult.compiled = 1
-            self.jobResult.save()
+            Config.jobResult.comment = self.undondeText.text!
+            Config.jobResult.compiled = 1
+            Config.jobResult.save()
             return .next
         }
         
-        self.jobResult.execution_date = self.datePicker.date.toString(withFormat: Date.fmtDataJson)
-        self.jobResult.execution_start_time = self.datePicker.date.toString(withFormat: Date.fmtOra)
-        self.jobResult.save()
+        Config.jobResult.execution_date = self.datePicker.date.toString(withFormat: Date.fmtDataJson)
+        Config.jobResult.execution_start_time = self.datePicker.date.toString(withFormat: Date.fmtOra)
+        Config.jobResult.save()
 
         return .next
     }

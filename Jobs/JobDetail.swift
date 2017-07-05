@@ -10,14 +10,11 @@ import UIKit
 import CoreLocation
 
 class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDelegate {
-    class func Instance(job: Job) -> JobDetail {
+    class func Instance() -> JobDetail {
         let vc = self.load(storyboardName: "Jobs") as! JobDetail
-        vc.job = job
         return vc
     }
 
-    var job: Job!
-    private var jobResult = JobResult()
     private let locationManager = CLLocationManager()
     private var locationValue = CLLocationCoordinate2D()
 
@@ -100,20 +97,20 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     // MARK: - actions
     
     @IBAction func mapsTapped () {
-        _ = Maps(job: self.job)
+        _ = Maps(job: Config.job)
     }
     
     @IBAction func descTapped () {
         let subView = JobDetailDesc.Instance()
         subView.frame = self.view.frame
-        subView.jobDesc.text = self.job.description
+        subView.jobDesc.text = Config.job.description
         self.view.addSubview(subView)
     }
     
     @IBAction func atchTapped () {
         let subView = JobDetailAtch.Instance()
         subView.frame = self.view.frame
-        subView.job = self.job
+        subView.job = Config.job
         subView.delegate = self
         self.view.addSubview(subView)
     }
@@ -128,7 +125,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     }
     
     @IBAction func contTapped () {
-        let ctrl = KpiMain.Instance(job: self.job, jobResult: self.jobResult)
+        let ctrl = KpiMain.Instance()
         self.navigationController?.show(ctrl, sender: self)
     }
     
@@ -141,17 +138,17 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
         self.locationManager.startUpdatingLocation()
         self.executionTime()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.jobResult.positioning.start = true
-            self.jobResult.positioning.start_date = Date().toString(withFormat: Date.fmtDataOraJson)
-            self.jobResult.positioning.start_lat = self.locationValue.latitude
-            self.jobResult.positioning.start_lng = self.locationValue.longitude
-            if self.jobResult.execution_date.isEmpty {
-                self.jobResult.execution_date = Date().toString(withFormat: Date.fmtDataJson)
+            Config.jobResult.positioning.start = true
+            Config.jobResult.positioning.start_date = Date().toString(withFormat: Date.fmtDataOraJson)
+            Config.jobResult.positioning.start_lat = self.locationValue.latitude
+            Config.jobResult.positioning.start_lng = self.locationValue.longitude
+            if Config.jobResult.execution_date.isEmpty {
+                Config.jobResult.execution_date = Date().toString(withFormat: Date.fmtDataJson)
             }
-            if self.jobResult.execution_start_time.isEmpty {
-                self.jobResult.execution_start_time = Date().toString(withFormat: Date.fmtOra)
+            if Config.jobResult.execution_start_time.isEmpty {
+                Config.jobResult.execution_start_time = Date().toString(withFormat: Date.fmtOra)
             }
-            self.jobResult.save()
+            Config.jobResult.save()
             
             self.locationManager.stopUpdatingLocation()
         }
@@ -161,14 +158,14 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
         self.executionTime()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             
-            self.jobResult.positioning.end = true
-            self.jobResult.positioning.end_date = Date().toString(withFormat: Date.fmtDataOraJson)
-            self.jobResult.positioning.end_lat = self.locationValue.latitude
-            self.jobResult.positioning.end_lng = self.locationValue.longitude
-            if self.jobResult.execution_end_time.isEmpty {
-                self.jobResult.execution_end_time = Date().toString(withFormat: Date.fmtOra)
+            Config.jobResult.positioning.end = true
+            Config.jobResult.positioning.end_date = Date().toString(withFormat: Date.fmtDataOraJson)
+            Config.jobResult.positioning.end_lat = self.locationValue.latitude
+            Config.jobResult.positioning.end_lng = self.locationValue.longitude
+            if Config.jobResult.execution_end_time.isEmpty {
+                Config.jobResult.execution_end_time = Date().toString(withFormat: Date.fmtOra)
             }
-            self.jobResult.save()
+            Config.jobResult.save()
             
             self.locationManager.stopUpdatingLocation()
         }
@@ -185,19 +182,18 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     // MARK: - private
     
     private func showData () {
-        self.header?.header.titleLabel.text = self.job.store.name
+        self.header?.header.titleLabel.text = Config.job.store.name
         self.infoLabel.text =
-            Lng("rifNum") + ": \(self.job.reference)\n" +
-            Lng("verIni") + ": \(self.job.start_date.toString(withFormat: Date.fmtData))\n" +
-            Lng("verEnd") + ": \(self.job.end_date.toString(withFormat: Date.fmtData))\n"
-        self.nameLabel.text = self.job.store.name
-        self.addrLabel.text = self.job.store.address
+            Lng("rifNum") + ": \(Config.job.reference)\n" +
+            Lng("verIni") + ": \(Config.job.start_date.toString(withFormat: Date.fmtData))\n" +
+            Lng("verEnd") + ": \(Config.job.end_date.toString(withFormat: Date.fmtData))\n"
+        self.nameLabel.text = Config.job.store.name
+        self.addrLabel.text = Config.job.store.address
     }
     
     private func loadAndShowResult () {
-        self.jobResult.load(id: self.job.id)
         self.executionTime()
-        let resultsArray = self.jobResult.results
+        let resultsArray = Config.jobResult.results
         let title = resultsArray.count == 0 ? "kpiInit" : "kpiCont"
         self.contBtn.setTitle(Lng(title), for: .normal)
     }
@@ -208,11 +204,11 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
         self.strtBtn.backgroundColor = UIColor.lightGray
         self.stopBtn.backgroundColor = UIColor.lightGray
         
-        if self.jobResult.positioning.start == false {
+        if Config.jobResult.positioning.start == false {
             self.strtBtn.isEnabled = true
             self.strtBtn.backgroundColor = UIColor.white
         }
-        else if self.jobResult.positioning.end == false {
+        else if Config.jobResult.positioning.end == false {
             self.stopBtn.isEnabled = true
             self.stopBtn.backgroundColor = UIColor.white
         }

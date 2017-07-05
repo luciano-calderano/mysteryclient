@@ -12,4 +12,6 @@ import Foundation
 struct Config {
     static let url = "http://mysteryclient.mebius.it/default/"
     static let mapUrl = "http://maps.apple.com/?"
+    static var job = Job()
+    static var jobResult = JobResult()
 }

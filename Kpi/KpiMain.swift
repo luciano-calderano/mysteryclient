@@ -15,10 +15,8 @@ enum KpiResultType {
 }
 
 class KpiMain: MYViewController, KpiViewControllerDelegate {
-    class func Instance(job: Job, jobResult: JobResult) -> KpiMain {
+    class func Instance() -> KpiMain {
         let vc = self.load(storyboardName: "Kpi") as! KpiMain
-        vc.job = job
-        vc.jobResult = jobResult
         return vc
     }
     
@@ -29,14 +27,11 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
     private var kpiNavi = UINavigationController()
     private var kpiCtrl: KpiViewController!
     
-    var job: Job!
-    var jobResult: JobResult!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addKeybNotification()
+        
         self.kpiCtrl = KpiFirst.Instance()
-        self.kpiCtrl.job = self.job
-        self.kpiCtrl.jobResult = self.jobResult
 
         self.kpiNavi = UINavigationController(rootViewController:self.kpiCtrl)
         self.kpiNavi.navigationBar.isHidden = true
@@ -44,6 +39,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         
         self.kpiNavi.view.frame = self.scroll.bounds
         self.scroll.addSubview(self.kpiNavi.view)
+        self.kpiCtrl.header = self.header?.header
         
         for btn in [self.backBtn, self.nextBtn] as! [MYButton] {
             let ico = btn.image(for: .normal)?.resize(12)
@@ -54,9 +50,9 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         self.nextBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     }
     
-    private func gotoKpi () {
+    private func nextKpi () {
         let idx = self.kpiNavi.viewControllers.count - 1
-        let kpi = self.job.kpis[idx]
+        let kpi = Config.job.kpis[idx]
         
         switch kpi.type {
         case "radio" :
@@ -66,24 +62,11 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         }
         
         self.kpiCtrl.kpi = kpi
-        self.kpiCtrl.job = self.job
-        self.kpiCtrl.jobResult = self.jobResult
-        if idx <= self.jobResult.results.count {
-            self.jobResult.results.append(JobResult.KpiResult())
-        }
-        
-        self.updateCtrl(idx: idx)
+        self.kpiCtrl.delegate = self
+        self.kpiCtrl.header = self.header?.header
+        self.kpiCtrl.view.endEditing(true)
         self.kpiNavi.pushViewController(self.kpiCtrl, animated: true)
     }
-    
-    private func updateCtrl (idx: Int) {
-        let kpi = self.job.kpis[idx]
-        self.headerTitle = kpi.service + " (\(idx + 1) / \(self.job.kpis.count))"
-        self.kpiCtrl.kpiResult = self.jobResult.results[idx]
-        self.kpiCtrl.delegate = self
-        self.scroll.contentOffset = CGPoint.zero
-    }
-    
     
     // MARK: - Actions
     
@@ -92,20 +75,18 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         case .home:
             self.navigationController?.popToRootViewController(animated: true)
         case .next:
-            self.gotoKpi()
+            self.nextKpi()
         case .err:
             return
         }
     }
     
     @IBAction func prevTapped () {
-        
         switch self.kpiNavi.viewControllers.count {
         case 1:
             self.navigationController?.popViewController(animated: true)
         default:
-            let idx = self.kpiNavi.viewControllers.count - 1
-            self.updateCtrl(idx: idx)
+            self.kpiCtrl.view.endEditing(true)
             self.kpiNavi.popViewController(animated: true)
         }
     }
@@ -128,8 +109,8 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
     }
     
     func keyboardWillShow (notification: NSNotification) {
-        let sizeValue = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as! NSValue
-        let h = sizeValue.cgRectValue.size.height
+        let kbSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as! NSValue
+        let h = kbSize.cgRectValue.size.height
         self.scroll.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: h, right: 0)
     }
     
@@ -152,21 +133,37 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
     }
 }
 
+    // MARK: -
+
 protocol KpiViewControllerDelegate {
     func startEditing (y: CGFloat)
     func endEditing ()
 }
 
 class KpiViewController: UIViewController {
-    var job: Job!
     var kpi: Job.Kpi!
-    var jobResult: JobResult!
     var kpiResult: JobResult.KpiResult!
     var delegate: KpiViewControllerDelegate?
+    var header: HeaderView!
     
     func checkData () -> KpiResultType {
         return .err
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let idx = (self.navigationController?.viewControllers.count)! - 2
+        if idx < 0 {
+            self.header.titleLabel.text = Config.job.store.name
+        }
+        else {
+            if idx >= Config.jobResult.results.count {
+                Config.jobResult.results.append(JobResult.KpiResult())
+            }
+            self.kpi = Config.job.kpis[idx]
+            self.kpiResult = Config.jobResult.results[idx]
+            self.header.titleLabel.text = kpi.service + " (\(idx + 1) / \(Config.job.kpis.count))"
+        }
+    }
 }
 
