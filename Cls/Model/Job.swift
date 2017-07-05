@@ -444,12 +444,12 @@ class JobResult {
     private let fileConfig  = UserDefaults.init(suiteName: "result")
 
     func load (id: Int) {
-        let result = self.fileConfig?.value(forKey: String(id)) as? JsonDict
-        guard results.isEmpty == false else {
+        let resultFromPlist = self.fileConfig?.value(forKey: String(id)) as? JsonDict
+        guard resultFromPlist != nil else {
             self.id = id
             return
         }
-        let dict = result!
+        let dict = resultFromPlist!
         self.id                     = dict.int("id")
         self.estimate_date          = dict.string("estimate_date")
         self.compiled               = dict.int("compiled")

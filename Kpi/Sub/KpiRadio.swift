@@ -8,12 +8,12 @@
 
 import UIKit
 
-class KpiRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
+class KpiRadio: KpiViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
     class func Instance() -> KpiRadio {
-        let id = String (describing: self)
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! KpiRadio
+        let vc = self.load(storyboardName: "Kpi") as! KpiRadio
+        return vc
     }
-    
+
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var tableViewHeight: NSLayoutConstraint!
     @IBOutlet private var kpiTitle: MYLabel!
@@ -22,58 +22,57 @@ class KpiRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource, UITextVi
     private var attachmentPath = ""
     private var indexSelected = 0
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         self.kpiNote.text = ""
         self.kpiNote.delegate = self
         self.kpiNote.layer.borderColor = UIColor.lightGray.cgColor
         self.kpiNote.layer.borderWidth = 1
         
-        KpiRadioCell.register(tableView: self.tableView)
+        self.updateKpi()
+//        KpiRadioCell.register(tableView: self.tableView)
     }
     
-    override func updateKpi (kpi: Kpi) {
-        super.updateKpi(kpi: kpi)
-        
-        self.kpiNote.text = self.notes
-        if self.value.isEmpty == false {
-            self.indexSelected = Int(self.value)!
+    private func updateKpi () {
+        self.kpiNote.text = self.kpiResult.notes
+        if self.kpiResult.value.isEmpty == false {
+            self.indexSelected = Int(self.kpiResult.value)!
         }
         
-        self.kpiTitle.text = kpi.standard
+        self.kpiTitle.text = self.kpi.standard
         self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(self.kpi.valuations.count)
         self.tableView.reloadData()
     }
     
-    override func checkResult() -> Bool {
-        let item = self.kpi.valuations[self.indexSelected]
-        if item.attachment_required == true {
-            if self.attachmentPath.isEmpty {
-                return false
-            }
-        }
-        if item.note_required == true {
-            if self.kpiNote.text.isEmpty {
-                return false
-            }
-        }
-        
-        self.value = String(self.indexSelected)
-        self.notes = self.kpiNote.text
+    override func checkData() -> KpiResultType {
+//        let item = self.kpi.valuations[self.indexSelected]
+//        if item.attachment_required == true {
+//            if self.attachmentPath.isEmpty {
+//                return false
+//            }
+//        }
+//        if item.note_required == true {
+//            if self.kpiNote.text.isEmpty {
+//                return false
+//            }
+//        }
+//        
+//        self.value = String(self.indexSelected)
+//        self.notes = self.kpiNote.text
 
-        return true
+        return .next
     }
     
     //MARK: - text view delegate
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        self.delegate?.subViewStartEditing(y: self.kpiNote.frame.origin.y - 30)
+        self.delegate?.startEditing(y: self.kpiNote.frame.origin.y - 30)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()
-            self.delegate?.subViewEndEditing()
+            self.delegate?.endEditing()
             return false
         }
         return true

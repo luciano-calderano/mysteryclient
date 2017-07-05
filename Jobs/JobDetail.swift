@@ -37,7 +37,6 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.isAuthorizedtoGetUserLocation()
         if CLLocationManager.locationServicesEnabled() {
             self.locationManager.delegate = self
@@ -71,7 +70,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
         }
         
         self.showData()
-        self.loadResult()
+        self.loadAndShowResult()
     }
     // MARK: - Location manager
     
@@ -90,11 +89,12 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.locationValue = (manager.location?.coordinate)!
-        print("Did location updates is called")
+        print("Loc. \(self.locationValue)")
+        self.locationManager.stopUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Did location updates is called but failed getting location \(error)")
+        print("Location updates error \(error)")
     }
     
     // MARK: - actions
@@ -128,7 +128,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     }
     
     @IBAction func contTapped () {
-        let ctrl = KpiHome.Instance(job: self.job, jobResult: self.jobResult)
+        let ctrl = KpiMain.Instance(job: self.job, jobResult: self.jobResult)
         self.navigationController?.show(ctrl, sender: self)
     }
     
@@ -194,7 +194,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
         self.addrLabel.text = self.job.store.address
     }
     
-    private func loadResult () {
+    private func loadAndShowResult () {
         self.jobResult.load(id: self.job.id)
         self.executionTime()
         let resultsArray = self.jobResult.results
