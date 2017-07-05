@@ -28,7 +28,6 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
     
     private var kpiNavi = UINavigationController()
     private var kpiCtrl: KpiViewController!
-    private var kpiIndex = -1
     
     var job: Job!
     var jobResult: JobResult!
@@ -56,8 +55,8 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
     }
     
     private func gotoKpi () {
-        let kpi = self.job.kpis[self.kpiIndex]
-        self.headerTitle = kpi.service + " (\(self.kpiIndex + 1) / \(self.job.kpis.count))"
+        let idx = self.kpiNavi.viewControllers.count - 1
+        let kpi = self.job.kpis[idx]
         
         switch kpi.type {
         case "radio" :
@@ -69,15 +68,22 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         self.kpiCtrl.kpi = kpi
         self.kpiCtrl.job = self.job
         self.kpiCtrl.jobResult = self.jobResult
-        if self.kpiIndex < self.jobResult.results.count {
-            self.kpiCtrl.kpiResult = self.jobResult.results[self.kpiIndex]
+        if idx <= self.jobResult.results.count {
+            self.jobResult.results.append(JobResult.KpiResult())
         }
-        else {
-            self.kpiCtrl.kpiResult = JobResult.KpiResult()
-        }
-        self.kpiCtrl.delegate = self
+        
+        self.updateCtrl(idx: idx)
         self.kpiNavi.pushViewController(self.kpiCtrl, animated: true)
     }
+    
+    private func updateCtrl (idx: Int) {
+        let kpi = self.job.kpis[idx]
+        self.headerTitle = kpi.service + " (\(idx + 1) / \(self.job.kpis.count))"
+        self.kpiCtrl.kpiResult = self.jobResult.results[idx]
+        self.kpiCtrl.delegate = self
+        self.scroll.contentOffset = CGPoint.zero
+    }
+    
     
     // MARK: - Actions
     
@@ -86,7 +92,6 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         case .home:
             self.navigationController?.popToRootViewController(animated: true)
         case .next:
-            self.kpiIndex += 1
             self.gotoKpi()
         case .err:
             return
@@ -94,12 +99,13 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
     }
     
     @IBAction func prevTapped () {
-        self.kpiIndex -= 1
         
         switch self.kpiNavi.viewControllers.count {
         case 1:
             self.navigationController?.popViewController(animated: true)
         default:
+            let idx = self.kpiNavi.viewControllers.count - 1
+            self.updateCtrl(idx: idx)
             self.kpiNavi.popViewController(animated: true)
         }
     }

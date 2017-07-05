@@ -28,10 +28,13 @@ class KpiRadio: KpiViewController, UITableViewDelegate, UITableViewDataSource, U
         self.kpiNote.delegate = self
         self.kpiNote.layer.borderColor = UIColor.lightGray.cgColor
         self.kpiNote.layer.borderWidth = 1
-        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.indexSelected = 0
         self.kpiNote.text = self.kpiResult.notes
-        if self.kpiResult.value.count > 0 {
-            let index = self.kpiResult.value.first!
+        if self.kpiResult.value.isEmpty == false {
+            let index = Int(self.kpiResult.value)
             for item in self.kpi.valuations {
                 if item.id == index {
                     break
@@ -58,10 +61,9 @@ class KpiRadio: KpiViewController, UITableViewDelegate, UITableViewDataSource, U
         }
         
         let item = self.kpi.valuations[self.indexSelected]
-
-        self.kpiResult.value.append(item.id)
+        self.kpiResult.value = String(item.id)
         self.kpiResult.notes = self.kpiNote.text
-
+        self.jobResult.save()
         return .next
     }
     
