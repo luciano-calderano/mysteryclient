@@ -230,7 +230,7 @@
 				04F1375D1F0E6AA6002946D6 /* SubFirst.swift */,
 				04F1375F1F0E6C8F002946D6 /* SubPage.xib */,
 				04F137611F0E6D01002946D6 /* SubPage.swift */,
-				04BB77D21F0E328A002AEEF6 /* Sub */,
+				04BB77D21F0E328A002AEEF6 /* SubViewPage */,
 			);
 			name = Kpi;
 			sourceTree = "<group>";
@@ -256,14 +256,14 @@
 			name = Detail;
 			sourceTree = "<group>";
 		};
-		04BB77D21F0E328A002AEEF6 /* Sub */ = {
+		04BB77D21F0E328A002AEEF6 /* SubViewPage */ = {
 			isa = PBXGroup;
 			children = (
 				04563F891F0CC83C00B8BCC6 /* SubRadio.swift */,
 				04BB77D01F0E3284002AEEF6 /* SubRadio.xib */,
 				04BB77D51F0E3670002AEEF6 /* SubRadioCell.xib */,
 			);
-			name = Sub;
+			name = SubViewPage;
 			sourceTree = "<group>";
 		};
 		04BC640C1EFD830E00C0912D /* MysteryClient */ = {

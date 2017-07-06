@@ -47,18 +47,17 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
             }
         }
         
+        if Config.jobResult.results.count < Config.job.kpis.count {
+            for _ in Config.jobResult.results.count...Config.job.kpis.count - 1 {
+                Config.jobResult.results.append(JobResult.KpiResult())
+            }
+            Config.jobResult.save()
+        }
+        
+        self.firstKpi()
         self.addKeybNotification()
         self.headerTitle = Config.job.store.name
         
-        self.kpiSubView = SubFirst.Instance()
-        self.loadVc(subView: self.kpiSubView)
-
-        self.kpiNavi = UINavigationController(rootViewController:self.kpiPage)
-        self.kpiNavi.navigationBar.isHidden = true
-        self.kpiNavi.view.frame = self.container.bounds
-        self.addChildViewController(self.kpiNavi)
-        self.container.addSubview(self.kpiNavi.view)
-
         for btn in [self.backBtn, self.nextBtn] as! [MYButton] {
             let ico = btn.image(for: .normal)?.resize(12)
             btn.setImage(ico, for: .normal)
@@ -68,36 +67,55 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         self.nextBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     }
     
-    private func loadVc (subView: KpiSubView) {
-        self.kpiPage = KpiViewController()
-        self.kpiPage.headerCounter = self.header?.header.kpiLabel
-        self.kpiPage.view.addSubviewWithConstraints(subView)
-        self.kpiPage.delegate = self
-    }
-    
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.scroll.contentSize = self.kpiPage.view.frame.size
     }
     
+    private func loadVc () {
+        self.kpiPage = KpiViewController()
+        self.kpiPage.delegate = self
+        self.kpiPage.headerCounter = self.header?.header.kpiLabel
+        self.kpiPage.view.addSubviewWithConstraints(self.kpiPage.scroll)
+
+        self.kpiSubView.scroll = self.kpiPage.scroll
+        self.kpiPage.scroll.addSubviewWithConstraints(self.kpiSubView)
+    }
+    
+    private func firstKpi () {
+        self.kpiSubView = SubFirst.Instance()
+        self.loadVc()
+        
+        self.kpiNavi = UINavigationController(rootViewController:self.kpiPage)
+        self.kpiNavi.navigationBar.isHidden = true
+        self.kpiNavi.view.frame = self.container.bounds
+        self.addChildViewController(self.kpiNavi)
+        self.container.addSubview(self.kpiNavi.view)
+    }
+    
     private func nextKpi () {
         let idx = self.kpiNavi.viewControllers.count - 1
         if Config.job.kpis.count < idx {
-            // Load last
+            self.lastKpi()
             return
         }
         self.kpiSubView = SubPage.Instance()
         self.kpiSubView.kpi = Config.job.kpis[idx]
-        if idx > Config.jobResult.results.count - 1 {
-            Config.jobResult.results.append(JobResult.KpiResult())
-        }
-        
         self.kpiSubView.kpiResult = Config.jobResult.results[idx]
-        self.loadVc(subView: self.kpiSubView)
+//        self.loadVc()
+        self.kpiPage = KpiViewController()
+        self.kpiPage.delegate = self
+        self.kpiPage.headerCounter = self.header?.header.kpiLabel
+
         self.kpiNavi.pushViewController(self.kpiPage, animated: true)
+        self.kpiPage.view.addSubviewWithConstraints(self.kpiPage.scroll)
+        
+        self.kpiSubView.scroll = self.kpiPage.scroll
+        self.kpiPage.scroll.addSubviewWithConstraints(self.kpiSubView)
     }
     
+    private func lastKpi () {
+    }
     // MARK: - Actions
     
     @IBAction func nextTapped () {
@@ -171,6 +189,8 @@ protocol KpiViewControllerDelegate {
 class KpiViewController: UIViewController {
     var headerCounter: MYLabel!
     var delegate: KpiViewControllerDelegate?
+    var scroll = UIScrollView()
+    
     func checkData () -> KpiResultType {
         return .err
     }
@@ -181,5 +201,13 @@ class KpiViewController: UIViewController {
         self.headerCounter.isHidden = false
         self.headerCounter.text = "\(counter)/\(Config.job.kpis.count + 1)"
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        var contentSize = self.scroll.contentSize
+        contentSize.height += 300
+        self.scroll.contentSize = contentSize
+        
 
+    }
 }

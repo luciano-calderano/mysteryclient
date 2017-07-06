@@ -11,7 +11,8 @@ import UIKit
 class KpiSubView: UIView {
     var kpi: Job.Kpi!
     var kpiResult: JobResult.KpiResult!
-
+    var scroll: UIScrollView!
+    
     func data (valuations: [Job.Kpi.Valuations]!, kpiResult: JobResult.KpiResult!) -> CGFloat {
         return 0
     }

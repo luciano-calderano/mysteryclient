@@ -8,33 +8,6 @@
 
 import UIKit
 
-
-// MARK: -
-
-
-//class SubPage: SubKpi {
-//    var kpi: Job.Kpi!
-//    var kpiResult: JobResult.KpiResult!
-//    
-//    private var idx = 0
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        self.idx = (self.navigationController?.viewControllers.count)! - 2
-//        if idx < 0 {
-//            return
-//        }
-//        if idx >= Config.jobResult.results.count {
-//            Config.jobResult.results.append(JobResult.KpiResult())
-//        }
-//        self.kpi = Config.job.kpis[idx]
-////
-//        let counter = (self.navigationController?.viewControllers.count)!
-//        if counter > 1 {
-//            self.kpiResult = Config.jobResult.results[self.idx]
-//        }
-//    }
-//}
-
 class SubPage: KpiSubView, UITextViewDelegate {
     class func Instance() -> SubPage {
         let id = String (describing: self)
@@ -66,8 +39,6 @@ class SubPage: KpiSubView, UITextViewDelegate {
         if newSuperview == nil {
             return
         }
-
-        
         self.subViewHeight.constant = 0
         
         switch kpi.type {
@@ -77,12 +48,9 @@ class SubPage: KpiSubView, UITextViewDelegate {
         default:
             return
         }
-        //    }
-        //
-        //    override func viewWillAppear(_ animated: Bool) {
-        //        super.viewWillAppear(animated)
+
         self.subViewHeight.constant = self.kpiSubView.data(valuations: self.kpi.valuations,                                             kpiResult: self.kpiResult)
-        //        self.view.layoutSubviews()
+        
         self.kpiAtchBtn.isHidden = !self.kpi.attachment
         
         self.indexSelected = 0

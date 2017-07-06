@@ -48,7 +48,7 @@
                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="7ME-p5-10q">
                     <rect key="frame" x="16" y="162" width="343" height="160"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="160" id="VxX-oi-Ys0"/>
+                        <constraint firstAttribute="height" constant="160" id="nZD-QA-ztx"/>
                     </constraints>
                     <date key="date" timeIntervalSinceReferenceDate="520862224.16634601">
                         <!--2017-07-04 11:57:04 +0000-->
@@ -60,8 +60,11 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#jobStartTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vM5-eT-28x" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
-                    <rect key="frame" x="148" y="146" width="81" height="15"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#jobStartTime" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vM5-eT-28x" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
+                    <rect key="frame" x="16" y="146" width="343" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="Tvx-mq-Ags"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -103,19 +106,19 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="doE-mg-5AH" firstAttribute="top" secondItem="cNH-El-OUd" secondAttribute="bottom" constant="8" id="1Pa-Op-zso"/>
-                <constraint firstItem="7ME-p5-10q" firstAttribute="top" secondItem="doE-mg-5AH" secondAttribute="bottom" constant="29" id="1lA-gC-08d"/>
-                <constraint firstItem="vM5-eT-28x" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="148" id="2yQ-mD-Fw2"/>
                 <constraint firstItem="cNH-El-OUd" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="9CH-J7-rmh"/>
-                <constraint firstItem="doE-mg-5AH" firstAttribute="centerX" secondItem="7ME-p5-10q" secondAttribute="centerX" id="Anb-RA-3aq"/>
-                <constraint firstItem="7ME-p5-10q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="CPD-H3-0DA"/>
-                <constraint firstItem="cNH-El-OUd" firstAttribute="trailing" secondItem="doE-mg-5AH" secondAttribute="trailing" id="FMX-Kn-udN"/>
                 <constraint firstItem="cNH-El-OUd" firstAttribute="top" secondItem="P4r-0i-dXW" secondAttribute="bottom" constant="3" id="JoF-Ua-CJo"/>
-                <constraint firstItem="cNH-El-OUd" firstAttribute="leading" secondItem="doE-mg-5AH" secondAttribute="leading" id="MHo-c9-xRZ"/>
+                <constraint firstItem="vM5-eT-28x" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="NI4-eL-ak1"/>
+                <constraint firstItem="7ME-p5-10q" firstAttribute="top" secondItem="vM5-eT-28x" secondAttribute="bottom" constant="1" id="O6W-g0-z0p"/>
+                <constraint firstItem="vM5-eT-28x" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="146" id="RLI-gJ-jsN"/>
                 <constraint firstItem="P4r-0i-dXW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="SDe-LN-fTX"/>
-                <constraint firstItem="doE-mg-5AH" firstAttribute="top" secondItem="cNH-El-OUd" secondAttribute="bottom" constant="8" id="TxN-xp-nsp"/>
-                <constraint firstItem="7ME-p5-10q" firstAttribute="top" secondItem="vM5-eT-28x" secondAttribute="bottom" constant="1.5" id="bYc-mC-9AH"/>
+                <constraint firstItem="7ME-p5-10q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="amp-QO-Tpt"/>
                 <constraint firstItem="P4r-0i-dXW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="9" id="dS6-b4-jyO"/>
-                <constraint firstItem="P4r-0i-dXW" firstAttribute="leading" secondItem="cNH-El-OUd" secondAttribute="leading" id="qMJ-xE-Xd1"/>
+                <constraint firstItem="cNH-El-OUd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="eq2-ir-gBM"/>
+                <constraint firstItem="doE-mg-5AH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="iHo-pm-Lg8"/>
+                <constraint firstAttribute="trailing" secondItem="vM5-eT-28x" secondAttribute="trailing" constant="16" id="mRm-eO-19j"/>
+                <constraint firstAttribute="trailing" secondItem="doE-mg-5AH" secondAttribute="trailing" constant="8" id="qru-Wt-5wi"/>
+                <constraint firstAttribute="trailing" secondItem="7ME-p5-10q" secondAttribute="trailing" constant="16" id="y2e-Wr-vkW"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
