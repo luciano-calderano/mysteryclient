@@ -36,9 +36,6 @@ class MYButton: UIButton {
         self.layer.masksToBounds = false
         
         self.showsTouchWhenHighlighted = true
-        if self.backgroundColor == nil {
-            self.borderColor = UIColor.myGreenDark
-        }
         if self.titleColor(for: .normal) == nil {
             self.setTitleColor(UIColor.white, for: UIControlState.normal)
         }

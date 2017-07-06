@@ -69,6 +69,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
         self.showData()
         self.loadAndShowResult()
     }
+    
     // MARK: - Location manager
     
     func isAuthorizedtoGetUserLocation() {

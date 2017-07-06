@@ -26,6 +26,7 @@ class MYViewController: UIViewController, HeaderViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.header?.header.kpiLabel.isHidden = true
     }
     
     func headerViewSxTapped() {

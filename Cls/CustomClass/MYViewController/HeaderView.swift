@@ -63,6 +63,7 @@ class HeaderView : UIView {
     }
 
     @IBOutlet var titleLabel: MYLabel!
+    @IBOutlet var kpiLabel: MYLabel!
     @IBOutlet var sxButton: UIButton!
     @IBOutlet var dxButton: UIButton!
     
@@ -70,6 +71,12 @@ class HeaderView : UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.kpiLabel.layer.cornerRadius = self.kpiLabel.frame.size.height / 2
+        self.kpiLabel.layer.masksToBounds = true
     }
     
     @IBAction func sxButtonTapped() {

@@ -25,21 +25,35 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
     @IBOutlet private var nextBtn: MYButton!
     
     private var kpiNavi = UINavigationController()
-    private var kpiCtrl: KpiViewController!
+    private var kpiPage: KpiViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addKeybNotification()
         
-        self.kpiCtrl = KpiFirst.Instance()
+        let path = NSTemporaryDirectory() + "/" + String(Config.job.id)
+        let fm = FileManager.default
+        if fm.fileExists(atPath: path) == false {
+            do {
+                try fm.createDirectory(atPath: path,
+                                       withIntermediateDirectories: true,
+                                       attributes: nil)
+            } catch let error as NSError {
+                NSLog("Unable to create directory \(error.debugDescription)")
+            }
+        }
+        
+        self.addKeybNotification()
+        self.headerTitle = Config.job.store.name
+        self.kpiPage = KpiFirst.Instance()
 
-        self.kpiNavi = UINavigationController(rootViewController:self.kpiCtrl)
+        self.kpiNavi = UINavigationController(rootViewController:self.kpiPage)
         self.kpiNavi.navigationBar.isHidden = true
         self.addChildViewController(self.kpiNavi)
         
         self.kpiNavi.view.frame = self.scroll.bounds
         self.scroll.addSubview(self.kpiNavi.view)
-        self.kpiCtrl.header = self.header?.header
+
+        self.kpiPage.headerCounter = self.header?.header.kpiLabel
         
         for btn in [self.backBtn, self.nextBtn] as! [MYButton] {
             let ico = btn.image(for: .normal)?.resize(12)
@@ -50,28 +64,28 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         self.nextBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.scroll.contentSize = self.kpiPage.view.frame.size
+    }
+    
     private func nextKpi () {
         let idx = self.kpiNavi.viewControllers.count - 1
-        let kpi = Config.job.kpis[idx]
-        
-        switch kpi.type {
-        case "radio" :
-            self.kpiCtrl = KpiRadio.Instance()
-        default:
+        if Config.job.kpis.count < idx {
+            // Load last
             return
         }
-        
-        self.kpiCtrl.kpi = kpi
-        self.kpiCtrl.delegate = self
-        self.kpiCtrl.header = self.header?.header
-        self.kpiCtrl.view.endEditing(true)
-        self.kpiNavi.pushViewController(self.kpiCtrl, animated: true)
+        self.kpiPage = KpiPage.Instance()
+        self.kpiPage.delegate = self
+        self.kpiPage.headerCounter = self.header?.header.kpiLabel
+        self.kpiNavi.pushViewController(self.kpiPage, animated: true)
+        self.kpiNavi.view.frame.size = self.kpiPage.view.frame.size
     }
     
     // MARK: - Actions
     
     @IBAction func nextTapped () {
-        switch self.kpiCtrl.checkData() {
+        switch self.kpiPage.checkData() {
         case .home:
             self.navigationController?.popToRootViewController(animated: true)
         case .next:
@@ -86,7 +100,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         case 1:
             self.navigationController?.popViewController(animated: true)
         default:
-            self.kpiCtrl.view.endEditing(true)
+            self.kpiPage.view.endEditing(true)
             self.kpiNavi.popViewController(animated: true)
         }
     }
@@ -133,37 +147,23 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
     }
 }
 
-    // MARK: -
-
 protocol KpiViewControllerDelegate {
     func startEditing (y: CGFloat)
     func endEditing ()
 }
 
 class KpiViewController: UIViewController {
-    var kpi: Job.Kpi!
-    var kpiResult: JobResult.KpiResult!
+    var headerCounter: MYLabel!
     var delegate: KpiViewControllerDelegate?
-    var header: HeaderView!
-    
     func checkData () -> KpiResultType {
         return .err
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let idx = (self.navigationController?.viewControllers.count)! - 2
-        if idx < 0 {
-            self.header.titleLabel.text = Config.job.store.name
-        }
-        else {
-            if idx >= Config.jobResult.results.count {
-                Config.jobResult.results.append(JobResult.KpiResult())
-            }
-            self.kpi = Config.job.kpis[idx]
-            self.kpiResult = Config.jobResult.results[idx]
-            self.header.titleLabel.text = kpi.service + " (\(idx + 1) / \(Config.job.kpis.count))"
-        }
+        let counter = (self.navigationController?.viewControllers.count)!
+        self.headerCounter.isHidden = false
+        self.headerCounter.text = "\(counter)/\(Config.job.kpis.count + 1)"
     }
-}
 
+}

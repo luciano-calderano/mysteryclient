@@ -24,7 +24,7 @@
 		04461A2F1EFA85F7008CD1E2 /* Ext.String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A2E1EFA85F7008CD1E2 /* Ext.String.swift */; };
 		04461A331EFA8955008CD1E2 /* Ext.UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */; };
 		04563F8C1F0CC83C00B8BCC6 /* Kpi.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04563F851F0CC83C00B8BCC6 /* Kpi.storyboard */; };
-		04563F8F1F0CC83C00B8BCC6 /* KpiRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04563F891F0CC83C00B8BCC6 /* KpiRadio.swift */; };
+		04563F8F1F0CC83C00B8BCC6 /* SubRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04563F891F0CC83C00B8BCC6 /* SubRadio.swift */; };
 		04563F931F0CCA8F00B8BCC6 /* KpiMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04563F921F0CCA8F00B8BCC6 /* KpiMain.swift */; };
 		04563F951F0CCD4F00B8BCC6 /* KpiFirst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04563F941F0CCD4F00B8BCC6 /* KpiFirst.swift */; };
 		0472E2A91EFAC74D001CE358 /* Ext.Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472E2A81EFAC74D001CE358 /* Ext.Dictionary.swift */; };
@@ -33,6 +33,9 @@
 		04A2109A1F03A82A00D1480C /* JobDetailDesc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A210991F03A82A00D1480C /* JobDetailDesc.swift */; };
 		04A2109D1F03AC3400D1480C /* JobDetailAtch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2109B1F03AC3400D1480C /* JobDetailAtch.swift */; };
 		04A2109E1F03AC3400D1480C /* JobDetailAtch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A2109C1F03AC3400D1480C /* JobDetailAtch.xib */; };
+		04BB77D11F0E3284002AEEF6 /* SubRadio.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BB77D01F0E3284002AEEF6 /* SubRadio.xib */; };
+		04BB77D41F0E32CC002AEEF6 /* KpiPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB77D31F0E32CC002AEEF6 /* KpiPage.swift */; };
+		04BB77D61F0E3670002AEEF6 /* SubRadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BB77D51F0E3670002AEEF6 /* SubRadioCell.xib */; };
 		04BC64121EFD830E00C0912D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC640D1EFD830E00C0912D /* AppDelegate.swift */; };
 		04BC64131EFD830E00C0912D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04BC640E1EFD830E00C0912D /* Assets.xcassets */; };
 		04BC64151EFD830E00C0912D /* Lang.txt in Resources */ = {isa = PBXBuildFile; fileRef = 04BC64101EFD830E00C0912D /* Lang.txt */; };
@@ -74,7 +77,7 @@
 		04461A2E1EFA85F7008CD1E2 /* Ext.String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.String.swift; sourceTree = "<group>"; };
 		04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.UIViewController.swift; sourceTree = "<group>"; };
 		04563F851F0CC83C00B8BCC6 /* Kpi.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Kpi.storyboard; path = Kpi/Kpi.storyboard; sourceTree = "<group>"; };
-		04563F891F0CC83C00B8BCC6 /* KpiRadio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpiRadio.swift; path = Kpi/Sub/KpiRadio.swift; sourceTree = "<group>"; };
+		04563F891F0CC83C00B8BCC6 /* SubRadio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubRadio.swift; path = Kpi/Sub/SubRadio.swift; sourceTree = "<group>"; };
 		04563F921F0CCA8F00B8BCC6 /* KpiMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpiMain.swift; path = Kpi/KpiMain.swift; sourceTree = "<group>"; };
 		04563F941F0CCD4F00B8BCC6 /* KpiFirst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpiFirst.swift; path = Kpi/KpiFirst.swift; sourceTree = "<group>"; };
 		0472E2A81EFAC74D001CE358 /* Ext.Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.Dictionary.swift; sourceTree = "<group>"; };
@@ -83,6 +86,9 @@
 		04A210991F03A82A00D1480C /* JobDetailDesc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JobDetailDesc.swift; path = Detail/JobDetailDesc.swift; sourceTree = "<group>"; };
 		04A2109B1F03AC3400D1480C /* JobDetailAtch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JobDetailAtch.swift; path = Detail/JobDetailAtch.swift; sourceTree = "<group>"; };
 		04A2109C1F03AC3400D1480C /* JobDetailAtch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JobDetailAtch.xib; path = Detail/JobDetailAtch.xib; sourceTree = "<group>"; };
+		04BB77D01F0E3284002AEEF6 /* SubRadio.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubRadio.xib; path = Kpi/Sub/SubRadio.xib; sourceTree = "<group>"; };
+		04BB77D31F0E32CC002AEEF6 /* KpiPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpiPage.swift; path = Kpi/KpiPage.swift; sourceTree = "<group>"; };
+		04BB77D51F0E3670002AEEF6 /* SubRadioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubRadioCell.xib; path = Kpi/Sub/SubRadioCell.xib; sourceTree = "<group>"; };
 		04BC640D1EFD830E00C0912D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04BC640E1EFD830E00C0912D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04BC640F1EFD830E00C0912D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -217,7 +223,8 @@
 				04563F851F0CC83C00B8BCC6 /* Kpi.storyboard */,
 				04563F921F0CCA8F00B8BCC6 /* KpiMain.swift */,
 				04563F941F0CCD4F00B8BCC6 /* KpiFirst.swift */,
-				04563F891F0CC83C00B8BCC6 /* KpiRadio.swift */,
+				04BB77D31F0E32CC002AEEF6 /* KpiPage.swift */,
+				04BB77D21F0E328A002AEEF6 /* Sub */,
 			);
 			name = Kpi;
 			sourceTree = "<group>";
@@ -241,6 +248,16 @@
 				04A2109B1F03AC3400D1480C /* JobDetailAtch.swift */,
 			);
 			name = Detail;
+			sourceTree = "<group>";
+		};
+		04BB77D21F0E328A002AEEF6 /* Sub */ = {
+			isa = PBXGroup;
+			children = (
+				04563F891F0CC83C00B8BCC6 /* SubRadio.swift */,
+				04BB77D01F0E3284002AEEF6 /* SubRadio.xib */,
+				04BB77D51F0E3670002AEEF6 /* SubRadioCell.xib */,
+			);
+			name = Sub;
 			sourceTree = "<group>";
 		};
 		04BC640C1EFD830E00C0912D /* MysteryClient */ = {
@@ -384,9 +401,11 @@
 				04563F8C1F0CC83C00B8BCC6 /* Kpi.storyboard in Resources */,
 				04BC64161EFD830E00C0912D /* LaunchScreen.storyboard in Resources */,
 				04C910B41EFD2131000D2DB8 /* HeaderView.xib in Resources */,
+				04BB77D61F0E3670002AEEF6 /* SubRadioCell.xib in Resources */,
 				04BC64151EFD830E00C0912D /* Lang.txt in Resources */,
 				04FCF19B1F0265D50087FBDF /* Jobs.storyboard in Resources */,
 				04BC64131EFD830E00C0912D /* Assets.xcassets in Resources */,
+				04BB77D11F0E3284002AEEF6 /* SubRadio.xib in Resources */,
 				04461A1F1EFA705C008CD1E2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -448,7 +467,7 @@
 			files = (
 				04FC17291F0145BC00226F1A /* ItemEnum.swift in Sources */,
 				04461A2C1EFA85CF008CD1E2 /* Ext.Date.swift in Sources */,
-				04563F8F1F0CC83C00B8BCC6 /* KpiRadio.swift in Sources */,
+				04563F8F1F0CC83C00B8BCC6 /* SubRadio.swift in Sources */,
 				04461A331EFA8955008CD1E2 /* Ext.UIViewController.swift in Sources */,
 				04461A201EFA705C008CD1E2 /* Home.swift in Sources */,
 				04461A071EFA66A7008CD1E2 /* MYTextField.swift in Sources */,
@@ -467,6 +486,7 @@
 				04461A0B1EFA66A7008CD1E2 /* MYViewController.swift in Sources */,
 				04461A0E1EFA66A7008CD1E2 /* Ext.Color.swift in Sources */,
 				04461A291EFA8558008CD1E2 /* MYWheel.swift in Sources */,
+				04BB77D41F0E32CC002AEEF6 /* KpiPage.swift in Sources */,
 				04461A041EFA66A7008CD1E2 /* MYButton.swift in Sources */,
 				04BCAD341EFA9DCF00745556 /* User.swift in Sources */,
 				04C910B31EFD2131000D2DB8 /* HeaderView.swift in Sources */,

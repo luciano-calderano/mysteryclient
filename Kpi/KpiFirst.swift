@@ -27,6 +27,7 @@ class KpiFirst: KpiViewController {
         }
         self.yesTapped()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.undondeText.text = Config.jobResult.comment

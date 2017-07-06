@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Titolo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="cYe-3g-8Dv" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
-                    <rect key="frame" x="40" y="7" width="360" height="30"/>
+                    <rect key="frame" x="50" y="7" width="340" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="349" id="EfT-kx-Meq"/>
                     </constraints>
@@ -51,22 +51,36 @@
                         <action selector="dxButtonTapped" destination="iN0-l3-epB" eventType="touchUpInside" id="FZ6-uE-mPY"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00/00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KSr-2P-ObA" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
+                    <rect key="frame" x="393" y="10" width="42" height="24"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="lBZ-YC-Xex"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.67843137249999996" green="0.81960784310000001" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.67843137249999996" green="0.81960784310000001" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="cYe-3g-8Dv" secondAttribute="trailing" constant="40" id="20F-f3-Yrw"/>
+                <constraint firstAttribute="trailing" secondItem="cYe-3g-8Dv" secondAttribute="trailing" constant="50" id="20F-f3-Yrw"/>
                 <constraint firstItem="fvi-fm-fUg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="C9P-9C-vJh"/>
                 <constraint firstItem="cYe-3g-8Dv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Du0-Il-dH9"/>
                 <constraint firstItem="cYe-3g-8Dv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="7" id="KkG-F3-tBQ"/>
                 <constraint firstItem="fso-Sk-ash" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Nnk-di-1x2"/>
-                <constraint firstItem="cYe-3g-8Dv" firstAttribute="leading" secondItem="fvi-fm-fUg" secondAttribute="trailing" constant="8" id="PE5-bh-Bcl"/>
+                <constraint firstItem="cYe-3g-8Dv" firstAttribute="leading" secondItem="fvi-fm-fUg" secondAttribute="trailing" constant="18" id="PE5-bh-Bcl"/>
                 <constraint firstItem="fvi-fm-fUg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="RgE-NI-1gU"/>
+                <constraint firstItem="KSr-2P-ObA" firstAttribute="leading" secondItem="cYe-3g-8Dv" secondAttribute="trailing" constant="3" id="aMf-EI-l5t"/>
                 <constraint firstAttribute="trailing" secondItem="fso-Sk-ash" secondAttribute="trailing" constant="8" id="lWj-dR-CHb"/>
+                <constraint firstAttribute="trailing" secondItem="KSr-2P-ObA" secondAttribute="trailing" constant="5" id="opO-cp-s14"/>
+                <constraint firstItem="KSr-2P-ObA" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="pGu-7p-Guq"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="dxButton" destination="fso-Sk-ash" id="pJa-oC-F9y"/>
+                <outlet property="kpiLabel" destination="KSr-2P-ObA" id="yvM-u6-HcJ"/>
                 <outlet property="sxButton" destination="fvi-fm-fUg" id="ahO-Qk-xdp"/>
                 <outlet property="titleLabel" destination="cYe-3g-8Dv" id="RKb-0I-E3g"/>
             </connections>

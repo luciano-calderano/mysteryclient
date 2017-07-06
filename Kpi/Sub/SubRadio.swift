@@ -8,82 +8,44 @@
 
 import UIKit
 
-class KpiRadio: KpiViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
-    class func Instance() -> KpiRadio {
-        let vc = self.load(storyboardName: "Kpi") as! KpiRadio
-        return vc
+class SubRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource {
+    class func Instance() -> SubRadio {
+        let id = String (describing: self)
+        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubRadio
     }
 
     @IBOutlet private var tableView: UITableView!
-    @IBOutlet private var tableViewHeight: NSLayoutConstraint!
-    @IBOutlet private var kpiTitle: MYLabel!
-    @IBOutlet private var kpiNote: UITextView!
-
-    private var attachmentPath = ""
     private var indexSelected = 0
+    private let rowHeight:CGFloat = 50
+    private var valuations: [Job.Kpi.Valuations]!
+    private var kpiResult: JobResult.KpiResult!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.kpiNote.text = ""
-        self.kpiNote.delegate = self
-        self.kpiNote.layer.borderColor = UIColor.lightGray.cgColor
-        self.kpiNote.layer.borderWidth = 1
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        SubRadioCell.register(tableView: self.tableView)
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+
+    override func data (valuations: [Job.Kpi.Valuations]!, kpiResult: JobResult.KpiResult!) -> CGFloat {
+        self.valuations = valuations
+        self.kpiResult = kpiResult
+        
         self.indexSelected = 0
-        self.kpiNote.text = self.kpiResult.notes
         if self.kpiResult.value.isEmpty == false {
             let index = Int(self.kpiResult.value)
-            for item in self.kpi.valuations {
+            for item in self.valuations {
                 if item.id == index {
                     break
                 }
                 self.indexSelected += 1
             }
         }
-        
-        self.kpiTitle.text = self.kpi.standard
-        self.tableViewHeight.constant = self.tableView.rowHeight * CGFloat(self.kpi.valuations.count)
+//        var rect = self.frame
+//        rect.size.height = self.rowHeight * CGFloat(self.valuations.count)
+//        self.frame = rect
         self.tableView.reloadData()
+        return self.rowHeight * CGFloat(self.valuations.count)
     }
     
-    override func checkData() -> KpiResultType {
-        if self.kpi.attachment_required == true {
-            if self.attachmentPath.isEmpty {
-                return .err
-            }
-        }
-        if self.kpi.note_required == true {
-            if self.kpiNote.text.isEmpty {
-                return .err
-            }
-        }
-        
-        let item = self.kpi.valuations[self.indexSelected]
-        self.kpiResult.kpi_id = self.kpi.id
-        self.kpiResult.value = String(item.id)
-        self.kpiResult.notes = self.kpiNote.text
-        Config.jobResult.save()
-        self.view.endEditing(true)
-        return .next
-    }
-    
-    //MARK: - text view delegate
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        self.delegate?.startEditing(y: self.kpiNote.frame.origin.y - 30)
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-            self.delegate?.endEditing()
-            textView.resignFirstResponder()
-            return false
-        }
-        return true
-    }
-
     // MARK: - table view
     
     func maxItemOfSections(in tableView: UITableView) -> Int {
@@ -91,16 +53,16 @@ class KpiRadio: KpiViewController, UITableViewDelegate, UITableViewDataSource, U
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.kpi.valuations.count
+        return self.valuations.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.tableView.rowHeight
+        return self.rowHeight
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = KpiRadioCell.dequeue(tableView, indexPath)
-        let item = self.kpi.valuations[indexPath.row]
+        let cell = SubRadioCell.dequeue(tableView, indexPath)
+        let item = self.valuations[indexPath.row]
         cell.valuationTitle.text = item.name
         cell.selectedView.isHidden = !(indexPath.row == self.indexSelected)
         cell.icoNote.isHidden = item.note_required == false
@@ -117,7 +79,7 @@ class KpiRadio: KpiViewController, UITableViewDelegate, UITableViewDataSource, U
 
 // MARK: -
 
-class KpiRadioCell: UITableViewCell {
+class SubRadioCell: UITableViewCell {
     class func register (tableView: UITableView) {
         let id = String (describing: self)
 
@@ -126,11 +88,11 @@ class KpiRadioCell: UITableViewCell {
     }
     
     class func dequeue (_ tableView: UITableView,
-                        _ indexPath: IndexPath) -> KpiRadioCell {
+                        _ indexPath: IndexPath) -> SubRadioCell {
         
         let id = String (describing: self)
         return tableView.dequeueReusableCell(withIdentifier: id, for: indexPath)
-            as! KpiRadioCell
+            as! SubRadioCell
     }
 
     @IBOutlet var radioView: UIView!
