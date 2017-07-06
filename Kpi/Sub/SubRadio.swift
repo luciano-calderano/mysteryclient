@@ -18,7 +18,7 @@ class SubRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource {
     private var indexSelected = 0
     private let rowHeight:CGFloat = 50
     private var valuations: [Job.Kpi.Valuations]!
-    private var kpiResult: JobResult.KpiResult!
+//    private var kpiResult: JobResult.KpiResult!
     
     override func awakeFromNib() {
         super.awakeFromNib()

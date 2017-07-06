@@ -1,17 +1,30 @@
 //
-//  KpiFirst.swift
+//  SubFirst.swift
 //  MysteryClient
 //
-//  Created by mac on 05/07/17.
+//  Created by mac on 06/07/17.
 //  Copyright © 2017 Mebius. All rights reserved.
 //
 
 import UIKit
 
-class KpiFirst: KpiViewController {
-    class func Instance() -> KpiFirst {
-        let vc = self.load(storyboardName: "Kpi") as! KpiFirst
-        return vc
+class KpiSubView: UIView {
+    var kpi: Job.Kpi!
+    var kpiResult: JobResult.KpiResult!
+
+    func data (valuations: [Job.Kpi.Valuations]!, kpiResult: JobResult.KpiResult!) -> CGFloat {
+        return 0
+    }
+    
+    func checkData() -> KpiResultType {
+        return .err
+    }
+}
+
+class SubFirst: KpiSubView {
+    class func Instance() -> SubFirst {
+        let id = String (describing: self)
+        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubFirst
     }
     
     @IBOutlet private var undoneView: UIView!
@@ -19,25 +32,14 @@ class KpiFirst: KpiViewController {
     @IBOutlet private var okButton: MYButton!
     @IBOutlet private var noButton: MYButton!
     @IBOutlet private var datePicker: UIDatePicker!
-        
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
         for btn in [self.okButton, self.noButton] {
             btn?.layer.cornerRadius = (btn?.frame.size.height)! / 2
         }
         self.yesTapped()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         self.undondeText.text = Config.jobResult.comment
         if Config.jobResult.execution_date.isEmpty == false {
             let d = Config.jobResult.execution_date + " " + Config.jobResult.execution_start_time + ":00"
@@ -60,7 +62,7 @@ class KpiFirst: KpiViewController {
         Config.jobResult.execution_date = self.datePicker.date.toString(withFormat: Date.fmtDataJson)
         Config.jobResult.execution_start_time = self.datePicker.date.toString(withFormat: Date.fmtOra)
         Config.jobResult.save()
-
+        
         return .next
     }
     

@@ -21,11 +21,16 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
     }
     
     @IBOutlet private var scroll: UIScrollView!
+    @IBOutlet private var container: UIView!
+
     @IBOutlet private var backBtn: MYButton!
     @IBOutlet private var nextBtn: MYButton!
     
     private var kpiNavi = UINavigationController()
     private var kpiPage: KpiViewController!
+
+    private var kpiSubView: KpiSubView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,17 +49,16 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         
         self.addKeybNotification()
         self.headerTitle = Config.job.store.name
-        self.kpiPage = KpiFirst.Instance()
+        
+        self.kpiSubView = SubFirst.Instance()
+        self.loadVc(subView: self.kpiSubView)
 
         self.kpiNavi = UINavigationController(rootViewController:self.kpiPage)
         self.kpiNavi.navigationBar.isHidden = true
+        self.kpiNavi.view.frame = self.container.bounds
         self.addChildViewController(self.kpiNavi)
-        
-        self.kpiNavi.view.frame = self.scroll.bounds
-        self.scroll.addSubview(self.kpiNavi.view)
+        self.container.addSubview(self.kpiNavi.view)
 
-        self.kpiPage.headerCounter = self.header?.header.kpiLabel
-        
         for btn in [self.backBtn, self.nextBtn] as! [MYButton] {
             let ico = btn.image(for: .normal)?.resize(12)
             btn.setImage(ico, for: .normal)
@@ -63,6 +67,14 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         self.nextBtn.semanticContentAttribute = .forceRightToLeft
         self.nextBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     }
+    
+    private func loadVc (subView: KpiSubView) {
+        self.kpiPage = KpiViewController()
+        self.kpiPage.headerCounter = self.header?.header.kpiLabel
+        self.kpiPage.view.addSubviewWithConstraints(subView)
+        self.kpiPage.delegate = self
+    }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -75,17 +87,21 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
             // Load last
             return
         }
-        self.kpiPage = KpiPage.Instance()
-        self.kpiPage.delegate = self
-        self.kpiPage.headerCounter = self.header?.header.kpiLabel
+        self.kpiSubView = SubPage.Instance()
+        self.kpiSubView.kpi = Config.job.kpis[idx]
+        if idx > Config.jobResult.results.count - 1 {
+            Config.jobResult.results.append(JobResult.KpiResult())
+        }
+        
+        self.kpiSubView.kpiResult = Config.jobResult.results[idx]
+        self.loadVc(subView: self.kpiSubView)
         self.kpiNavi.pushViewController(self.kpiPage, animated: true)
-        self.kpiNavi.view.frame.size = self.kpiPage.view.frame.size
     }
     
     // MARK: - Actions
     
     @IBAction func nextTapped () {
-        switch self.kpiPage.checkData() {
+        switch self.kpiSubView.checkData() {
         case .home:
             self.navigationController?.popToRootViewController(animated: true)
         case .next:
