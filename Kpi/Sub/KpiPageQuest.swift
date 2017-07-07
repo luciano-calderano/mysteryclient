@@ -1,5 +1,5 @@
 //
-//  SubPage.swift
+//  KpiPageQuest.swift
 //  MysteryClient
 //
 //  Created by mac on 06/07/17.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SubPage: KpiSubView, UITextViewDelegate {
-    class func Instance() -> SubPage {
+class KpiPageQuest: KpiPageView, KpiViewDelegate, UITextViewDelegate {
+    class func Instance() -> KpiPageQuest {
         let id = String (describing: self)
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubPage
+        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! KpiPageQuest
     }
     
     @IBOutlet private var subView: UIView!
@@ -22,9 +22,9 @@ class SubPage: KpiSubView, UITextViewDelegate {
     @IBOutlet private var kpiAtchBtn: MYButton!
     
     private var attachmentPath = ""
-    private var indexSelected = 0
+//    private var indexSelected = 0
     
-    private var kpiSubView: KpiSubView!
+    private var kpiPageSubView: KpiPageSubView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,52 +43,53 @@ class SubPage: KpiSubView, UITextViewDelegate {
         
         switch kpi.type {
         case "radio" :
-            self.kpiSubView = SubRadio.Instance()
-            self.subView.addSubviewWithConstraints(self.kpiSubView)
+            self.kpiPageSubView = SubRadio.Instance()
+            self.kpiPageSubView.delegate = self
+            self.subView.addSubviewWithConstraints(self.kpiPageSubView)
         default:
             return
         }
-
-        self.subViewHeight.constant = self.kpiSubView.data(valuations: self.kpi.valuations,                                             kpiResult: self.kpiResult)
         
-        self.kpiAtchBtn.isHidden = !self.kpi.attachment
-        
-        self.indexSelected = 0
-        self.kpiNote.text = self.kpiResult.notes
-        if self.kpiResult.value.isEmpty == false {
-            let index = Int(self.kpiResult.value)
-            for item in self.kpi.valuations {
-                if item.id == index {
-                    break
-                }
-                self.indexSelected += 1
-            }
-        }
-        
+        self.kpiPageSubView.initialize(kpiResult: self.kpiResult,
+                                       valuations: self.kpi.valuations)
         self.kpiTitle.text = self.kpi.factor
         self.kpiQuestion.text = self.kpi.standard
-
+        self.kpiNote.text = self.kpiResult.notes
+        self.kpiAtchBtn.isHidden = !self.kpi.attachment
     }
     
-
+    //MARK: - page subview delegate
+    
+    func endEditing() {
+    }
+    
+    func startEditing(y: CGFloat) {
+    }
+    
+    func subViewResized (newHeight: CGFloat) {
+        self.subViewHeight.constant = newHeight
+        var rect = self.frame
+        rect.size.height += newHeight
+        self.frame = rect
+    }
     
     override func checkData() -> KpiResultType {
-        if self.kpi.attachment_required == true {
-            if self.attachmentPath.isEmpty {
-                return .err
+        if self.kpi.required == true {
+            if self.kpi.attachment_required == true {
+                if self.attachmentPath.isEmpty {
+                    return .err
+                }
+            }
+            if self.kpi.note_required == true {
+                if self.kpiNote.text.isEmpty {
+                    return .err
+                }
             }
         }
-        if self.kpi.note_required == true {
-            if self.kpiNote.text.isEmpty {
-                return .err
-            }
-        }
-        
-        let item = self.kpi.valuations[self.indexSelected]
         self.kpiResult.kpi_id = self.kpi.id
-        self.kpiResult.value = String(item.id)
         self.kpiResult.notes = self.kpiNote.text
         Config.jobResult.save()
+        
         self.endEditing(true)
         return .next
     }
@@ -96,12 +97,12 @@ class SubPage: KpiSubView, UITextViewDelegate {
     //MARK: - text view delegate
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-//        self.delegate?.startEditing(y: self.kpiNote.frame.origin.y - 30)
+        self.delegate?.startEditing(y: self.kpiNote.frame.origin.y - 30)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
-//            self.delegate?.endEditing()
+            self.delegate?.endEditing()
             textView.resignFirstResponder()
             return false
         }

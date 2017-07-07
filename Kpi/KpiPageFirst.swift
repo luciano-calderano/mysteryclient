@@ -1,5 +1,5 @@
 //
-//  SubFirst.swift
+//  KpiPageFirst.swift
 //  MysteryClient
 //
 //  Created by mac on 06/07/17.
@@ -8,24 +8,10 @@
 
 import UIKit
 
-class KpiSubView: UIView {
-    var kpi: Job.Kpi!
-    var kpiResult: JobResult.KpiResult!
-    var scroll: UIScrollView!
-    
-    func data (valuations: [Job.Kpi.Valuations]!, kpiResult: JobResult.KpiResult!) -> CGFloat {
-        return 0
-    }
-    
-    func checkData() -> KpiResultType {
-        return .err
-    }
-}
-
-class SubFirst: KpiSubView {
-    class func Instance() -> SubFirst {
+class KpiPageFirst: KpiPageView {
+    class func Instance() -> KpiPageFirst {
         let id = String (describing: self)
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubFirst
+        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! KpiPageFirst
     }
     
     @IBOutlet private var undoneView: UIView!
@@ -42,9 +28,14 @@ class SubFirst: KpiSubView {
         self.yesTapped()
 
         self.undondeText.text = Config.jobResult.comment
+    }
+    
+    override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
         if Config.jobResult.execution_date.isEmpty == false {
             let d = Config.jobResult.execution_date + " " + Config.jobResult.execution_start_time + ":00"
-            self.datePicker.date = d.toDate(withFormat: Date.fmtDataOraJson)
+            let date = d.toDate(withFormat: Date.fmtDataOraJson)
+            self.datePicker.date = date
         }
     }
     

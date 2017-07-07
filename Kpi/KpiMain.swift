@@ -14,7 +14,7 @@ enum KpiResultType {
     case err
 }
 
-class KpiMain: MYViewController, KpiViewControllerDelegate {
+class KpiMain: MYViewController, KpiViewDelegate {
     class func Instance() -> KpiMain {
         let vc = self.load(storyboardName: "Kpi") as! KpiMain
         return vc
@@ -22,14 +22,12 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
     
     @IBOutlet private var scroll: UIScrollView!
     @IBOutlet private var container: UIView!
-
     @IBOutlet private var backBtn: MYButton!
     @IBOutlet private var nextBtn: MYButton!
     
     private var kpiNavi = UINavigationController()
-    private var kpiPage: KpiViewController!
-
-    private var kpiSubView: KpiSubView!
+    private var kpiViewController: KpiViewController!
+    private var kpiPageView: KpiPageView!
 
     
     override func viewDidLoad() {
@@ -67,26 +65,16 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         self.nextBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.scroll.contentSize = self.kpiPage.view.frame.size
-    }
-    
-    private func loadVc () {
-        self.kpiPage = KpiViewController()
-        self.kpiPage.delegate = self
-        self.kpiPage.headerCounter = self.header?.header.kpiLabel
-        self.kpiPage.view.addSubviewWithConstraints(self.kpiPage.scroll)
-
-        self.kpiSubView.scroll = self.kpiPage.scroll
-        self.kpiPage.scroll.addSubviewWithConstraints(self.kpiSubView)
-    }
-    
     private func firstKpi () {
-        self.kpiSubView = SubFirst.Instance()
-        self.loadVc()
+        self.kpiPageView = KpiPageFirst.Instance()
         
-        self.kpiNavi = UINavigationController(rootViewController:self.kpiPage)
+        self.kpiViewController = KpiViewController()
+        self.kpiViewController.delegate = self
+        self.kpiViewController.headerCounter = self.header?.header.kpiLabel
+        self.kpiViewController.view.addSubviewWithConstraints(self.kpiViewController.scroll)
+        self.kpiViewController.scroll.addSubviewWithConstraints(self.kpiPageView)
+        
+        self.kpiNavi = UINavigationController(rootViewController:self.kpiViewController)
         self.kpiNavi.navigationBar.isHidden = true
         self.kpiNavi.view.frame = self.container.bounds
         self.addChildViewController(self.kpiNavi)
@@ -99,19 +87,18 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
             self.lastKpi()
             return
         }
-        self.kpiSubView = SubPage.Instance()
-        self.kpiSubView.kpi = Config.job.kpis[idx]
-        self.kpiSubView.kpiResult = Config.jobResult.results[idx]
-//        self.loadVc()
-        self.kpiPage = KpiViewController()
-        self.kpiPage.delegate = self
-        self.kpiPage.headerCounter = self.header?.header.kpiLabel
+        self.kpiPageView = KpiPageQuest.Instance()
+        self.kpiPageView.delegate = self
+        self.kpiPageView.kpi = Config.job.kpis[idx]
+        self.kpiPageView.kpiResult = Config.jobResult.results[idx]
 
-        self.kpiNavi.pushViewController(self.kpiPage, animated: true)
-        self.kpiPage.view.addSubviewWithConstraints(self.kpiPage.scroll)
+        self.kpiViewController = KpiViewController()
+        self.kpiViewController.delegate = self
+        self.kpiViewController.headerCounter = self.header?.header.kpiLabel
         
-        self.kpiSubView.scroll = self.kpiPage.scroll
-        self.kpiPage.scroll.addSubviewWithConstraints(self.kpiSubView)
+        self.kpiNavi.pushViewController(self.kpiViewController, animated: true)
+        self.kpiViewController.view.addSubviewWithConstraints(self.kpiViewController.scroll)
+        self.kpiViewController.scroll.addSubviewWithConstraints(self.kpiPageView)
     }
     
     private func lastKpi () {
@@ -119,7 +106,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
     // MARK: - Actions
     
     @IBAction func nextTapped () {
-        switch self.kpiSubView.checkData() {
+        switch self.kpiPageView.checkData() {
         case .home:
             self.navigationController?.popToRootViewController(animated: true)
         case .next:
@@ -134,7 +121,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         case 1:
             self.navigationController?.popViewController(animated: true)
         default:
-            self.kpiPage.view.endEditing(true)
+            self.kpiViewController.view.endEditing(true)
             self.kpiNavi.popViewController(animated: true)
         }
     }
@@ -179,35 +166,10 @@ class KpiMain: MYViewController, KpiViewControllerDelegate {
         offset.y = y
         self.scroll.contentOffset = offset
     }
-}
-
-protocol KpiViewControllerDelegate {
-    func startEditing (y: CGFloat)
-    func endEditing ()
-}
-
-class KpiViewController: UIViewController {
-    var headerCounter: MYLabel!
-    var delegate: KpiViewControllerDelegate?
-    var scroll = UIScrollView()
     
-    func checkData () -> KpiResultType {
-        return .err
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let counter = (self.navigationController?.viewControllers.count)!
-        self.headerCounter.isHidden = false
-        self.headerCounter.text = "\(counter)/\(Config.job.kpis.count + 1)"
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    func subViewResized(newHeight: CGFloat) {
         var contentSize = self.scroll.contentSize
         contentSize.height += 300
         self.scroll.contentSize = contentSize
-        
-
     }
 }

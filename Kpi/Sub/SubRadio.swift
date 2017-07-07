@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource {
+class SubRadio: KpiPageSubView, UITableViewDelegate, UITableViewDataSource {
     class func Instance() -> SubRadio {
         let id = String (describing: self)
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubRadio
@@ -17,33 +17,32 @@ class SubRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet private var tableView: UITableView!
     private var indexSelected = 0
     private let rowHeight:CGFloat = 50
-    private var valuations: [Job.Kpi.Valuations]!
-//    private var kpiResult: JobResult.KpiResult!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         SubRadioCell.register(tableView: self.tableView)
     }
+    
+    override func initialize(kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
+        super.initialize(kpiResult: kpiResult, valuations: valuations)
 
-    override func data (valuations: [Job.Kpi.Valuations]!, kpiResult: JobResult.KpiResult!) -> CGFloat {
-        self.valuations = valuations
-        self.kpiResult = kpiResult
-        
-        self.indexSelected = 0
+        self.indexSelected = -1
         if self.kpiResult.value.isEmpty == false {
+            self.indexSelected += 1
             let index = Int(self.kpiResult.value)
             for item in self.valuations {
                 if item.id == index {
                     break
                 }
-                self.indexSelected += 1
             }
         }
-//        var rect = self.frame
-//        rect.size.height = self.rowHeight * CGFloat(self.valuations.count)
-//        self.frame = rect
+
         self.tableView.reloadData()
-        return self.rowHeight * CGFloat(self.valuations.count)
+
+        var rect = self.frame
+        rect.size.height = self.rowHeight * CGFloat(self.valuations.count)
+        self.frame = rect
+        self.delegate?.subViewResized(newHeight: rect.size.height)
     }
     
     // MARK: - table view
@@ -73,6 +72,8 @@ class SubRadio: KpiSubView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.indexSelected = indexPath.row
+        let item = self.valuations[indexPath.row]
+        self.kpiResult.value = String(item.id)
         self.tableView.reloadData()
     }
 }
