@@ -15,7 +15,7 @@ class SubRadio: KpiPageSubView, UITableViewDelegate, UITableViewDataSource {
     }
 
     @IBOutlet private var tableView: UITableView!
-    private var indexSelected = 0
+//    private var indexSelected = 0
     private let rowHeight:CGFloat = 50
     
     override func awakeFromNib() {
@@ -26,12 +26,13 @@ class SubRadio: KpiPageSubView, UITableViewDelegate, UITableViewDataSource {
     override func initialize(kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
         super.initialize(kpiResult: kpiResult, valuations: valuations)
 
-        self.indexSelected = -1
+//        self.indexSelected = -1
         if self.kpiResult.value.isEmpty == false {
-            self.indexSelected += 1
             let index = Int(self.kpiResult.value)
             for item in self.valuations {
+//                self.indexSelected += 1
                 if item.id == index {
+                    self.valuationSelected = item
                     break
                 }
             }
@@ -63,7 +64,9 @@ class SubRadio: KpiPageSubView, UITableViewDelegate, UITableViewDataSource {
         let cell = SubRadioCell.dequeue(tableView, indexPath)
         let item = self.valuations[indexPath.row]
         cell.valuationTitle.text = item.name
-        cell.selectedView.isHidden = !(indexPath.row == self.indexSelected)
+        
+        let selected = (self.valuationSelected != nil && self.valuationSelected?.id == item.id)
+        cell.selectedView.isHidden = !selected
         cell.icoNote.isHidden = item.note_required == false
         cell.icoAtch.isHidden = item.attachment_required == false
         return cell
@@ -71,9 +74,8 @@ class SubRadio: KpiPageSubView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.indexSelected = indexPath.row
-        let item = self.valuations[indexPath.row]
-        self.kpiResult.value = String(item.id)
+//        self.indexSelected = indexPath.row
+        self.valuationSelected = self.valuations[indexPath.row]
         self.tableView.reloadData()
     }
 }

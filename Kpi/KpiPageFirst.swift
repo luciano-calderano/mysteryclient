@@ -43,7 +43,7 @@ class KpiPageFirst: KpiPageView {
         if self.undoneView.isHidden == false {
             if (self.undondeText.text?.isEmpty)! {
                 self.undondeText.becomeFirstResponder()
-                return .err
+                return .errNotes
             }
             Config.jobResult.comment = self.undondeText.text!
             Config.jobResult.compiled = 1

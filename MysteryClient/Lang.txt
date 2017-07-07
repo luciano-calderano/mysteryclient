@@ -40,3 +40,8 @@ note=Note
 back=Indietro
 next=Avanti
 
+error=Errore
+noValue=Selezionare un valore
+noNotes=Inserire una nota
+noAttch=Inserire un allegato
+

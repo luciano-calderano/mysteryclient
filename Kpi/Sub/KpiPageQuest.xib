@@ -24,7 +24,7 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdF-rt-wFg" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdF-rt-wFg" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
                     <rect key="frame" x="5" y="31" width="365" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
@@ -62,7 +62,7 @@
                     </constraints>
                     <state key="normal" image="ico.atch"/>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO9-hD-Afd" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO9-hD-Afd" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
                     <rect key="frame" x="5" y="53" width="365" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -97,6 +97,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="kpiAtchBtn" destination="uRq-VY-0ez" id="ebA-rj-2TX"/>
+                <outlet property="kpiInstructions" destination="gO9-hD-Afd" id="B2T-W9-PhO"/>
                 <outlet property="kpiNote" destination="5D4-ES-Yzq" id="WF7-i9-KrB"/>
                 <outlet property="kpiQuestion" destination="HdF-rt-wFg" id="kSe-Rk-XCa"/>
                 <outlet property="kpiTitle" destination="WrA-Hu-sck" id="Ouz-am-5CA"/>

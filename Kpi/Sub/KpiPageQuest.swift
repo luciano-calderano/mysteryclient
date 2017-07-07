@@ -18,6 +18,7 @@ class KpiPageQuest: KpiPageView, KpiViewDelegate, UITextViewDelegate {
     @IBOutlet private var subViewHeight: NSLayoutConstraint!
     @IBOutlet private var kpiTitle: MYLabel!
     @IBOutlet private var kpiQuestion: MYLabel!
+    @IBOutlet private var kpiInstructions: MYLabel!
     @IBOutlet private var kpiNote: UITextView!
     @IBOutlet private var kpiAtchBtn: MYButton!
     
@@ -54,6 +55,7 @@ class KpiPageQuest: KpiPageView, KpiViewDelegate, UITextViewDelegate {
                                        valuations: self.kpi.valuations)
         self.kpiTitle.text = self.kpi.factor
         self.kpiQuestion.text = self.kpi.standard
+        self.kpiInstructions.text = self.kpi.instructions
         self.kpiNote.text = self.kpiResult.notes
         self.kpiAtchBtn.isHidden = !self.kpi.attachment
     }
@@ -74,18 +76,30 @@ class KpiPageQuest: KpiPageView, KpiViewDelegate, UITextViewDelegate {
     }
     
     override func checkData() -> KpiResultType {
-        if self.kpi.required == true {
-            if self.kpi.attachment_required == true {
-                if self.attachmentPath.isEmpty {
-                    return .err
-                }
-            }
-            if self.kpi.note_required == true {
-                if self.kpiNote.text.isEmpty {
-                    return .err
-                }
-            }
+        let val = self.kpiPageSubView.valuationSelected
+        var noteRequired = self.kpi.note_required
+        var atchRequired = self.kpi.attachment_required
+        
+        if self.kpi.required == true && val == nil {
+            return .errValue
         }
+        if val == nil {
+            self.kpiResult.value = ""
+        }
+        else {
+            self.kpiResult.value = String((val?.id)!)
+            noteRequired = (val?.note_required)!
+            atchRequired = (val?.attachment_required)!
+        }
+        
+        if noteRequired == true && self.kpiNote.text.isEmpty {
+            return .errNotes
+        }
+        
+        if atchRequired == true && self.attachmentPath.isEmpty {
+            return .errAttch
+        }
+        
         self.kpiResult.kpi_id = self.kpi.id
         self.kpiResult.notes = self.kpiNote.text
         Config.jobResult.save()

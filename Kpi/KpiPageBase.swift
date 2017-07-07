@@ -18,16 +18,14 @@ class KpiViewController: UIViewController {
     var headerCounter: MYLabel!
     var scroll = UIScrollView()
     var delegate: KpiViewDelegate?
+    var kpiPageView: KpiPageView!
 
-    func checkData () -> KpiResultType {
-        return .err
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let counter = (self.navigationController?.viewControllers.count)!
         self.headerCounter.isHidden = false
         self.headerCounter.text = "\(counter)/\(Config.job.kpis.count + 1)"
+        self.scroll.contentOffset = CGPoint.zero
     }
 }
 
@@ -45,6 +43,7 @@ class KpiPageSubView: UIView {
     var delegate: KpiViewDelegate?
     var kpiResult: JobResult.KpiResult!
     var valuations: [Job.Kpi.Valuations]!
+    var valuationSelected: Job.Kpi.Valuations?
     
     func initialize (kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
         self.kpiResult = kpiResult
