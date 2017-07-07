@@ -29,7 +29,6 @@ class KpiMain: MYViewController, KpiViewDelegate {
     
     private var kpiNavi = UINavigationController()
     private var kpiViewController: KpiViewController!
-//    private var kpiPageView: KpiPageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,6 +107,7 @@ class KpiMain: MYViewController, KpiViewDelegate {
     
     private func lastKpi () {
     }
+    
     // MARK: - Actions
     
     @IBAction func nextTapped () {
@@ -137,6 +137,7 @@ class KpiMain: MYViewController, KpiViewDelegate {
         default:
             self.kpiViewController.view.endEditing(true)
             self.kpiNavi.popViewController(animated: true)
+            self.kpiViewController = self.kpiNavi.viewControllers.last as! KpiViewController
         }
     }
     
