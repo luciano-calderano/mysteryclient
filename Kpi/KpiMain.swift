@@ -18,7 +18,7 @@ enum KpiResultType {
     case err
 }
 
-class KpiMain: MYViewController, KpiViewDelegate {
+class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     class func Instance() -> KpiMain {
         let vc = self.load(storyboardName: "Kpi") as! KpiMain
         return vc
@@ -210,14 +210,56 @@ class KpiMain: MYViewController, KpiViewDelegate {
         alert.addAction(UIAlertAction.init(title: Lng("picFromCam"),
                                            style: .default,
                                            handler: { (action) in
-                                            print ("1")
+                                            self.openCamera()
         }))
         alert.addAction(UIAlertAction.init(title: Lng("picFromGal"),
                                            style: .default,
                                            handler: { (action) in
-                                            print ("2")
+                                            self.openGallary()
         }))
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    private let picker = UIImagePickerController()
+    func openGallary() {
+        self.picker.delegate = self
+        self.picker.allowsEditing = false
+        self.picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        self.present(self.picker, animated: true, completion: nil)
+    }
+    
+    func openCamera() {
+        self.picker.delegate = self
+        if (UIImagePickerController .isSourceTypeAvailable(.camera)) {
+            self.picker.allowsEditing = false
+            self.picker.sourceType = UIImagePickerControllerSourceType.camera
+            self.picker.cameraCaptureMode = .photo
+            self.present(self.picker, animated: true, completion: nil)
+        }
+        else {
+            let alert = UIAlertController(title: "Camera Not Found",
+                                          message: "This device has no Camera",
+                                          preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style:.default, handler: nil)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            let myImageView = UIImageView()
+            let image = pickedImage.resize(1200)
+            myImageView.contentMode = .scaleAspectFit
+            myImageView.image = image
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }
