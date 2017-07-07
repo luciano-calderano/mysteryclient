@@ -48,6 +48,7 @@ class KpiPageSubView: UIView {
     func initialize (kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
         self.kpiResult = kpiResult
         self.valuations = valuations
+        self.delegate?.subViewResized(newHeight: 1)
     }
 }
 

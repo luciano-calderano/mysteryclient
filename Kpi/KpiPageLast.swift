@@ -41,7 +41,7 @@ class KpiPageLast: KpiPageView, UITextViewDelegate {
         Config.jobResult.compilation_date = self.datePicker.date.toString(withFormat: Date.fmtDataOraJson)
         Config.jobResult.save()
     
-        return .next
+        return .last
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

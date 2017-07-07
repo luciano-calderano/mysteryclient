@@ -11,6 +11,7 @@ import UIKit
 enum KpiResultType {
     case next
     case home
+    case last
     case errValue
     case errNotes
     case errAttch
@@ -86,7 +87,7 @@ class KpiMain: MYViewController, KpiViewDelegate {
     private func nextKpi () -> KpiViewController {
         let idx = self.kpiNavi.viewControllers.count - 1
         
-        if idx == 3 || Config.job.kpis.count < idx {
+        if Config.job.kpis.count < idx {
             return self.lastKpi()
         }
         let vc = KpiViewController()
@@ -106,6 +107,8 @@ class KpiMain: MYViewController, KpiViewDelegate {
     }
     
     private func lastKpi () -> KpiViewController {
+        self.nextBtn.setTitle(Lng("lastPage"), for: .normal)
+        
         let vc = KpiViewController()
         vc.delegate = self
         vc.headerCounter = self.header?.header.kpiLabel
@@ -119,12 +122,18 @@ class KpiMain: MYViewController, KpiViewDelegate {
         return vc
     }
     
+    private func sendKpiResult () {
+        self.navigationController?.popToRootViewController(animated: true)        
+    }
+    
     // MARK: - Actions
     
     @IBAction func nextTapped () {
         switch self.kpiViewController.kpiPageView.checkData() {
         case .home:
             self.navigationController?.popToRootViewController(animated: true)
+        case .last:
+            self.sendKpiResult()
         case .next:
             self.kpiViewController = self.nextKpi()
         case .errValue:
@@ -146,6 +155,7 @@ class KpiMain: MYViewController, KpiViewDelegate {
         case 1:
             self.navigationController?.popViewController(animated: true)
         default:
+            self.nextBtn.setTitle(Lng("next"), for: .normal)
             self.kpiViewController.view.endEditing(true)
             self.kpiNavi.popViewController(animated: true)
             self.kpiViewController = self.kpiNavi.viewControllers.last as! KpiViewController

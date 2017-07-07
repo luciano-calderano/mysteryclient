@@ -48,7 +48,9 @@ class KpiPageQuest: KpiPageView, KpiViewDelegate, UITextViewDelegate {
             self.kpiPageSubView.delegate = self
             self.subView.addSubviewWithConstraints(self.kpiPageSubView)
         default:
-            return
+            self.kpiPageSubView = KpiPageSubView()
+            self.kpiPageSubView.delegate = self
+            self.subView.addSubviewWithConstraints(self.kpiPageSubView)
         }
         
         self.kpiPageSubView.initialize(kpiResult: self.kpiResult,
