@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doE-mg-5AH">
-                    <rect key="frame" x="8" y="11" width="359" height="120"/>
+                    <rect key="frame" x="8" y="11" width="359" height="115"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#jobFinal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWY-m2-sI5" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="359" height="15"/>
@@ -25,7 +25,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="commento.finale" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="i0L-8R-dgl">
-                            <rect key="frame" x="0.0" y="23" width="359" height="97"/>
+                            <rect key="frame" x="0.0" y="18" width="359" height="97"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -33,9 +33,9 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="i0L-8R-dgl" firstAttribute="top" secondItem="vWY-m2-sI5" secondAttribute="bottom" constant="8" id="Ktc-DA-FPf"/>
+                        <constraint firstItem="i0L-8R-dgl" firstAttribute="top" secondItem="vWY-m2-sI5" secondAttribute="bottom" constant="3" id="Ktc-DA-FPf"/>
                         <constraint firstAttribute="trailing" secondItem="i0L-8R-dgl" secondAttribute="trailing" id="LZl-49-FRN"/>
-                        <constraint firstAttribute="height" constant="120" id="Mwq-1O-X4a"/>
+                        <constraint firstAttribute="height" constant="115" id="Mwq-1O-X4a"/>
                         <constraint firstAttribute="bottom" secondItem="i0L-8R-dgl" secondAttribute="bottom" id="UY9-uY-TZI"/>
                         <constraint firstItem="i0L-8R-dgl" firstAttribute="leading" secondItem="doE-mg-5AH" secondAttribute="leading" id="kWu-CZ-f3Y"/>
                         <constraint firstAttribute="trailing" secondItem="vWY-m2-sI5" secondAttribute="trailing" id="lf4-af-0Kg"/>
@@ -52,7 +52,7 @@
                         <!--2017-07-04 11:57:04 +0000-->
                     </date>
                 </datePicker>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#jobStartTime" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vM5-eT-28x" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#jobFinalTime" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vM5-eT-28x" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
                     <rect key="frame" x="16" y="146" width="343" height="15"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="15" id="Tvx-mq-Ags"/>

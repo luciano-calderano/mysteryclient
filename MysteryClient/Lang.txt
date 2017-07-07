@@ -46,4 +46,5 @@ noNotes=Inserire una nota
 noAttch=Inserire un allegato
 
 jobFinal=Commento finale
+jobFinalTime=Ora di fine esecuzione
 

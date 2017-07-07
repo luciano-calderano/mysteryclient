@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KpiPageLast: KpiPageView {
+class KpiPageLast: KpiPageView, UITextViewDelegate {
     class func Instance() -> KpiPageLast {
         let id = String (describing: self)
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! KpiPageLast
@@ -21,12 +21,15 @@ class KpiPageLast: KpiPageView {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.finalText.text = Config.jobResult.comment
+        self.finalText.layer.borderColor = UIColor.lightGray.cgColor
+        self.finalText.layer.borderWidth = 1
+        self.finalText.delegate = self
     }
     
     override func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
-        if Config.jobResult.execution_date.isEmpty == false {
-            let d = Config.jobResult.execution_date + " " + Config.jobResult.execution_start_time + ":00"
+        if Config.jobResult.compilation_date.isEmpty == false {
+            let d = Config.jobResult.compilation_date
             let date = d.toDate(withFormat: Date.fmtDataOraJson)
             self.datePicker.date = date
         }
@@ -40,4 +43,13 @@ class KpiPageLast: KpiPageView {
     
         return .next
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+
 }

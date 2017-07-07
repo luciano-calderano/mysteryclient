@@ -85,9 +85,9 @@ class KpiMain: MYViewController, KpiViewDelegate {
     
     private func nextKpi () -> KpiViewController {
         let idx = self.kpiNavi.viewControllers.count - 1
-        if Config.job.kpis.count < idx {
-            self.lastKpi()
-            return KpiViewController()
+        
+        if idx == 3 || Config.job.kpis.count < idx {
+            return self.lastKpi()
         }
         let vc = KpiViewController()
         vc.delegate = self
@@ -105,7 +105,7 @@ class KpiMain: MYViewController, KpiViewDelegate {
         return vc
     }
     
-    private func lastKpi () {
+    private func lastKpi () -> KpiViewController {
         let vc = KpiViewController()
         vc.delegate = self
         vc.headerCounter = self.header?.header.kpiLabel
@@ -116,6 +116,7 @@ class KpiMain: MYViewController, KpiViewDelegate {
         self.kpiNavi.pushViewController(vc, animated: true)
         vc.view.addSubviewWithConstraints(vc.scroll)
         vc.scroll.addSubviewWithConstraints(vc.kpiPageView)
+        return vc
     }
     
     // MARK: - Actions
