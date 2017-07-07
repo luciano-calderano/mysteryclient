@@ -45,3 +45,5 @@ noValue=Selezionare un valore
 noNotes=Inserire una nota
 noAttch=Inserire un allegato
 
+jobFinal=Commento finale
+

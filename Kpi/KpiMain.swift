@@ -106,6 +106,16 @@ class KpiMain: MYViewController, KpiViewDelegate {
     }
     
     private func lastKpi () {
+        let vc = KpiViewController()
+        vc.delegate = self
+        vc.headerCounter = self.header?.header.kpiLabel
+
+        vc.kpiPageView = KpiPageLast.Instance()
+        vc.kpiPageView.delegate = self
+        
+        self.kpiNavi.pushViewController(vc, animated: true)
+        vc.view.addSubviewWithConstraints(vc.scroll)
+        vc.scroll.addSubviewWithConstraints(vc.kpiPageView)
     }
     
     // MARK: - Actions
