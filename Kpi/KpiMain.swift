@@ -203,9 +203,21 @@ class KpiMain: MYViewController, KpiViewDelegate {
         self.kpiViewController.scroll.contentOffset = offset
     }
     
-    func subViewResized(newHeight: CGFloat) {
-        var contentSize = self.kpiViewController.scroll.contentSize
-        contentSize.height += 300
-        self.kpiViewController.scroll.contentSize = contentSize
+    func atchButtonTapped(page: KpiPageQuest) {
+        let alert = UIAlertController(title: Lng("uploadPic") as String,
+                                      message: "" as String,
+                                      preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction.init(title: Lng("picFromCam"),
+                                           style: .default,
+                                           handler: { (action) in
+                                            print ("1")
+        }))
+        alert.addAction(UIAlertAction.init(title: Lng("picFromGal"),
+                                           style: .default,
+                                           handler: { (action) in
+                                            print ("2")
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KpiPageQuest: KpiPageView, KpiViewDelegate, UITextViewDelegate {
+class KpiPageQuest: KpiPageView, KpiSubViewDelegate, UITextViewDelegate {
     class func Instance() -> KpiPageQuest {
         let id = String (describing: self)
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! KpiPageQuest
@@ -22,9 +22,7 @@ class KpiPageQuest: KpiPageView, KpiViewDelegate, UITextViewDelegate {
     @IBOutlet private var kpiNote: UITextView!
     @IBOutlet private var kpiAtchBtn: MYButton!
     
-    private var attachmentPath = ""
-//    private var indexSelected = 0
-    
+    private var attachmentPath = ""    
     private var kpiPageSubView: KpiPageSubView!
     
     override func awakeFromNib() {
@@ -62,21 +60,6 @@ class KpiPageQuest: KpiPageView, KpiViewDelegate, UITextViewDelegate {
         self.kpiAtchBtn.isHidden = !self.kpi.attachment
     }
     
-    //MARK: - page subview delegate
-    
-    func endEditing() {
-    }
-    
-    func startEditing(y: CGFloat) {
-    }
-    
-    func subViewResized (newHeight: CGFloat) {
-        self.subViewHeight.constant = newHeight
-        var rect = self.frame
-        rect.size.height += newHeight
-        self.frame = rect
-    }
-    
     override func checkData() -> KpiResultType {
         let val = self.kpiPageSubView.valuationSelected
         var noteRequired = self.kpi.note_required
@@ -108,6 +91,21 @@ class KpiPageQuest: KpiPageView, KpiViewDelegate, UITextViewDelegate {
         
         self.endEditing(true)
         return .next
+    }
+
+    //MARK: - Actions 
+    
+    @IBAction func atchButtonTapped () {
+        self.delegate?.atchButtonTapped(page: self)
+    }
+
+    //MARK: - page subview delegate
+    
+    func subViewResized (newHeight: CGFloat) {
+        self.subViewHeight.constant = newHeight
+        var rect = self.frame
+        rect.size.height += newHeight
+        self.frame = rect
     }
     
     //MARK: - text view delegate

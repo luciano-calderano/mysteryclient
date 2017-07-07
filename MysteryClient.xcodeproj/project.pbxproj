@@ -233,15 +233,23 @@
 				04563F851F0CC83C00B8BCC6 /* Kpi.storyboard */,
 				04563F921F0CCA8F00B8BCC6 /* KpiMain.swift */,
 				047ACEE41F0F703D008F2045 /* KpiPageBase.swift */,
-				04F1375B1F0E6A2A002946D6 /* KpiPageFirst.xib */,
 				04F1375D1F0E6AA6002946D6 /* KpiPageFirst.swift */,
-				04F1375F1F0E6C8F002946D6 /* KpiPageQuest.xib */,
 				04F137611F0E6D01002946D6 /* KpiPageQuest.swift */,
 				04EFCF9A1F0FB0C900ACFC6E /* KpiPageLast.swift */,
-				04EFCF9B1F0FB0C900ACFC6E /* KpiPageLast.xib */,
+				0479ED5E1F0FC4A9000D4004 /* Xib */,
 				04BB77D21F0E328A002AEEF6 /* SubViewPage */,
 			);
 			name = Kpi;
+			sourceTree = "<group>";
+		};
+		0479ED5E1F0FC4A9000D4004 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				04F1375B1F0E6A2A002946D6 /* KpiPageFirst.xib */,
+				04F1375F1F0E6C8F002946D6 /* KpiPageQuest.xib */,
+				04EFCF9B1F0FB0C900ACFC6E /* KpiPageLast.xib */,
+			);
+			name = Xib;
 			sourceTree = "<group>";
 		};
 		04A210951F03A7CC00D1480C /* Home */ = {

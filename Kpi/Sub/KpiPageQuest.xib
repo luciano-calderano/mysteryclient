@@ -68,6 +68,9 @@
                             <real key="value" value="16"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="atchButtonTapped" destination="iN0-l3-epB" eventType="touchUpInside" id="9oC-kf-f1Y"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO9-hD-Afd" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
                     <rect key="frame" x="5" y="53" width="365" height="17"/>

@@ -46,6 +46,9 @@ error=Errore
 noValue=Selezionare un valore
 noNotes=Inserire una nota
 noAttch=Inserire un allegato
+uploadPic=Upload da:
+picFromCam=Scatta una foto
+picFromGal=Allega dalla galleria
 
 jobFinal=Commento finale
 jobFinalTime=Ora di fine esecuzione

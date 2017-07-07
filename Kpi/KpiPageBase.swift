@@ -11,6 +11,11 @@ import UIKit
 protocol KpiViewDelegate {
     func startEditing (y: CGFloat)
     func endEditing ()
+//    func subViewResized (newHeight: CGFloat)
+    func atchButtonTapped (page: KpiPageQuest)
+}
+
+protocol KpiSubViewDelegate {
     func subViewResized (newHeight: CGFloat)
 }
 
@@ -40,7 +45,7 @@ class KpiPageView: UIView {
 }
 
 class KpiPageSubView: UIView {
-    var delegate: KpiViewDelegate?
+    var delegate: KpiSubViewDelegate?
     var kpiResult: JobResult.KpiResult!
     var valuations: [Job.Kpi.Valuations]!
     var valuationSelected: Job.Kpi.Valuations?
