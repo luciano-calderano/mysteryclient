@@ -13,24 +13,43 @@ protocol KpiViewDelegate {
     func endEditing ()
 //    func subViewResized (newHeight: CGFloat)
     func atchButtonTapped (page: KpiPageQuest)
+    func showPageNum (_ num: Int)
 }
 
 protocol KpiSubViewDelegate {
     func subViewResized (newHeight: CGFloat)
 }
 
+class KpiQuestViewController: KpiViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        self.scroll.addSubviewWithConstraints(self.kpiPageView)
+        self.scroll.contentOffset = CGPoint.zero
+    }
+}
+
 class KpiViewController: UIViewController {
-    var headerCounter: MYLabel!
-    var scroll = UIScrollView()
+    class func Instance() -> KpiViewController {
+        let vc = self.load(storyboardName: "Kpi") as! KpiViewController
+        return vc
+    }
+
+    @IBOutlet var scroll: UIScrollView!
+    @IBOutlet var content: UIView!
+    @IBOutlet var contentH: NSLayoutConstraint!
+
+    var kpi: Job.Kpi!
+    var kpiResult: JobResult.KpiResult!
     var delegate: KpiViewDelegate?
     var kpiPageView: KpiPageView!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let counter = (self.navigationController?.viewControllers.count)!
-        self.headerCounter.isHidden = false
-        self.headerCounter.text = "\(counter)/\(Config.job.kpis.count + 1)"
-        self.scroll.contentOffset = CGPoint.zero
+        self.delegate?.showPageNum((self.navigationController?.viewControllers.count)!)
+    }
+    
+    func checkData() -> KpiResultType {
+        return .err
     }
 }
 

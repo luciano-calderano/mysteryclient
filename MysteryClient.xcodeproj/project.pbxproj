@@ -30,6 +30,9 @@
 		047ACEE51F0F703D008F2045 /* KpiPageBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047ACEE41F0F703D008F2045 /* KpiPageBase.swift */; };
 		0484D3381F1382F600E9FB11 /* SubText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0484D3361F1382F600E9FB11 /* SubText.swift */; };
 		0484D3391F1382F600E9FB11 /* SubText.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0484D3371F1382F600E9FB11 /* SubText.xib */; };
+		0484D33B1F13A50B00E9FB11 /* KpiStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0484D33A1F13A50B00E9FB11 /* KpiStart.swift */; };
+		0484D33D1F13A8A800E9FB11 /* KpiQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0484D33C1F13A8A800E9FB11 /* KpiQuest.swift */; };
+		0484D3401F13AF1900E9FB11 /* KpiLast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0484D33F1F13AF1900E9FB11 /* KpiLast.swift */; };
 		049489461F0A556100A40122 /* Ext.UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049489451F0A556100A40122 /* Ext.UIView.swift */; };
 		04A210981F03A81900D1480C /* JobDetailDesc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A210971F03A81900D1480C /* JobDetailDesc.xib */; };
 		04A2109A1F03A82A00D1480C /* JobDetailDesc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A210991F03A82A00D1480C /* JobDetailDesc.swift */; };
@@ -90,6 +93,9 @@
 		047ACEE41F0F703D008F2045 /* KpiPageBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpiPageBase.swift; path = Kpi/KpiPageBase.swift; sourceTree = "<group>"; };
 		0484D3361F1382F600E9FB11 /* SubText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubText.swift; path = Kpi/Sub/SubText.swift; sourceTree = "<group>"; };
 		0484D3371F1382F600E9FB11 /* SubText.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubText.xib; path = Kpi/Sub/SubText.xib; sourceTree = "<group>"; };
+		0484D33A1F13A50B00E9FB11 /* KpiStart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpiStart.swift; path = Kpi/KpiStart.swift; sourceTree = "<group>"; };
+		0484D33C1F13A8A800E9FB11 /* KpiQuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpiQuest.swift; path = Kpi/KpiQuest.swift; sourceTree = "<group>"; };
+		0484D33F1F13AF1900E9FB11 /* KpiLast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpiLast.swift; path = Kpi/KpiLast.swift; sourceTree = "<group>"; };
 		049489451F0A556100A40122 /* Ext.UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.UIView.swift; sourceTree = "<group>"; };
 		04A210971F03A81900D1480C /* JobDetailDesc.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JobDetailDesc.xib; path = Detail/JobDetailDesc.xib; sourceTree = "<group>"; };
 		04A210991F03A82A00D1480C /* JobDetailDesc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JobDetailDesc.swift; path = Detail/JobDetailDesc.swift; sourceTree = "<group>"; };
@@ -234,14 +240,15 @@
 		04563F841F0CC79C00B8BCC6 /* Kpi */ = {
 			isa = PBXGroup;
 			children = (
+				0484D33E1F13AED900E9FB11 /* No */,
 				04563F851F0CC83C00B8BCC6 /* Kpi.storyboard */,
 				04563F921F0CCA8F00B8BCC6 /* KpiMain.swift */,
-				047ACEE41F0F703D008F2045 /* KpiPageBase.swift */,
-				04F1375D1F0E6AA6002946D6 /* KpiPageFirst.swift */,
-				04F137611F0E6D01002946D6 /* KpiPageQuest.swift */,
-				04EFCF9A1F0FB0C900ACFC6E /* KpiPageLast.swift */,
 				0479ED5E1F0FC4A9000D4004 /* Xib */,
 				04BB77D21F0E328A002AEEF6 /* SubViewPage */,
+				047ACEE41F0F703D008F2045 /* KpiPageBase.swift */,
+				0484D33A1F13A50B00E9FB11 /* KpiStart.swift */,
+				0484D33C1F13A8A800E9FB11 /* KpiQuest.swift */,
+				0484D33F1F13AF1900E9FB11 /* KpiLast.swift */,
 			);
 			name = Kpi;
 			sourceTree = "<group>";
@@ -249,11 +256,21 @@
 		0479ED5E1F0FC4A9000D4004 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
-				04F1375B1F0E6A2A002946D6 /* KpiPageFirst.xib */,
-				04F1375F1F0E6C8F002946D6 /* KpiPageQuest.xib */,
 				04EFCF9B1F0FB0C900ACFC6E /* KpiPageLast.xib */,
 			);
 			name = Xib;
+			sourceTree = "<group>";
+		};
+		0484D33E1F13AED900E9FB11 /* No */ = {
+			isa = PBXGroup;
+			children = (
+				04EFCF9A1F0FB0C900ACFC6E /* KpiPageLast.swift */,
+				04F1375D1F0E6AA6002946D6 /* KpiPageFirst.swift */,
+				04F137611F0E6D01002946D6 /* KpiPageQuest.swift */,
+				04F1375B1F0E6A2A002946D6 /* KpiPageFirst.xib */,
+				04F1375F1F0E6C8F002946D6 /* KpiPageQuest.xib */,
+			);
+			name = No;
 			sourceTree = "<group>";
 		};
 		04A210951F03A7CC00D1480C /* Home */ = {
@@ -511,6 +528,7 @@
 				04FCF19C1F0265D50087FBDF /* JobsHome.swift in Sources */,
 				04A2109D1F03AC3400D1480C /* JobDetailAtch.swift in Sources */,
 				049489461F0A556100A40122 /* Ext.UIView.swift in Sources */,
+				0484D33B1F13A50B00E9FB11 /* KpiStart.swift in Sources */,
 				04F137621F0E6D01002946D6 /* KpiPageQuest.swift in Sources */,
 				04461A2D1EFA85CF008CD1E2 /* Ext.UIFont.swift in Sources */,
 				04EFCF9C1F0FB0C900ACFC6E /* KpiPageLast.swift in Sources */,
@@ -528,7 +546,9 @@
 				04563F931F0CCA8F00B8BCC6 /* KpiMain.swift in Sources */,
 				04461A241EFA84B9008CD1E2 /* Login.swift in Sources */,
 				04BCAD381EFAB7FC00745556 /* MYHttpAlamo.swift in Sources */,
+				0484D33D1F13A8A800E9FB11 /* KpiQuest.swift in Sources */,
 				04BC64121EFD830E00C0912D /* AppDelegate.swift in Sources */,
+				0484D3401F13AF1900E9FB11 /* KpiLast.swift in Sources */,
 				04A2109A1F03A82A00D1480C /* JobDetailDesc.swift in Sources */,
 				04BCAD2D1EFA97B900745556 /* HomeCell.swift in Sources */,
 				04FC17221F011CA600226F1A /* Job.swift in Sources */,

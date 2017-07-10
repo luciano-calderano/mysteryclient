@@ -27,8 +27,9 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
     @IBOutlet private var container: UIView!
     @IBOutlet private var backBtn: MYButton!
     @IBOutlet private var nextBtn: MYButton!
-    
+   
     private var kpiNavi = UINavigationController()
+    
     private var kpiViewController: KpiViewController!
     
     override func viewDidLoad() {
@@ -53,7 +54,6 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
             Config.jobResult.save()
         }
         
-        self.kpiViewController = self.firstKpi()
         self.addKeybNotification()
         self.headerTitle = Config.job.store.name
         
@@ -66,60 +66,58 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
         self.nextBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     }
     
-    private func firstKpi () -> KpiViewController {
-        let vc = KpiViewController()
-
-        vc.delegate = self
-        vc.headerCounter = self.header?.header.kpiLabel
-        vc.view.addSubviewWithConstraints(vc.scroll)
-        vc.kpiPageView = KpiPageFirst.Instance()
-        vc.scroll.addSubviewWithConstraints(vc.kpiPageView)
-        
-        self.kpiNavi = UINavigationController(rootViewController:vc)
-        self.kpiNavi.navigationBar.isHidden = true
-        self.kpiNavi.view.frame = self.container.bounds
-        self.addChildViewController(self.kpiNavi)
-        self.container.addSubview(self.kpiNavi.view)
-        
-        return vc
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is UINavigationController {
+            self.kpiNavi = segue.destination as! UINavigationController
+            let vc = self.kpiNavi.viewControllers.first as! KpiStart
+            
+            vc.delegate = self
+            self.kpiViewController = vc
+        }
     }
     
-    private func nextKpi () -> KpiViewController {
+    private func nextKpi () {
         let idx = self.kpiNavi.viewControllers.count - 1
         
         if Config.job.kpis.count < idx {
-            return self.lastKpi()
+            let vc = KpiLast.Instance()
+            vc.delegate = self
+            self.kpiNavi.pushViewController(vc, animated: true)
+            self.kpiViewController = vc
+            return
         }
-        let vc = KpiViewController()
+        let vc = KpiQuest.Instance()
         vc.delegate = self
-        vc.headerCounter = self.header?.header.kpiLabel
-
-        vc.kpiPageView = KpiPageQuest.Instance()
-        vc.kpiPageView.delegate = self
-        vc.kpiPageView.kpi = Config.job.kpis[idx]
-        vc.kpiPageView.kpiResult = Config.jobResult.results[idx]
-
+//        vc.kpi = Config.job.kpis[idx]
+//        vc.kpiResult = Config.jobResult.results[idx]
         self.kpiNavi.pushViewController(vc, animated: true)
-        vc.view.addSubviewWithConstraints(vc.scroll)
-        vc.scroll.addSubviewWithConstraints(vc.kpiPageView)
-        
-        return vc
+        self.kpiViewController = vc
     }
     
-    private func lastKpi () -> KpiViewController {
-        self.nextBtn.setTitle(Lng("lastPage"), for: .normal)
-        
-        let vc = KpiViewController()
-        vc.delegate = self
-        vc.headerCounter = self.header?.header.kpiLabel
-
-        vc.kpiPageView = KpiPageLast.Instance()
-        vc.kpiPageView.delegate = self
-        
-        self.kpiNavi.pushViewController(vc, animated: true)
-        vc.view.addSubviewWithConstraints(vc.scroll)
-        vc.scroll.addSubviewWithConstraints(vc.kpiPageView)
-        return vc
+//    private func lastKpi () -> KpiViewController {
+//        self.showKpiCounter()
+//        self.nextBtn.setTitle(Lng("lastPage"), for: .normal)
+//        
+//        let vc = KpiViewController()
+//        vc.delegate = self
+//        vc.headerCounter = self.header?.header.kpiLabel
+//
+//        vc.kpiPageView = KpiPageLast.Instance()
+//        vc.kpiPageView.delegate = self
+//        
+//        self.kpiNavi.pushViewController(vc, animated: true)
+////        vc.view.addSubviewWithConstraints(vc.scroll)
+//        vc.scroll.addSubviewWithConstraints(vc.kpiPageView)
+//        self.showKpiCounter()
+//
+//        return vc
+//    }
+    
+    // MARK: - Delegate
+    
+    func showPageNum(_ num: Int) {
+        self.header?.header.kpiLabel.isHidden = false
+        self.header?.header.kpiLabel.text = "\(num)/\(Config.job.kpis.count + 2)"
     }
     
     private func sendKpiResult () {
@@ -129,13 +127,13 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
     // MARK: - Actions
     
     @IBAction func nextTapped () {
-        switch self.kpiViewController.kpiPageView.checkData() {
+        switch self.kpiViewController.checkData() {
         case .home:
             self.navigationController?.popToRootViewController(animated: true)
         case .last:
             self.sendKpiResult()
         case .next:
-            self.kpiViewController = self.nextKpi()
+            self.nextKpi()
         case .errValue:
             self.alert(Lng("error"), message: Lng("noValue"), okBlock: nil)
             return
