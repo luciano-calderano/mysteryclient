@@ -440,6 +440,91 @@
             </objects>
             <point key="canvasLocation" x="5103" y="-509"/>
         </scene>
+        <!--Kpi Last-->
+        <scene sceneID="0FP-EJ-gt2">
+            <objects>
+                <viewController storyboardIdentifier="KpiLast" id="MGd-NW-Ssw" customClass="KpiLast" customModule="MysteryClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Oh7-EJ-qm0"/>
+                        <viewControllerLayoutGuide type="bottom" id="L8B-cg-6Sb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kqL-nn-6sn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="330"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BCq-Lv-1cY">
+                                <rect key="frame" x="8" y="8" width="359" height="115"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#jobFinal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5cE-hH-YHI" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="commento.finale" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PAg-kc-jtj">
+                                        <rect key="frame" x="0.0" y="18" width="359" height="97"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="PAg-kc-jtj" secondAttribute="bottom" id="4VA-Ec-kHC"/>
+                                    <constraint firstAttribute="trailing" secondItem="5cE-hH-YHI" secondAttribute="trailing" id="7F6-Av-p3D"/>
+                                    <constraint firstAttribute="trailing" secondItem="PAg-kc-jtj" secondAttribute="trailing" id="FPp-Fz-3Uo"/>
+                                    <constraint firstItem="PAg-kc-jtj" firstAttribute="top" secondItem="5cE-hH-YHI" secondAttribute="bottom" constant="3" id="KI4-RI-bHe"/>
+                                    <constraint firstItem="5cE-hH-YHI" firstAttribute="top" secondItem="BCq-Lv-1cY" secondAttribute="top" id="ZS3-UB-SS4"/>
+                                    <constraint firstItem="PAg-kc-jtj" firstAttribute="leading" secondItem="BCq-Lv-1cY" secondAttribute="leading" id="eHs-LW-Bm0"/>
+                                    <constraint firstAttribute="height" constant="115" id="kfk-0F-LjX"/>
+                                    <constraint firstItem="5cE-hH-YHI" firstAttribute="leading" secondItem="BCq-Lv-1cY" secondAttribute="leading" id="kv4-mA-zU0"/>
+                                </constraints>
+                            </view>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="iCp-BG-YS2">
+                                <rect key="frame" x="16" y="159" width="343" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="DfW-g1-a2c"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="520862224.16634601">
+                                    <!--2017-07-04 11:57:04 +0000-->
+                                </date>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#jobFinalTime" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I8g-hM-3sw" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
+                                <rect key="frame" x="16" y="143" width="343" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="d1J-8T-xrt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="I8g-hM-3sw" firstAttribute="leading" secondItem="kqL-nn-6sn" secondAttribute="leading" constant="16" id="2Ke-J6-27C"/>
+                            <constraint firstItem="iCp-BG-YS2" firstAttribute="top" secondItem="I8g-hM-3sw" secondAttribute="bottom" constant="1" id="5GM-NM-XTT"/>
+                            <constraint firstItem="BCq-Lv-1cY" firstAttribute="leading" secondItem="kqL-nn-6sn" secondAttribute="leading" constant="8" id="7OG-DS-yoy"/>
+                            <constraint firstItem="BCq-Lv-1cY" firstAttribute="top" secondItem="Oh7-EJ-qm0" secondAttribute="bottom" constant="8" id="Ejk-am-q8b"/>
+                            <constraint firstItem="iCp-BG-YS2" firstAttribute="leading" secondItem="kqL-nn-6sn" secondAttribute="leading" constant="16" id="Mcq-RI-S8u"/>
+                            <constraint firstAttribute="trailing" secondItem="I8g-hM-3sw" secondAttribute="trailing" constant="16" id="Yl5-YC-QQi"/>
+                            <constraint firstItem="I8g-hM-3sw" firstAttribute="top" secondItem="BCq-Lv-1cY" secondAttribute="bottom" constant="20" id="qOd-02-JRu"/>
+                            <constraint firstAttribute="trailing" secondItem="iCp-BG-YS2" secondAttribute="trailing" constant="16" id="yDG-9u-5u3"/>
+                            <constraint firstAttribute="trailing" secondItem="BCq-Lv-1cY" secondAttribute="trailing" constant="8" id="zI7-dF-02a"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="35R-Lg-9BJ"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="330"/>
+                    <connections>
+                        <outlet property="datePicker" destination="iCp-BG-YS2" id="Vdy-r7-793"/>
+                        <outlet property="finalText" destination="PAg-kc-jtj" id="rId-Vu-xtU"/>
+                        <outlet property="finalView" destination="BCq-Lv-1cY" id="CIJ-rl-XMl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t1S-XG-Eto" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6402" y="-510"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ico.back" width="128" height="128"/>

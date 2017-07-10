@@ -29,11 +29,14 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
     @IBOutlet private var nextBtn: MYButton!
    
     private var kpiNavi = UINavigationController()
+    private var myKeyboard: MYKeyboard!
     
     private var kpiViewController: KpiViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.myKeyboard = MYKeyboard.init(vc: self)
         
         let path = NSTemporaryDirectory() + "/" + String(Config.job.id)
         let fm = FileManager.default
@@ -54,7 +57,6 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
             Config.jobResult.save()
         }
         
-        self.addKeybNotification()
         self.headerTitle = Config.job.store.name
         
         for btn in [self.backBtn, self.nextBtn] as! [MYButton] {
@@ -79,39 +81,17 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
     private func nextKpi () {
         let idx = self.kpiNavi.viewControllers.count - 1
         
+        var vc: KpiViewController
         if Config.job.kpis.count < idx {
-            let vc = KpiLast.Instance()
-            vc.delegate = self
-            self.kpiNavi.pushViewController(vc, animated: true)
-            self.kpiViewController = vc
-            return
+            vc = KpiLast.Instance()
         }
-        let vc = KpiQuest.Instance()
+        else {
+            vc = KpiQuest.Instance()
+        }
         vc.delegate = self
-//        vc.kpi = Config.job.kpis[idx]
-//        vc.kpiResult = Config.jobResult.results[idx]
         self.kpiNavi.pushViewController(vc, animated: true)
         self.kpiViewController = vc
     }
-    
-//    private func lastKpi () -> KpiViewController {
-//        self.showKpiCounter()
-//        self.nextBtn.setTitle(Lng("lastPage"), for: .normal)
-//        
-//        let vc = KpiViewController()
-//        vc.delegate = self
-//        vc.headerCounter = self.header?.header.kpiLabel
-//
-//        vc.kpiPageView = KpiPageLast.Instance()
-//        vc.kpiPageView.delegate = self
-//        
-//        self.kpiNavi.pushViewController(vc, animated: true)
-////        vc.view.addSubviewWithConstraints(vc.scroll)
-//        vc.scroll.addSubviewWithConstraints(vc.kpiPageView)
-//        self.showKpiCounter()
-//
-//        return vc
-//    }
     
     // MARK: - Delegate
     
@@ -161,45 +141,16 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
     }
     
     //MARK: - keyboard function
-    
-    private func addKeybNotification () {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillShow(notification:)),
-                                               name:NSNotification.Name.UIKeyboardWillShow,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillHide(notification:)),
-                                               name:NSNotification.Name.UIKeyboardWillHide,
-                                               object: nil)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    func keyboardWillShow (notification: NSNotification) {
-        let kbSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as! NSValue
-        let h = kbSize.cgRectValue.size.height
-        self.kpiViewController.scroll.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: h, right: 0)
-    }
-    
-    func keyboardWillHide (notification: NSNotification) {
-        self.kpiViewController.scroll.contentInset = UIEdgeInsets.zero
-    }
-    
-    //MARK: - setting offset
-    
-    var prevOffset = CGPoint.zero
+
     func endEditing() {
-        self.kpiViewController.scroll.contentOffset = self.prevOffset
+        self.myKeyboard.endEditing()
     }
     
     func startEditing(y: CGFloat) {
-        self.prevOffset = self.kpiViewController.scroll.contentOffset
-        var offset = self.kpiViewController.scroll.contentOffset
-        offset.y = y
-        self.kpiViewController.scroll.contentOffset = offset
+        self.myKeyboard.startEditing(scroll: self.kpiViewController.scroll, y: y)
     }
+    
+    //MARK: - attachment
     
     func atchButtonTapped(page: KpiPageQuest) {
         let alert = UIAlertController(title: Lng("uploadPic") as String,
@@ -255,7 +206,7 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
                                didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            let image = pickedImage.resize(1200)!
+            let image = pickedImage.resize(CGFloat(Config.maxPicSize))!
             print(image.size)
             let page = self.kpiViewController.kpiPageView!
             let file = String(page.kpi.id)
