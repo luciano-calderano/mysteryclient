@@ -37,6 +37,10 @@ jobNotDone=Inserisci il motivo per cui non hai potuto svolgerlo
 jobStartTime=Inserisci data e ora di inizio dell'incarico
 jobSelAtch=Seleziona allegati
 
+question=Domanda
+instruct=Istruzioni
+insertText=Inserisci un testo
+
 note=Note
 back=Indietro
 next=Avanti

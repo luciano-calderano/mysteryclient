@@ -49,6 +49,7 @@ class KpiPageSubView: UIView {
     var kpiResult: JobResult.KpiResult!
     var valuations: [Job.Kpi.Valuations]!
     var valuationSelected: Job.Kpi.Valuations?
+    var value = ""
     
     func initialize (kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
         self.kpiResult = kpiResult

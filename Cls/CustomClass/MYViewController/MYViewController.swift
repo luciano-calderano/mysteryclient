@@ -17,7 +17,10 @@ class MYViewController: UIViewController, HeaderViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.myGreenDark
+        let view = UIView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 20))
+        view.backgroundColor = UIColor.myGreenDark
+        self.view.addSubview(view)
+        self.view.backgroundColor = UIColor.white
         self.header?.delegate = self
         if self.header?.header.dxButton.image(for: .normal) == nil {
             self.header?.header.dxButton.isHidden = true

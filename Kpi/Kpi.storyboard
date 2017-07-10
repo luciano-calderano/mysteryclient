@@ -90,6 +90,7 @@
                             <constraint firstAttribute="trailing" secondItem="vrP-th-BSg" secondAttribute="trailing" id="xQw-fi-vHT"/>
                         </constraints>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="backBtn" destination="M3D-dF-b1b" id="D56-Ej-ZfJ"/>
                         <outlet property="container" destination="dkQ-Yn-K9E" id="kR4-LI-cee"/>

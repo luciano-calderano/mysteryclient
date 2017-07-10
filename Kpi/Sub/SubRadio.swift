@@ -15,7 +15,6 @@ class SubRadio: KpiPageSubView, UITableViewDelegate, UITableViewDataSource {
     }
 
     @IBOutlet private var tableView: UITableView!
-//    private var indexSelected = 0
     private let rowHeight:CGFloat = 50
     
     override func awakeFromNib() {
@@ -25,12 +24,12 @@ class SubRadio: KpiPageSubView, UITableViewDelegate, UITableViewDataSource {
     
     override func initialize(kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
         super.initialize(kpiResult: kpiResult, valuations: valuations)
-
-//        self.indexSelected = -1
+        self.tableView.layer.borderColor = UIColor.lightGray.cgColor
+        self.tableView.layer.borderWidth = 1
+        
         if self.kpiResult.value.isEmpty == false {
             let index = Int(self.kpiResult.value)
             for item in self.valuations {
-//                self.indexSelected += 1
                 if item.id == index {
                     self.valuationSelected = item
                     break

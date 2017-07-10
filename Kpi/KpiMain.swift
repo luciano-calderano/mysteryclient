@@ -221,6 +221,8 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
         present(alert, animated: true, completion: nil)
     }
     
+    //MARK - Image picker
+    
     private let picker = UIImagePickerController()
     func openGallary() {
         self.picker.delegate = self
@@ -255,10 +257,12 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
                                didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            let myImageView = UIImageView()
-            let image = pickedImage.resize(1200)
-            myImageView.contentMode = .scaleAspectFit
-            myImageView.image = image
+            let image = pickedImage.resize(1200)!
+            print(image.size)
+            let page = self.kpiViewController.kpiPageView!
+            let file = String(page.kpi.id)
+            let result = String(page.kpiResult.kpi_id)
+            self.kpiViewController.kpiPageView.kpiResult.attachment = file + "." + result
         }
         self.dismiss(animated: true, completion: nil)
     }

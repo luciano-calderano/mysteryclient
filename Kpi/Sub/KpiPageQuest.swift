@@ -43,14 +43,15 @@ class KpiPageQuest: KpiPageView, KpiSubViewDelegate, UITextViewDelegate {
         switch kpi.type {
         case "radio" :
             self.kpiPageSubView = SubRadio.Instance()
-            self.kpiPageSubView.delegate = self
-            self.subView.addSubviewWithConstraints(self.kpiPageSubView)
+        case "text" :
+            self.kpiPageSubView = SubText.Instance()
         default:
             self.kpiPageSubView = KpiPageSubView()
-            self.kpiPageSubView.delegate = self
-            self.subView.addSubviewWithConstraints(self.kpiPageSubView)
         }
         
+        self.kpiPageSubView.delegate = self
+        self.subView.addSubviewWithConstraints(self.kpiPageSubView)
+
         self.kpiPageSubView.initialize(kpiResult: self.kpiResult,
                                        valuations: self.kpi.valuations)
         self.kpiTitle.text = self.kpi.factor
@@ -61,20 +62,26 @@ class KpiPageQuest: KpiPageView, KpiSubViewDelegate, UITextViewDelegate {
     }
     
     override func checkData() -> KpiResultType {
-        let val = self.kpiPageSubView.valuationSelected
         var noteRequired = self.kpi.note_required
         var atchRequired = self.kpi.attachment_required
+        let val = self.kpiPageSubView.valuationSelected
         
-        if self.kpi.required == true && val == nil {
-            return .errValue
-        }
-        if val == nil {
-            self.kpiResult.value = ""
-        }
-        else {
-            self.kpiResult.value = String((val?.id)!)
-            noteRequired = (val?.note_required)!
-            atchRequired = (val?.attachment_required)!
+        if self.kpi.required == true {
+            if self.kpi.valuations.count > 0 && val == nil {
+                return .errValue
+            }
+            
+            if val == nil {
+                self.kpiResult.value = self.kpiPageSubView.value
+            }
+            else {
+                self.kpiResult.value = String((val?.id)!)
+                noteRequired = (val?.note_required)!
+                atchRequired = (val?.attachment_required)!
+            }
+            if self.kpiResult.value.isEmpty {
+                return .errValue
+            }
         }
         
         if noteRequired == true && self.kpiNote.text.isEmpty {
