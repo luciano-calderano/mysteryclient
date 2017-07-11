@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol KpiViewDelegate {
-    func startEditing (y: CGFloat)
+protocol KpiViewControllerDelegate {
+    func startEditing (scroll: UIScrollView, y: CGFloat)
     func endEditing ()
     func atchButtonTapped ()
     func showPageNum (_ num: Int)
@@ -25,7 +25,7 @@ class KpiViewController: UIViewController {
         return vc
     }
     
-    var delegate: KpiViewDelegate?
+    var delegate: KpiViewControllerDelegate?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -34,27 +34,6 @@ class KpiViewController: UIViewController {
     
     func checkData() -> KpiResultType {
         return .err
-    }
-}
-
-class KpiQuestViewController: KpiViewController {
-    
-    @IBOutlet var scroll: UIScrollView!
-    @IBOutlet var content: UIView!
-    @IBOutlet var contentH: NSLayoutConstraint!
-    
-    var kpi: Job.Kpi!
-    var kpiResult: JobResult.KpiResult!
-    var attachmentImage: UIImage? {
-        didSet { self.showAtch() }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.scroll.contentOffset = CGPoint.zero
-    }
-
-    func showAtch () {
     }
 }
 

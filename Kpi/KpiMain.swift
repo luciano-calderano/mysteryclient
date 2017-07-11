@@ -18,7 +18,7 @@ enum KpiResultType {
     case err
 }
 
-class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     class func Instance() -> KpiMain {
         let vc = self.load(storyboardName: "Kpi") as! KpiMain
         return vc
@@ -30,8 +30,6 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
    
     private var kpiNavi = UINavigationController()
     private var myKeyboard: MYKeyboard!
-    
-//    private var kpiViewController: KpiViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,9 +70,7 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
         if segue.destination is UINavigationController {
             self.kpiNavi = segue.destination as! UINavigationController
             let vc = self.kpiNavi.viewControllers.first as! KpiStart
-            
             vc.delegate = self
-//            self.kpiViewController = vc
         }
     }
     
@@ -82,17 +78,16 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
         let idx = self.kpiNavi.viewControllers.count - 1
         
         var vc: KpiViewController
-        if idx < Config.job.kpis.count - 1 {
-            vc = KpiQuest.Instance() as KpiQuestViewController
-            self.nextBtn.setTitle("next", for: .normal)
+        if idx < Config.job.kpis.count {
+            vc = KpiQuest.Instance(index: idx)
+            self.nextBtn.setTitle(Lng("next"), for: .normal)
         }
         else {
             vc = KpiLast.Instance()
-            self.nextBtn.setTitle("lastPage", for: .normal)
+            self.nextBtn.setTitle(Lng("lastPage"), for: .normal)
         }
         vc.delegate = self
         self.kpiNavi.pushViewController(vc, animated: true)
-//        self.kpiViewController = vc
     }
 
     private func sendKpiResult () {
@@ -100,7 +95,7 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
     }
     
     private func imageSelected (_ image: UIImage) {
-        let vc = self.kpiNavi.viewControllers.last as! KpiQuestViewController
+        let vc = self.kpiNavi.viewControllers.last as! KpiQuest
         vc.attachmentImage = image
     }
     
@@ -144,7 +139,6 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
             self.nextBtn.setTitle(Lng("next"), for: .normal)
             self.view.endEditing(true)
             self.kpiNavi.popViewController(animated: true)
-//            self.kpiViewController = self.kpiNavi.viewControllers.last as! KpiViewController
         }
     }
     
@@ -154,9 +148,8 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
         self.myKeyboard.endEditing()
     }
     
-    func startEditing(y: CGFloat) {
-        let vc = self.kpiNavi.viewControllers.last as! KpiQuestViewController
-        self.myKeyboard.startEditing(scroll: vc.scroll, y: y)
+    func startEditing(scroll: UIScrollView, y: CGFloat) {
+        self.myKeyboard.startEditing(scroll: scroll, y: y)
     }
     
     //MARK: - attachment

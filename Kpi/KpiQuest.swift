@@ -8,12 +8,17 @@
 
 import UIKit
 
-class KpiQuest: KpiQuestViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
-    override class func Instance() -> KpiQuest {
+class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
+    class func Instance(index: Int) -> KpiQuest {
         let vc = self.load(storyboardName: "Kpi") as! KpiQuest
+        vc.index = index
         return vc
     }
 
+    @IBOutlet private var scroll: UIScrollView!
+    @IBOutlet private var content: UIView!
+    @IBOutlet private var contentH: NSLayoutConstraint!
+    
     @IBOutlet private var atchView: UIView!
     @IBOutlet private var atchName: MYLabel!
     @IBOutlet private var atchImage: UIImageView!
@@ -28,18 +33,23 @@ class KpiQuest: KpiQuestViewController, KpiQuestSubViewDelegate, UITextViewDeleg
     @IBOutlet private var kpiNote: UITextView!
     @IBOutlet private var kpiAtchBtn: MYButton!
     
+    var index = 0
+    var attachmentImage: UIImage? {
+        didSet { self.showAtch() }
+    }
+    
+    private var kpi: Job.Kpi!
+    private var kpiResult: JobResult.KpiResult!
     private var kpiQuestSubView: KpiQuestSubView!
-    private var initialContentH:CGFloat = 0
+    
     private let path = NSTemporaryDirectory() + String(Config.job.id) + "/"
     private var fileName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initialContentH = self.contentH.constant
         
-        let idx = (self.navigationController?.viewControllers.count)! - 1
-        self.kpi = Config.job.kpis[idx]
-        self.kpiResult = Config.jobResult.results[idx]
+        self.kpi = Config.job.kpis[self.index]
+        self.kpiResult = Config.jobResult.results[self.index]
 
         self.kpiNote.delegate = self
         self.kpiNote.layer.borderColor = UIColor.lightGray.cgColor
@@ -93,6 +103,11 @@ class KpiQuest: KpiQuestViewController, KpiQuestSubViewDelegate, UITextViewDeleg
         self.atchView.layer.borderWidth = 1
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.scroll.contentOffset = CGPoint.zero
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.contentH.constant =  max(self.bottomLine.frame.origin.y + 2, self.scroll.frame.size.height)
@@ -136,7 +151,7 @@ class KpiQuest: KpiQuestViewController, KpiQuestSubViewDelegate, UITextViewDeleg
         return .next
     }
     
-    override func showAtch () {
+    func showAtch () {
         if self.attachmentImage == nil {
             self.atchView.isHidden = true
             self.kpiResult.attachment = ""
@@ -185,7 +200,7 @@ class KpiQuest: KpiQuestViewController, KpiQuestSubViewDelegate, UITextViewDeleg
     //MARK: - text view delegate
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        self.delegate?.startEditing(y: self.kpiNote.frame.origin.y - 30)
+        self.delegate?.startEditing(scroll: self.scroll, y: self.kpiNote.frame.origin.y - 30)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
