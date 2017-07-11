@@ -31,7 +31,7 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
     private var kpiNavi = UINavigationController()
     private var myKeyboard: MYKeyboard!
     
-    private var kpiViewController: KpiViewController!
+//    private var kpiViewController: KpiViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +74,7 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
             let vc = self.kpiNavi.viewControllers.first as! KpiStart
             
             vc.delegate = self
-            self.kpiViewController = vc
+//            self.kpiViewController = vc
         }
     }
     
@@ -83,7 +83,7 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
         
         var vc: KpiViewController
         if idx < Config.job.kpis.count - 1 {
-            vc = KpiQuest.Instance()
+            vc = KpiQuest.Instance() as KpiQuestViewController
             self.nextBtn.setTitle("next", for: .normal)
         }
         else {
@@ -92,7 +92,16 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
         }
         vc.delegate = self
         self.kpiNavi.pushViewController(vc, animated: true)
-        self.kpiViewController = vc
+//        self.kpiViewController = vc
+    }
+
+    private func sendKpiResult () {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    private func imageSelected (_ image: UIImage) {
+        let vc = self.kpiNavi.viewControllers.last as! KpiQuestViewController
+        vc.attachmentImage = image
     }
     
     // MARK: - Delegate
@@ -102,14 +111,11 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
         self.header?.header.kpiLabel.text = "\(num)/\(Config.job.kpis.count + 2)"
     }
     
-    private func sendKpiResult () {
-        self.navigationController?.popToRootViewController(animated: true)        
-    }
-    
     // MARK: - Actions
     
     @IBAction func nextTapped () {
-        switch self.kpiViewController.checkData() {
+        let vc = self.kpiNavi.viewControllers.last as! KpiViewController
+        switch vc.checkData() {
         case .home:
             self.navigationController?.popToRootViewController(animated: true)
         case .last:
@@ -136,24 +142,21 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
             self.navigationController?.popViewController(animated: true)
         default:
             self.nextBtn.setTitle(Lng("next"), for: .normal)
-            self.kpiViewController.view.endEditing(true)
+            self.view.endEditing(true)
             self.kpiNavi.popViewController(animated: true)
-            self.kpiViewController = self.kpiNavi.viewControllers.last as! KpiViewController
+//            self.kpiViewController = self.kpiNavi.viewControllers.last as! KpiViewController
         }
     }
     
-    private func imageSelected (_ image: UIImage) {
-        self.kpiViewController.attachmentImage = image
-    }
-    
-    //MARK: - keyboard function
+    //MARK: - mykeyboard function
 
     func endEditing() {
         self.myKeyboard.endEditing()
     }
     
     func startEditing(y: CGFloat) {
-        self.myKeyboard.startEditing(scroll: self.kpiViewController.scroll, y: y)
+        let vc = self.kpiNavi.viewControllers.last as! KpiQuestViewController
+        self.myKeyboard.startEditing(scroll: vc.scroll, y: y)
     }
     
     //MARK: - attachment

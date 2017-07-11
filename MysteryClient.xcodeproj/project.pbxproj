@@ -240,7 +240,7 @@
 				047ACEE41F0F703D008F2045 /* KpiPageBase.swift */,
 				0484D33A1F13A50B00E9FB11 /* KpiStart.swift */,
 				0484D33C1F13A8A800E9FB11 /* KpiQuest.swift */,
-				04BB77D21F0E328A002AEEF6 /* SubViewPage */,
+				04BB77D21F0E328A002AEEF6 /* QuestSubView */,
 				0484D33F1F13AF1900E9FB11 /* KpiLast.swift */,
 			);
 			name = Kpi;
@@ -267,7 +267,7 @@
 			name = Detail;
 			sourceTree = "<group>";
 		};
-		04BB77D21F0E328A002AEEF6 /* SubViewPage */ = {
+		04BB77D21F0E328A002AEEF6 /* QuestSubView */ = {
 			isa = PBXGroup;
 			children = (
 				04563F891F0CC83C00B8BCC6 /* SubRadio.swift */,
@@ -278,7 +278,7 @@
 				048837FC1F14E209002A2CF4 /* SubDatePicker.swift */,
 				048837FE1F14E219002A2CF4 /* SubDatePicker.xib */,
 			);
-			name = SubViewPage;
+			name = QuestSubView;
 			sourceTree = "<group>";
 		};
 		04BC640C1EFD830E00C0912D /* MysteryClient */ = {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubRadio: KpiPageSubView, UITableViewDelegate, UITableViewDataSource {
+class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
     class func Instance() -> SubRadio {
         let id = String (describing: self)
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubRadio
@@ -16,7 +16,8 @@ class SubRadio: KpiPageSubView, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet private var tableView: UITableView!
     private let rowHeight:CGFloat = 50
-    
+    private var valuationSelected: Job.Kpi.Valuations?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         SubRadioCell.register(tableView: self.tableView)
@@ -43,6 +44,15 @@ class SubRadio: KpiPageSubView, UITableViewDelegate, UITableViewDataSource {
         rect.size.height = self.rowHeight * CGFloat(self.valuations.count)
         self.frame = rect
         self.delegate?.subViewResized(newHeight: rect.size.height)
+    }
+    
+    override func getValuation () -> (value: String, valuation: Job.Kpi.Valuations?) {
+        var value = ""
+        if self.valuationSelected != nil {
+            let item = self.valuationSelected!
+            value = String(item.id)
+        }
+        return (value, self.valuationSelected)
     }
     
     // MARK: - table view
@@ -73,7 +83,6 @@ class SubRadio: KpiPageSubView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        self.indexSelected = indexPath.row
         self.valuationSelected = self.valuations[indexPath.row]
         self.tableView.reloadData()
     }

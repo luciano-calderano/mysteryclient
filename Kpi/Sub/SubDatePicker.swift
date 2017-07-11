@@ -8,31 +8,56 @@
 
 import UIKit
 
-class SubDatePicker: KpiPageSubView, UIPickerViewDelegate {
-    class func Instance() -> SubDatePicker {
+
+
+class SubDatePicker: KpiQuestSubView, UIPickerViewDelegate {
+    class func Instance(type: SubDatePicker.PickerType) -> SubDatePicker {
         let id = String (describing: self)
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubDatePicker
+        let me = Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubDatePicker
+        me.type = type
+        return me
+    }
+
+    enum PickerType {
+        case time
+        case date
+        case datetime
     }
     
     @IBOutlet private var kpiPicker: UIDatePicker!
+    var type = PickerType.datetime {
+        didSet {
+            switch type {
+            case .time:
+                self.kpiPicker.datePickerMode = .time
+            case .date:
+                self.kpiPicker.datePickerMode = .date
+            default:
+                self.kpiPicker.datePickerMode = .dateAndTime
+            }
+            self.kpiPicker.minuteInterval = 15
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.kpiPicker.addTarget(self, action: #selector(pickerUpdate(sender:)),
                                  for: UIControlEvents.valueChanged)
-
     }
     
     override func initialize(kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
         super.initialize(kpiResult: kpiResult, valuations: valuations)
-        self.value = kpiResult.value
         self.kpiPicker.date = kpiResult.value.toDate(withFormat: Date.fmtDataOraJson)
         self.delegate?.subViewResized(newHeight: self.frame.size.height)
     }
     
-    
+    override func getValuation () -> (value: String, valuation: Job.Kpi.Valuations?) {
+        let value = self.kpiPicker.date.toString(withFormat: Date.fmtDataOraJson)
+        return (value, nil)
+    }
+
     func pickerUpdate(sender: UIDatePicker) {
-        self.value = self.kpiPicker.date.toString(withFormat: Date.fmtDataOraJson)
+//        self.value = self.kpiPicker.date.toString(withFormat: Date.fmtDataOraJson)
     }
 
 }

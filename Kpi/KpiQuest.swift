@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KpiQuest: KpiQuestViewController, KpiSubViewDelegate, UITextViewDelegate {
+class KpiQuest: KpiQuestViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
     override class func Instance() -> KpiQuest {
         let vc = self.load(storyboardName: "Kpi") as! KpiQuest
         return vc
@@ -28,7 +28,7 @@ class KpiQuest: KpiQuestViewController, KpiSubViewDelegate, UITextViewDelegate {
     @IBOutlet private var kpiNote: UITextView!
     @IBOutlet private var kpiAtchBtn: MYButton!
     
-    private var kpiPageSubView: KpiPageSubView!
+    private var kpiQuestSubView: KpiQuestSubView!
     private var initialContentH:CGFloat = 0
     private let path = NSTemporaryDirectory() + String(Config.job.id) + "/"
     private var fileName = ""
@@ -57,20 +57,33 @@ class KpiQuest: KpiQuestViewController, KpiSubViewDelegate, UITextViewDelegate {
             self.attachmentImage = image
         }
         self.showAtch()
-
+        
         self.subViewHeight.constant = 1
         switch self.kpi.type {
         case "radio" :
-            self.kpiPageSubView = SubRadio.Instance()
+            self.kpiQuestSubView = SubRadio.Instance()
         case "text" :
-            self.kpiPageSubView = SubText.Instance()
+            self.kpiQuestSubView = SubText.Instance()
+        case "date" :
+            self.kpiQuestSubView = SubDatePicker.Instance(type: .date)
+            break
+        case "time" :
+            self.kpiQuestSubView = SubDatePicker.Instance(type: .time)
+            break
+        case "datetime" :
+            self.kpiQuestSubView = SubDatePicker.Instance(type: .datetime)
+            break
+        case "label" :
+            break
+        case "select" :
+            break
         default:
-            self.kpiPageSubView = KpiPageSubView()
+            self.kpiQuestSubView = KpiQuestSubView()
         }
-        self.subView.addSubviewWithConstraints(self.kpiPageSubView)
+        self.subView.addSubviewWithConstraints(self.kpiQuestSubView)
         
-        self.kpiPageSubView.delegate = self
-        self.kpiPageSubView.initialize(kpiResult: self.kpiResult,
+        self.kpiQuestSubView.delegate = self
+        self.kpiQuestSubView.initialize(kpiResult: self.kpiResult,
                                        valuations: self.kpi.valuations)
         
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.atchRemove))
@@ -89,20 +102,18 @@ class KpiQuest: KpiQuestViewController, KpiSubViewDelegate, UITextViewDelegate {
     override func checkData() -> KpiResultType {
         var noteRequired = self.kpi.note_required
         var atchRequired = self.kpi.attachment_required
-        let val = self.kpiPageSubView.valuationSelected
+        let result = self.kpiQuestSubView.getValuation()
         
         if self.kpi.required == true {
-            if self.kpi.valuations.count > 0 && val == nil {
+            if self.kpi.valuations.count > 0 && result.valuation == nil {
                 return .errValue
             }
             
-            if val == nil {
-                self.kpiResult.value = self.kpiPageSubView.value
-            }
-            else {
-                self.kpiResult.value = String((val?.id)!)
-                noteRequired = (val?.note_required)!
-                atchRequired = (val?.attachment_required)!
+            self.kpiResult.value = result.value
+            if result.valuation != nil {
+                let v = result.valuation!
+                noteRequired = v.note_required
+                atchRequired = v.attachment_required
             }
             if self.kpiResult.value.isEmpty && self.kpi.type.isEmpty == false {
                 return .errValue

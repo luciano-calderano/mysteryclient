@@ -15,16 +15,8 @@ protocol KpiViewDelegate {
     func showPageNum (_ num: Int)
 }
 
-protocol KpiSubViewDelegate {
+protocol KpiQuestSubViewDelegate {
     func subViewResized (newHeight: CGFloat)
-}
-
-class KpiQuestViewController: KpiViewController {
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.scroll.contentOffset = CGPoint.zero
-    }
 }
 
 class KpiViewController: UIViewController {
@@ -32,23 +24,9 @@ class KpiViewController: UIViewController {
         let vc = self.load(storyboardName: "Kpi") as! KpiViewController
         return vc
     }
-
-    @IBOutlet var scroll: UIScrollView!
-    @IBOutlet var content: UIView!
-    @IBOutlet var contentH: NSLayoutConstraint!
-
-    var attachmentImage: UIImage? {
-        didSet { self.showAtch() }
-    }
     
-    func showAtch () {
-    }
-
-    var kpi: Job.Kpi!
-    var kpiResult: JobResult.KpiResult!
     var delegate: KpiViewDelegate?
-    var kpiPageView: KpiPageView!
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.delegate?.showPageNum((self.navigationController?.viewControllers.count)!)
@@ -59,29 +37,42 @@ class KpiViewController: UIViewController {
     }
 }
 
-class KpiPageView: UIView {
+class KpiQuestViewController: KpiViewController {
+    
+    @IBOutlet var scroll: UIScrollView!
+    @IBOutlet var content: UIView!
+    @IBOutlet var contentH: NSLayoutConstraint!
+    
     var kpi: Job.Kpi!
     var kpiResult: JobResult.KpiResult!
-    var delegate: KpiViewDelegate?
-
-
+    var attachmentImage: UIImage? {
+        didSet { self.showAtch() }
+    }
     
-    func checkData() -> KpiResultType {
-        return .err
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.scroll.contentOffset = CGPoint.zero
+    }
+
+    func showAtch () {
+    }
 }
 
-class KpiPageSubView: UIView {
-    var delegate: KpiSubViewDelegate?
+//MARK: -
+
+class KpiQuestSubView: UIView {
+    var delegate: KpiQuestSubViewDelegate?
     var kpiResult: JobResult.KpiResult!
     var valuations: [Job.Kpi.Valuations]!
-    var valuationSelected: Job.Kpi.Valuations?
-    var value = ""
     
     func initialize (kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
         self.kpiResult = kpiResult
         self.valuations = valuations
         self.delegate?.subViewResized(newHeight: 1)
+    }
+    
+    func getValuation () -> (value: String, valuation: Job.Kpi.Valuations?) {
+        return ("", nil)
     }
 }
 

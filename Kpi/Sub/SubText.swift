@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubText: KpiPageSubView, UITextFieldDelegate {
+class SubText: KpiQuestSubView, UITextFieldDelegate {
     class func Instance() -> SubText {
         let id = String (describing: self)
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubText
@@ -23,17 +23,19 @@ class SubText: KpiPageSubView, UITextFieldDelegate {
     
     override func initialize(kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
         super.initialize(kpiResult: kpiResult, valuations: valuations)
-        self.value = kpiResult.value
-        self.kpiText.text = self.value
+        self.kpiText.text = kpiResult.value
         self.delegate?.subViewResized(newHeight: self.frame.size.height)
     }
     
+    override func getValuation () -> (value: String, valuation: Job.Kpi.Valuations?) {
+        return (self.kpiText.text!, nil)
+    }
+
     func textFieldDidEndEditing(_ textField: UITextField) {
-        self.value = textField.text!
+        textField.resignFirstResponder()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.value = textField.text!
         textField.resignFirstResponder()
         return true
     }
