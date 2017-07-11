@@ -23,6 +23,8 @@ class SubText: KpiPageSubView, UITextFieldDelegate {
     
     override func initialize(kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
         super.initialize(kpiResult: kpiResult, valuations: valuations)
+        self.value = kpiResult.value
+        self.kpiText.text = self.value
         self.delegate?.subViewResized(newHeight: self.frame.size.height)
     }
     

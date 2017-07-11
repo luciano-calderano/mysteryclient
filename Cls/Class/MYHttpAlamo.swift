@@ -76,9 +76,10 @@ class MYHttpRequest {
                 else {
                     let msg = dict.string("msg")
 //                    print("Error: " + String(describing: response.response?.statusCode) + " " + msg)
-                    if msg.isEmpty == false  && silentError == false {
-                        self.showError(title: "", message: msg)
-                    }
+//                    if msg.isEmpty == false  && silentError == false {
+                        self.showError(title: "Errore: #\(String(describing: response.response?.statusCode))",
+                            message: msg)
+//                    }
                     completion (false, [:])
                 }
                 return

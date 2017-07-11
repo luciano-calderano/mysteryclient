@@ -82,11 +82,13 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
         let idx = self.kpiNavi.viewControllers.count - 1
         
         var vc: KpiViewController
-        if Config.job.kpis.count < idx {
-            vc = KpiLast.Instance()
+        if idx < Config.job.kpis.count - 1 {
+            vc = KpiQuest.Instance()
+            self.nextBtn.setTitle("next", for: .normal)
         }
         else {
-            vc = KpiQuest.Instance()
+            vc = KpiLast.Instance()
+            self.nextBtn.setTitle("lastPage", for: .normal)
         }
         vc.delegate = self
         self.kpiNavi.pushViewController(vc, animated: true)
@@ -140,6 +142,10 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
         }
     }
     
+    private func imageSelected (_ image: UIImage) {
+        self.kpiViewController.attachmentImage = image
+    }
+    
     //MARK: - keyboard function
 
     func endEditing() {
@@ -152,7 +158,7 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
     
     //MARK: - attachment
     
-    func atchButtonTapped(page: KpiPageQuest) {
+    func atchButtonTapped() {
         let alert = UIAlertController(title: Lng("uploadPic") as String,
                                       message: "" as String,
                                       preferredStyle: .actionSheet)
@@ -161,13 +167,15 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
                                            handler: { (action) in
                                             self.openCamera()
         }))
+        
         alert.addAction(UIAlertAction.init(title: Lng("picFromGal"),
                                            style: .default,
                                            handler: { (action) in
                                             self.openGallary()
         }))
         
-        present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true) { }
+        
     }
     
     //MARK - Image picker
@@ -207,12 +215,9 @@ class KpiMain: MYViewController, KpiViewDelegate, UIImagePickerControllerDelegat
         
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             let image = pickedImage.resize(CGFloat(Config.maxPicSize))!
-            print(image.size)
-            let page = self.kpiViewController.kpiPageView!
-            let file = String(page.kpi.id)
-            let result = String(page.kpiResult.kpi_id)
-            self.kpiViewController.kpiPageView.kpiResult.attachment = file + "." + result
+            self.imageSelected(image)
         }
-        self.dismiss(animated: true, completion: nil)
+        
+        self.dismiss(animated: true) { }
     }
 }

@@ -11,8 +11,7 @@ import UIKit
 protocol KpiViewDelegate {
     func startEditing (y: CGFloat)
     func endEditing ()
-//    func subViewResized (newHeight: CGFloat)
-    func atchButtonTapped (page: KpiPageQuest)
+    func atchButtonTapped ()
     func showPageNum (_ num: Int)
 }
 
@@ -21,9 +20,9 @@ protocol KpiSubViewDelegate {
 }
 
 class KpiQuestViewController: KpiViewController {
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.scroll.addSubviewWithConstraints(self.kpiPageView)
         self.scroll.contentOffset = CGPoint.zero
     }
 }
@@ -37,6 +36,13 @@ class KpiViewController: UIViewController {
     @IBOutlet var scroll: UIScrollView!
     @IBOutlet var content: UIView!
     @IBOutlet var contentH: NSLayoutConstraint!
+
+    var attachmentImage: UIImage? {
+        didSet { self.showAtch() }
+    }
+    
+    func showAtch () {
+    }
 
     var kpi: Job.Kpi!
     var kpiResult: JobResult.KpiResult!
@@ -57,10 +63,12 @@ class KpiPageView: UIView {
     var kpi: Job.Kpi!
     var kpiResult: JobResult.KpiResult!
     var delegate: KpiViewDelegate?
+
+
     
     func checkData() -> KpiResultType {
         return .err
-    }
+        }
 }
 
 class KpiPageSubView: UIView {

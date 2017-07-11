@@ -38,7 +38,9 @@ class MYKeyboard {
     }
     
     @objc func keyboardWillHide (notification: NSNotification) {
-        self.scroll.contentInset = UIEdgeInsets.zero
+        if self.scroll != nil {
+            self.scroll.contentInset = UIEdgeInsets.zero
+        }
     }
     
     func endEditing() {
