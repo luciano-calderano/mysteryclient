@@ -12,31 +12,25 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubRadioCell" id="nRE-Lm-jRX" customClass="SubRadioCell" customModule="MysteryClient" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubSelectCell" id="nRE-Lm-jRX" customClass="SubSelectCell" customModule="MysteryClient" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nRE-Lm-jRX" id="97g-rf-97Z">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8s-6Z-bL5">
-                        <rect key="frame" x="5" y="18" width="12" height="12"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8s-6Z-bL5" userLabel="Select View">
+                        <rect key="frame" x="5" y="16" width="16" height="16"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qU7-98-fgB">
-                                <rect key="frame" x="4" y="4" width="4" height="4"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="4" id="6eR-vR-Qyf"/>
-                                    <constraint firstAttribute="height" constant="4" id="zyS-Ed-2QM"/>
-                                </constraints>
-                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ico.check" translatesAutoresizingMaskIntoConstraints="NO" id="iqE-9v-m7c">
+                                <rect key="frame" x="2" y="2" width="12" height="12"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="12" id="CKg-Dk-u1P"/>
-                            <constraint firstItem="qU7-98-fgB" firstAttribute="centerX" secondItem="b8s-6Z-bL5" secondAttribute="centerX" id="Od3-wT-TrN"/>
-                            <constraint firstItem="qU7-98-fgB" firstAttribute="centerY" secondItem="b8s-6Z-bL5" secondAttribute="centerY" id="SMg-bP-LC6"/>
-                            <constraint firstAttribute="height" constant="12" id="n6C-la-9tw"/>
+                            <constraint firstAttribute="width" constant="16" id="CKg-Dk-u1P"/>
+                            <constraint firstAttribute="height" constant="16" id="n6C-la-9tw"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bx5-MB-h9P" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
@@ -77,16 +71,16 @@
                     <constraint firstItem="b8s-6Z-bL5" firstAttribute="leading" secondItem="97g-rf-97Z" secondAttribute="leading" constant="5" id="aQV-IQ-Igy"/>
                     <constraint firstAttribute="trailing" secondItem="oES-pL-w7M" secondAttribute="trailing" id="c9z-Kr-swY"/>
                     <constraint firstItem="bx5-MB-h9P" firstAttribute="centerY" secondItem="97g-rf-97Z" secondAttribute="centerY" id="fZV-hm-6Hu"/>
-                    <constraint firstItem="b8s-6Z-bL5" firstAttribute="centerY" secondItem="97g-rf-97Z" secondAttribute="centerY" id="o1b-70-WSK"/>
+                    <constraint firstItem="b8s-6Z-bL5" firstAttribute="centerY" secondItem="97g-rf-97Z" secondAttribute="centerY" constant="-1" id="o1b-70-WSK"/>
                     <constraint firstItem="bx5-MB-h9P" firstAttribute="leading" secondItem="97g-rf-97Z" secondAttribute="leadingMargin" constant="16" id="o8j-t4-6cF"/>
                     <constraint firstAttribute="trailing" secondItem="UMg-oC-vDG" secondAttribute="trailing" constant="5" id="uUq-Db-gzm"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="icoAtch" destination="gLy-Dj-dee" id="qL7-gd-yqF"/>
+                <outlet property="icoCheck" destination="iqE-9v-m7c" id="7FY-Dd-r9U"/>
                 <outlet property="icoNote" destination="UMg-oC-vDG" id="RBE-bB-9bf"/>
-                <outlet property="selectView" destination="b8s-6Z-bL5" id="gXW-cs-jOe"/>
-                <outlet property="selectedView" destination="qU7-98-fgB" id="m16-Jx-qfr"/>
+                <outlet property="selectView" destination="b8s-6Z-bL5" id="hyf-JI-yR4"/>
                 <outlet property="valuationTitle" destination="bx5-MB-h9P" id="sgG-DG-RTg"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="92"/>
@@ -94,6 +88,7 @@
     </objects>
     <resources>
         <image name="ico.atch" width="200" height="200"/>
+        <image name="ico.check" width="64" height="64"/>
         <image name="ico.matita" width="80" height="80"/>
     </resources>
 </document>

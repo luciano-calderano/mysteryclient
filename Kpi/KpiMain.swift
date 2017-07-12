@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Zip
 
 enum KpiResultType {
     case next
@@ -103,16 +104,19 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
     private func saveResult () {
         let dict = Config.jobResult.getDict()
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+            let path = NSTemporaryDirectory() + String(Config.job.id)
+            let urlJson = URL.init(string: path + "/result.json.txt")!
+            let urlPath = URL.init(string: path)!
+            let urlZip = URL.init(string: path + ".zip")!
 
-            let path = NSTemporaryDirectory() + String(Config.job.id) + "/result.json.txt"
-            try? jsonData.write(to: URL.init(string: path)!)
-            
-
+            let jsonData = try JSONSerialization.data(withJSONObject: dict,
+                                                      options: .prettyPrinted)
+            try? jsonData.write(to: urlJson)
+            try Zip.zipFiles(paths: [urlPath], zipFilePath: urlZip, password: nil, progress: nil)
+            self.alert("Ok", message: "", okBlock: nil)
         } catch {
-            print(error.localizedDescription)
+            self.alert(error.localizedDescription, message: "", okBlock: nil)
         }
-        
     }
     // MARK: - Delegate
     

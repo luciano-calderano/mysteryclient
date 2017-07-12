@@ -84,8 +84,10 @@ class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
             self.kpiQuestSubView = SubDatePicker.Instance(type: .datetime)
             break
         case "label" :
+            alert("kpi.label", message: "", okBlock: nil)
             break
         case "select" :
+            self.kpiQuestSubView = SubSelect.Instance()
             break
         default:
             self.kpiQuestSubView = KpiQuestSubView()

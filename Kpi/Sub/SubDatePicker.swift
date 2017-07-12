@@ -27,15 +27,15 @@ class SubDatePicker: KpiQuestSubView, UIPickerViewDelegate {
     @IBOutlet private var kpiPicker: UIDatePicker!
     var type = PickerType.datetime {
         didSet {
-            switch type {
-            case .time:
-                self.kpiPicker.datePickerMode = .time
-            case .date:
-                self.kpiPicker.datePickerMode = .date
-            default:
-                self.kpiPicker.datePickerMode = .dateAndTime
-            }
-            self.kpiPicker.minuteInterval = 15
+//            switch type {
+//            case .time:
+//                self.kpiPicker.datePickerMode = .time
+//            case .date:
+//                self.kpiPicker.datePickerMode = .date
+//            default:
+//                self.kpiPicker.datePickerMode = .dateAndTime
+//            }
+//            self.kpiPicker.minuteInterval = 15
         }
     }
     
@@ -43,16 +43,34 @@ class SubDatePicker: KpiQuestSubView, UIPickerViewDelegate {
         super.awakeFromNib()
         self.kpiPicker.addTarget(self, action: #selector(pickerUpdate(sender:)),
                                  for: UIControlEvents.valueChanged)
+        switch type {
+        case .time:
+            self.kpiPicker.datePickerMode = .time
+        case .date:
+            self.kpiPicker.datePickerMode = .date
+        default:
+            self.kpiPicker.datePickerMode = .dateAndTime
+        }
+        self.kpiPicker.minuteInterval = 15
     }
     
     override func initialize(kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
         super.initialize(kpiResult: kpiResult, valuations: valuations)
-        self.kpiPicker.date = kpiResult.value.toDate(withFormat: Date.fmtDataOraJson)
+        self.kpiPicker.date = kpiResult.value.isEmpty ? Date() :  kpiResult.value.toDate(withFormat: Date.fmtDataOraJson)
         self.delegate?.subViewResized(newHeight: self.frame.size.height)
     }
     
     override func getValuation () -> (value: String, valuation: Job.Kpi.Valuations?) {
-        let value = self.kpiPicker.date.toString(withFormat: Date.fmtDataOraJson)
+        var fmt = ""
+        switch type {
+        case .time:
+            fmt = Date.fmtOra
+        case .date:
+            fmt = Date.fmtDataJson
+        default:
+            fmt = Date.fmtDataOraJson
+        }
+        let value = self.kpiPicker.date.toString(withFormat: fmt)
         return (value, nil)
     }
 
