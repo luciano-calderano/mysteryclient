@@ -337,13 +337,21 @@ class JobResult {
 
     private let fileConfig  = UserDefaults.init(suiteName: "result")
 
+    func getDict () -> JsonDict {
+        var dict = JsonDict()
+        let resultFromPlist = self.fileConfig?.value(forKey: String(self.id)) as? JsonDict
+        if resultFromPlist != nil {
+            dict = resultFromPlist!
+        }
+        return dict
+    }
+    
     func load (id: Int) {
-        let resultFromPlist = self.fileConfig?.value(forKey: String(id)) as? JsonDict
-        guard resultFromPlist != nil else {
-            self.id = id
+        self.id = id
+        let dict = self.getDict()
+        if dict.isEmpty {
             return
         }
-        let dict = resultFromPlist!
         self.id                     = dict.int("id")
         self.estimate_date          = dict.string("estimate_date")
         self.compiled               = dict.int("compiled")

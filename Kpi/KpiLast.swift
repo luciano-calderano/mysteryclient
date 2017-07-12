@@ -39,6 +39,7 @@ class KpiLast: KpiViewController, UITextViewDelegate {
         Config.jobResult.comment = self.finalText.text!
         Config.jobResult.compiled = 1
         Config.jobResult.compilation_date = self.datePicker.date.toString(withFormat: Date.fmtDataOraJson)
+        Config.jobResult.execution_end_time = self.datePicker.date.toString(withFormat: Date.fmtOra)
         Config.jobResult.save()
         
         return .last

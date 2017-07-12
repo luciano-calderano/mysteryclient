@@ -34,7 +34,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.myKeyboard = MYKeyboard.init(vc: self)
+        self.myKeyboard = MYKeyboard(vc: self)
         
         let path = NSTemporaryDirectory() + "/" + String(Config.job.id)
         let fm = FileManager.default
@@ -91,6 +91,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
     }
 
     private func sendKpiResult () {
+        self.saveResult()
         self.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -99,6 +100,20 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         vc.attachmentImage = image
     }
     
+    private func saveResult () {
+        let dict = Config.jobResult.getDict()
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+
+            let path = NSTemporaryDirectory() + String(Config.job.id) + "/result.json.txt"
+            try? jsonData.write(to: URL.init(string: path)!)
+            
+
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+    }
     // MARK: - Delegate
     
     func showPageNum(_ num: Int) {
