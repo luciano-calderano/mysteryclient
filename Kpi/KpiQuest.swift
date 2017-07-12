@@ -70,7 +70,7 @@ class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
         
         self.subViewHeight.constant = 1
         switch self.kpi.type {
-        case "radio" :
+        case "radio", "select" :
             self.kpiQuestSubView = SubRadio.Instance()
         case "text" :
             self.kpiQuestSubView = SubText.Instance()
@@ -83,11 +83,11 @@ class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
         case "datetime" :
             self.kpiQuestSubView = SubDatePicker.Instance(type: .datetime)
             break
-        case "label" :
-            alert("kpi.label", message: "", okBlock: nil)
+        case "label", "geophoto" :
+            alert("kpi.type: \(self.kpi.type)", message: "", okBlock: nil)
             break
-        case "select" :
-            self.kpiQuestSubView = SubSelect.Instance()
+        case "multicheckbox" :
+            self.kpiQuestSubView = SubCheckBox.Instance()
             break
         default:
             self.kpiQuestSubView = KpiQuestSubView()

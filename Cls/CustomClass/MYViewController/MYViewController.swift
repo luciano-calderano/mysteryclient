@@ -22,9 +22,9 @@ class MYViewController: UIViewController, HeaderViewDelegate {
         self.view.addSubview(view)
         self.view.backgroundColor = UIColor.white
         self.header?.delegate = self
-        if self.header?.header.dxButton.image(for: .normal) == nil {
-            self.header?.header.dxButton.isHidden = true
-        }
+//        if self.header?.header.dxButton.image(for: .normal) == nil {
+//            self.header?.header.dxButton.isHidden = true
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

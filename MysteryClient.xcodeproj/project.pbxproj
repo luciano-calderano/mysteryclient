@@ -50,9 +50,9 @@
 		04BCAD2D1EFA97B900745556 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD2C1EFA97B900745556 /* HomeCell.swift */; };
 		04BCAD341EFA9DCF00745556 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD331EFA9DCF00745556 /* User.swift */; };
 		04BCAD381EFAB7FC00745556 /* MYHttpAlamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD371EFAB7FC00745556 /* MYHttpAlamo.swift */; };
-		04BF307C1F16192900DE05BA /* SubSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF307B1F16192900DE05BA /* SubSelect.swift */; };
-		04BF307F1F161C0500DE05BA /* SubSelect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BF307D1F161C0500DE05BA /* SubSelect.xib */; };
-		04BF30801F161C0500DE05BA /* SubSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BF307E1F161C0500DE05BA /* SubSelectCell.xib */; };
+		04BF307C1F16192900DE05BA /* SubCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF307B1F16192900DE05BA /* SubCheckBox.swift */; };
+		04BF307F1F161C0500DE05BA /* SubCheckBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BF307D1F161C0500DE05BA /* SubCheckBox.xib */; };
+		04BF30801F161C0500DE05BA /* SubCheckBoxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BF307E1F161C0500DE05BA /* SubCheckBoxCell.xib */; };
 		04C910B31EFD2131000D2DB8 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C910B11EFD2131000D2DB8 /* HeaderView.swift */; };
 		04C910B41EFD2131000D2DB8 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C910B21EFD2131000D2DB8 /* HeaderView.xib */; };
 		04D609BA1F028BA30030968B /* JobDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D609B91F028BA30030968B /* JobDetail.swift */; };
@@ -114,9 +114,9 @@
 		04BCAD2C1EFA97B900745556 /* HomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeCell.swift; path = Main/HomeCell.swift; sourceTree = SOURCE_ROOT; };
 		04BCAD331EFA9DCF00745556 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Model/User.swift; sourceTree = "<group>"; };
 		04BCAD371EFAB7FC00745556 /* MYHttpAlamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYHttpAlamo.swift; sourceTree = "<group>"; };
-		04BF307B1F16192900DE05BA /* SubSelect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubSelect.swift; path = Kpi/Sub/SubSelect.swift; sourceTree = "<group>"; };
-		04BF307D1F161C0500DE05BA /* SubSelect.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubSelect.xib; path = Kpi/Sub/SubSelect.xib; sourceTree = "<group>"; };
-		04BF307E1F161C0500DE05BA /* SubSelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubSelectCell.xib; path = Kpi/Sub/SubSelectCell.xib; sourceTree = "<group>"; };
+		04BF307B1F16192900DE05BA /* SubCheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubCheckBox.swift; path = Kpi/Sub/SubCheckBox.swift; sourceTree = "<group>"; };
+		04BF307D1F161C0500DE05BA /* SubCheckBox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubCheckBox.xib; path = Kpi/Sub/SubCheckBox.xib; sourceTree = "<group>"; };
+		04BF307E1F161C0500DE05BA /* SubCheckBoxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubCheckBoxCell.xib; path = Kpi/Sub/SubCheckBoxCell.xib; sourceTree = "<group>"; };
 		04C910B11EFD2131000D2DB8 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		04C910B21EFD2131000D2DB8 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		04D609B91F028BA30030968B /* JobDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetail.swift; sourceTree = "<group>"; };
@@ -288,9 +288,9 @@
 				0484D3371F1382F600E9FB11 /* SubText.xib */,
 				048837FC1F14E209002A2CF4 /* SubDatePicker.swift */,
 				048837FE1F14E219002A2CF4 /* SubDatePicker.xib */,
-				04BF307B1F16192900DE05BA /* SubSelect.swift */,
-				04BF307D1F161C0500DE05BA /* SubSelect.xib */,
-				04BF307E1F161C0500DE05BA /* SubSelectCell.xib */,
+				04BF307B1F16192900DE05BA /* SubCheckBox.swift */,
+				04BF307D1F161C0500DE05BA /* SubCheckBox.xib */,
+				04BF307E1F161C0500DE05BA /* SubCheckBoxCell.xib */,
 			);
 			name = QuestSubView;
 			sourceTree = "<group>";
@@ -454,14 +454,14 @@
 				04563F8C1F0CC83C00B8BCC6 /* Kpi.storyboard in Resources */,
 				04BC64161EFD830E00C0912D /* LaunchScreen.storyboard in Resources */,
 				04C910B41EFD2131000D2DB8 /* HeaderView.xib in Resources */,
-				04BF307F1F161C0500DE05BA /* SubSelect.xib in Resources */,
+				04BF307F1F161C0500DE05BA /* SubCheckBox.xib in Resources */,
 				04BB77D61F0E3670002AEEF6 /* SubRadioCell.xib in Resources */,
 				04BC64151EFD830E00C0912D /* Lang.txt in Resources */,
 				04FCF19B1F0265D50087FBDF /* Jobs.storyboard in Resources */,
 				04BC64131EFD830E00C0912D /* Assets.xcassets in Resources */,
 				048837FF1F14E219002A2CF4 /* SubDatePicker.xib in Resources */,
 				04BB77D11F0E3284002AEEF6 /* SubRadio.xib in Resources */,
-				04BF30801F161C0500DE05BA /* SubSelectCell.xib in Resources */,
+				04BF30801F161C0500DE05BA /* SubCheckBoxCell.xib in Resources */,
 				04461A1F1EFA705C008CD1E2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,7 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04FC17291F0145BC00226F1A /* ItemEnum.swift in Sources */,
-				04BF307C1F16192900DE05BA /* SubSelect.swift in Sources */,
+				04BF307C1F16192900DE05BA /* SubCheckBox.swift in Sources */,
 				0484D3381F1382F600E9FB11 /* SubText.swift in Sources */,
 				04461A2C1EFA85CF008CD1E2 /* Ext.Date.swift in Sources */,
 				04563F8F1F0CC83C00B8BCC6 /* SubRadio.swift in Sources */,

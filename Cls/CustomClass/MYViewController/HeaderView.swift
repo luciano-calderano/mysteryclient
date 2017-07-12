@@ -44,7 +44,15 @@ class HeaderContainerView : UIView, HeaderViewDelegate {
             header.sxButton.isHidden = false
             header.sxButton.setImage(self.sxImage, for: .normal)
         }
-    }
+
+        if self.dxImage == nil {
+            header.dxButton.isHidden = true
+        }
+        else {
+            header.dxButton.isHidden = false
+            header.dxButton.setImage(self.dxImage, for: .normal)
+        }
+}
     
     func headerViewSxTapped() {
         self.delegate?.headerViewSxTapped()

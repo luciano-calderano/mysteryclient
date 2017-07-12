@@ -1,5 +1,5 @@
 //
-//  SubSelect.swift
+//  SubCheckBox.swift
 //  MysteryClient
 //
 //  Created by mac on 12/07/17.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SubSelect: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
-    class func Instance() -> SubSelect {
+class SubCheckBox: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
+    class func Instance() -> SubCheckBox {
         let id = String (describing: self)
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubSelect
+        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubCheckBox
     }
     
     @IBOutlet private var tableView: UITableView!
@@ -23,7 +23,7 @@ class SubSelect: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.addSubviewWithConstraints(self.tableView)
-        SubSelectCell.register(tableView: self.tableView)
+        SubCheckBoxCell.register(tableView: self.tableView)
     }
     
     override func initialize(kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
@@ -75,7 +75,7 @@ class SubSelect: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = SubSelectCell.dequeue(tableView, indexPath)
+        let cell = SubCheckBoxCell.dequeue(tableView, indexPath)
         let item = self.valuations[indexPath.row]
         let id = String(item.id)
         let selected = self.selectedId.contains(id)
@@ -104,7 +104,7 @@ class SubSelect: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
 
 // MARK: -
 
-class SubSelectCell: UITableViewCell {
+class SubCheckBoxCell: UITableViewCell {
     class func register (tableView: UITableView) {
         let id = String (describing: self)
         
@@ -113,11 +113,11 @@ class SubSelectCell: UITableViewCell {
     }
     
     class func dequeue (_ tableView: UITableView,
-                        _ indexPath: IndexPath) -> SubSelectCell {
+                        _ indexPath: IndexPath) -> SubCheckBoxCell {
         
         let id = String (describing: self)
         return tableView.dequeueReusableCell(withIdentifier: id, for: indexPath)
-            as! SubSelectCell
+            as! SubCheckBoxCell
     }
     
     @IBOutlet var icoCheck: UIImageView!

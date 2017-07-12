@@ -62,7 +62,6 @@ class JobDetailAtch: UIView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = self.job.attachments[indexPath.row]
-        print(item)
         self.delegate?.openFileFromUrlWithString(item.url + "/" + item.filename)
     }
 }
