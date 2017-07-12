@@ -67,6 +67,10 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
         }
         
         self.showData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.loadAndShowResult()
     }
     
@@ -126,6 +130,12 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     }
     
     @IBAction func contTapped () {
+        if Config.jobResult.execution_date.isEmpty {
+            Config.jobResult.execution_date = Date().toString(withFormat: Date.fmtDataJson)
+            Config.jobResult.execution_start_time = Date().toString(withFormat: Date.fmtOra)
+        }
+        Config.jobResult.save()
+
         let ctrl = KpiMain.Instance()
         self.navigationController?.show(ctrl, sender: self)
     }
@@ -143,12 +153,6 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
             Config.jobResult.positioning.start_date = Date().toString(withFormat: Date.fmtDataOraJson)
             Config.jobResult.positioning.start_lat = self.locationValue.latitude
             Config.jobResult.positioning.start_lng = self.locationValue.longitude
-            if Config.jobResult.execution_date.isEmpty {
-                Config.jobResult.execution_date = Date().toString(withFormat: Date.fmtDataJson)
-            }
-            if Config.jobResult.execution_start_time.isEmpty {
-                Config.jobResult.execution_start_time = Date().toString(withFormat: Date.fmtOra)
-            }
             Config.jobResult.save()
             
             self.locationManager.stopUpdatingLocation()
@@ -194,8 +198,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     
     private func loadAndShowResult () {
         self.executionTime()
-        let resultsArray = Config.jobResult.results
-        let title = resultsArray.count == 0 ? "kpiInit" : "kpiCont"
+        let title = Config.jobResult.execution_date.isEmpty ? "kpiInit" : "kpiCont"
         self.contBtn.setTitle(Lng(title), for: .normal)
     }
     

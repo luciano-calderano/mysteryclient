@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nRE-Lm-jRX" id="97g-rf-97Z">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8s-6Z-bL5" userLabel="Select View">
@@ -46,13 +46,6 @@
                             <constraint firstAttribute="width" constant="16" id="GsY-xR-nmC"/>
                         </constraints>
                     </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oES-pL-w7M" userLabel="Bottom line">
-                        <rect key="frame" x="0.0" y="48" width="375" height="1"/>
-                        <color key="backgroundColor" red="0.67843137249999996" green="0.81960784310000001" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="1dL-z1-Smv"/>
-                        </constraints>
-                    </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico.matita" translatesAutoresizingMaskIntoConstraints="NO" id="UMg-oC-vDG">
                         <rect key="frame" x="354" y="5" width="16" height="16"/>
                         <constraints>
@@ -60,6 +53,13 @@
                             <constraint firstAttribute="height" constant="16" id="8v1-GX-Rsa"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oES-pL-w7M" userLabel="Bottom line">
+                        <rect key="frame" x="0.0" y="48" width="375" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="1dL-z1-Smv"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="bx5-MB-h9P" secondAttribute="trailing" constant="20" id="42i-Ba-LsA"/>
