@@ -59,6 +59,9 @@ class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
         self.kpiQuestion.text = self.kpi.standard
         self.kpiInstructions.text = self.kpi.instructions
         self.kpiNote.text = self.kpiResult.notes
+        self.kpiNote.layer.borderColor = (self.kpi.note_required ? UIColor.red : UIColor.myGreenDark).cgColor
+        self.kpiNote.layer.borderWidth = 1
+        
         self.kpiAtchBtn.isHidden = !self.kpi.attachment && !self.kpi.attachment_required
         if self.kpiResult.attachment.isEmpty == false {
             self.fileName = self.path + self.kpiResult.attachment
@@ -122,18 +125,15 @@ class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
         let result = self.kpiQuestSubView.getValuation()
         
         if self.kpi.required == true {
-            if self.kpi.valuations.count > 0 && result.valuation == nil {
+            if result.value.isEmpty && kpi.type.isEmpty == false {
                 return .errValue
             }
-            
             self.kpiResult.value = result.value
-            if result.valuation != nil {
-                let v = result.valuation!
-                noteRequired = v.note_required
-                atchRequired = v.attachment_required
+            if result.notes == true {
+                noteRequired = result.notes
             }
-            if self.kpiResult.value.isEmpty && self.kpi.type.isEmpty == false {
-                return .errValue
+            if result.attch == true {
+                atchRequired = result.attch
             }
         }
         

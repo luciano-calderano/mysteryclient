@@ -44,7 +44,7 @@ class MYHttpRequest {
 
     // MARK: - Start
     
-    func start (showWheel: Bool = true, silentError: Bool = false, completion: @escaping (Bool, JsonDict) -> () = { success, response in }) {
+    func start (showWheel: Bool = true, silentError: Bool = false, header: Bool = true, completion: @escaping (Bool, JsonDict) -> () = { success, response in }) {
         if showWheel {
             self.startWheel(true)
         }
@@ -52,46 +52,33 @@ class MYHttpRequest {
 
         let token = User.shared.getToken()
         var headers = [String: String]()
-        if token.isEmpty == false {
+        if header == true {
             headers["Authorization"] = "Bearer " + token
         }
         
         Alamofire.request(self.url, method: self.type, parameters: self.json, headers: headers).responseString { response in
-//        Alamofire.request(self.url, method: self.type, parameters: self.parameters).responseJSON { (response) in
             if showWheel {
                 self.startWheel(false)
             }
-//            let dict = response.value as! JsonDict
-            if (response.result.isSuccess) {
+            let error = "Code: #\(String((response.response?.statusCode)!))"
+            var msg = ""
+            if response.result.isSuccess {
                 let dict = self.removeNullFromJsonString(response.result.value!)
-                if response.response?.statusCode == 200 {
+                if response.response?.statusCode == 200 && dict.string("status") == "ok" {
                     self.printJson(dict)
-                    do {
-                        try self.saveJson(dict)
-                    } catch {
-                        print("Json: è stata sollevata un'eccezione \(error) ")
-                    }
                     completion (true, dict)
+                    return
                 }
-                else {
-                    let msg = dict.string("msg")
-//                    print("Error: " + String(describing: response.response?.statusCode) + " " + msg)
-//                    if msg.isEmpty == false  && silentError == false {
-                        self.showError(title: "Errore: #\(String(describing: response.response?.statusCode))",
-                            message: msg)
-//                    }
-                    completion (false, [:])
+
+                msg = dict.string("msg")
+            }
+            else {
+                if response.error != nil {
+                    msg = (response.error?.localizedDescription)!
                 }
-                return
             }
-            if response.error != nil {
-//                let dict = self.removeNullFromJsonString(response.result.value!)
-//                let msg = response.error?.localizedDescription == nil ? dict.string("msg") : (response.error?.localizedDescription)!
-//                print("Error: " + String(describing: response.response?.statusCode) + " " + msg)
-                completion (false, [:])
-                self.showError(title: "", message: (response.error?.localizedDescription)!)
-//                print ("Error: " + String(describing: response.response?.statusCode))
-            }
+            self.showError(title: error, message: msg)
+            completion (false, [:])
         }
     }
     
@@ -109,10 +96,6 @@ class MYHttpRequest {
             }
         }
         return [:]
-    }
-    
-    private func saveJson (_ dict: JsonDict) throws {
-//        self.jsonResponse?.setValue(dict, forKey: self.page)
     }
     
     // MARK: - private

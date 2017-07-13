@@ -92,7 +92,18 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
     }
 
     private func sendKpiResult () {
-        self.saveResult()
+        if self.saveResult() {
+            self.alert(Lng("readyToSend"), message: "", okBlock: { (ready) in
+                Config.jobResult.compiled = 1
+                Config.jobResult.compilation_date = Date().toString(withFormat: Date.fmtDataOraJson)
+                
+                self.resultSent()
+            })
+        }
+    }
+    
+    private func resultSent () {
+        Config.job.removeJob()
         self.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -101,22 +112,31 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         vc.attachmentImage = image
     }
     
-    private func saveResult () {
+    private func saveResult () -> Bool{
         let dict = Config.jobResult.getDict()
         do {
+            let fm = FileManager.default
             let path = NSTemporaryDirectory() + String(Config.job.id)
-            let urlJson = URL.init(string: path + "/result.json.txt")!
-            let urlPath = URL.init(string: path)!
-            let urlZip = URL.init(string: path + ".zip")!
+            var url: URL!
+            
+            url = URL.init(string: path + "/json.txt")!
+            let json = try JSONSerialization.data(withJSONObject: dict,
+                                                  options: .prettyPrinted)
+            try? json.write(to: url)
 
-            let jsonData = try JSONSerialization.data(withJSONObject: dict,
-                                                      options: .prettyPrinted)
-            try? jsonData.write(to: urlJson)
-            try Zip.zipFiles(paths: [urlPath], zipFilePath: urlZip, password: nil, progress: nil)
-            self.alert("Ok", message: "", okBlock: nil)
+            url = URL.init(string: path)!
+            let files = try fm.contentsOfDirectory(at: url, includingPropertiesForKeys: nil,
+                                                   options: [])
+
+            url = URL.init(string: path + ".zip")!
+            try Zip.zipFiles(paths: files, zipFilePath: url, password: nil, progress: nil)
+            
+//            try fm.removeItem(atPath: path)
         } catch {
             self.alert(error.localizedDescription, message: "", okBlock: nil)
+            return false
         }
+        return true
     }
     // MARK: - Delegate
     

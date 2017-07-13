@@ -64,10 +64,10 @@
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="bx5-MB-h9P" secondAttribute="trailing" constant="20" id="42i-Ba-LsA"/>
                     <constraint firstItem="oES-pL-w7M" firstAttribute="leading" secondItem="97g-rf-97Z" secondAttribute="leading" id="4Cv-W1-Vmf"/>
+                    <constraint firstAttribute="bottom" secondItem="gLy-Dj-dee" secondAttribute="bottom" constant="6.5" id="4E1-ky-hKx"/>
                     <constraint firstAttribute="trailing" secondItem="gLy-Dj-dee" secondAttribute="trailing" constant="5" id="6cf-Uj-2nP"/>
                     <constraint firstAttribute="bottom" secondItem="oES-pL-w7M" secondAttribute="bottom" constant="0.5" id="B8f-aM-cxH"/>
                     <constraint firstItem="UMg-oC-vDG" firstAttribute="top" secondItem="97g-rf-97Z" secondAttribute="top" constant="5" id="Quo-zS-bT3"/>
-                    <constraint firstItem="oES-pL-w7M" firstAttribute="top" secondItem="gLy-Dj-dee" secondAttribute="bottom" constant="5" id="WqT-46-Ctz"/>
                     <constraint firstItem="b8s-6Z-bL5" firstAttribute="leading" secondItem="97g-rf-97Z" secondAttribute="leading" constant="5" id="aQV-IQ-Igy"/>
                     <constraint firstAttribute="trailing" secondItem="oES-pL-w7M" secondAttribute="trailing" id="c9z-Kr-swY"/>
                     <constraint firstItem="bx5-MB-h9P" firstAttribute="centerY" secondItem="97g-rf-97Z" secondAttribute="centerY" id="fZV-hm-6Hu"/>

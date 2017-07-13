@@ -131,8 +131,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     
     @IBAction func contTapped () {
         if Config.jobResult.execution_date.isEmpty {
-            Config.jobResult.execution_date = Date().toString(withFormat: Date.fmtDataJson)
-            Config.jobResult.execution_start_time = Date().toString(withFormat: Date.fmtOra)
+            Config.jobResult.estimate_date = Date().toString(withFormat: Date.fmtDataJson)
         }
         Config.jobResult.save()
 

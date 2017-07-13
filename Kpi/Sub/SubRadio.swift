@@ -45,14 +45,14 @@ class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
         self.frame = rect
         self.delegate?.subViewResized(newHeight: rect.size.height)
     }
-    
-    override func getValuation () -> (value: String, valuation: Job.Kpi.Valuations?) {
-        var value = ""
+
+    override func getValuation () -> (value: String, notes: Bool, attch: Bool) {
         if self.valuationSelected != nil {
             let item = self.valuationSelected!
-            value = String(item.id)
+            let value = String(item.id)
+            return (value, item.note_required, item.attachment_required)
         }
-        return (value, self.valuationSelected)
+        return ("", false, false)
     }
     
     // MARK: - table view

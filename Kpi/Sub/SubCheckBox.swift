@@ -49,15 +49,28 @@ class SubCheckBox: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
         self.delegate?.subViewResized(newHeight: rect.size.height)
     }
     
-    override func getValuation () -> (value: String, valuation: Job.Kpi.Valuations?) {
+    override func getValuation () -> (value: String, notes: Bool, attch: Bool) {
         var value = ""
-        for id in self.selectedId {
-            if value.isEmpty == false {
-                value += ","
+        var notes = false
+        var attch = false
+        if self.selectedId.count > 0 {
+            for item in self.valuations {
+                let id = String(item.id)
+                if self.selectedId.contains(id) {
+                    if value.isEmpty == false {
+                        value += ","
+                    }
+                    value += String(item.id)
+                    if item.note_required == true {
+                        notes = item.note_required
+                    }
+                    if item.attachment_required == true {
+                        attch = item.attachment_required
+                    }
+                }
             }
-            value += id
         }
-        return (value, nil)
+        return (value, notes, attch)
     }
     
     // MARK: - table view

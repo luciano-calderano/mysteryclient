@@ -108,5 +108,55 @@ extension Dictionary {
         }
         return ret
     }
+
+    init(keys: [Key], values: [Value]) {
+        self.init()
+        for (index, key) in keys.enumerated() {
+            self[key] = values[index]
+        }
+    }
+
+    init (fromFile: String) {
+        self.init()
+        do {
+            let url = URL.init(fileURLWithPath: fromFile)
+            let data = try Data.init(contentsOf:url)//
+            
+            let dict = try PropertyListSerialization.propertyList(from: data, options: .mutableContainersAndLeaves, format: nil) as! Dictionary<Key, Value>
+            for key in dict.keys {
+                self[key] = dict[key]
+            }
+        }
+        catch let error as NSError {
+            fatalError("Error creating directory: \(error.localizedDescription)")
+        }
+    }
+    
+    func readFromFile(_ file: String) -> JsonDict {
+        do {
+            let url = URL.init(fileURLWithPath: file)
+            let data = try Data.init(contentsOf:url)//
+            let dict = try PropertyListSerialization.propertyList(from: data, options: .mutableContainersAndLeaves, format: nil) as! JsonDict
+            return dict
+        }
+        catch let error as NSError {
+            fatalError("Error creating directory: \(error.localizedDescription)")
+        }
+        return [:]
+    }
+    
+    func saveToFile(_ file: String) -> Bool {
+        do {
+            let data = try PropertyListSerialization.data(fromPropertyList: self,
+                                                          format: .binary,
+                                                          options: .allZeros)
+            try data.write(to: URL.init(string: file)!)
+            return true
+        }
+        catch let error as NSError {
+            fatalError("Error creating directory: \(error.localizedDescription)")
+        }
+        return false
+    }
 }
 

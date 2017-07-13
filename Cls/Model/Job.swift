@@ -9,6 +9,55 @@
 import Foundation
 
 class Job {
+    private let jobsPath = NSTemporaryDirectory() + "jobs"
+    func saveJops (_ jobs: [JsonDict]) {
+        let fm = FileManager.default
+        do {
+            if fm.fileExists(atPath: self.jobsPath) {
+                try FileManager.default.removeItem(atPath: self.jobsPath)
+            }
+            try fm.createDirectory(atPath: self.jobsPath,
+                                   withIntermediateDirectories: true,
+                                   attributes: nil)
+        } catch let error as NSError {
+            NSLog("Directory error: \(error.debugDescription)")
+        }
+        
+        for dict in jobs {
+            _ = dict.saveToFile(self.getFileName(id: dict.int("id")))
+        }
+    }
+
+    func loadJobs() -> [JsonDict] {
+        var jobs = [JsonDict]()
+        let fm = FileManager.default
+
+        do {
+            let files = try fm.contentsOfDirectory(atPath: self.jobsPath)
+            for file in files {
+                let dict = JsonDict.init(fromFile: self.jobsPath + "/" + file)
+                jobs.append(dict)
+            }
+        }
+        catch {
+            print("Error reading plist: \(error)")
+        }
+        return jobs
+    }
+    
+    func removeJob () {
+        do {
+            try FileManager.default.removeItem(atPath: self.getFileName(id: Config.job.id))
+        } catch let error as NSError {
+            NSLog("Remove error: \(error.debugDescription)")
+        }
+    }
+    
+    private func getFileName (id: Int) -> String {
+        let fileName = self.jobsPath + "/" + String(id)  + ".plist"
+        return fileName
+    }
+    
     var id = 0
         //Mandatory. Job ID. It should not be shown to the user.
     

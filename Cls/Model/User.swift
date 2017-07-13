@@ -76,7 +76,7 @@ class User: NSObject {
     
     func getUserToken(completion: @escaping () -> () = { success in },
                       failure: @escaping (Int, String) -> () = { errorCode, message in }) {
-        let request = MYHttpRequest.post("oauth/grant")
+        let request = MYHttpRequest.get("oauth/grant")
         request.json = [
             "grant_type"   : self.grant_type,
             "client_id"    : self.client_id,
@@ -84,7 +84,7 @@ class User: NSObject {
             "username"     : self.userData[self.kUsr]!,
             "password"     : self.userData[self.kPwd]!,
         ]
-        request.start() { (result, response) in
+        request.start(header: false) { (result, response) in
             let code = response.int("code")
             if code == 200 && response.string("status") == "ok"{
                 let dict = response.dictionary("token")

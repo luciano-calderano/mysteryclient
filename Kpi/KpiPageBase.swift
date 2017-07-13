@@ -50,8 +50,8 @@ class KpiQuestSubView: UIView {
         self.delegate?.subViewResized(newHeight: 1)
     }
     
-    func getValuation () -> (value: String, valuation: Job.Kpi.Valuations?) {
-        return ("", nil)
+    func getValuation () -> (value: String, notes: Bool, attch: Bool) {
+        return ("", false, false)
     }
 }
 

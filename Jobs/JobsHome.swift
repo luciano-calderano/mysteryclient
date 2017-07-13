@@ -12,13 +12,14 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
     
     @IBOutlet private var tableView: UITableView!
     
-    private var jobsTodo = [Job]()
-    private var jobsDone = [Job]()
-    private let fileConfig  = UserDefaults.init(suiteName: "jobs.saved")
+//    private var jobsPath = NSTemporaryDirectory() + "jobs"
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    //fiume giallo 3, 2° piano, caschera.
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -26,16 +27,26 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
         Config.job = Job()
         Config.jobResult = JobResult()
         
-        let saved = self.fileConfig?.value(forKey: "jobs")
-        if saved != nil {
-            let jobs = saved as! [JsonDict]
-            if jobs.count > 0 {
-                self.packJobs(jobs)
-                return
-            }
+        let jobs = Config.job.loadJobs()
+//        
+//        let fm = FileManager.default
+//        var jobs = [JsonDict]()
+//        do {
+//            let files = try fm.contentsOfDirectory(atPath: self.jobsPath)
+//            for file in files {
+//                let dict = JsonDict.init(fromFile: self.jobsPath + "/" + file)
+//                jobs.append(dict)
+//            }
+//        }
+//        catch {
+//            print("Error reading plist: \(error)")
+//        }
+        if jobs.count > 0 {
+            self.packJobs(jobs)
         }
-        self.loadData()
-//        self.jobsDownload()
+        else {
+            self.jobsDownload()
+        }
     }
 
     override func headerViewDxTapped() {
@@ -59,18 +70,17 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
             "object" : "jobs",
         ]
         request.start() { (result, response) in
-            let code = response.int("code")
-            if code == 200 && response.string("status") == "ok" {
+            if response.string("status") == "ok" {
                 let jobs = response.array("jobs") as! [JsonDict]
-                self.fileConfig?.setValue(jobs, forKey: "jobs")
+                Config.job.saveJops(jobs)
+//                self.saveJops(jobs)
                 self.packJobs(jobs)
             }
         }
     }
 
     private func packJobs (_ dict: [JsonDict]) {
-        self.jobsWithArray(dict)
-        self.dataArray = self.jobsTodo
+        self.dataArray = self.jobsWithArray(dict)
         self.tableView.reloadData()
     }
     
@@ -114,13 +124,43 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
     }
 
     // MARK: - Dict -> Job Class
+
+//    private func saveJops (_ jobs: [JsonDict]) {
+//        let fm = FileManager.default
+//        do {
+//            if fm.fileExists(atPath: self.jobsPath) {
+//                try FileManager.default.removeItem(atPath: self.jobsPath)
+//            }
+//            try fm.createDirectory(atPath: self.jobsPath,
+//                                   withIntermediateDirectories: true,
+//                                   attributes: nil)
+//        } catch let error as NSError {
+//            NSLog("Directory error: \(error.debugDescription)")
+//        }
+//        
+//        for dict in jobs {
+//            let jobId = dict.string("id")
+//            _ = dict.saveToFile(self.jobsPath + "/\(jobId).plist")
+//        }
+//    }
     
-    private func jobsWithArray(_ jobsArray: [JsonDict]) {
-        self.jobsDone = [Job]()
-        self.jobsTodo = [Job]()
-        
+    private func jobsWithArray(_ jobsArray: [JsonDict]) -> [Job] {
+        var jobList = [Job]()
         for dict in jobsArray {
             let job = Job()
+            job.compiled = dict.bool("compiled") // Boolean [0/1]
+            job.irregular = dict.bool("irregular") // Boolean [0/1]
+            job.updated = dict.bool("updated") // Boolean [0/1]
+
+            if job.compiled == true {
+                if job.irregular == false || job.updated == true {
+                    continue
+                }
+            }
+//            compiled = false
+//            compiled = true & irregular = true & updated = false
+//            print(job.compiled, job.irregular, job.updated)
+            
             job.id = dict.int("id")
             job.reference = dict.string("reference")
             
@@ -135,13 +175,10 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
             job.status = dict.string("status")
             job.booked = dict.bool("booked") // Boolean [0/1]
             job.booking_date = dict.date("booking_date", fmt: Date.fmtDataOraJson)
-            job.compiled = dict.bool("compiled") // Boolean [0/1]
             job.compilation_date = dict.date("compilation_date", fmt: Date.fmtDataOraJson)
-            job.updated = dict.bool("updated") // Boolean [0/1]
             job.update_date = dict.date("update_date", fmt: Date.fmtDataOraJson)
             job.validated = dict.bool("validated") // Boolean [0/1]
             job.validation_date = dict.date("validation_date", fmt: Date.fmtDataOraJson)
-            job.irregular = dict.bool("irregular") // Boolean [0/1]
             job.notes = dict.string("notes")
             job.execution_date = dict.date("execution_date", fmt: Date.fmtDataJson)
             job.execution_start_time = dict.string("execution_start_time") // Time [hh:mm]
@@ -224,13 +261,8 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
                 
                 job.kpis.append(kpi)
             }
-            if job.irregular == true {
-                self.jobsDone.append(job)
-            }
-            else {
-                self.jobsTodo.append(job)
-            }
+            jobList.append(job)
         }
+        return jobList
     }
-
 }
