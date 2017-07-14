@@ -130,10 +130,16 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     }
     
     @IBAction func contTapped () {
+        guard Config.job.learning_done else {
+            let ctrl = WebPage.Instance(type: .none)
+            ctrl.page = Config.job.learning_url
+            self.navigationController?.show(ctrl, sender: self)
+            return
+        }
         if Config.jobResult.execution_date.isEmpty {
             Config.jobResult.estimate_date = Date().toString(withFormat: Date.fmtDataJson)
+            Config.jobResult.save()
         }
-        Config.jobResult.save()
 
         let ctrl = KpiMain.Instance()
         self.navigationController?.show(ctrl, sender: self)
@@ -197,7 +203,13 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     
     private func loadAndShowResult () {
         self.executionTime()
-        let title = Config.jobResult.execution_date.isEmpty ? "kpiInit" : "kpiCont"
+        var title = ""
+        if Config.job.learning_done == false {
+            title = Lng("learning")
+        }
+        else {
+            title = Config.jobResult.execution_date.isEmpty ? "kpiInit" : "kpiCont"
+        }
         self.contBtn.setTitle(Lng(title), for: .normal)
     }
     
