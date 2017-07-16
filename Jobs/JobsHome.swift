@@ -24,10 +24,10 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        Config.job = Job()
-        Config.jobResult = JobResult()
+        MYJob.shared.job = Job()
+        MYJob.shared.jobResult = JobResult()
         
-        let jobs = Config.job.loadJobs()
+        let jobs = MYJob.shared.loadJobs()
 //        
 //        let fm = FileManager.default
 //        var jobs = [JsonDict]()
@@ -72,7 +72,8 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
         request.start() { (result, response) in
             if response.string("status") == "ok" {
                 let jobs = response.array("jobs") as! [JsonDict]
-                Config.job.saveJops(jobs)
+                MYJob.shared.saveJobs(jobs)
+//                MYJob.shared.job.saveJops(jobs)
 //                self.saveJops(jobs)
                 self.packJobs(jobs)
             }
@@ -117,8 +118,9 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        Config.job = self.dataArray[indexPath.row] as! Job
-        Config.jobResult.load(id: Config.job.id)
+        MYJob.shared.job = self.dataArray[indexPath.row] as! Job
+        MYJob.shared.loadResult (jobId: MYJob.shared.job.id)
+        
         let vc = JobDetail.Instance()
         self.navigationController?.show(vc, sender: self)
     }

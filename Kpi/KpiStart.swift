@@ -27,13 +27,13 @@ class KpiStart: KpiViewController {
         }
         self.yesTapped()
         
-        self.undondeText.text = Config.jobResult.comment
+        self.undondeText.text = MYJob.shared.jobResult.comment
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if Config.jobResult.execution_date.isEmpty == false {
-            let d = Config.jobResult.execution_date + " " + Config.jobResult.execution_start_time + ":00"
+        if MYJob.shared.jobResult.execution_date.isEmpty == false {
+            let d = MYJob.shared.jobResult.execution_date + " " + MYJob.shared.jobResult.execution_start_time + ":00"
             let date = d.toDate(withFormat: Date.fmtDataOraJson)
             self.datePicker.date = date
         }
@@ -45,16 +45,15 @@ class KpiStart: KpiViewController {
                 self.undondeText.becomeFirstResponder()
                 return .errNotes
             }
-            Config.jobResult.comment = self.undondeText.text!
-            Config.jobResult.compiled = 1
-            Config.jobResult.save()
-            return .next
+            MYJob.shared.jobResult.comment = self.undondeText.text!
+            MYJob.shared.jobResult.compiled = 1
+            MYJob.shared.saveResult()
+            return .last
         }
-        
-        Config.jobResult.execution_date = self.datePicker.date.toString(withFormat: Date.fmtDataJson)
-        Config.jobResult.execution_start_time = self.datePicker.date.toString(withFormat: Date.fmtOra)
-        Config.jobResult.save()
-        
+
+        MYJob.shared.jobResult.execution_date = self.datePicker.date.toString(withFormat: Date.fmtDataJson)
+        MYJob.shared.jobResult.execution_start_time = self.datePicker.date.toString(withFormat: Date.fmtOra)
+        MYJob.shared.saveResult()
         return .next
     }
     

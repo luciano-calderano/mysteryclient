@@ -37,7 +37,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         
         self.myKeyboard = MYKeyboard(vc: self)
         
-        let path = NSTemporaryDirectory() + "/" + String(Config.job.id)
+        let path = NSTemporaryDirectory() + "/" + String(MYJob.shared.job.id)
         let fm = FileManager.default
         if fm.fileExists(atPath: path) == false {
             do {
@@ -49,14 +49,14 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
             }
         }
         
-        if Config.jobResult.results.count < Config.job.kpis.count {
-            for _ in Config.jobResult.results.count...Config.job.kpis.count - 1 {
-                Config.jobResult.results.append(JobResult.KpiResult())
+        if MYJob.shared.jobResult.results.count < MYJob.shared.job.kpis.count {
+            for _ in MYJob.shared.jobResult.results.count...MYJob.shared.job.kpis.count - 1 {
+                MYJob.shared.jobResult.results.append(JobResult.KpiResult())
             }
-            Config.jobResult.save()
+            MYJob.shared.saveResult()
         }
         
-        self.headerTitle = Config.job.store.name
+        self.headerTitle = MYJob.shared.job.store.name
         
         for btn in [self.backBtn, self.nextBtn] as! [MYButton] {
             let ico = btn.image(for: .normal)?.resize(12)
@@ -79,7 +79,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         let idx = self.kpiNavi.viewControllers.count - 1
         
         var vc: KpiViewController
-        if idx < Config.job.kpis.count {
+        if idx < MYJob.shared.job.kpis.count {
             vc = KpiQuest.Instance(index: idx)
             self.nextBtn.setTitle(Lng("next"), for: .normal)
         }
@@ -92,18 +92,15 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
     }
 
     private func sendKpiResult () {
-        if self.saveResult() {
+        if self.saveResultToZip() {
             self.alert(Lng("readyToSend"), message: "", okBlock: { (ready) in
-                Config.jobResult.compiled = 1
-                Config.jobResult.compilation_date = Date().toString(withFormat: Date.fmtDataOraJson)
-                
                 self.resultSent()
             })
         }
     }
     
     private func resultSent () {
-        Config.job.removeJob()
+        MYJob.shared.removeJob()
         self.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -112,24 +109,23 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         vc.attachmentImage = image
     }
     
-    private func saveResult () -> Bool{
-        let dict = Config.jobResult.getDict()
+    private func saveResultToZip () -> Bool{
+        let dict = MYJob.shared.getResultFromPlist()
         do {
             let fm = FileManager.default
-            let path = NSTemporaryDirectory() + String(Config.job.id)
-            var url: URL!
+            let path = NSTemporaryDirectory() + String(MYJob.shared.job.id)
             
-            url = URL.init(string: path + "/json.txt")!
             let json = try JSONSerialization.data(withJSONObject: dict,
                                                   options: .prettyPrinted)
-            try? json.write(to: url)
+            try? json.write(to: URL.init(string: path + "/json.txt")!)
 
-            url = URL.init(string: path)!
-            let files = try fm.contentsOfDirectory(at: url, includingPropertiesForKeys: nil,
+            let files = try fm.contentsOfDirectory(at: URL.init(string: path)!,
+                                                   includingPropertiesForKeys: nil,
                                                    options: [])
-
-            url = URL.init(string: path + ".zip")!
-            try Zip.zipFiles(paths: files, zipFilePath: url, password: nil, progress: nil)
+            try Zip.zipFiles(paths: files,
+                             zipFilePath: URL.init(string: path + ".zip")!,
+                             password: nil,
+                             progress: nil)
             
 //            try fm.removeItem(atPath: path)
         } catch {
@@ -142,7 +138,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
     
     func showPageNum(_ num: Int) {
         self.header?.header.kpiLabel.isHidden = false
-        self.header?.header.kpiLabel.text = "\(num)/\(Config.job.kpis.count + 2)"
+        self.header?.header.kpiLabel.text = "\(num)/\(MYJob.shared.job.kpis.count + 2)"
     }
     
     // MARK: - Actions

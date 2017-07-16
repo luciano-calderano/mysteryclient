@@ -42,14 +42,14 @@ class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
     private var kpiResult: JobResult.KpiResult!
     private var kpiQuestSubView: KpiQuestSubView!
     
-    private let path = NSTemporaryDirectory() + String(Config.job.id) + "/"
+    private let path = NSTemporaryDirectory() + String(MYJob.shared.job.id) + "/"
     private var fileName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.kpi = Config.job.kpis[self.index]
-        self.kpiResult = Config.jobResult.results[self.index]
+        self.kpi = MYJob.shared.job.kpis[self.index]
+        self.kpiResult = MYJob.shared.jobResult.results[self.index]
 
         self.kpiNote.delegate = self
         self.kpiNote.layer.borderColor = UIColor.lightGray.cgColor
@@ -147,7 +147,7 @@ class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
         
         self.kpiResult.kpi_id = self.kpi.id
         self.kpiResult.notes = self.kpiNote.text
-        Config.jobResult.save()
+        MYJob.shared.saveResult()
         
         self.view.endEditing(true)
         return .next
@@ -162,7 +162,7 @@ class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
             self.atchView.isHidden = false
             self.atchImage.image = self.attachmentImage
             if self.kpiResult.attachment.isEmpty {
-                self.kpiResult.attachment = String(Config.job.reference) + "." + String(self.kpi.id) + ".jpg"
+                self.kpiResult.attachment = String(MYJob.shared.job.reference) + "." + String(self.kpi.id) + ".jpg"
                 self.fileName = self.path + self.kpiResult.attachment
                 
                 if let data = UIImageJPEGRepresentation(self.attachmentImage!, 0.7) {

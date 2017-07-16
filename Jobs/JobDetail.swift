@@ -102,20 +102,20 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     // MARK: - actions
     
     @IBAction func mapsTapped () {
-        _ = Maps(job: Config.job)
+        _ = Maps(job: MYJob.shared.job)
     }
     
     @IBAction func descTapped () {
         let subView = JobDetailDesc.Instance()
         subView.frame = self.view.frame
-        subView.jobDesc.text = Config.job.description
+        subView.jobDesc.text = MYJob.shared.job.description
         self.view.addSubview(subView)
     }
     
     @IBAction func atchTapped () {
         let subView = JobDetailAtch.Instance()
         subView.frame = self.view.frame
-        subView.job = Config.job
+        subView.job = MYJob.shared.job
         subView.delegate = self
         self.view.addSubview(subView)
     }
@@ -130,15 +130,15 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     }
     
     @IBAction func contTapped () {
-        guard Config.job.learning_done else {
+        guard MYJob.shared.job.learning_done else {
             let ctrl = WebPage.Instance(type: .none)
-            ctrl.page = Config.job.learning_url
+            ctrl.page = MYJob.shared.job.learning_url
             self.navigationController?.show(ctrl, sender: self)
             return
         }
-        if Config.jobResult.execution_date.isEmpty {
-            Config.jobResult.estimate_date = Date().toString(withFormat: Date.fmtDataJson)
-            Config.jobResult.save()
+        if MYJob.shared.jobResult.execution_date.isEmpty {
+            MYJob.shared.jobResult.estimate_date = Date().toString(withFormat: Date.fmtDataJson)
+            MYJob.shared.saveResult()
         }
 
         let ctrl = KpiMain.Instance()
@@ -154,11 +154,11 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
         self.locationManager.startUpdatingLocation()
         self.executionTime()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            Config.jobResult.positioning.start = true
-            Config.jobResult.positioning.start_date = Date().toString(withFormat: Date.fmtDataOraJson)
-            Config.jobResult.positioning.start_lat = self.locationValue.latitude
-            Config.jobResult.positioning.start_lng = self.locationValue.longitude
-            Config.jobResult.save()
+            MYJob.shared.jobResult.positioning.start = true
+            MYJob.shared.jobResult.positioning.start_date = Date().toString(withFormat: Date.fmtDataOraJson)
+            MYJob.shared.jobResult.positioning.start_lat = self.locationValue.latitude
+            MYJob.shared.jobResult.positioning.start_lng = self.locationValue.longitude
+            MYJob.shared.saveResult()
             
             self.locationManager.stopUpdatingLocation()
         }
@@ -168,14 +168,14 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
         self.executionTime()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             
-            Config.jobResult.positioning.end = true
-            Config.jobResult.positioning.end_date = Date().toString(withFormat: Date.fmtDataOraJson)
-            Config.jobResult.positioning.end_lat = self.locationValue.latitude
-            Config.jobResult.positioning.end_lng = self.locationValue.longitude
-            if Config.jobResult.execution_end_time.isEmpty {
-                Config.jobResult.execution_end_time = Date().toString(withFormat: Date.fmtOra)
+            MYJob.shared.jobResult.positioning.end = true
+            MYJob.shared.jobResult.positioning.end_date = Date().toString(withFormat: Date.fmtDataOraJson)
+            MYJob.shared.jobResult.positioning.end_lat = self.locationValue.latitude
+            MYJob.shared.jobResult.positioning.end_lng = self.locationValue.longitude
+            if MYJob.shared.jobResult.execution_end_time.isEmpty {
+                MYJob.shared.jobResult.execution_end_time = Date().toString(withFormat: Date.fmtOra)
             }
-            Config.jobResult.save()
+            MYJob.shared.saveResult()
             
             self.locationManager.stopUpdatingLocation()
         }
@@ -192,23 +192,23 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     // MARK: - private
     
     private func showData () {
-        self.header?.header.titleLabel.text = Config.job.store.name
+        self.header?.header.titleLabel.text = MYJob.shared.job.store.name
         self.infoLabel.text =
-            Lng("rifNum") + ": \(Config.job.reference)\n" +
-            Lng("verIni") + ": \(Config.job.start_date.toString(withFormat: Date.fmtData))\n" +
-            Lng("verEnd") + ": \(Config.job.end_date.toString(withFormat: Date.fmtData))\n"
-        self.nameLabel.text = Config.job.store.name
-        self.addrLabel.text = Config.job.store.address
+            Lng("rifNum") + ": \(MYJob.shared.job.reference)\n" +
+            Lng("verIni") + ": \(MYJob.shared.job.start_date.toString(withFormat: Date.fmtData))\n" +
+            Lng("verEnd") + ": \(MYJob.shared.job.end_date.toString(withFormat: Date.fmtData))\n"
+        self.nameLabel.text = MYJob.shared.job.store.name
+        self.addrLabel.text = MYJob.shared.job.store.address
     }
     
     private func loadAndShowResult () {
         self.executionTime()
         var title = ""
-        if Config.job.learning_done == false {
+        if MYJob.shared.job.learning_done == false {
             title = Lng("learning")
         }
         else {
-            title = Config.jobResult.execution_date.isEmpty ? "kpiInit" : "kpiCont"
+            title = MYJob.shared.jobResult.execution_date.isEmpty ? "kpiInit" : "kpiCont"
         }
         self.contBtn.setTitle(Lng(title), for: .normal)
     }
@@ -219,11 +219,11 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
         self.strtBtn.backgroundColor = UIColor.lightGray
         self.stopBtn.backgroundColor = UIColor.lightGray
         
-        if Config.jobResult.positioning.start == false {
+        if MYJob.shared.jobResult.positioning.start == false {
             self.strtBtn.isEnabled = true
             self.strtBtn.backgroundColor = UIColor.white
         }
-        else if Config.jobResult.positioning.end == false {
+        else if MYJob.shared.jobResult.positioning.end == false {
             self.stopBtn.isEnabled = true
             self.stopBtn.backgroundColor = UIColor.white
         }

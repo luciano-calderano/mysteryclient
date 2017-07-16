@@ -8,9 +8,15 @@
 
 import Foundation
 
-class Job {
+class MYJob {
+    static let shared = MYJob()
+
+    var job = Job()
+    var jobResult = JobResult()
+//    var kpiResult = JobResult.KpiResult()
+
     private let jobsPath = NSTemporaryDirectory() + "jobs"
-    func saveJops (_ jobs: [JsonDict]) {
+    func saveJobs (_ jobs: [JsonDict]) {
         let fm = FileManager.default
         do {
             if fm.fileExists(atPath: self.jobsPath) {
@@ -27,11 +33,11 @@ class Job {
             _ = dict.saveToFile(self.getFileName(id: dict.int("id")))
         }
     }
-
+    
     func loadJobs() -> [JsonDict] {
         var jobs = [JsonDict]()
         let fm = FileManager.default
-
+        
         do {
             let files = try fm.contentsOfDirectory(atPath: self.jobsPath)
             for file in files {
@@ -47,7 +53,7 @@ class Job {
     
     func removeJob () {
         do {
-            try FileManager.default.removeItem(atPath: self.getFileName(id: Config.job.id))
+            try FileManager.default.removeItem(atPath: self.getFileName(id: MYJob.shared.job.id))
         } catch let error as NSError {
             NSLog("Remove error: \(error.debugDescription)")
         }
@@ -58,6 +64,109 @@ class Job {
         return fileName
     }
     
+    ////////////////
+    
+    
+    private let fileConfig  = UserDefaults.init(suiteName: "result")
+    
+    func getResultFromPlist () -> JsonDict {
+        let resultFromPlist = self.fileConfig?.value(forKey: String(MYJob.shared.jobResult.id)) as? JsonDict
+        if resultFromPlist != nil {
+            return resultFromPlist!
+        }
+        return JsonDict()
+    }
+    
+    func loadResult (jobId id: Int) {
+        let result = MYJob.shared.jobResult
+
+        result.id = id
+        let dict = self.getResultFromPlist()
+        if dict.isEmpty {
+            return
+        }
+        result.id                     = dict.int("id")
+        result.estimate_date          = dict.string("estimate_date")
+        result.compiled               = dict.int("compiled")
+        result.compilation_date       = dict.string("compilation_date")
+        result.updated                = dict.int("updated")
+        result.update_date            = dict.string("update_date")
+        result.execution_date         = dict.string("execution_date")
+        result.execution_start_time   = dict.string("execution_start_time")
+        result.execution_end_time     = dict.string("execution_end_time")
+        result.store_closed           = dict.int("store_closed")
+        result.comment                = dict.string("comment")
+        
+        let pos = dict.dictionary("positioning")
+        result.positioning.start      = pos.bool("start")
+        result.positioning.start_date = pos.string("start_date")
+        result.positioning.start_lat  = pos.double("start_lat")
+        result.positioning.start_lng  = pos.double("start_lng")
+        result.positioning.end        = pos.bool("end")
+        result.positioning.end_date   = pos.string("end_date")
+        result.positioning.end_lat    = pos.double("end_lat")
+        result.positioning.end_lng    = pos.double("end_lng")
+        
+        for kpiDict in dict.array("results") as! [JsonDict] {
+            let kpiResult = JobResult.KpiResult()
+            kpiResult.kpi_id        = kpiDict.int("kpi_id")
+            kpiResult.value         = kpiDict.string("value")
+            kpiResult.notes         = kpiDict.string("notes")
+            kpiResult.attachment    = kpiDict.string("attachment")
+            result.results.append(kpiResult)
+        }
+        MYJob.shared.jobResult = result
+    }
+    
+    
+    func saveResult () {
+        var resultArray = [JsonDict]()
+        let result = MYJob.shared.jobResult
+        
+        for kpiResult in result.results {
+            let dict:JsonDict = [
+                "kpi_id"     : kpiResult.kpi_id,
+                "value"      : kpiResult.value,
+                "notes"      : kpiResult.notes,
+                "attachment" : kpiResult.attachment,
+                ]
+            resultArray.append(dict)
+        }
+        
+        let dictPos:JsonDict = [
+            "start"      : result.positioning.start,
+            "start_date" : result.positioning.start_date,
+            "start_lat"  : result.positioning.start_lat,
+            "start_lng"  : result.positioning.start_lng,
+            "end"        : result.positioning.end,
+            "end_date"   : result.positioning.end_date,
+            "end_lat"    : result.positioning.end_lat,
+            "end_lng"    : result.positioning.end_lng,
+            ]
+        
+        let dict = [
+            "id"                        : result.id,
+            "estimate_date"             : result.estimate_date,
+            "compiled"                  : result.compiled,
+            "compilation_date"          : result.compilation_date,
+            "updated"                   : result.updated,
+            "update_date"               : result.update_date,
+            "execution_date"            : result.execution_date,
+            "execution_start_time"      : result.execution_start_time,
+            "execution_end_time"        : result.execution_end_time,
+            "store_closed"              : result.store_closed,
+            "comment"                   : result.comment,
+            "results"                   : resultArray,
+            "positioning"               : dictPos
+            ] as JsonDict
+        
+        self.fileConfig?.setValue(dict, forKey: String(result.id))
+    }
+
+
+}
+
+class Job {
     var id = 0
         //Mandatory. Job ID. It should not be shown to the user.
     
@@ -383,96 +492,96 @@ class JobResult {
         // Optional. Longitude where the user press end. It should not be shown to the user.
     }
     
-
-    private let fileConfig  = UserDefaults.init(suiteName: "result")
-
-    func getDict () -> JsonDict {
-        var dict = JsonDict()
-        let resultFromPlist = self.fileConfig?.value(forKey: String(self.id)) as? JsonDict
-        if resultFromPlist != nil {
-            dict = resultFromPlist!
-        }
-        return dict
-    }
-    
-    func load (id: Int) {
-        self.id = id
-        let dict = self.getDict()
-        if dict.isEmpty {
-            return
-        }
-        self.id                     = dict.int("id")
-        self.estimate_date          = dict.string("estimate_date")
-        self.compiled               = dict.int("compiled")
-        self.compilation_date       = dict.string("compilation_date")
-        self.updated                = dict.int("updated")
-        self.update_date            = dict.string("update_date")
-        self.execution_date         = dict.string("execution_date")
-        self.execution_start_time   = dict.string("execution_start_time")
-        self.execution_end_time     = dict.string("execution_end_time")
-        self.store_closed           = dict.int("store_closed")
-        self.comment                = dict.string("comment")
-        
-        let pos = dict.dictionary("positioning")
-        self.positioning.start      = pos.bool("start")
-        self.positioning.start_date = pos.string("start_date")
-        self.positioning.start_lat  = pos.double("start_lat")
-        self.positioning.start_lng  = pos.double("start_lng")
-        self.positioning.end        = pos.bool("end")
-        self.positioning.end_date   = pos.string("end_date")
-        self.positioning.end_lat    = pos.double("end_lat")
-        self.positioning.end_lng    = pos.double("end_lng")
-        
-        for kpiDict in dict.array("results") as! [JsonDict] {
-            let kpiResult = KpiResult()
-            kpiResult.kpi_id        = kpiDict.int("kpi_id")
-            kpiResult.value         = kpiDict.string("value")
-            kpiResult.notes         = kpiDict.string("notes")
-            kpiResult.attachment    = kpiDict.string("attachment")
-            self.results.append(kpiResult)
-        }
-    }
-    
-
-    func save () {
-        var resultArray = [JsonDict]()
-        for kpiResult in self.results {
-            let dict:JsonDict = [
-                    "kpi_id"     : kpiResult.kpi_id,
-                    "value"      : kpiResult.value,
-                    "notes"      : kpiResult.notes,
-                    "attachment" : kpiResult.attachment,
-                ]
-            resultArray.append(dict)
-        }
-        
-        let dictPos:JsonDict = [
-            "start"      : self.positioning.start,
-            "start_date" : self.positioning.start_date,
-            "start_lat"  : self.positioning.start_lat,
-            "start_lng"  : self.positioning.start_lng,
-            "end"        : self.positioning.end,
-            "end_date"   : self.positioning.end_date,
-            "end_lat"    : self.positioning.end_lat,
-            "end_lng"    : self.positioning.end_lng,
-            ]
-
-        let dict = [
-            "id"                        : self.id,
-            "estimate_date"             : self.estimate_date,
-            "compiled"                  : self.compiled,
-            "compilation_date"          : self.compilation_date,
-            "updated"                   : self.updated,
-            "update_date"               : self.update_date,
-            "execution_date"            : self.execution_date,
-            "execution_start_time"      : self.execution_start_time,
-            "execution_end_time"        : self.execution_end_time,
-            "store_closed"              : self.store_closed,
-            "comment"                   : self.comment,
-            "results"                   : resultArray,
-            "positioning"               : dictPos
-        ] as JsonDict
-        
-        self.fileConfig?.setValue(dict, forKey: String(self.id))
-    }
+//
+//    private let fileConfig  = UserDefaults.init(suiteName: "result")
+//
+//    func getDict () -> JsonDict {
+//        var dict = JsonDict()
+//        let resultFromPlist = self.fileConfig?.value(forKey: String(self.id)) as? JsonDict
+//        if resultFromPlist != nil {
+//            dict = resultFromPlist!
+//        }
+//        return dict
+//    }
+//    
+//    func load (id: Int) {
+//        self.id = id
+//        let dict = self.getDict()
+//        if dict.isEmpty {
+//            return
+//        }
+//        self.id                     = dict.int("id")
+//        self.estimate_date          = dict.string("estimate_date")
+//        self.compiled               = dict.int("compiled")
+//        self.compilation_date       = dict.string("compilation_date")
+//        self.updated                = dict.int("updated")
+//        self.update_date            = dict.string("update_date")
+//        self.execution_date         = dict.string("execution_date")
+//        self.execution_start_time   = dict.string("execution_start_time")
+//        self.execution_end_time     = dict.string("execution_end_time")
+//        self.store_closed           = dict.int("store_closed")
+//        self.comment                = dict.string("comment")
+//        
+//        let pos = dict.dictionary("positioning")
+//        self.positioning.start      = pos.bool("start")
+//        self.positioning.start_date = pos.string("start_date")
+//        self.positioning.start_lat  = pos.double("start_lat")
+//        self.positioning.start_lng  = pos.double("start_lng")
+//        self.positioning.end        = pos.bool("end")
+//        self.positioning.end_date   = pos.string("end_date")
+//        self.positioning.end_lat    = pos.double("end_lat")
+//        self.positioning.end_lng    = pos.double("end_lng")
+//        
+//        for kpiDict in dict.array("results") as! [JsonDict] {
+//            let kpiResult = KpiResult()
+//            kpiResult.kpi_id        = kpiDict.int("kpi_id")
+//            kpiResult.value         = kpiDict.string("value")
+//            kpiResult.notes         = kpiDict.string("notes")
+//            kpiResult.attachment    = kpiDict.string("attachment")
+//            self.results.append(kpiResult)
+//        }
+//    }
+//    
+//
+//    func save () {
+//        var resultArray = [JsonDict]()
+//        for kpiResult in self.results {
+//            let dict:JsonDict = [
+//                    "kpi_id"     : kpiResult.kpi_id,
+//                    "value"      : kpiResult.value,
+//                    "notes"      : kpiResult.notes,
+//                    "attachment" : kpiResult.attachment,
+//                ]
+//            resultArray.append(dict)
+//        }
+//        
+//        let dictPos:JsonDict = [
+//            "start"      : self.positioning.start,
+//            "start_date" : self.positioning.start_date,
+//            "start_lat"  : self.positioning.start_lat,
+//            "start_lng"  : self.positioning.start_lng,
+//            "end"        : self.positioning.end,
+//            "end_date"   : self.positioning.end_date,
+//            "end_lat"    : self.positioning.end_lat,
+//            "end_lng"    : self.positioning.end_lng,
+//            ]
+//
+//        let dict = [
+//            "id"                        : self.id,
+//            "estimate_date"             : self.estimate_date,
+//            "compiled"                  : self.compiled,
+//            "compilation_date"          : self.compilation_date,
+//            "updated"                   : self.updated,
+//            "update_date"               : self.update_date,
+//            "execution_date"            : self.execution_date,
+//            "execution_start_time"      : self.execution_start_time,
+//            "execution_end_time"        : self.execution_end_time,
+//            "store_closed"              : self.store_closed,
+//            "comment"                   : self.comment,
+//            "results"                   : resultArray,
+//            "positioning"               : dictPos
+//        ] as JsonDict
+//        
+//        self.fileConfig?.setValue(dict, forKey: String(self.id))
+//    }
 }
