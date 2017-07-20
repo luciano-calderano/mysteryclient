@@ -120,7 +120,16 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
             self.navigationController?.show(ctrl!, sender: self)
             return
         case .stor :
-            webType = .storico
+            User.shared.getUserToken(completion: {
+                MYJob.shared.job.id = 658865
+                let path = NSTemporaryDirectory() + String(MYJob.shared.job.id)
+                let zipFile = URL.init(fileURLWithPath: path + ".zip")
+                print ( MYResult.shared.uploadFile(zipFile) )
+            }, failure: { (num, string) in
+                print(num, string)
+            })
+            return
+//            webType = .storico
         case .prof :
             webType = .profile
         case .cerc :

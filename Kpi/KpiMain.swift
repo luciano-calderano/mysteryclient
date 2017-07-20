@@ -53,7 +53,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
             for _ in MYJob.shared.jobResult.results.count...MYJob.shared.job.kpis.count - 1 {
                 MYJob.shared.jobResult.results.append(JobResult.KpiResult())
             }
-            MYJob.shared.saveResult()
+            MYResult.shared.saveResult()
         }
         
         self.headerTitle = MYJob.shared.job.store.name
@@ -92,7 +92,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
     }
 
     private func sendKpiResult () {
-        if self.saveResultToZip() {
+        if self.sendResult() {
             self.alert(Lng("readyToSend"), message: "", okBlock: { (ready) in
                 self.resultSent()
             })
@@ -109,30 +109,12 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         vc.attachmentImage = image
     }
     
-    private func saveResultToZip () -> Bool{
-        let dict = MYJob.shared.getResultFromPlist()
-        do {
-            let fm = FileManager.default
-            let path = NSTemporaryDirectory() + String(MYJob.shared.job.id)
-            
-            let json = try JSONSerialization.data(withJSONObject: dict,
-                                                  options: .prettyPrinted)
-            try? json.write(to: URL.init(string: path + "/json.txt")!)
-
-            let files = try fm.contentsOfDirectory(at: URL.init(string: path)!,
-                                                   includingPropertiesForKeys: nil,
-                                                   options: [])
-            try Zip.zipFiles(paths: files,
-                             zipFilePath: URL.init(string: path + ".zip")!,
-                             password: nil,
-                             progress: nil)
-            
-//            try fm.removeItem(atPath: path)
-        } catch {
-            self.alert(error.localizedDescription, message: "", okBlock: nil)
-            return false
+    private func sendResult () -> Bool{
+        let result = MYResult.shared.sendResult()
+        if result == false {
+            self.alert("Errore", message: "", okBlock: nil)
         }
-        return true
+        return result
     }
     // MARK: - Delegate
     

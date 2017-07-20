@@ -138,7 +138,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
         }
         if MYJob.shared.jobResult.execution_date.isEmpty {
             MYJob.shared.jobResult.estimate_date = Date().toString(withFormat: Date.fmtDataJson)
-            MYJob.shared.saveResult()
+            MYResult.shared.saveResult()
         }
 
         let ctrl = KpiMain.Instance()
@@ -158,7 +158,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
             MYJob.shared.jobResult.positioning.start_date = Date().toString(withFormat: Date.fmtDataOraJson)
             MYJob.shared.jobResult.positioning.start_lat = self.locationValue.latitude
             MYJob.shared.jobResult.positioning.start_lng = self.locationValue.longitude
-            MYJob.shared.saveResult()
+            MYResult.shared.saveResult()
             
             self.locationManager.stopUpdatingLocation()
         }
@@ -175,7 +175,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
             if MYJob.shared.jobResult.execution_end_time.isEmpty {
                 MYJob.shared.jobResult.execution_end_time = Date().toString(withFormat: Date.fmtOra)
             }
-            MYJob.shared.saveResult()
+            MYResult.shared.saveResult()
             
             self.locationManager.stopUpdatingLocation()
         }

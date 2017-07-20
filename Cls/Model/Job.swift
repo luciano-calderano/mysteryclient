@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Zip
 
 class MYJob {
     static let shared = MYJob()
@@ -63,10 +64,13 @@ class MYJob {
         let fileName = self.jobsPath + "/" + String(id)  + ".plist"
         return fileName
     }
-    
+}
+    ////////////////
+    // MARK: - Result
     ////////////////
     
-    
+class MYResult {
+    static let shared = MYResult()
     private let fileConfig  = UserDefaults.init(suiteName: "result")
     
     func getResultFromPlist () -> JsonDict {
@@ -162,8 +166,60 @@ class MYJob {
         
         self.fileConfig?.setValue(dict, forKey: String(result.id))
     }
+    
+    func sendResult () -> Bool{        
+        let dict = self.getResultFromPlist()
+        do {
+            let fm = FileManager.default
+            let path = NSTemporaryDirectory() + String(MYJob.shared.job.id)
+            
+            let json = try JSONSerialization.data(withJSONObject: dict,
+                                                  options: .prettyPrinted)
+            try? json.write(to: URL.init(string: path + "/json.txt")!)
+            
+            let files = try fm.contentsOfDirectory(at: URL.init(string: path)!,
+                                                   includingPropertiesForKeys: nil,
+                                                   options: [])
+            let zipFile = URL.init(fileURLWithPath: path + ".zip")
+            try Zip.zipFiles(paths: files,
+                             zipFilePath: zipFile,
+                             password: nil,
+                             progress: nil)
+            self.uploadFile(zipFile)
+        } catch {
+            return false
+        }
+        return true
+    }
 
+    func uploadFile (_ zipFile: URL) {
+        var data: Data!
+        do {
+            data = try Data.init(contentsOf: zipFile, options: .mappedIfSafe)
+        } catch {
+            return
+        }
+        let request = MYHttpRequest("rest/put")
+        
+        request.json = [
+            "object"        : "job",
+            "object_id"     : MYJob.shared.job.id,
+            "object_file"   : data,
+        ]
+        
+        request.put(data: data) { (success, response) in
+            if success {
+//                do {
+//                    try FileManager.default.removeItem(atPath: zipFile.absoluteString)
+//                }
+//                catch {
+//                    
+//                }
+            }
+        }
 
+    }
+    
 }
 
 class Job {

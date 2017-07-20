@@ -64,13 +64,13 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
     }
     
     private func loadData() {
-        let request = MYHttpRequest.get("rest/get")
+        let request = MYHttpRequest("rest/get")
     
         request.json = [
             "object" : "jobs",
         ]
-        request.start() { (result, response) in
-            if response.string("status") == "ok" {
+        request.get() { (success, response) in
+            if success {
                 let jobs = response.array("jobs") as! [JsonDict]
                 MYJob.shared.saveJobs(jobs)
 //                MYJob.shared.job.saveJops(jobs)
@@ -119,7 +119,7 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         MYJob.shared.job = self.dataArray[indexPath.row] as! Job
-        MYJob.shared.loadResult (jobId: MYJob.shared.job.id)
+        MYResult.shared.loadResult (jobId: MYJob.shared.job.id)
         
         let vc = JobDetail.Instance()
         self.navigationController?.show(vc, sender: self)
@@ -127,25 +127,6 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
 
     // MARK: - Dict -> Job Class
 
-//    private func saveJops (_ jobs: [JsonDict]) {
-//        let fm = FileManager.default
-//        do {
-//            if fm.fileExists(atPath: self.jobsPath) {
-//                try FileManager.default.removeItem(atPath: self.jobsPath)
-//            }
-//            try fm.createDirectory(atPath: self.jobsPath,
-//                                   withIntermediateDirectories: true,
-//                                   attributes: nil)
-//        } catch let error as NSError {
-//            NSLog("Directory error: \(error.debugDescription)")
-//        }
-//        
-//        for dict in jobs {
-//            let jobId = dict.string("id")
-//            _ = dict.saveToFile(self.jobsPath + "/\(jobId).plist")
-//        }
-//    }
-    
     private func jobsWithArray(_ jobsArray: [JsonDict]) -> [Job] {
         var jobList = [Job]()
         for dict in jobsArray {

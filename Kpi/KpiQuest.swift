@@ -147,7 +147,7 @@ class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
         
         self.kpiResult.kpi_id = self.kpi.id
         self.kpiResult.notes = self.kpiNote.text
-        MYJob.shared.saveResult()
+        MYResult.shared.saveResult()
         
         self.view.endEditing(true)
         return .next

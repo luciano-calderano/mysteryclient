@@ -40,7 +40,7 @@ class KpiLast: KpiViewController, UITextViewDelegate {
         MYJob.shared.jobResult.compiled = 1
         MYJob.shared.jobResult.compilation_date = self.datePicker.date.toString(withFormat: Date.fmtDataOraJson)
         MYJob.shared.jobResult.execution_end_time = self.datePicker.date.toString(withFormat: Date.fmtOra)
-        MYJob.shared.saveResult()
+        MYResult.shared.saveResult()
         
         return .last
     }

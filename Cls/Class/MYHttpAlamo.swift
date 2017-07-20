@@ -9,80 +9,104 @@
 import UIKit
 import Alamofire
 
+extension NSMutableData {
+    func appendString(_ string: String) {
+        let data = string.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        append(data!)
+    }
+}
+
+typealias responseBlock = (Bool, JsonDict) -> ()
+
 class MYHttpRequest {
     static let printJson = true
     
-    class func get (_ page: String) -> MYHttpRequest {
-        let req = MYHttpRequest (baseUrl: Config.url,
-                                 page: page,
-                                 type: .get)
-        return req
+    init(_ page: String) {
+        self.page = page
+        self.url = Config.url + page
     }
     
-    class func post (_ page: String) -> MYHttpRequest {
-        let req = MYHttpRequest (baseUrl: Config.url,
-                                 page: page,
-                                 type: .post)
-        return req
-    }
-
     var json = JsonDict()
     
-    fileprivate let jsonResponse =  UserDefaults.init(suiteName: "Response.json")
-
     private var type: HTTPMethod!
-    fileprivate var page = ""
-    fileprivate var url = ""
-    fileprivate var token = ""
-    fileprivate var myWheel:MYWheel?
-
-    init(baseUrl: String, page: String, type: HTTPMethod) {
-        self.page = page
-        self.url = baseUrl + page
-        self.type = type
-    }
-
+    private var page = ""
+    private var url = ""
+    private var myWheel:MYWheel?
+    
     // MARK: - Start
     
-    func start (showWheel: Bool = true, silentError: Bool = false, header: Bool = true, completion: @escaping (Bool, JsonDict) -> () = { success, response in }) {
-        if showWheel {
-            self.startWheel(true)
+    func get (showWheel: Bool = true, header: Bool = true, completion: @escaping responseBlock = { success, response in }) {
+        self.type = .get
+        self.start(showWheel: showWheel, header: header) { (success, response) in
+            completion (success, response)
         }
+    }
+    
+    func post (showWheel: Bool = true, header: Bool = true, completion: @escaping responseBlock = { success, response in }) {
+        self.type = .post
+        self.start(showWheel: showWheel, header: header) { (success, response) in
+            completion (success, response)
+        }
+    }
+    
+    func put (data: Data, showWheel: Bool = true, completion: @escaping responseBlock = { success, response in }) {
+        self.type = .put
+        self.start(showWheel: showWheel, header: true) { (success, response) in
+            completion (success, response)
+        }
+    }
+    
+    private func start (showWheel: Bool = true, header: Bool = true, completion: @escaping responseBlock = { success, response in }) {
+        self.startWheel(showWheel)
         self.printJson(self.json)
-
-        let token = User.shared.getToken()
+        
+        var urlRequest = URLRequest(url: URL(string: self.url)!)
+        urlRequest.httpMethod = self.type.rawValue
+        if header == true {
+            urlRequest.setValue("Bearer " + User.shared.getToken(), forHTTPHeaderField: "Authorization")
+        }
+        
         var headers = [String: String]()
         if header == true {
-            headers["Authorization"] = "Bearer " + token
+            headers["Authorization"] = "Bearer " + User.shared.getToken()
         }
         
         Alamofire.request(self.url, method: self.type, parameters: self.json, headers: headers).responseString { response in
-            if showWheel {
-                self.startWheel(false)
-            }
-            let error = "Code: #\(String((response.response?.statusCode)!))"
-            var msg = ""
-            if response.result.isSuccess {
-                let dict = self.removeNullFromJsonString(response.result.value!)
-                if response.response?.statusCode == 200 && dict.string("status") == "ok" {
-                    self.printJson(dict)
-                    completion (true, dict)
-                    return
-                }
-
-                msg = dict.string("msg")
-            }
-            else {
-                if response.error != nil {
-                    msg = (response.error?.localizedDescription)!
-                }
-            }
-            self.showError(title: error, message: msg)
-            completion (false, [:])
+            self.startWheel(false)
+            self.response(response, completion: { (success, json) in
+                completion (success, json)
+            })
         }
     }
     
-    func removeNullFromJsonString (_ text: String) -> JsonDict {
+    private func response (_ response: DataResponse<String>, completion: @escaping responseBlock = {
+        (success, response) in }) {
+        let error = "Code: #\(String((response.response?.statusCode)!))"
+        var msg = ""
+//        let z = response.request?.httpBody
+//        if z != nil {
+//            let s = String.init(data: z!, encoding: .utf8)
+//            print (s ?? "")
+//        }
+        if response.result.isSuccess {
+            let dict = self.removeNullFromJsonString(response.result.value!)
+            msg = dict.string("code")
+            if response.response?.statusCode == 200 && dict.string("status") == "ok" {
+                self.printJson(dict)
+                completion (true, dict)
+                return
+            }
+        }
+        else {
+            if response.error != nil {
+                msg = (response.error?.localizedDescription)!
+            }
+        }
+        self.showError(title: error, message: msg)
+        completion (false, [:])
+    }
+    
+    private func removeNullFromJsonString (_ text: String) -> JsonDict {
         if text.isEmpty {
             return [:]
         }
@@ -115,17 +139,16 @@ class MYHttpRequest {
         }
     }
     
-    fileprivate func startWheel(_ start: Bool, show: Bool = true, inView: UIView = UIApplication.shared.keyWindow!) {
-        guard show else {
-            return
-        }
+    fileprivate func startWheel(_ start: Bool, inView: UIView = UIApplication.shared.keyWindow!) {
         if start {
             self.myWheel = MYWheel()
             self.myWheel?.start(inView)
         }
         else {
-            self.myWheel?.stop()
-            self.myWheel = nil
+            if self.myWheel != nil {
+                self.myWheel?.stop()
+                self.myWheel = nil
+            }
         }
     }
 }
