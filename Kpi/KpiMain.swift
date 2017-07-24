@@ -92,13 +92,18 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
     }
 
     private func sendKpiResult () {
-        if self.sendResult() {
-            self.alert(Lng("readyToSend"), message: "", okBlock: { (ready) in
-                self.resultSent()
-            })
+        let zipUrl = MYResult.shared.createZipFile()
+        
+        if zipUrl == nil {
+            self.alert("Errore", message: "", okBlock: nil)
+            return
         }
+        self.alert(Lng("readyToSend"), message: "", okBlock: { (ready) in
+            MYUpload.startUpload()
+        })
     }
     
+
     private func resultSent () {
         MYJob.shared.removeJob()
         self.navigationController?.popToRootViewController(animated: true)
@@ -109,13 +114,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         vc.attachmentImage = image
     }
     
-    private func sendResult () -> Bool{
-        let result = MYResult.shared.sendResult()
-        if result == false {
-            self.alert("Errore", message: "", okBlock: nil)
-        }
-        return result
-    }
+    
     // MARK: - Delegate
     
     func showPageNum(_ num: Int) {

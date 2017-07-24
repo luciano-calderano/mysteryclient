@@ -167,7 +167,7 @@ class MYResult {
         self.fileConfig?.setValue(dict, forKey: String(result.id))
     }
     
-    func sendResult () -> Bool{        
+    func createZipFile () -> URL? {
         let dict = self.getResultFromPlist()
         do {
             let fm = FileManager.default
@@ -175,67 +175,23 @@ class MYResult {
             
             let json = try JSONSerialization.data(withJSONObject: dict,
                                                   options: .prettyPrinted)
-            try? json.write(to: URL.init(string: path + "/json.txt")!)
+            try? json.write(to: URL.init(string: path + "/job.json")!)
             
             let files = try fm.contentsOfDirectory(at: URL.init(string: path)!,
                                                    includingPropertiesForKeys: nil,
                                                    options: [])
-            let zipFile = URL.init(fileURLWithPath: path + ".zip")
+
+            let zip = NSTemporaryDirectory() + MYUpload.getFileName(jobId: String(MYJob.shared.job.id))
+            let zipFile = URL.init(fileURLWithPath: zip)
             try Zip.zipFiles(paths: files,
                              zipFilePath: zipFile,
                              password: nil,
                              progress: nil)
-            self.uploadFile(zipFile)
+            return zipFile
         } catch {
-            return false
         }
-        return true
+        return nil
     }
-
-    func uploadJob () {
-        let path = NSTemporaryDirectory() + String(MYJob.shared.job.id)
-        let zipFile = URL.init(fileURLWithPath: path + ".zip")
-        self.uploadFile(zipFile)
-    }
-
-    private func uploadFile (_ zipFile: URL) {
-        
-        var data: Data!
-        do {
-            data = try Data.init(contentsOf: zipFile, options: .mappedIfSafe)
-        } catch {
-            return
-        }
-        
-//        let name = String(MYJob.shared.job.id)
-//        
-//        let request = MYHttpRequest("rest/put")
-//        
-//        request.json = [
-//            "object"        : "job",
-//            "object_id"     : name,
-//            "object_file"   : name + ".zip",
-//        ]
-//        
-        let url = Config.url + "rest/put"
-
-        let s =  MYUpload.init(url: url, data: data)
-        s.start()
-
-        
-//        request.put(data: data) { (success, response) in
-//            if success {
-////                do {
-////                    try FileManager.default.removeItem(atPath: zipFile.absoluteString)
-////                }
-////                catch {
-////                    
-////                }
-//            }
-//        }
-
-    }
-    
 }
 
 class Job {

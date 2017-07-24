@@ -152,126 +152,86 @@ class MYHttpRequest {
     }
 }
 
-/*
- 
- @Multipart
- @POST(API.PUT)
- Call<BaseResponse> putJob(
- @Header("Authorization") String token,
- @Part("object") RequestBody object,
- @Part("object_id") RequestBody objectID,
- @Part MultipartBody.Part file);
- 
- /** Get jobs **/
- public static void putJob(Context context, int jobID, String filePath, Callback<BaseResponse> callback) {
- File file = new File(filePath);
- RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
- // MultipartBody.Part is used to send also the actual file name
- MultipartBody.Part body =
- MultipartBody.Part.createFormData("object_file", file.getName(), requestFile);
- 
- RequestBody object = RequestBody.create(MediaType.parse("text/plain"), "job");
- RequestBody objectID = RequestBody.create(MediaType.parse("text/plain"), ""+jobID);
- NetworkManager.getRESTService().putJob(
- getAuthToken(context),
- object,
- objectID,
- body
- ).enqueue(callback);
- }<
- */
-
 
 class MYUpload {
     var url:URL!
-    var data: Data!
-    let file = String(MYJob.shared.job.id)
     let token = "Bearer " + User.shared.getToken()
-    
-    
-    init(url: String, data: Data) {
-        self.url = URL.init(string: url)!
-        self.data = data
+
+    class func getFileName(jobId: String) -> String {
+        let file = "\(Config.filePrefix)\(jobId).zip"
+        return file
     }
     
-    func createRequest() throws -> URLRequest {
-        let boundary = "--- MysteryClient iOS ---"
+    class func startUpload() {
+        let me = MYUpload()
+        me.url = URL.init(string: Config.url + "rest/put")!
         
-        var request = URLRequest(url: self.url)
-        request.httpMethod = "POST"
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.addValue(self.token, forHTTPHeaderField: "Authorization")
-
-        let json = [
-            "object"        : "job",
-            "object_id"     : self.file,
-        ]
-        request.httpBody = try self.createBody(with: json, boundary: boundary)
-        
-        return request
-    }
-
-    func createBody(with parameters: JsonDict, boundary: String) throws -> Data {
-        var body = Data()
-        
-        for (key, value) in parameters {
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
-            body.append("\(value)\r\n".data(using: .utf8)!)
-        }
-        
-//        "object_file"   : name + ".zip",
-
-        
-        body.append("--\(boundary)\r\n".data(using: .utf8)!)
-//        body.append("Content-Disposition: form-data; name=\"object_file\"; filename=\"\(self.file)\"\r\n".data(using: .utf8)!)
-        body.append("Content-Disposition: form-data; name=\"object_file\"\r\n".data(using: .utf8)!)
-        
-        body.append("Content-Type: multipart/form-data\r\n\r\n".data(using: .utf8)!)
-        body.append(self.data)
-        body.append("\r\n".data(using: .utf8)!)
-        
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-        return body
-    }
-
-    func start () {
-        let request: URLRequest
+        let fm = FileManager.default
+        let path = NSTemporaryDirectory()
         do {
-            request = try self.createRequest()
-            print(request)
+            let files = try fm.contentsOfDirectory(at: URL.init(string: path)!,
+                                                   includingPropertiesForKeys: nil,
+                                                   options: [])
+            
+            let results = files.filter{ $0.absoluteString.contains(Config.filePrefix) }
+            for file in results {
+                let data = try Data.init(contentsOf: file, options: .mappedIfSafe)
+                let fileName = file.absoluteString.components(separatedBy: Config.filePrefix).last
+                let id = fileName?.components(separatedBy: ".").first
+                me.start(jobId: id!, data: data)
+            }
         }
         catch {
-            print("error")
-
-            return
+            
         }
+    }
+    
+    func start (jobId: String, data: Data) {
+        let headers = [
+            "Authorization" : self.token
+        ]
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                // handle error here
-                print(error!)
-                return
-            }
-            
-            // if response was JSON, then parse it
-            
-            do {
-                let s = String.init(data: data!, encoding: .utf8)
-                print (s)
-                let responseDictionary = try JSONSerialization.jsonObject(with: data!)
-                print("success == \(responseDictionary)")
-                // DispatchQueue.main.async {
-                //     // update your UI and model objects here
-                // }
-            } catch {
-                print(error)
+        do {
+            let URL = try! URLRequest(url: self.url, method: .post, headers: headers)
+            Alamofire.upload(multipartFormData: { (multipartFormData) in
+                multipartFormData.append(data,
+                                         withName: "object_file",
+                                         fileName: MYUpload.getFileName(jobId: jobId),
+                                         mimeType: "multipart/form-data")
                 
-                let responseString = String(data: data!, encoding: .utf8)
-                print("responseString = \(String(describing: responseString))")
-            }
+                let json = [
+                    "object"        : "job",
+                    "object_id"     : "\(jobId)",
+                ]
+
+                for (key, value) in json {
+                    multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                }
+            }, with: URL, encodingCompletion: { (result) in
+                    print(result)
+                switch result {
+                case .success(let upload, _, _):
+                    upload.responseJSON { response in
+                        
+//                        print(response.request ?? "response.request")  // original URL request
+//                        print(response.response ?? "response.response") // URL response
+//                        print(response.data ?? "response.data")     // server data
+//                        print(response.result)   // result of response serialization
+                        if let JSON = response.result.value {
+                            print("JSON: \(JSON)")
+                        }
+                        let fileName = NSTemporaryDirectory() + MYUpload.getFileName(jobId: jobId)
+                        do {
+                            try FileManager.default.removeItem(atPath: fileName)
+                        }
+                        catch {
+                            
+                        }
+                    }
+                case .failure(let encodingError):
+                    print(encodingError)
+                }
+            })
         }
-        task.resume()
-        
     }
 }

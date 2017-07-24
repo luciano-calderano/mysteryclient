@@ -110,12 +110,7 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
             return
         case .stor :
             ///////// Lc
-            User.shared.getUserToken(completion: {
-                MYJob.shared.job.id = 658865
-                print ( MYResult.shared.uploadJob() )
-            }, failure: { (num, string) in
-                print(num, string)
-            })
+            MYUpload.startUpload()
             return
 //            webType = .storico
         case .prof :
