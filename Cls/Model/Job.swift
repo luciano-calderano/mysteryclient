@@ -192,31 +192,47 @@ class MYResult {
         return true
     }
 
-    func uploadFile (_ zipFile: URL) {
+    func uploadJob () {
+        let path = NSTemporaryDirectory() + String(MYJob.shared.job.id)
+        let zipFile = URL.init(fileURLWithPath: path + ".zip")
+        self.uploadFile(zipFile)
+    }
+
+    private func uploadFile (_ zipFile: URL) {
+        
         var data: Data!
         do {
             data = try Data.init(contentsOf: zipFile, options: .mappedIfSafe)
         } catch {
             return
         }
-        let request = MYHttpRequest("rest/put")
         
-        request.json = [
-            "object"        : "job",
-            "object_id"     : MYJob.shared.job.id,
-            "object_file"   : data,
-        ]
+//        let name = String(MYJob.shared.job.id)
+//        
+//        let request = MYHttpRequest("rest/put")
+//        
+//        request.json = [
+//            "object"        : "job",
+//            "object_id"     : name,
+//            "object_file"   : name + ".zip",
+//        ]
+//        
+        let url = Config.url + "rest/put"
+
+        let s =  MYUpload.init(url: url, data: data)
+        s.start()
+
         
-        request.put(data: data) { (success, response) in
-            if success {
-//                do {
-//                    try FileManager.default.removeItem(atPath: zipFile.absoluteString)
-//                }
-//                catch {
-//                    
-//                }
-            }
-        }
+//        request.put(data: data) { (success, response) in
+//            if success {
+////                do {
+////                    try FileManager.default.removeItem(atPath: zipFile.absoluteString)
+////                }
+////                catch {
+////                    
+////                }
+//            }
+//        }
 
     }
     

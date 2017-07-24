@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/Alamofire/Source/SessionManager.swift"
-            timestampString = "522240362.59453"
+            filePath = "Cls/Class/MYHttpAlamo.swift"
+            timestampString = "522584683.431736"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "681"
-            endingLineNumber = "681"
-            landmarkName = "upload(multipartFormData:usingThreshold:with:encodingCompletion:)"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "start()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -24,7 +24,7 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     @IBOutlet private var tableView: UITableView!
     
     private var menuView = MenuView.Instance()
-    private var menuArray = [MenuItem]()
+//    private var menuArray = [MenuItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,17 +61,17 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
             self.addMenuItem("ico.learning",  type: .lear),
         ]
         
-        self.menuArray = [
-            self.addMenuItem("ico.home",      type: .home),
-            self.addMenuItem("ico.incarichi", type: .inca),
-            self.addMenuItem("ico.ricInc",    type: .stor),
-            self.addMenuItem("ico.profilo",   type: .prof),
-            self.addMenuItem("ico.cercando",  type: .cerc),
-            self.addMenuItem("ico.news",      type: .news),
-            self.addMenuItem("ico.mail",      type: .cont),
-            self.addMenuItem("ico.logout",    type: .logout),
-        ]
-        self.menuView.loadData(items: self.menuArray)
+//        self.menuArray = [
+//            self.addMenuItem("ico.home",      type: .home),
+//            self.addMenuItem("ico.incarichi", type: .inca),
+//            self.addMenuItem("ico.ricInc",    type: .stor),
+//            self.addMenuItem("ico.profilo",   type: .prof),
+//            self.addMenuItem("ico.cercando",  type: .cerc),
+//            self.addMenuItem("ico.news",      type: .news),
+//            self.addMenuItem("ico.mail",      type: .cont),
+//            self.addMenuItem("ico.logout",    type: .logout),
+//        ]
+//        self.menuView.loadData(items: self.menuArray)
     }
     
     private func addMenuItem (_ iconName: String, type: MenuItemEnum) -> MenuItem {
@@ -87,26 +87,15 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
     }
     
     private func showMenu () {
-        self.menuView.isHidden = false
+        self.menuView.menuShow()
+        self.headerTitle = Lng("menu")
         self.header?.header.sxButton.setImage(UIImage.init(named: "ico.back"), for: .normal)
-        self.header?.header.titleLabel.text = Lng("incarichi")
-        UIView.animate(withDuration: 0.3) {
-            var rect = self.menuView.frame
-            rect.origin.x = 0
-            self.menuView.frame = rect
-        }
     }
     
     private func hideMenu () {
+        self.menuView.menuHide()
+        self.headerTitle = Lng("home")
         self.header?.header.sxButton.setImage(UIImage.init(named: "ico.menu"), for: .normal)
-        self.header?.header.titleLabel.text = Lng("home")
-        UIView.animate(withDuration: 0.2, animations: {
-            var rect = self.menuView.frame
-            rect.origin.x = -rect.size.width
-            self.menuView.frame = rect
-        }) { (true) in
-            self.menuView.isHidden = true
-        }
     }
     
     private func selectedItem(_ item: MenuItem) {
@@ -120,11 +109,10 @@ class Home: MYViewController, UITableViewDelegate, UITableViewDataSource, MenuVi
             self.navigationController?.show(ctrl!, sender: self)
             return
         case .stor :
+            ///////// Lc
             User.shared.getUserToken(completion: {
                 MYJob.shared.job.id = 658865
-                let path = NSTemporaryDirectory() + String(MYJob.shared.job.id)
-                let zipFile = URL.init(fileURLWithPath: path + ".zip")
-                print ( MYResult.shared.uploadFile(zipFile) )
+                print ( MYResult.shared.uploadJob() )
             }, failure: { (num, string) in
                 print(num, string)
             })

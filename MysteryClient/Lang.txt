@@ -8,6 +8,7 @@ signUp=Iscriviti
 passForg=Problemi di accesso?
 memoCred=Memorizza le credenziali
 
+menu=Menu
 home=Home
 incarichi=Incarichi
 

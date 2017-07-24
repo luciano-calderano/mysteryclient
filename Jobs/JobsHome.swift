@@ -28,19 +28,6 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
         MYJob.shared.jobResult = JobResult()
         
         let jobs = MYJob.shared.loadJobs()
-//        
-//        let fm = FileManager.default
-//        var jobs = [JsonDict]()
-//        do {
-//            let files = try fm.contentsOfDirectory(atPath: self.jobsPath)
-//            for file in files {
-//                let dict = JsonDict.init(fromFile: self.jobsPath + "/" + file)
-//                jobs.append(dict)
-//            }
-//        }
-//        catch {
-//            print("Error reading plist: \(error)")
-//        }
         if jobs.count > 0 {
             self.packJobs(jobs)
         }
@@ -73,8 +60,6 @@ class JobsHome: MYViewController, UITableViewDelegate, UITableViewDataSource, Jo
             if success {
                 let jobs = response.array("jobs") as! [JsonDict]
                 MYJob.shared.saveJobs(jobs)
-//                MYJob.shared.job.saveJops(jobs)
-//                self.saveJops(jobs)
                 self.packJobs(jobs)
             }
         }

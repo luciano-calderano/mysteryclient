@@ -49,12 +49,15 @@ class MYHttpRequest {
         }
     }
     
-    func put (data: Data, showWheel: Bool = true, completion: @escaping responseBlock = { success, response in }) {
-        self.type = .put
-        self.start(showWheel: showWheel, header: true) { (success, response) in
-            completion (success, response)
-        }
-    }
+//    func put (data: Data, showWheel: Bool = true, completion: @escaping responseBlock = { success, response in }) {
+//        let s =  MYUpload.init(url: self.url, data: data, json: self.json)
+//        s.start()
+//        
+////        self.type = .put
+////        self.start(showWheel: showWheel, header: true) { (success, response) in
+////            completion (success, response)
+////        }
+//    }
     
     private func start (showWheel: Bool = true, header: Bool = true, completion: @escaping responseBlock = { success, response in }) {
         self.startWheel(showWheel)
@@ -83,11 +86,7 @@ class MYHttpRequest {
         (success, response) in }) {
         let error = "Code: #\(String((response.response?.statusCode)!))"
         var msg = ""
-//        let z = response.request?.httpBody
-//        if z != nil {
-//            let s = String.init(data: z!, encoding: .utf8)
-//            print (s ?? "")
-//        }
+
         if response.result.isSuccess {
             let dict = self.removeNullFromJsonString(response.result.value!)
             msg = dict.string("code")
@@ -153,3 +152,126 @@ class MYHttpRequest {
     }
 }
 
+/*
+ 
+ @Multipart
+ @POST(API.PUT)
+ Call<BaseResponse> putJob(
+ @Header("Authorization") String token,
+ @Part("object") RequestBody object,
+ @Part("object_id") RequestBody objectID,
+ @Part MultipartBody.Part file);
+ 
+ /** Get jobs **/
+ public static void putJob(Context context, int jobID, String filePath, Callback<BaseResponse> callback) {
+ File file = new File(filePath);
+ RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+ // MultipartBody.Part is used to send also the actual file name
+ MultipartBody.Part body =
+ MultipartBody.Part.createFormData("object_file", file.getName(), requestFile);
+ 
+ RequestBody object = RequestBody.create(MediaType.parse("text/plain"), "job");
+ RequestBody objectID = RequestBody.create(MediaType.parse("text/plain"), ""+jobID);
+ NetworkManager.getRESTService().putJob(
+ getAuthToken(context),
+ object,
+ objectID,
+ body
+ ).enqueue(callback);
+ }<
+ */
+
+
+class MYUpload {
+    var url:URL!
+    var data: Data!
+    let file = String(MYJob.shared.job.id)
+    let token = "Bearer " + User.shared.getToken()
+    
+    
+    init(url: String, data: Data) {
+        self.url = URL.init(string: url)!
+        self.data = data
+    }
+    
+    func createRequest() throws -> URLRequest {
+        let boundary = "--- MysteryClient iOS ---"
+        
+        var request = URLRequest(url: self.url)
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.addValue(self.token, forHTTPHeaderField: "Authorization")
+
+        let json = [
+            "object"        : "job",
+            "object_id"     : self.file,
+        ]
+        request.httpBody = try self.createBody(with: json, boundary: boundary)
+        
+        return request
+    }
+
+    func createBody(with parameters: JsonDict, boundary: String) throws -> Data {
+        var body = Data()
+        
+        for (key, value) in parameters {
+            body.append("--\(boundary)\r\n".data(using: .utf8)!)
+            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+            body.append("\(value)\r\n".data(using: .utf8)!)
+        }
+        
+//        "object_file"   : name + ".zip",
+
+        
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+//        body.append("Content-Disposition: form-data; name=\"object_file\"; filename=\"\(self.file)\"\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"object_file\"\r\n".data(using: .utf8)!)
+        
+        body.append("Content-Type: multipart/form-data\r\n\r\n".data(using: .utf8)!)
+        body.append(self.data)
+        body.append("\r\n".data(using: .utf8)!)
+        
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+        return body
+    }
+
+    func start () {
+        let request: URLRequest
+        do {
+            request = try self.createRequest()
+            print(request)
+        }
+        catch {
+            print("error")
+
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                // handle error here
+                print(error!)
+                return
+            }
+            
+            // if response was JSON, then parse it
+            
+            do {
+                let s = String.init(data: data!, encoding: .utf8)
+                print (s)
+                let responseDictionary = try JSONSerialization.jsonObject(with: data!)
+                print("success == \(responseDictionary)")
+                // DispatchQueue.main.async {
+                //     // update your UI and model objects here
+                // }
+            } catch {
+                print(error)
+                
+                let responseString = String(data: data!, encoding: .utf8)
+                print("responseString = \(String(describing: responseString))")
+            }
+        }
+        task.resume()
+        
+    }
+}
