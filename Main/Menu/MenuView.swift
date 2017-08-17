@@ -14,7 +14,7 @@ struct MenuItem {
 }
 
 protocol MenuViewDelegate {
-    func menuHide()
+    func menuVisible(_ visible: Bool)
     func menuSelectedItem(_ item: MenuItem)
 }
 
@@ -70,7 +70,7 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
 //    
     func swipped () {
         self.menuHide()
-        self.delegate?.menuHide()
+        self.delegate?.menuVisible(false)
     }
     
     func menuHide () {
