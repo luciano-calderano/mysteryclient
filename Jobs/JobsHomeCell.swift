@@ -9,7 +9,7 @@
 import UIKit
 
 protocol JobsHomeCellDelegate {
-    func mapTapped (job: Job)
+    func mapTapped (_ sender: JobsHomeCell, job: Job)
 }
 
 class JobsHomeCell: UITableViewCell {
@@ -23,11 +23,11 @@ class JobsHomeCell: UITableViewCell {
     var job: Job!
     var delegate: JobsHomeCellDelegate?
     
-    @IBOutlet fileprivate var name: MYLabel!
-    @IBOutlet fileprivate var address: MYLabel!
-    @IBOutlet fileprivate var rif: MYLabel!
-    @IBOutlet fileprivate var day: MYLabel!
-    @IBOutlet fileprivate var month: MYLabel!
+    @IBOutlet private var name: MYLabel!
+    @IBOutlet private var address: MYLabel!
+    @IBOutlet private var rif: MYLabel!
+    @IBOutlet private var day: MYLabel!
+    @IBOutlet private var month: MYLabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,7 +43,7 @@ class JobsHomeCell: UITableViewCell {
     }
     
     @IBAction func mapTapped () {
-        self.delegate?.mapTapped(job: self.job)
+        self.delegate?.mapTapped(self, job: self.job)
     }
 }
 

@@ -8,31 +8,15 @@
 
 import UIKit
 
-class Maps {
-    init(job: Job) {
-        if job.store.latitude == 0 || job.store.longitude == 0 {
-            return
-        }
-        let name = job.store.name.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
-        let page = "ll=\(job.store.latitude),\(job.store.longitude)&q=" + name + "&z=10"
-        let url = URL.init(string: Config.mapUrl + page)!
-        UIApplication.shared.openURL(url)
-    }
-}
-
-class Home: MenuViewController, UITableViewDelegate, UITableViewDataSource {
+class Home: MenuViewController {
     @IBOutlet private var tableView: UITableView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     override func headerViewSxTapped() {
         self.menuVisible(self.menuView.isHidden)
     }
-    
-    // MARK: - table view
-    
+}
+
+extension Home: UITableViewDataSource {
     func maxItemOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -51,10 +35,13 @@ class Home: MenuViewController, UITableViewDelegate, UITableViewDataSource {
         cell.title = item.type.rawValue
         return cell
     }
-    
+}
+
+extension Home: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = self.dataArray[indexPath.row] as! MenuItem
         self.menuSelectedItem(item)
     }
 }
+

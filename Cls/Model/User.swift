@@ -60,7 +60,7 @@ class User: NSObject {
     
     func checkUser (saveCredential: Bool, userName: String, password: String,
                     completion: @escaping () -> () = { success in },
-                    failure: @escaping (Int, String) -> () = { errorCode, message in }) {
+                    failure: @escaping (String, String) -> () = { errorCode, message in }) {
         self.userData[self.kUsr] = userName
         self.userData[self.kPwd] = password
         self.userData[self.kSav] = saveCredential ? "1" : "0"
@@ -75,26 +75,23 @@ class User: NSObject {
     }
     
     func getUserToken(completion: @escaping () -> () = { success in },
-                      failure: @escaping (Int, String) -> () = { errorCode, message in }) {
-        let request = MYHttpRequest("oauth/grant")
-        request.json = [
+                      failure: @escaping (String, String) -> () = { errorCode, message in }) {
+        let param = [
             "grant_type"   : self.grant_type,
             "client_id"    : self.client_id,
             "client_secret": self.client_secret,
             "username"     : self.userData[self.kUsr]!,
             "password"     : self.userData[self.kPwd]!,
         ]
-        request.get(header: false) { (result, response) in
-            let code = response.int("code")
-            if code == 200 && response.string("status") == "ok"{
-                let dict = response.dictionary("token")
-                self.userData[self.kTkn] = dict.string("access_token")
-                self.saveUserData()
-                completion ()
-            }
-            else {
-                failure(code, response.string("message"))
-            }
+        let req = MYHttp.init(.oauth_grant, param: param, header: false)
+        req.load(ok: { (response) in
+            let dict = response.dictionary("token")
+            self.userData[self.kTkn] = dict.string("access_token")
+            self.saveUserData()
+            completion()
+
+        }) { (code, error) in
+            failure(code, error)
         }
     }
 }

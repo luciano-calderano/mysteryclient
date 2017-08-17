@@ -41,6 +41,7 @@
 		04A2109D1F03AC3400D1480C /* JobDetailAtch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2109B1F03AC3400D1480C /* JobDetailAtch.swift */; };
 		04A2109E1F03AC3400D1480C /* JobDetailAtch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A2109C1F03AC3400D1480C /* JobDetailAtch.xib */; };
 		04A88E7B1F13D33800FBAE54 /* MYKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A88E7A1F13D33800FBAE54 /* MYKeyboard.swift */; };
+		04B1BAD51F459D3A007A1B64 /* MYHttp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1BAD41F459D3A007A1B64 /* MYHttp.swift */; };
 		04BB77D11F0E3284002AEEF6 /* SubRadio.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BB77D01F0E3284002AEEF6 /* SubRadio.xib */; };
 		04BB77D61F0E3670002AEEF6 /* SubRadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BB77D51F0E3670002AEEF6 /* SubRadioCell.xib */; };
 		04BC64121EFD830E00C0912D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC640D1EFD830E00C0912D /* AppDelegate.swift */; };
@@ -49,7 +50,6 @@
 		04BC64161EFD830E00C0912D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04BC64111EFD830E00C0912D /* LaunchScreen.storyboard */; };
 		04BCAD2D1EFA97B900745556 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD2C1EFA97B900745556 /* HomeCell.swift */; };
 		04BCAD341EFA9DCF00745556 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD331EFA9DCF00745556 /* User.swift */; };
-		04BCAD381EFAB7FC00745556 /* MYHttpAlamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAD371EFAB7FC00745556 /* MYHttpAlamo.swift */; };
 		04BF307C1F16192900DE05BA /* SubCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF307B1F16192900DE05BA /* SubCheckBox.swift */; };
 		04BF307F1F161C0500DE05BA /* SubCheckBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BF307D1F161C0500DE05BA /* SubCheckBox.xib */; };
 		04BF30801F161C0500DE05BA /* SubCheckBoxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BF307E1F161C0500DE05BA /* SubCheckBoxCell.xib */; };
@@ -104,6 +104,7 @@
 		04A2109B1F03AC3400D1480C /* JobDetailAtch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JobDetailAtch.swift; path = Detail/JobDetailAtch.swift; sourceTree = "<group>"; };
 		04A2109C1F03AC3400D1480C /* JobDetailAtch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JobDetailAtch.xib; path = Detail/JobDetailAtch.xib; sourceTree = "<group>"; };
 		04A88E7A1F13D33800FBAE54 /* MYKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYKeyboard.swift; sourceTree = "<group>"; };
+		04B1BAD41F459D3A007A1B64 /* MYHttp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYHttp.swift; sourceTree = "<group>"; };
 		04BB77D01F0E3284002AEEF6 /* SubRadio.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubRadio.xib; path = Kpi/Sub/SubRadio.xib; sourceTree = "<group>"; };
 		04BB77D51F0E3670002AEEF6 /* SubRadioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubRadioCell.xib; path = Kpi/Sub/SubRadioCell.xib; sourceTree = "<group>"; };
 		04BC640D1EFD830E00C0912D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -113,7 +114,6 @@
 		04BC64111EFD830E00C0912D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04BCAD2C1EFA97B900745556 /* HomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeCell.swift; path = Main/HomeCell.swift; sourceTree = SOURCE_ROOT; };
 		04BCAD331EFA9DCF00745556 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Model/User.swift; sourceTree = "<group>"; };
-		04BCAD371EFAB7FC00745556 /* MYHttpAlamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYHttpAlamo.swift; sourceTree = "<group>"; };
 		04BF307B1F16192900DE05BA /* SubCheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubCheckBox.swift; path = Kpi/Sub/SubCheckBox.swift; sourceTree = "<group>"; };
 		04BF307D1F161C0500DE05BA /* SubCheckBox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubCheckBox.xib; path = Kpi/Sub/SubCheckBox.xib; sourceTree = "<group>"; };
 		04BF307E1F161C0500DE05BA /* SubCheckBoxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubCheckBoxCell.xib; path = Kpi/Sub/SubCheckBoxCell.xib; sourceTree = "<group>"; };
@@ -235,7 +235,7 @@
 		04461A251EFA8558008CD1E2 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				04BCAD371EFAB7FC00745556 /* MYHttpAlamo.swift */,
+				04B1BAD41F459D3A007A1B64 /* MYHttp.swift */,
 				04461A261EFA8558008CD1E2 /* MYLanguage.swift */,
 				04461A271EFA8558008CD1E2 /* MYWheel.swift */,
 				04A88E7A1F13D33800FBAE54 /* MYKeyboard.swift */,
@@ -546,13 +546,13 @@
 				04461A221EFA7073008CD1E2 /* MenuView.swift in Sources */,
 				04461A0B1EFA66A7008CD1E2 /* MYViewController.swift in Sources */,
 				04461A0E1EFA66A7008CD1E2 /* Ext.Color.swift in Sources */,
+				04B1BAD51F459D3A007A1B64 /* MYHttp.swift in Sources */,
 				04461A291EFA8558008CD1E2 /* MYWheel.swift in Sources */,
 				04461A041EFA66A7008CD1E2 /* MYButton.swift in Sources */,
 				04BCAD341EFA9DCF00745556 /* User.swift in Sources */,
 				04C910B31EFD2131000D2DB8 /* HeaderView.swift in Sources */,
 				04563F931F0CCA8F00B8BCC6 /* KpiMain.swift in Sources */,
 				04461A241EFA84B9008CD1E2 /* Login.swift in Sources */,
-				04BCAD381EFAB7FC00745556 /* MYHttpAlamo.swift in Sources */,
 				0484D33D1F13A8A800E9FB11 /* KpiQuest.swift in Sources */,
 				04BC64121EFD830E00C0912D /* AppDelegate.swift in Sources */,
 				0484D3401F13AF1900E9FB11 /* KpiLast.swift in Sources */,

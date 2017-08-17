@@ -41,7 +41,7 @@ class MYViewController: UIViewController, HeaderViewDelegate {
     }
 }
 
-class MenuViewController: MYViewController, MenuViewDelegate {
+class MenuViewController: MYViewController {
     var menuView = MenuView.Instance()
 
     override func viewDidLoad() {
@@ -93,7 +93,7 @@ class MenuViewController: MYViewController, MenuViewDelegate {
         return item
     }
     
-    private func selectedItem(_ item: MenuItem) {
+    func selectedItem(_ item: MenuItem) {
         self.menuHide()
         
         var webType = WebPage.WebPageEnum.none
@@ -131,20 +131,20 @@ class MenuViewController: MYViewController, MenuViewDelegate {
 
     //MARK: - Menu show/hode
 
-    private func menuHide() {
+    func menuHide() {
         self.menuView.menuHide()
         self.headerTitle = Lng("home")
         self.header?.header.sxButton.setImage(UIImage.init(named: "ico.menu"), for: .normal)
     }
     
-    private func menuShow () {
+    func menuShow () {
         self.menuView.menuShow()
         self.headerTitle = Lng("menu")
         self.header?.header.sxButton.setImage(UIImage.init(named: "ico.back"), for: .normal)
     }
-    
-    //MARK: - Menu delegate
-    
+}
+
+extension MenuViewController: MenuViewDelegate {
     func menuSelectedItem(_ item: MenuItem) {
         self.selectedItem(item)
     }
@@ -156,6 +156,6 @@ class MenuViewController: MYViewController, MenuViewDelegate {
         else {
             self.menuHide()
         }
-
     }
 }
+

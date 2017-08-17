@@ -101,7 +101,7 @@ class Login: MYViewController, UITextFieldDelegate {
                                 self.userLogged()
                                 
         }) { (errorCode, message) in
-            self.alert("Error: \(errorCode)", message: message, okBlock: nil)
+            self.alert(errorCode, message: message, okBlock: nil)
         }
     }
     @IBAction func signUpTapped () {

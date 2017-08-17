@@ -1,13 +1,10 @@
 //
 //  MYHttp.swift
-//  Lc
+//  MysteryClient
 //
-//  Created by Luciano Calderano on 07/11/16.
-//  Copyright © 2016 Kanito. All rights reserved.
+//  Created by mac on 17/08/17.
+//  Copyright © 2017 Mebius. All rights reserved.
 //
-
-import UIKit
-import Alamofire
 
 extension NSMutableData {
     func appendString(_ string: String) {
@@ -16,93 +13,87 @@ extension NSMutableData {
     }
 }
 
-typealias responseBlock = (Bool, JsonDict) -> ()
+enum MYHttpType: String {
+    case oauth_grant    = "oauth/grant"
+    case rest_get       = "rest/get"
+}
 
-class MYHttpRequest {
+import Foundation
+import Alamofire
+
+class MYHttp {
     static let printJson = true
     
-    init(_ page: String) {
-        self.page = page
-        self.url = Config.url + page
-    }
-    
-    var json = JsonDict()
-    
+    private var json = JsonDict()    
     private var type: HTTPMethod!
     private var page = ""
     private var url = ""
+    private var header = true
+
     private var myWheel:MYWheel?
-    
-    // MARK: - Start
-    
-    func get (showWheel: Bool = true, header: Bool = true, completion: @escaping responseBlock = { success, response in }) {
-        self.type = .get
-        self.start(showWheel: showWheel, header: header) { (success, response) in
-            completion (success, response)
+
+    init(_ type: MYHttpType, param: JsonDict, showWheel: Bool = true, header: Bool = true) {
+        self.page = type.rawValue
+        self.url = Config.url + self.page
+        self.json = param
+        self.header = header
+        
+        switch type {
+        case .rest_get:
+            self.type = .get
+        default:
+            self.type = .post
         }
-    }
-    
-    func post (showWheel: Bool = true, header: Bool = true, completion: @escaping responseBlock = { success, response in }) {
-        self.type = .post
-        self.start(showWheel: showWheel, header: header) { (success, response) in
-            completion (success, response)
-        }
-    }
-    
-//    func put (data: Data, showWheel: Bool = true, completion: @escaping responseBlock = { success, response in }) {
-//        let s =  MYUpload.init(url: self.url, data: data, json: self.json)
-//        s.start()
-//        
-////        self.type = .put
-////        self.start(showWheel: showWheel, header: true) { (success, response) in
-////            completion (success, response)
-////        }
-//    }
-    
-    private func start (showWheel: Bool = true, header: Bool = true, completion: @escaping responseBlock = { success, response in }) {
+
         self.startWheel(showWheel)
+    }
+    
+    func load(ok: @escaping (JsonDict) -> Void = { response in },
+              KO: @escaping (String, String) -> Void = { code, error in } ) {
+
         self.printJson(self.json)
-        
-        var urlRequest = URLRequest(url: URL(string: self.url)!)
-        urlRequest.httpMethod = self.type.rawValue
-        if header == true {
-            urlRequest.setValue("Bearer " + User.shared.getToken(), forHTTPHeaderField: "Authorization")
-        }
-        
         var headers = [String: String]()
-        if header == true {
+        if self.header == true {
             headers["Authorization"] = "Bearer " + User.shared.getToken()
         }
         
         Alamofire.request(self.url, method: self.type, parameters: self.json, headers: headers).responseString { response in
             self.startWheel(false)
-            self.response(response, completion: { (success, json) in
-                completion (success, json)
+            self.response(response,
+                          ok: { (json) in
+                            ok (json)
+                            self.printJson(json)
+            },
+                          KO: { (code, error) in
+                            KO (code, error)
             })
         }
     }
     
-    private func response (_ response: DataResponse<String>, completion: @escaping responseBlock = {
-        (success, response) in }) {
-        let error = "Code: #\(String((response.response?.statusCode)!))"
-        var msg = ""
-
+    private func response (_ response: DataResponse<String>,
+                           ok: @escaping (JsonDict) -> () = { response in },
+                           KO: @escaping (String, String) -> () = { code, error in } ) {
+        var statusCode = response.response?.statusCode
+        var errorMessage = ""
+        
         if response.result.isSuccess {
             let dict = self.removeNullFromJsonString(response.result.value!)
-            msg = dict.string("code")
-            if response.response?.statusCode == 200 && dict.string("status") == "ok" {
-                self.printJson(dict)
-                completion (true, dict)
+            statusCode = dict.int("code")
+            errorMessage = dict.string("status")
+            if response.response?.statusCode == 200 && errorMessage == "ok" {
+                ok (dict)
                 return
             }
         }
         else {
             if response.error != nil {
-                msg = (response.error?.localizedDescription)!
+                errorMessage = (response.error?.localizedDescription)!
+            }
+            else {
+                errorMessage = "Errore generico"
             }
         }
-        self.showError(title: error, message: msg)
-        completion (false, [:])
+        KO ("\(self.page) - Err. \(statusCode!)", errorMessage)
     }
     
     private func removeNullFromJsonString (_ text: String) -> JsonDict {
@@ -123,17 +114,8 @@ class MYHttpRequest {
     
     // MARK: - private
     
-    private func showError (title: String, message: String) {
-        let alert = UIAlertController(title: title as String, message: message  as String, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
-        
-        let topVC = UIApplication.shared.windows[0].rootViewController
-        topVC?.present(alert, animated: true, completion: nil)
-    }
-    
     fileprivate func printJson (_ json: JsonDict) {
-        if MYHttpRequest.printJson {
+        if MYHttp.printJson {
             print("\n[ \(self.url) ]\n\(json)\n------------")
         }
     }
@@ -153,10 +135,12 @@ class MYHttpRequest {
 }
 
 
+
+
 class MYUpload {
     var url:URL!
     let token = "Bearer " + User.shared.getToken()
-
+    
     class func getFileName(jobId: String) -> String {
         let file = "\(Config.filePrefix)\(jobId).zip"
         return file
@@ -203,20 +187,20 @@ class MYUpload {
                     "object"        : "job",
                     "object_id"     : "\(jobId)",
                 ]
-
+                
                 for (key, value) in json {
                     multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
                 }
             }, with: URL, encodingCompletion: { (result) in
-                    print(result)
+                print(result)
                 switch result {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
                         
-//                        print(response.request ?? "response.request")  // original URL request
-//                        print(response.response ?? "response.response") // URL response
-//                        print(response.data ?? "response.data")     // server data
-//                        print(response.result)   // result of response serialization
+                        //                        print(response.request ?? "response.request")  // original URL request
+                        //                        print(response.response ?? "response.response") // URL response
+                        //                        print(response.data ?? "response.data")     // server data
+                        //                        print(response.result)   // result of response serialization
                         if let JSON = response.result.value {
                             print("JSON: \(JSON)")
                         }
@@ -235,3 +219,4 @@ class MYUpload {
         }
     }
 }
+
