@@ -31,7 +31,7 @@ class Login: MYViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(NSTemporaryDirectory())
+        print(Config.doc)
         
         self.loginView.isHidden = true
         self.checkImg = self.saveCredButton.image(for: .normal)

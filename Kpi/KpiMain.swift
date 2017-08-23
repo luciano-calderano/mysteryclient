@@ -37,7 +37,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         
         self.myKeyboard = MYKeyboard(vc: self)
         
-        let path = NSTemporaryDirectory() + "/" + String(MYJob.shared.job.id)
+        let path = Config.doc + "/" + String(MYJob.shared.job.id)
         let fm = FileManager.default
         if fm.fileExists(atPath: path) == false {
             do {

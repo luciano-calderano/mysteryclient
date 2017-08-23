@@ -14,5 +14,6 @@ struct Config {
     static let url = "http://mysteryclient.mebius.it/default/"
     static let mapUrl = "http://maps.apple.com/?"
     static let filePrefix = "id_"
-    static var maxPicSize = 1200
+    static let doc = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/"
+    static let maxPicSize = 1200
 }

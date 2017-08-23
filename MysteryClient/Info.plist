@@ -49,5 +49,7 @@
 	<string>Uso album?</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Uso foto?</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 </dict>
 </plist>

@@ -43,7 +43,7 @@ class KpiQuest: KpiViewController {
     private var kpiResult: JobResult.KpiResult!
     private var kpiQuestSubView: KpiQuestSubView!
     
-    private let path = NSTemporaryDirectory() + String(MYJob.shared.job.id) + "/"
+    private let path = Config.doc + String(MYJob.shared.job.id) + "/"
     private var fileName = ""
     
     override func viewDidLoad() {

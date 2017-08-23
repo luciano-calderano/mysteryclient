@@ -16,7 +16,7 @@ class MYJob {
     var jobResult = JobResult()
 //    var kpiResult = JobResult.KpiResult()
 
-    private let jobsPath = NSTemporaryDirectory() + "jobs"
+    private let jobsPath = Config.doc + "jobs"
     func saveJobs (_ jobs: [JsonDict]) {
         let fm = FileManager.default
         do {
@@ -171,7 +171,7 @@ class MYResult {
         let dict = self.getResultFromPlist()
         do {
             let fm = FileManager.default
-            let path = NSTemporaryDirectory() + String(MYJob.shared.job.id)
+            let path = Config.doc + String(MYJob.shared.job.id)
             
             let json = try JSONSerialization.data(withJSONObject: dict,
                                                   options: .prettyPrinted)
@@ -181,7 +181,7 @@ class MYResult {
                                                    includingPropertiesForKeys: nil,
                                                    options: [])
 
-            let zip = NSTemporaryDirectory() + MYUpload.getFileName(jobId: String(MYJob.shared.job.id))
+            let zip = Config.doc + MYUpload.getFileName(jobId: String(MYJob.shared.job.id))
             let zipFile = URL.init(fileURLWithPath: zip)
             try Zip.zipFiles(paths: files,
                              zipFilePath: zipFile,

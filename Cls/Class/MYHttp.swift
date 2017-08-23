@@ -151,7 +151,7 @@ class MYUpload {
         me.url = URL.init(string: Config.url + "rest/put")!
         
         let fm = FileManager.default
-        let path = NSTemporaryDirectory()
+        let path = Config.doc
         do {
             let files = try fm.contentsOfDirectory(at: URL.init(string: path)!,
                                                    includingPropertiesForKeys: nil,
@@ -204,7 +204,7 @@ class MYUpload {
                         if let JSON = response.result.value {
                             print("JSON: \(JSON)")
                         }
-                        let fileName = NSTemporaryDirectory() + MYUpload.getFileName(jobId: jobId)
+                        let fileName = Config.doc + MYUpload.getFileName(jobId: jobId)
                         do {
                             try FileManager.default.removeItem(atPath: fileName)
                         }
