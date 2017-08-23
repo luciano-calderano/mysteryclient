@@ -142,7 +142,7 @@ class KpiQuest: KpiViewController {
             return .errNotes
         }
         
-        if atchRequired == true && self.atchImage == nil {
+        if atchRequired == true && self.atchImage.image == nil {
             return .errAttch
         }
         
