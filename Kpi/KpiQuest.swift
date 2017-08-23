@@ -8,14 +8,13 @@
 
 import UIKit
 
-class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
+class KpiQuest: KpiViewController {
     class func Instance(index: Int) -> KpiQuest {
         let vc = self.load(storyboardName: "Kpi") as! KpiQuest
         vc.index = index
         return vc
     }
 
-    @IBOutlet private var scroll: UIScrollView!
     @IBOutlet private var content: UIView!
     @IBOutlet private var contentH: NSLayoutConstraint!
     
@@ -24,15 +23,17 @@ class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
     @IBOutlet private var atchImage: UIImageView!
     
     @IBOutlet private var subView: UIView!
-    @IBOutlet private var subViewHeight: NSLayoutConstraint!
     @IBOutlet private var bottomLine: UIView!
     
     @IBOutlet private var kpiTitle: MYLabel!
     @IBOutlet private var kpiQuestion: MYLabel!
     @IBOutlet private var kpiInstructions: MYLabel!
-    @IBOutlet private var kpiNote: UITextView!
     @IBOutlet private var kpiAtchBtn: MYButton!
-    
+
+    @IBOutlet var scroll: UIScrollView!
+    @IBOutlet var subViewHeight: NSLayoutConstraint!
+    @IBOutlet var kpiNote: UITextView!
+
     var index = 0
     var attachmentImage: UIImage? {
         didSet { self.showAtch() }
@@ -192,15 +193,18 @@ class KpiQuest: KpiViewController, KpiQuestSubViewDelegate, UITextViewDelegate {
     @IBAction func atchButtonTapped () {
         self.delegate?.atchButtonTapped()
     }
-    
-    //MARK: - page subview delegate
-    
+}
+
+
+//MARK: - page subview delegate
+extension KpiQuest: KpiQuestSubViewDelegate {
     func subViewResized (newHeight: CGFloat) {
         self.subViewHeight.constant = newHeight
     }
-    
-    //MARK: - text view delegate
-    
+}
+
+//MARK: - text view delegate
+extension KpiQuest: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         self.delegate?.startEditing(scroll: self.scroll, y: self.kpiNote.frame.origin.y - 30)
     }

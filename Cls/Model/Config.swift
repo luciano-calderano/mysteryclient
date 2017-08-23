@@ -5,7 +5,8 @@
 //  Created by mac on 26/06/17.
 //  Copyright © 2017 Mebius. All rights reserved.
 //
-// mcappios@git.mebius.it:projects/mcappios : Mc4ppIos
+// git: mcappios@git.mebius.it:projects/mcappios - Pw: Mc4ppIos
+// web: mysteryclient.mebius.it - User: utente_gen - Pw: novella44
 
 import Foundation
 

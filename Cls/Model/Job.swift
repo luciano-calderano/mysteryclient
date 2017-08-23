@@ -175,7 +175,7 @@ class MYResult {
             
             let json = try JSONSerialization.data(withJSONObject: dict,
                                                   options: .prettyPrinted)
-            try? json.write(to: URL.init(string: path + "/job.json")!)
+            try? json.write(to: URL.init(fileURLWithPath: path + "/job.json"))
             
             let files = try fm.contentsOfDirectory(at: URL.init(string: path)!,
                                                    includingPropertiesForKeys: nil,
@@ -189,6 +189,7 @@ class MYResult {
                              progress: nil)
             return zipFile
         } catch {
+            print("zip error")
         }
         return nil
     }

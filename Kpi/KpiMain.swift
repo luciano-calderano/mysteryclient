@@ -100,6 +100,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         }
         self.alert(Lng("readyToSend"), message: "", okBlock: { (ready) in
             MYUpload.startUpload()
+            self.navigationController?.popToRootViewController(animated: true)
         })
     }
     

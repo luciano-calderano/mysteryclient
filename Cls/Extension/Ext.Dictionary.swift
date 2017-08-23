@@ -150,7 +150,7 @@ extension Dictionary {
             let data = try PropertyListSerialization.data(fromPropertyList: self,
                                                           format: .binary,
                                                           options: .allZeros)
-            try data.write(to: URL.init(string: file)!)
+            try data.write(to: URL.init(fileURLWithPath: file))
             return true
         }
         catch let error as NSError {
