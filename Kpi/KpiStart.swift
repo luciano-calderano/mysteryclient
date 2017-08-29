@@ -26,7 +26,6 @@ class KpiStart: KpiViewController {
             btn?.layer.cornerRadius = (btn?.frame.size.height)! / 2
         }
         self.yesTapped()
-        
         self.undondeText.text = MYJob.shared.jobResult.comment
     }
     
@@ -54,7 +53,7 @@ class KpiStart: KpiViewController {
         MYJob.shared.jobResult.execution_date = self.datePicker.date.toString(withFormat: Date.fmtDataJson)
         MYJob.shared.jobResult.execution_start_time = self.datePicker.date.toString(withFormat: Date.fmtOra)
         MYResult.shared.saveResult()
-        return .next
+        return .first
     }
     
     // MARK: - Actions

@@ -51,6 +51,10 @@ class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
         if self.valuationSelected != nil {
             let item = self.valuationSelected!
             response.value = String(item.id)
+            
+            if item.dependencies.count > 0 {
+                response.nextKpi = (item.dependencies.first?.key)!
+            }
         }
         return response
     }

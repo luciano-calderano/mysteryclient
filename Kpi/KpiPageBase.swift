@@ -26,7 +26,9 @@ class KpiViewController: UIViewController {
     }
     
     var delegate: KpiViewControllerDelegate?
-    
+    var nextKpi = 0
+    var myKpiIndex = 0
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.delegate?.showPageNum((self.navigationController?.viewControllers.count)!)

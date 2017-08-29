@@ -10,9 +10,10 @@ import UIKit
 import Zip
 
 enum KpiResultType {
+    case first
     case next
-    case home
     case last
+    case home
     case errValue
     case errNotes
     case errAttch
@@ -31,6 +32,8 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
    
     private var kpiNavi = UINavigationController()
     private var myKeyboard: MYKeyboard!
+    
+    private var kpisArray = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,12 +78,33 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         }
     }
     
-    private func nextKpi () {
-        let idx = self.kpiNavi.viewControllers.count - 1
+    private func nextKpi (_ nextKpi: Int) {
+        func getIdx(id: Int) -> Int {
+            var index = 0
+            for kpi in MYJob.shared.job.kpis {
+                if kpi.id == id {
+                    break;
+                }
+                index += 1
+            }
+            return index
+        }
+        var index = 0
+        if nextKpi == 0 {
+            let kpi = self.kpisArray.last
+            let idx = getIdx(id: kpi!)
+            index = idx + 1
+        }
+        else if nextKpi > 0 {
+            let idx = getIdx(id: nextKpi)
+            index = idx
+        }
+        let kpi = MYJob.shared.job.kpis[index]
+        self.kpisArray.append(kpi.id)
         
         var vc: KpiViewController
-        if idx < MYJob.shared.job.kpis.count {
-            vc = KpiQuest.Instance(index: idx)
+        if index < MYJob.shared.job.kpis.count {
+            vc = KpiQuest.Instance(kpi: kpi)
             self.nextBtn.setTitle(Lng("next"), for: .normal)
         }
         else {
@@ -88,6 +112,8 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
             self.nextBtn.setTitle(Lng("lastPage"), for: .normal)
         }
         vc.delegate = self
+        
+        print(self.kpisArray)
         self.kpiNavi.pushViewController(vc, animated: true)
     }
 
@@ -135,8 +161,10 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
             self.navigationController?.popToRootViewController(animated: true)
         case .last:
             self.sendKpiResult()
+        case .first:
+            self.nextKpi(-1)
         case .next:
-            self.nextKpi()
+            self.nextKpi(vc.nextKpi)
         case .errValue:
             self.alert(Lng("error"), message: Lng("noValue"), okBlock: nil)
             return
@@ -156,6 +184,11 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         case 1:
             self.navigationController?.popViewController(animated: true)
         default:
+            self.kpisArray.removeLast()
+            
+            print(self.kpisArray)
+
+            
             self.nextBtn.setTitle(Lng("next"), for: .normal)
             self.view.endEditing(true)
             self.kpiNavi.popViewController(animated: true)
