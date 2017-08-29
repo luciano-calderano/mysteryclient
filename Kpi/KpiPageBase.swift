@@ -39,6 +39,13 @@ class KpiViewController: UIViewController {
 
 //MARK: -
 
+struct KpiResponseValues {
+    var value = ""
+    var notes = false
+    var attch = false
+    var nextKpi = 0
+}
+
 class KpiQuestSubView: UIView {
     var delegate: KpiQuestSubViewDelegate?
     var kpiResult: JobResult.KpiResult!
@@ -50,8 +57,8 @@ class KpiQuestSubView: UIView {
         self.delegate?.subViewResized(newHeight: 1)
     }
     
-    func getValuation () -> (value: String, notes: Bool, attch: Bool) {
-        return ("", false, false)
+    func getValuation () -> KpiResponseValues {
+        return KpiResponseValues()
     }
 }
 

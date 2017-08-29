@@ -44,7 +44,8 @@ class SubDatePicker: KpiQuestSubView, UIPickerViewDelegate {
         self.delegate?.subViewResized(newHeight: self.frame.size.height)
     }
     
-    override func getValuation () -> (value: String, notes: Bool, attch: Bool) {
+    override func getValuation () -> KpiResponseValues {
+        var response = KpiResponseValues()
         var fmt = ""
         switch type {
         case .time:
@@ -54,8 +55,8 @@ class SubDatePicker: KpiQuestSubView, UIPickerViewDelegate {
         default:
             fmt = Date.fmtDataOraJson
         }
-        let value = self.kpiPicker.date.toString(withFormat: fmt)
-        return (value, false, false)
+        response.value = self.kpiPicker.date.toString(withFormat: fmt)
+        return response
     }
 }
 

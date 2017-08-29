@@ -35,6 +35,7 @@ class KpiQuest: KpiViewController {
     @IBOutlet var kpiNote: UITextView!
 
     var index = 0
+    var valueMandatoty = true
     var attachmentImage: UIImage? {
         didSet { self.showAtch() }
     }
@@ -72,6 +73,7 @@ class KpiQuest: KpiViewController {
         }
         self.showAtch()
         
+        self.valueMandatoty = true
         self.subViewHeight.constant = 1
         switch self.kpi.type {
         case "radio", "select" :
@@ -88,12 +90,16 @@ class KpiQuest: KpiViewController {
             self.kpiQuestSubView = SubDatePicker.Instance(type: .datetime)
             break
         case "label", "geophoto" :
-            alert("kpi.type: \(self.kpi.type)", message: "", okBlock: nil)
+            self.kpiQuestSubView = SubLabel.Instance()
+            self.valueMandatoty = false
+
+//            alert("kpi.type: \(self.kpi.type)", message: "", okBlock: nil)
             break
         case "multicheckbox" :
             self.kpiQuestSubView = SubCheckBox.Instance()
             break
         default:
+            self.valueMandatoty = false
             self.kpiQuestSubView = KpiQuestSubView()
         }
         self.subView.addSubviewWithConstraints(self.kpiQuestSubView)
@@ -126,7 +132,7 @@ class KpiQuest: KpiViewController {
         let result = self.kpiQuestSubView.getValuation()
         
         if self.kpi.required == true {
-            if result.value.isEmpty && kpi.type.isEmpty == false {
+            if result.value.isEmpty && self.valueMandatoty == true { // kpi.type.isEmpty == false {
                 return .errValue
             }
             self.kpiResult.value = result.value

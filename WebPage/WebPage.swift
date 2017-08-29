@@ -39,6 +39,7 @@ class WebPage: MYViewController, UIWebViewDelegate {
             }
             vc.page = page
         }
+
         return vc
     }
 

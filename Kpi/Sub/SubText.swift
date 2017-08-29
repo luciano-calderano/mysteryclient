@@ -27,9 +27,10 @@ class SubText: KpiQuestSubView, UITextFieldDelegate {
         self.delegate?.subViewResized(newHeight: self.frame.size.height)
     }
     
-    override func getValuation () -> (value: String, notes: Bool, attch: Bool) {
-        let value = self.kpiText.text!
-        return (value, false, false)
+    override func getValuation () -> KpiResponseValues {
+        var response = KpiResponseValues()
+        response.value = self.kpiText.text!
+        return response
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()

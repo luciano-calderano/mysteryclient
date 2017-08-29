@@ -365,6 +365,9 @@
                                         <state key="normal" title="#yes">
                                             <color key="titleColor" red="0.67843137249999996" green="0.81960784310000001" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="yesTapped" destination="ek3-Zr-XGN" eventType="touchUpInside" id="ywM-by-3H9"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W5X-Lo-zAW" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
                                         <rect key="frame" x="189" y="0.0" width="170" height="40"/>
@@ -373,6 +376,9 @@
                                         <state key="normal" title="#no">
                                             <color key="titleColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="noTapped" destination="ek3-Zr-XGN" eventType="touchUpInside" id="mAB-uc-1Y2"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

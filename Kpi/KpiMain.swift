@@ -45,7 +45,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
                                        withIntermediateDirectories: true,
                                        attributes: nil)
             } catch let error as NSError {
-                NSLog("Unable to create directory \(error.debugDescription)")
+                print("Unable to create directory \(error.debugDescription)")
             }
         }
         
@@ -100,7 +100,10 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         }
         self.alert(Lng("readyToSend"), message: "", okBlock: { (ready) in
             MYUpload.startUpload()
-            self.navigationController?.popToRootViewController(animated: true)
+//            self.navigationController?.popToRootViewController(animated: true)
+            
+            let home = self.navigationController?.viewControllers[1] as! Home
+            self.navigationController?.popToViewController(home, animated: true)
         })
     }
     

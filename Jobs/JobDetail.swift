@@ -122,11 +122,11 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     
     @IBAction func spreTapped () {
         let ctrl = WebPage.Instance(type: .bookingRemove)
-        self.navigationController?.show(ctrl, sender: self)
+        self.gotoCtrl(ctrl)
     }
     @IBAction func dateTapped () {
         let ctrl = WebPage.Instance(type: .bookingMove)
-        self.navigationController?.show(ctrl, sender: self)
+        self.gotoCtrl(ctrl)
     }
     
     @IBAction func contTapped () {
@@ -147,7 +147,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     
     @IBAction func tickTapped () {
         let ctrl = WebPage.Instance(type: .ticketView)
-        self.navigationController?.show(ctrl, sender: self)
+        self.gotoCtrl(ctrl)
     }
     
     @IBAction func strtTapped () {
@@ -190,6 +190,11 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     }
 
     // MARK: - private
+    
+    private func gotoCtrl (_ ctrl: WebPage) {
+//        UIApplication.shared.openURL(URL.init(string: ctrl.page)!)
+        self.navigationController?.show(ctrl, sender: self)
+    }
     
     private func showData () {
         self.header?.header.titleLabel.text = MYJob.shared.job.store.name

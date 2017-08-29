@@ -222,7 +222,7 @@ class JobsHome: MYViewController {
                         val.positive = valutation.bool("positive") // Boolean [0/1]
                         val.note_required = valutation.bool("note_required") // Boolean [0/1]
                         val.attachment_required = valutation.bool("attachment_required") // Boolean [0/1]
-                        for dependency in kpiDict.array("dependencies") as! [JsonDict] {
+                        for dependency in valutation.array("dependencies") as! [JsonDict] {
                             let dep = Job.Kpi.Valuations.Dependency()
                             dep.key = dependency.int("key")
                             dep.value = dependency.string("value")
