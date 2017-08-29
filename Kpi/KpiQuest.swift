@@ -9,9 +9,9 @@
 import UIKit
 
 class KpiQuest: KpiViewController {
-    class func Instance(kpi: Job.Kpi) -> KpiQuest {
+    class func Instance(index: Int) -> KpiQuest {
         let vc = self.load(storyboardName: "Kpi") as! KpiQuest
-        vc.kpi = kpi
+        vc.index = index
         return vc
     }
 
@@ -50,14 +50,8 @@ class KpiQuest: KpiViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.kpi = MYJob.shared.job.kpis[self.index]
-        for result in MYJob.shared.jobResult.results {
-            if result.kpi_id == kpi.id || result.kpi_id == 0 {
-                self.kpiResult = result
-                break
-            }
-        }
-//        self.kpiResult = MYJob.shared.jobResult.results[self.index]
+        self.kpi = MYJob.shared.job.kpis[self.index]
+        self.kpiResult = MYJob.shared.jobResult.results[self.index]
 
         self.kpiNote.delegate = self
         self.kpiNote.layer.borderColor = UIColor.lightGray.cgColor
@@ -163,7 +157,6 @@ class KpiQuest: KpiViewController {
         MYResult.shared.saveResult()
         
         self.view.endEditing(true)
-        self.nextKpi = result.nextKpi
         return .next
     }
     

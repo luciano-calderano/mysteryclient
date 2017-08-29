@@ -54,6 +54,7 @@ class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
             
             if item.dependencies.count > 0 {
                 response.nextKpi = (item.dependencies.first?.key)!
+                response.valuations = self.valuations
             }
         }
         return response

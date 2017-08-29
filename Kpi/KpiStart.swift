@@ -53,7 +53,7 @@ class KpiStart: KpiViewController {
         MYJob.shared.jobResult.execution_date = self.datePicker.date.toString(withFormat: Date.fmtDataJson)
         MYJob.shared.jobResult.execution_start_time = self.datePicker.date.toString(withFormat: Date.fmtOra)
         MYResult.shared.saveResult()
-        return .first
+        return .next
     }
     
     // MARK: - Actions
