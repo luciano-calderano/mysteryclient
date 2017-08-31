@@ -30,14 +30,19 @@ class KpiMain: MYViewController {
     @IBOutlet private var nextBtn: MYButton!
    
     private var kpiNavi = UINavigationController()
-    private var currentIndex = -1
     
+    var currentIndex = -1 {
+        didSet {
+            self.showPageNum()
+        }
+    }
     var myKeyboard: MYKeyboard!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.myKeyboard = MYKeyboard(vc: self)
+//        self.showPageNum()
         
         let path = Config.doc + "/" + String(MYJob.shared.job.id)
         let fm = FileManager.default
@@ -74,6 +79,7 @@ class KpiMain: MYViewController {
             self.kpiNavi = segue.destination as! UINavigationController
             let vc = self.kpiNavi.viewControllers.first as! KpiStart
             vc.delegate = self
+            vc.kpiIndex = self.currentIndex
         }
     }
     
@@ -112,17 +118,24 @@ class KpiMain: MYViewController {
             self.kpiNavi.popViewController(animated: true)
             let vc = self.kpiNavi.viewControllers.last as! KpiViewController
             self.currentIndex = vc.kpiIndex
+//            self.showPageNum()
         }
     }
     
 //MARK: - Private
+    
+    private func showPageNum() {
+        self.header?.header.kpiLabel.isHidden = false
+        self.header?.header.kpiLabel.text = "\(self.currentIndex + 2)/\(MYJob.shared.job.kpis.count + 2)"
+
+    }
     
     private func nextKpi () {
         self.currentIndex += 1
         var vc: KpiViewController
         if self.currentIndex < MYJob.shared.job.kpis.count {
             let kpiResult = MYJob.shared.jobResult.results[self.currentIndex]
-            if kpiResult.value == "§" {
+            if kpiResult.value == "3" {
                 self.nextKpi()
                 return
             }
@@ -136,6 +149,8 @@ class KpiMain: MYViewController {
         }
         vc.delegate = self
         self.kpiNavi.pushViewController(vc, animated: true)
+//        self.showPageNum()
+
     }
 
     private func sendKpiResult () {
@@ -191,12 +206,6 @@ class KpiMain: MYViewController {
 }
 
 extension KpiMain: KpiViewControllerDelegate {
-    // MARK: - Delegate
-    func showPageNum(_ num: Int) {
-        self.header?.header.kpiLabel.isHidden = false
-        self.header?.header.kpiLabel.text = "\(num)/\(MYJob.shared.job.kpis.count + 2)"
-    }
-    
     //MARK: - mykeyboard function
     func endEditing() {
         self.myKeyboard.endEditing()

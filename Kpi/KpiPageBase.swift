@@ -12,7 +12,6 @@ protocol KpiViewControllerDelegate {
     func startEditing (scroll: UIScrollView, y: CGFloat)
     func endEditing ()
     func atchButtonTapped ()
-    func showPageNum (_ num: Int)
 }
 
 protocol KpiQuestSubViewDelegate {
@@ -28,11 +27,6 @@ class KpiViewController: UIViewController {
     var delegate: KpiViewControllerDelegate?
     var kpiIndex = 0
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.delegate?.showPageNum((self.navigationController?.viewControllers.count)!)
-    }
-    
     func checkData() -> KpiResultType {
         return .err
     }

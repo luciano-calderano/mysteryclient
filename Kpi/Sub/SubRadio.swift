@@ -8,19 +8,18 @@
 
 import UIKit
 
-class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
+class SubRadio: KpiQuestSubView {
     class func Instance() -> SubRadio {
         let id = String (describing: self)
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubRadio
     }
-
-    @IBOutlet private var tableView: UITableView!
-    private let rowHeight:CGFloat = 50
-    private var valuationSelected: Job.Kpi.Valuations?
-
+    
+    @IBOutlet var tableView: UITableView!
+    let rowHeight:CGFloat = 50
+    var valuationSelected: Job.Kpi.Valuations?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-//        self.kpi = Job.Kpi()
         SubRadioCell.register(tableView: self.tableView)
     }
     
@@ -38,15 +37,15 @@ class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-
+        
         self.tableView.reloadData()
-
+        
         var rect = self.frame
         rect.size.height = self.rowHeight * CGFloat(self.kpi.valuations.count)
         self.frame = rect
         self.delegate?.subViewResized(newHeight: rect.size.height)
     }
-
+    
     override func getValuation () -> KpiResponseValues {
         var response = KpiResponseValues()
         if self.valuationSelected != nil {
@@ -60,9 +59,21 @@ class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
         }
         return response
     }
-    
-    // MARK: - table view
-    
+}
+
+// MARK: - UITableViewDataSource
+
+extension SubRadio: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.valuationSelected = self.kpi.valuations[indexPath.row]
+        self.tableView.reloadData()
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension SubRadio: UITableViewDataSource {
     func maxItemOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -86,20 +97,13 @@ class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
         cell.icoAtch.isHidden = item.attachment_required == false
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        self.valuationSelected = self.kpi.valuations[indexPath.row]
-        self.tableView.reloadData()
-    }
 }
 
-// MARK: -
+// MARK: - SubRadioCell
 
 class SubRadioCell: UITableViewCell {
     class func register (tableView: UITableView) {
         let id = String (describing: self)
-
         let nib = UINib(nibName: id, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: id)
     }
@@ -111,10 +115,10 @@ class SubRadioCell: UITableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: id, for: indexPath)
             as! SubRadioCell
     }
-
+    
     @IBOutlet var selectView: UIView!
     @IBOutlet var selectedView: UIView!
-
+    
     @IBOutlet var icoNote: UIImageView!
     @IBOutlet var icoAtch: UIImageView!
     @IBOutlet var valuationTitle: MYLabel!

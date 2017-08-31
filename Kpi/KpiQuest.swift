@@ -127,21 +127,17 @@ class KpiQuest: KpiViewController {
     
     private func fixDependencies (result: KpiResponseValues) {
         for val in result.valuations! {
+            if val.id != Int(result.value) {
+                continue
+            }
             for dep in val.dependencies {
                 for index in self.kpiIndex...MYJob.shared.job.kpis.count {
                     let kpi = MYJob.shared.job.kpis[index]
                     if kpi.id == dep.key {
                         let kpiResult = MYJob.shared.jobResult.results[index]
                         kpiResult.kpi_id = kpi.id
-                        if dep.key == result.nextKpi {
-                            if kpiResult.value == "§" {
-                                kpiResult.notes = ""
-                            }
-                            kpiResult.value = ""                            
-                        } else {
-                            kpiResult.value = "§"
-                            kpiResult.notes = Lng("noDependency")
-                        }
+                        kpiResult.value = dep.value
+                        kpiResult.notes = dep.notes
                         MYJob.shared.jobResult.results[index] = kpiResult
                         break
                     }
@@ -163,7 +159,6 @@ class KpiQuest: KpiViewController {
             self.atchImage.image = self.attachmentImage
             if kpiResult.attachment.isEmpty {
                 kpiResult.attachment = "\(MYJob.shared.job.reference).\(kpiQuest.id).jpg"
-//                    String(MYJob.shared.job.reference) + "." + String(kpiQuest.id) + ".jpg"
                 self.fileName = self.path + kpiResult.attachment
                 
                 if let data = UIImageJPEGRepresentation(self.attachmentImage!, 0.7) {
