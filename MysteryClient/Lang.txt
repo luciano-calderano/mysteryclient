@@ -61,3 +61,4 @@ jobFinal=Commento finale
 jobFinalTime=Ora di fine esecuzione
 readyToSend=Pronto per l'invio
 
+noDependency=Scenario non previsto

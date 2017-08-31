@@ -9,12 +9,11 @@
 import UIKit
 
 class KpiQuest: KpiViewController {
-    class func Instance(index: Int) -> KpiQuest {
-        let vc = self.load(storyboardName: "Kpi") as! KpiQuest
-        vc.index = index
-        return vc
-    }
-
+//    override class func Instance() -> KpiQuest {
+//        let vc = self.load(storyboardName: "Kpi") as! KpiQuest
+//        return vc
+//    }
+//
     @IBOutlet private var content: UIView!
     @IBOutlet private var contentH: NSLayoutConstraint!
     
@@ -34,14 +33,14 @@ class KpiQuest: KpiViewController {
     @IBOutlet var subViewHeight: NSLayoutConstraint!
     @IBOutlet var kpiNote: UITextView!
 
-    var index = 0
+    private var kpi: Job.Kpi!
+//    private var kpiResult: JobResult.KpiResult!
+    
     var valueMandatoty = true
     var attachmentImage: UIImage? {
         didSet { self.showAtch() }
     }
     
-    private var kpi: Job.Kpi!
-    private var kpiResult: JobResult.KpiResult!
     private var kpiQuestSubView: KpiQuestSubView!
     
     private let path = Config.doc + String(MYJob.shared.job.id) + "/"
@@ -50,9 +49,6 @@ class KpiQuest: KpiViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.kpi = MYJob.shared.job.kpis[self.index]
-        self.kpiResult = MYJob.shared.jobResult.results[self.index]
-
         self.kpiNote.delegate = self
         self.kpiNote.layer.borderColor = UIColor.lightGray.cgColor
         self.kpiNote.layer.borderWidth = 1
@@ -60,13 +56,15 @@ class KpiQuest: KpiViewController {
         self.kpiTitle.text = self.kpi.factor
         self.kpiQuestion.text = self.kpi.standard
         self.kpiInstructions.text = self.kpi.instructions
-        self.kpiNote.text = self.kpiResult.notes
-        self.kpiNote.layer.borderColor = (self.kpi.note_required ? UIColor.red : UIColor.myGreenDark).cgColor
-        self.kpiNote.layer.borderWidth = 1
         
+        self.kpiNote.layer.borderColor = (self.kpi.note_required ? UIColor.red : UIColor.myGreenDark).cgColor
         self.kpiAtchBtn.isHidden = !self.kpi.attachment && !self.kpi.attachment_required
-        if self.kpiResult.attachment.isEmpty == false {
-            self.fileName = self.path + self.kpiResult.attachment
+
+        
+        let kpiResult = MYJob.shared.jobResult.results[self.kpiIndex]
+        self.kpiNote.text = kpiResult.notes
+        if kpiResult.attachment.isEmpty == false {
+            self.fileName = self.path + kpiResult.attachment
             let imageURL = URL(fileURLWithPath: self.fileName)
             let image    = UIImage(contentsOfFile: imageURL.path)
             self.attachmentImage = image
@@ -92,8 +90,6 @@ class KpiQuest: KpiViewController {
         case "label", "geophoto" :
             self.kpiQuestSubView = SubLabel.Instance()
             self.valueMandatoty = false
-
-//            alert("kpi.type: \(self.kpi.type)", message: "", okBlock: nil)
             break
         case "multicheckbox" :
             self.kpiQuestSubView = SubCheckBox.Instance()
@@ -105,7 +101,7 @@ class KpiQuest: KpiViewController {
         self.subView.addSubviewWithConstraints(self.kpiQuestSubView)
         
         self.kpiQuestSubView.delegate = self
-        self.kpiQuestSubView.initialize(kpiResult: self.kpiResult,
+        self.kpiQuestSubView.initialize(kpiResult: kpiResult,
                                        valuations: self.kpi.valuations)
         
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.atchRemove))
@@ -135,7 +131,6 @@ class KpiQuest: KpiViewController {
             if result.value.isEmpty && self.valueMandatoty == true { // kpi.type.isEmpty == false {
                 return .errValue
             }
-            self.kpiResult.value = result.value
             if result.notes == true {
                 noteRequired = result.notes
             }
@@ -152,32 +147,70 @@ class KpiQuest: KpiViewController {
             return .errAttch
         }
         
-        self.kpiResult.kpi_id = self.kpi.id
-        self.kpiResult.notes = self.kpiNote.text
+        let kpiResult = MYJob.shared.jobResult.results[self.kpiIndex]
+        kpiResult.value = result.value
+        kpiResult.kpi_id = self.kpi.id
+        kpiResult.notes = self.kpiNote.text
+        MYJob.shared.jobResult.results[self.kpiIndex] = kpiResult
+
+        
+        if result.valuations != nil {
+            self.fixDependencies(result: result)
+        }
+
         MYResult.shared.saveResult()
         
         self.view.endEditing(true)
         return .next
     }
     
+    private func fixDependencies (result: KpiResponseValues) {
+        for val in result.valuations! {
+            for dep in val.dependencies {
+                for index in self.kpiIndex...MYJob.shared.job.kpis.count {
+                    let kpi = MYJob.shared.job.kpis[index]
+                    if kpi.id == dep.key {
+                        let kpiResult = MYJob.shared.jobResult.results[index]
+                        kpiResult.kpi_id = kpi.id
+                        if dep.key == result.nextKpi {
+                            if kpiResult.value == "§" {
+                                kpiResult.notes = ""
+                            }
+                            kpiResult.value = ""                            
+                        } else {
+                            kpiResult.value = "§"
+                            kpiResult.notes = Lng("noDependency")
+                        }
+                        MYJob.shared.jobResult.results[index] = kpiResult
+                        break
+                    }
+                }
+            }
+        }
+    }
+    
     func showAtch () {
+        let kpiResult = MYJob.shared.jobResult.results[self.kpiIndex]
         if self.attachmentImage == nil {
             self.atchView.isHidden = true
-            self.kpiResult.attachment = ""
+            kpiResult.attachment = ""
         }
         else {
             self.atchView.isHidden = false
             self.atchImage.image = self.attachmentImage
-            if self.kpiResult.attachment.isEmpty {
-                self.kpiResult.attachment = String(MYJob.shared.job.reference) + "." + String(self.kpi.id) + ".jpg"
-                self.fileName = self.path + self.kpiResult.attachment
+            if kpiResult.attachment.isEmpty {
+                kpiResult.attachment = "\(MYJob.shared.job.reference).\(self.kpi.id).jpg"
+//                    String(MYJob.shared.job.reference) + "." + String(self.kpi.id) + ".jpg"
+                self.fileName = self.path + kpiResult.attachment
                 
                 if let data = UIImageJPEGRepresentation(self.attachmentImage!, 0.7) {
                     try? data.write(to: URL.init(string: self.fileName)!)
                 }
             }
         }
-        self.atchName.text = self.kpiResult.attachment
+        self.atchName.text = kpiResult.attachment
+        MYJob.shared.jobResult.results[self.kpiIndex] = kpiResult
+
     }
     
     func atchRemove () {

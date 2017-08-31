@@ -19,7 +19,7 @@ enum KpiResultType {
     case err
 }
 
-class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class KpiMain: MYViewController {
     class func Instance() -> KpiMain {
         let vc = self.load(storyboardName: "Kpi") as! KpiMain
         return vc
@@ -30,7 +30,9 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
     @IBOutlet private var nextBtn: MYButton!
    
     private var kpiNavi = UINavigationController()
-    private var myKeyboard: MYKeyboard!
+    private var currentIndex = -1
+    
+    var myKeyboard: MYKeyboard!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,55 +77,7 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
         }
     }
     
-    private func nextKpi () {
-        let idx = self.kpiNavi.viewControllers.count - 1
-        
-        var vc: KpiViewController
-        if idx < MYJob.shared.job.kpis.count {
-            vc = KpiQuest.Instance(index: idx)
-            self.nextBtn.setTitle(Lng("next"), for: .normal)
-        }
-        else {
-            vc = KpiLast.Instance()
-            self.nextBtn.setTitle(Lng("lastPage"), for: .normal)
-        }
-        vc.delegate = self
-        self.kpiNavi.pushViewController(vc, animated: true)
-    }
-
-    private func sendKpiResult () {
-        let zipUrl = MYResult.shared.createZipFile()
-        
-        if zipUrl == nil {
-            self.alert("Errore", message: "", okBlock: nil)
-            return
-        }
-        self.alert(Lng("readyToSend"), message: "", okBlock: { (ready) in
-            MYUpload.startUpload()
-            self.navigationController?.popToRootViewController(animated: true)
-        })
-    }
-    
-
-    private func resultSent () {
-        MYJob.shared.removeJob()
-        self.navigationController?.popToRootViewController(animated: true)
-    }
-    
-    private func imageSelected (_ image: UIImage) {
-        let vc = self.kpiNavi.viewControllers.last as! KpiQuest
-        vc.attachmentImage = image
-    }
-    
-    
-    // MARK: - Delegate
-    
-    func showPageNum(_ num: Int) {
-        self.header?.header.kpiLabel.isHidden = false
-        self.header?.header.kpiLabel.text = "\(num)/\(MYJob.shared.job.kpis.count + 2)"
-    }
-    
-    // MARK: - Actions
+// MARK: - Actions
     
     @IBAction func nextTapped () {
         let vc = self.kpiNavi.viewControllers.last as! KpiViewController
@@ -156,42 +110,58 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
             self.nextBtn.setTitle(Lng("next"), for: .normal)
             self.view.endEditing(true)
             self.kpiNavi.popViewController(animated: true)
+            let vc = self.kpiNavi.viewControllers.last as! KpiViewController
+            self.currentIndex = vc.kpiIndex
         }
     }
     
-    //MARK: - mykeyboard function
+//MARK: - Private
+    
+    private func nextKpi () {
+        self.currentIndex += 1
+        var vc: KpiViewController
+        if self.currentIndex < MYJob.shared.job.kpis.count {
+            let kpiResult = MYJob.shared.jobResult.results[self.currentIndex]
+            if kpiResult.value == "§" {
+                self.nextKpi()
+                return
+            }
+            vc = KpiQuest.Instance()
+            vc.kpiIndex = self.currentIndex
+            self.nextBtn.setTitle(Lng("next"), for: .normal)
+        }
+        else {
+            vc = KpiLast.Instance()
+            self.nextBtn.setTitle(Lng("lastPage"), for: .normal)
+        }
+        vc.delegate = self
+        self.kpiNavi.pushViewController(vc, animated: true)
+    }
 
-    func endEditing() {
-        self.myKeyboard.endEditing()
+    private func sendKpiResult () {
+        let zipUrl = MYResult.shared.createZipFile()
+        
+        if zipUrl == nil {
+            self.alert("Errore", message: "", okBlock: nil)
+            return
+        }
+        self.alert(Lng("readyToSend"), message: "", okBlock: { (ready) in
+            MYUpload.startUpload()
+            self.navigationController?.popToRootViewController(animated: true)
+        })
     }
     
-    func startEditing(scroll: UIScrollView, y: CGFloat) {
-        self.myKeyboard.startEditing(scroll: scroll, y: y)
+    private func resultSent () {
+        MYJob.shared.removeJob()
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
-    //MARK: - attachment
-    
-    func atchButtonTapped() {
-        let alert = UIAlertController(title: Lng("uploadPic") as String,
-                                      message: "" as String,
-                                      preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction.init(title: Lng("picFromCam"),
-                                           style: .default,
-                                           handler: { (action) in
-                                            self.openCamera()
-        }))
-        
-        alert.addAction(UIAlertAction.init(title: Lng("picFromGal"),
-                                           style: .default,
-                                           handler: { (action) in
-                                            self.openGallary()
-        }))
-        
-        self.present(alert, animated: true) { }
-        
+    func imageSelected (_ image: UIImage) {
+        let vc = self.kpiNavi.viewControllers.last as! KpiQuest
+        vc.attachmentImage = image
     }
     
-    //MARK - Image picker
+//MARK - Image picker
     
     private let picker = UIImagePickerController()
     func openGallary() {
@@ -218,7 +188,46 @@ class KpiMain: MYViewController, KpiViewControllerDelegate, UIImagePickerControl
             self.present(alert, animated: true, completion: nil)
         }
     }
+}
 
+extension KpiMain: KpiViewControllerDelegate {
+    // MARK: - Delegate
+    func showPageNum(_ num: Int) {
+        self.header?.header.kpiLabel.isHidden = false
+        self.header?.header.kpiLabel.text = "\(num)/\(MYJob.shared.job.kpis.count + 2)"
+    }
+    
+    //MARK: - mykeyboard function
+    func endEditing() {
+        self.myKeyboard.endEditing()
+    }
+    
+    func startEditing(scroll: UIScrollView, y: CGFloat) {
+        self.myKeyboard.startEditing(scroll: scroll, y: y)
+    }
+    
+    //MARK: - attachment tapped
+    func atchButtonTapped() {
+        let alert = UIAlertController(title: Lng("uploadPic") as String,
+                                      message: "" as String,
+                                      preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction.init(title: Lng("picFromCam"),
+                                           style: .default,
+                                           handler: { (action) in
+                                            self.openCamera()
+        }))
+        
+        alert.addAction(UIAlertAction.init(title: Lng("picFromGal"),
+                                           style: .default,
+                                           handler: { (action) in
+                                            self.openGallary()
+        }))
+        
+        self.present(alert, animated: true) { }
+    }
+}
+
+extension KpiMain: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
     }

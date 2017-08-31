@@ -26,7 +26,7 @@ class KpiViewController: UIViewController {
     }
     
     var delegate: KpiViewControllerDelegate?
-    var nextKpi = 0
+    var kpiIndex = 0
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -45,7 +45,7 @@ struct KpiResponseValues {
     var notes = false
     var attch = false
     var nextKpi = 0
-    var valuations = [Job.Kpi.Valuations()]
+    var valuations:[Job.Kpi.Valuations]?
 }
 
 class KpiQuestSubView: UIView {
