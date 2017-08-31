@@ -26,14 +26,14 @@ class SubCheckBox: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
         SubCheckBoxCell.register(tableView: self.tableView)
     }
     
-    override func initialize(kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
-        super.initialize(kpiResult: kpiResult, valuations: valuations)
+    override func initialize(kpiIndex: Int) {
+        super.initialize(kpiIndex: kpiIndex)
         self.tableView.layer.borderColor = UIColor.lightGray.cgColor
         self.tableView.layer.borderWidth = 1
         
         if self.kpiResult.value.isEmpty == false {
             let itemsId = self.kpiResult.value.components(separatedBy: ",")
-            for item in self.valuations {
+            for item in self.kpi.valuations {
                 let id = String(item.id)
                 if itemsId.contains(id) {
                     self.selectedId.append(id)
@@ -44,7 +44,7 @@ class SubCheckBox: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
         self.tableView.reloadData()
         
         var rect = self.frame
-        rect.size.height = self.rowHeight * CGFloat(self.valuations.count)
+        rect.size.height = self.rowHeight * CGFloat(self.kpi.valuations.count)
         self.frame = rect
         self.delegate?.subViewResized(newHeight: rect.size.height)
     }
@@ -52,7 +52,7 @@ class SubCheckBox: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
     override func getValuation () -> KpiResponseValues {
         var response = KpiResponseValues()
         if self.selectedId.count > 0 {
-            for item in self.valuations {
+            for item in self.kpi.valuations {
                 let id = String(item.id)
                 if self.selectedId.contains(id) {
                     if response.value.isEmpty == false {
@@ -78,7 +78,7 @@ class SubCheckBox: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.valuations.count
+        return self.kpi.valuations.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -87,7 +87,7 @@ class SubCheckBox: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SubCheckBoxCell.dequeue(tableView, indexPath)
-        let item = self.valuations[indexPath.row]
+        let item = self.kpi.valuations[indexPath.row]
         let id = String(item.id)
         let selected = self.selectedId.contains(id)
 
@@ -100,7 +100,7 @@ class SubCheckBox: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = self.valuations[indexPath.row]
+        let item = self.kpi.valuations[indexPath.row]
         let id = String(item.id)
         if self.selectedId.contains(id) {
             let idx = self.selectedId.index(of: id)

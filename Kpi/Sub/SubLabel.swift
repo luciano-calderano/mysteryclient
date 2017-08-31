@@ -16,8 +16,8 @@ class SubLabel: KpiQuestSubView, UITextFieldDelegate {
     
     @IBOutlet private var kpiLabel: MYLabel!
     
-    override func initialize(kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
-        super.initialize(kpiResult: kpiResult, valuations: valuations)
+    override func initialize(kpiIndex: Int) {
+        super.initialize(kpiIndex: kpiIndex)
         self.kpiLabel.text = kpiResult.value
     }
 }

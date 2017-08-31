@@ -27,14 +27,14 @@ class MYHttp {
     private var json = JsonDict()    
     private var type: HTTPMethod!
     private var page = ""
-    private var url = ""
+    private var apiUrl = ""
     private var header = true
 
     private var myWheel:MYWheel?
 
     init(_ type: MYHttpType, param: JsonDict, showWheel: Bool = true, header: Bool = true) {
         self.page = type.rawValue
-        self.url = Config.url + self.page
+        self.apiUrl = Config.apiUrl + self.page
         self.json = param
         self.header = header
         
@@ -56,17 +56,20 @@ class MYHttp {
         if self.header == true {
             headers["Authorization"] = "Bearer " + User.shared.getToken()
         }
-        
-        Alamofire.request(self.url, method: self.type, parameters: self.json, headers: headers).responseString { response in
-            self.startWheel(false)
-            self.response(response,
-                          ok: { (json) in
-                            ok (json)
-                            self.printJson(json)
-            },
-                          KO: { (code, error) in
-                            KO (code, error)
-            })
+    
+        Alamofire.request(self.apiUrl,
+                          method: self.type,
+                          parameters: self.json,
+                          headers: headers).responseString { response in
+                            self.startWheel(false)
+                            self.response(response,
+                                          ok: { (json) in
+                                            ok (json)
+                                            self.printJson(json)
+                            },
+                                          KO: { (code, error) in
+                                            KO (code, error)
+                            })
         }
     }
     
@@ -116,7 +119,7 @@ class MYHttp {
     
     fileprivate func printJson (_ json: JsonDict) {
         if MYHttp.printJson {
-            print("\n[ \(self.url) ]\n\(json)\n------------")
+            print("\n[ \(self.apiUrl) ]\n\(json)\n------------")
         }
     }
     
@@ -148,7 +151,7 @@ class MYUpload {
     
     class func startUpload() {
         let me = MYUpload()
-        me.url = URL.init(string: Config.url + "rest/put")!
+        me.url = URL.init(string: Config.apiUrl + "rest/put")!
         
         let fm = FileManager.default
         let path = Config.doc

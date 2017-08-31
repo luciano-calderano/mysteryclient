@@ -50,15 +50,15 @@ struct KpiResponseValues {
 
 class KpiQuestSubView: UIView {
     var delegate: KpiQuestSubViewDelegate?
+    var kpi: Job.Kpi!
     var kpiResult: JobResult.KpiResult!
-    var valuations: [Job.Kpi.Valuations]!
-    
-    func initialize (kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
-        self.kpiResult = kpiResult
-        self.valuations = valuations
+
+    func initialize (kpiIndex: Int) {
+        self.kpi = MYJob.shared.job.kpis[kpiIndex]
+        self.kpiResult = MYJob.shared.jobResult.results[kpiIndex]
         self.delegate?.subViewResized(newHeight: 1)
     }
-    
+
     func getValuation () -> KpiResponseValues {
         return KpiResponseValues()
     }

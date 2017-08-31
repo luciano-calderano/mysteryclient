@@ -11,7 +11,8 @@
 import Foundation
 
 struct Config {
-    static let url = "http://mysteryclient.mebius.it/default/"
+    static let homePage = "http://mysteryclient.mebius.it/"
+    static let apiUrl = Config.homePage + "default/"
     static let mapUrl = "http://maps.apple.com/?"
     static let filePrefix = "id_"
     static let doc = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/"

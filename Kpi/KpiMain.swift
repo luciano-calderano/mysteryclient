@@ -156,11 +156,6 @@ class KpiMain: MYViewController {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    func imageSelected (_ image: UIImage) {
-        let vc = self.kpiNavi.viewControllers.last as! KpiQuest
-        vc.attachmentImage = image
-    }
-    
 //MARK - Image picker
     
     private let picker = UIImagePickerController()
@@ -187,6 +182,11 @@ class KpiMain: MYViewController {
             alert.addAction(ok)
             self.present(alert, animated: true, completion: nil)
         }
+    }
+
+    func imageSelected (_ image: UIImage) {
+        let vc = self.kpiNavi.viewControllers.last as! KpiQuest
+        vc.attachmentImage = image
     }
 }
 

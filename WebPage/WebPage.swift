@@ -32,8 +32,7 @@ class WebPage: MYViewController, UIWebViewDelegate {
         let sb = UIStoryboard.init(name: "WebPage", bundle: nil)
         let vc = sb.instantiateViewController(withIdentifier: vcName) as! WebPage
         if type != .none {
-            let homepage = "http://mysteryclient.mebius.it/"
-            var page = homepage + type.rawValue
+            var page = Config.homePage + type.rawValue
             if id > 0 {
                 page += String(id)
             }

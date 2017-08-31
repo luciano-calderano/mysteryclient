@@ -42,6 +42,13 @@ class MYJob {
         do {
             let files = try fm.contentsOfDirectory(atPath: self.jobsPath)
             for file in files {
+                let array = file.components(separatedBy: ".")
+                if array.count != 2 {
+                    continue
+                }
+                if array[1] != "plist" {
+                    continue
+                }
                 let dict = JsonDict.init(fromFile: self.jobsPath + "/" + file)
                 jobs.append(dict)
             }

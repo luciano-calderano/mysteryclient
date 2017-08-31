@@ -20,17 +20,18 @@ class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+//        self.kpi = Job.Kpi()
         SubRadioCell.register(tableView: self.tableView)
     }
     
-    override func initialize(kpiResult: JobResult.KpiResult, valuations: [Job.Kpi.Valuations]) {
-        super.initialize(kpiResult: kpiResult, valuations: valuations)
+    override func initialize(kpiIndex: Int) {
+        super.initialize(kpiIndex: kpiIndex)
         self.tableView.layer.borderColor = UIColor.lightGray.cgColor
         self.tableView.layer.borderWidth = 1
         
         if self.kpiResult.value.isEmpty == false {
             let index = Int(self.kpiResult.value)
-            for item in self.valuations {
+            for item in self.kpi.valuations {
                 if item.id == index {
                     self.valuationSelected = item
                     break
@@ -41,7 +42,7 @@ class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
         self.tableView.reloadData()
 
         var rect = self.frame
-        rect.size.height = self.rowHeight * CGFloat(self.valuations.count)
+        rect.size.height = self.rowHeight * CGFloat(self.kpi.valuations.count)
         self.frame = rect
         self.delegate?.subViewResized(newHeight: rect.size.height)
     }
@@ -54,7 +55,7 @@ class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
             
             if item.dependencies.count > 0 {
                 response.nextKpi = (item.dependencies.first?.key)!
-                response.valuations = self.valuations
+                response.valuations = self.kpi.valuations
             }
         }
         return response
@@ -67,7 +68,7 @@ class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.valuations.count
+        return self.kpi.valuations.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -76,7 +77,7 @@ class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SubRadioCell.dequeue(tableView, indexPath)
-        let item = self.valuations[indexPath.row]
+        let item = self.kpi.valuations[indexPath.row]
         cell.valuationTitle.text = item.name
         
         let selected = (self.valuationSelected != nil && self.valuationSelected?.id == item.id)
@@ -88,7 +89,7 @@ class SubRadio: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.valuationSelected = self.valuations[indexPath.row]
+        self.valuationSelected = self.kpi.valuations[indexPath.row]
         self.tableView.reloadData()
     }
 }

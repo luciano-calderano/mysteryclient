@@ -33,7 +33,7 @@ class KpiQuest: KpiViewController {
     @IBOutlet var subViewHeight: NSLayoutConstraint!
     @IBOutlet var kpiNote: UITextView!
 
-    private var kpi: Job.Kpi!
+//    private var kpi: Job.Kpi!
 //    private var kpiResult: JobResult.KpiResult!
     
     var valueMandatoty = true
@@ -48,62 +48,21 @@ class KpiQuest: KpiViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let kpiQuest = MYJob.shared.job.kpis[self.kpiIndex]
+        let borderColor = kpiQuest.note_required ? UIColor.red : UIColor.myGreenDark
         
         self.kpiNote.delegate = self
-        self.kpiNote.layer.borderColor = UIColor.lightGray.cgColor
         self.kpiNote.layer.borderWidth = 1
+        self.kpiNote.layer.borderColor = borderColor.cgColor
+        self.kpiTitle.text = kpiQuest.factor
+        self.kpiQuestion.text = kpiQuest.standard
+        self.kpiInstructions.text = kpiQuest.instructions
+        self.kpiAtchBtn.isHidden = !kpiQuest.attachment && !kpiQuest.attachment_required
         
-        self.kpiTitle.text = self.kpi.factor
-        self.kpiQuestion.text = self.kpi.standard
-        self.kpiInstructions.text = self.kpi.instructions
-        
-        self.kpiNote.layer.borderColor = (self.kpi.note_required ? UIColor.red : UIColor.myGreenDark).cgColor
-        self.kpiAtchBtn.isHidden = !self.kpi.attachment && !self.kpi.attachment_required
+        self.updateFromResultAtIndex(self.kpiIndex)
+        self.addQuestSubview(type: kpiQuest.type)
 
-        
-        let kpiResult = MYJob.shared.jobResult.results[self.kpiIndex]
-        self.kpiNote.text = kpiResult.notes
-        if kpiResult.attachment.isEmpty == false {
-            self.fileName = self.path + kpiResult.attachment
-            let imageURL = URL(fileURLWithPath: self.fileName)
-            let image    = UIImage(contentsOfFile: imageURL.path)
-            self.attachmentImage = image
-        }
-        self.showAtch()
-        
-        self.valueMandatoty = true
-        self.subViewHeight.constant = 1
-        switch self.kpi.type {
-        case "radio", "select" :
-            self.kpiQuestSubView = SubRadio.Instance()
-        case "text" :
-            self.kpiQuestSubView = SubText.Instance()
-        case "date" :
-            self.kpiQuestSubView = SubDatePicker.Instance(type: .date)
-            break
-        case "time" :
-            self.kpiQuestSubView = SubDatePicker.Instance(type: .time)
-            break
-        case "datetime" :
-            self.kpiQuestSubView = SubDatePicker.Instance(type: .datetime)
-            break
-        case "label", "geophoto" :
-            self.kpiQuestSubView = SubLabel.Instance()
-            self.valueMandatoty = false
-            break
-        case "multicheckbox" :
-            self.kpiQuestSubView = SubCheckBox.Instance()
-            break
-        default:
-            self.valueMandatoty = false
-            self.kpiQuestSubView = KpiQuestSubView()
-        }
-        self.subView.addSubviewWithConstraints(self.kpiQuestSubView)
-        
-        self.kpiQuestSubView.delegate = self
-        self.kpiQuestSubView.initialize(kpiResult: kpiResult,
-                                       valuations: self.kpi.valuations)
-        
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.atchRemove))
         self.atchView.addGestureRecognizer(tap)
         self.atchView.isUserInteractionEnabled = true
@@ -123,11 +82,13 @@ class KpiQuest: KpiViewController {
     }
     
     override func checkData() -> KpiResultType {
-        var noteRequired = self.kpi.note_required
-        var atchRequired = self.kpi.attachment_required
+        let kpiQuest = MYJob.shared.job.kpis[self.kpiIndex]
+
+        var noteRequired = kpiQuest.note_required
+        var atchRequired = kpiQuest.attachment_required
         let result = self.kpiQuestSubView.getValuation()
         
-        if self.kpi.required == true {
+        if kpiQuest.required == true {
             if result.value.isEmpty && self.valueMandatoty == true { // kpi.type.isEmpty == false {
                 return .errValue
             }
@@ -148,12 +109,12 @@ class KpiQuest: KpiViewController {
         }
         
         let kpiResult = MYJob.shared.jobResult.results[self.kpiIndex]
+        kpiResult.kpi_id = kpiQuest.id
         kpiResult.value = result.value
-        kpiResult.kpi_id = self.kpi.id
         kpiResult.notes = self.kpiNote.text
+        kpiResult.attachment = self.atchName.text!
         MYJob.shared.jobResult.results[self.kpiIndex] = kpiResult
 
-        
         if result.valuations != nil {
             self.fixDependencies(result: result)
         }
@@ -196,11 +157,13 @@ class KpiQuest: KpiViewController {
             kpiResult.attachment = ""
         }
         else {
+            let kpiQuest = MYJob.shared.job.kpis[self.kpiIndex]
+
             self.atchView.isHidden = false
             self.atchImage.image = self.attachmentImage
             if kpiResult.attachment.isEmpty {
-                kpiResult.attachment = "\(MYJob.shared.job.reference).\(self.kpi.id).jpg"
-//                    String(MYJob.shared.job.reference) + "." + String(self.kpi.id) + ".jpg"
+                kpiResult.attachment = "\(MYJob.shared.job.reference).\(kpiQuest.id).jpg"
+//                    String(MYJob.shared.job.reference) + "." + String(kpiQuest.id) + ".jpg"
                 self.fileName = self.path + kpiResult.attachment
                 
                 if let data = UIImageJPEGRepresentation(self.attachmentImage!, 0.7) {
@@ -231,6 +194,48 @@ class KpiQuest: KpiViewController {
     
     @IBAction func atchButtonTapped () {
         self.delegate?.atchButtonTapped()
+    }
+    
+    //MARK: - Private
+    
+    private func updateFromResultAtIndex(_ index: Int) {
+        let kpiResult = MYJob.shared.jobResult.results[self.kpiIndex]
+        self.kpiNote.text = kpiResult.notes
+        if kpiResult.attachment.isEmpty == false {
+            self.fileName = self.path + kpiResult.attachment
+            let imageURL = URL(fileURLWithPath: self.fileName)
+            let image    = UIImage(contentsOfFile: imageURL.path)
+            self.attachmentImage = image
+        }
+        self.showAtch()
+    }
+
+    private func addQuestSubview (type: String) {
+        self.valueMandatoty = true
+        self.subViewHeight.constant = 1
+        switch type {
+        case "radio", "select" :
+            self.kpiQuestSubView = SubRadio.Instance()
+        case "text" :
+            self.kpiQuestSubView = SubText.Instance()
+        case "date" :
+            self.kpiQuestSubView = SubDatePicker.Instance(type: .date)
+        case "time" :
+            self.kpiQuestSubView = SubDatePicker.Instance(type: .time)
+        case "datetime" :
+            self.kpiQuestSubView = SubDatePicker.Instance(type: .datetime)
+        case "label", "geophoto" :
+            self.kpiQuestSubView = SubLabel.Instance()
+            self.valueMandatoty = false
+        case "multicheckbox" :
+            self.kpiQuestSubView = SubCheckBox.Instance()
+        default:
+            self.valueMandatoty = false
+            self.kpiQuestSubView = KpiQuestSubView()
+        }
+        self.subView.addSubviewWithConstraints(self.kpiQuestSubView)
+        self.kpiQuestSubView.delegate = self
+        self.kpiQuestSubView.initialize(kpiIndex: self.kpiIndex)
     }
 }
 

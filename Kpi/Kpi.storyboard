@@ -330,7 +330,7 @@
                         <outlet property="content" destination="5GH-vV-2b7" id="vRY-zi-5Ai"/>
                         <outlet property="contentH" destination="MMz-SP-9n1" id="zhV-4i-aX5"/>
                         <outlet property="kpiAtchBtn" destination="Olf-i1-eYo" id="El6-IB-Qhz"/>
-                        <outlet property="kpiInstructions" destination="AeI-VW-eoi" id="GUL-V4-Kd4"/>
+                        <outlet property="kpiInstructions" destination="AeI-VW-eoi" id="vZ8-77-oJ8"/>
                         <outlet property="kpiNote" destination="nYp-Ad-Xz9" id="glZ-Wr-CmG"/>
                         <outlet property="kpiQuestion" destination="yk0-Dt-Anf" id="xIw-H2-Vp6"/>
                         <outlet property="kpiTitle" destination="PQE-5f-1JZ" id="MOh-sg-ubv"/>
