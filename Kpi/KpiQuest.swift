@@ -26,6 +26,10 @@ class KpiQuest: KpiViewController {
 
     @IBOutlet var scroll: UIScrollView!
     @IBOutlet var subViewHeight: NSLayoutConstraint!
+
+    @IBOutlet private var hasAttch: UIImageView!
+    @IBOutlet private var hasNotes: UIImageView!
+
     @IBOutlet var kpiNote: UITextView!
 
     var valueMandatoty = true
@@ -51,6 +55,9 @@ class KpiQuest: KpiViewController {
         self.kpiQuestion.text = kpiQuest.standard
         self.kpiInstructions.text = kpiQuest.instructions
         self.kpiAtchBtn.isHidden = !kpiQuest.attachment && !kpiQuest.attachment_required
+        
+        self.hasNotes.isHidden = !kpiQuest.note_required
+        self.hasAttch.isHidden = !kpiQuest.attachment_required
         
         self.updateFromResultAtIndex(self.kpiIndex)
         self.addQuestSubview(type: kpiQuest.type)
@@ -125,6 +132,7 @@ class KpiQuest: KpiViewController {
             for dep in val.dependencies {
                 let index = MYJob.shared.kpiKeys[dep.key]!
                 let kpi = MYJob.shared.job.kpis[index]
+                
                 let kpiResult = MYJob.shared.jobResult.results[index]
                 kpiResult.kpi_id = kpi.id
                 kpiResult.value = ""
@@ -148,6 +156,7 @@ class KpiQuest: KpiViewController {
             for dep in val.dependencies {
                 let index = MYJob.shared.kpiKeys[dep.key]!
                 let kpi = MYJob.shared.job.kpis[index]
+                
                 let kpiResult = MYJob.shared.jobResult.results[index]
                 kpiResult.kpi_id = kpi.id
                 kpiResult.value = dep.value

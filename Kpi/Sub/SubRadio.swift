@@ -38,6 +38,7 @@ class SubRadio: KpiQuestSubView {
             }
         }
         
+        
         self.tableView.reloadData()
         
         var rect = self.frame
@@ -51,6 +52,8 @@ class SubRadio: KpiQuestSubView {
         if self.valuationSelected != nil {
             let item = self.valuationSelected!
             response.value = String(item.id)
+            response.notesReq = item.note_required
+            response.attchReq = item.attachment_required
             
             if item.dependencies.count > 0 {
                 response.valuations = self.kpi.valuations
