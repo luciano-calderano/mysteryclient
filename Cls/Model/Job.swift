@@ -405,7 +405,7 @@ class Job {
         var instructions = ""
         // Optional. Additional instruction to fill in the job. Must be show after the question only if present.
         
-        var valuations = [Valuations]()
+        var valuations = [Valuation]()
         // Optional. Array of Valuation type objects. Contains the possible answers the user can choose. The display of the answer depends from the Kpi Type.
         
         var result = Result()
@@ -428,7 +428,7 @@ class Job {
             // Optional. Url to call to download the file. The call is already completed and does not require any modification. It should not be shown to the user.
         }
         
-        class Valuations {
+        class Valuation {
             var id = 0
             // Mandatory. Valuation ID. It should not be shown to the user.
             

@@ -36,10 +36,9 @@ class KpiViewController: UIViewController {
 
 struct KpiResponseValues {
     var value = ""
-    var notes = false
-    var attch = false
-    var nextKpi = 0
-    var valuations:[Job.Kpi.Valuations]?
+    var notesReq = false
+    var attchReq = false
+    var valuations:[Job.Kpi.Valuation]?
 }
 
 class KpiQuestSubView: UIView {

@@ -16,7 +16,7 @@ class SubRadio: KpiQuestSubView {
     
     @IBOutlet var tableView: UITableView!
     let rowHeight:CGFloat = 50
-    var valuationSelected: Job.Kpi.Valuations?
+    var valuationSelected: Job.Kpi.Valuation?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -53,7 +53,6 @@ class SubRadio: KpiQuestSubView {
             response.value = String(item.id)
             
             if item.dependencies.count > 0 {
-                response.nextKpi = (item.dependencies.first?.key)!
                 response.valuations = self.kpi.valuations
             }
         }

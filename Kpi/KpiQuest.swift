@@ -92,11 +92,11 @@ class KpiQuest: KpiViewController {
             if result.value.isEmpty && self.valueMandatoty == true { // kpi.type.isEmpty == false {
                 return .errValue
             }
-            if result.notes == true {
-                noteRequired = result.notes
+            if result.notesReq == true {
+                noteRequired = result.notesReq
             }
-            if result.attch == true {
-                atchRequired = result.attch
+            if result.attchReq == true {
+                atchRequired = result.attchReq
             }
         }
         

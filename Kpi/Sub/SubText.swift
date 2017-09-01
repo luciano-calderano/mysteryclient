@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubText: KpiQuestSubView, UITextFieldDelegate {
+class SubText: KpiQuestSubView {
     class func Instance() -> SubText {
         let id = String (describing: self)
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubText
@@ -32,6 +32,11 @@ class SubText: KpiQuestSubView, UITextFieldDelegate {
         response.value = self.kpiText.text!
         return response
     }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension SubText: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
     }
@@ -41,5 +46,3 @@ class SubText: KpiQuestSubView, UITextFieldDelegate {
         return true
     }
 }
-
-

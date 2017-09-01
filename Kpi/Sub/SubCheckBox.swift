@@ -8,31 +8,34 @@
 
 import UIKit
 
-class SubCheckBox: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
+class SubCheckBox: KpiQuestSubView {
     class func Instance() -> SubCheckBox {
         let id = String (describing: self)
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubCheckBox
     }
+    private let separator = ","
     
-    @IBOutlet private var tableView: UITableView!
-    private let rowHeight:CGFloat = 50
-    private var selectedId = [String]()
+    @IBOutlet var tableView: UITableView!
+    let rowHeight:CGFloat = 50
+    var selectedId = [String]()
+    
+    // MARK:-
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.layer.borderColor = UIColor.lightGray.cgColor
+        self.tableView.layer.borderWidth = 1
         self.addSubviewWithConstraints(self.tableView)
         SubCheckBoxCell.register(tableView: self.tableView)
     }
     
     override func initialize(kpiIndex: Int) {
         super.initialize(kpiIndex: kpiIndex)
-        self.tableView.layer.borderColor = UIColor.lightGray.cgColor
-        self.tableView.layer.borderWidth = 1
         
         if self.kpiResult.value.isEmpty == false {
-            let itemsId = self.kpiResult.value.components(separatedBy: ",")
+            let itemsId = self.kpiResult.value.components(separatedBy: self.separator)
             for item in self.kpi.valuations {
                 let id = String(item.id)
                 if itemsId.contains(id) {
@@ -56,23 +59,25 @@ class SubCheckBox: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
                 let id = String(item.id)
                 if self.selectedId.contains(id) {
                     if response.value.isEmpty == false {
-                        response.value += ","
+                        response.value += self.separator
                     }
                     response.value += String(item.id)
                     if item.note_required == true {
-                        response.notes = item.note_required
+                        response.notesReq = item.note_required
                     }
                     if item.attachment_required == true {
-                        response.attch = item.attachment_required
+                        response.attchReq = item.attachment_required
                     }
                 }
             }
         }
         return response
     }
-    
-    // MARK: - table view
-    
+}
+
+//MARK:- UITableViewDataSource
+
+extension SubCheckBox: UITableViewDataSource {
     func maxItemOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -90,14 +95,18 @@ class SubCheckBox: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
         let item = self.kpi.valuations[indexPath.row]
         let id = String(item.id)
         let selected = self.selectedId.contains(id)
-
+        
         cell.valuationTitle.text = item.name
         cell.icoCheck.isHidden = !selected
         cell.icoNote.isHidden = item.note_required == false
         cell.icoAtch.isHidden = item.attachment_required == false
         return cell
     }
-    
+}
+
+//MARK:- UITableViewDelegate
+
+extension SubCheckBox: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = self.kpi.valuations[indexPath.row]
@@ -113,7 +122,7 @@ class SubCheckBox: KpiQuestSubView, UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: -
+//MARK:- SubCheckBoxCell
 
 class SubCheckBoxCell: UITableViewCell {
     class func register (tableView: UITableView) {
@@ -144,5 +153,3 @@ class SubCheckBoxCell: UITableViewCell {
         self.selectView.layer.borderColor = UIColor.lightGray.cgColor
     }
 }
-
-
