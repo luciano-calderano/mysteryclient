@@ -24,7 +24,7 @@ class SubText: KpiQuestSubView {
     override func initialize(kpiIndex: Int) {
         super.initialize(kpiIndex: kpiIndex)
         self.kpiText.text = kpiResult.value
-        self.delegate?.subViewResized(newHeight: self.frame.size.height)
+        self.delegate?.kpiQuestSubViewNewHeight(self.frame.size.height)
     }
     
     override func getValuation () -> KpiResponseValues {

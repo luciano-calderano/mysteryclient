@@ -14,6 +14,9 @@ class MYJob {
 
     var job = Job()
     var jobResult = JobResult()
+    var invalidDependecies = [String]()
+    var kpiKeys = [Int: Int]()
+    
 //    var kpiResult = JobResult.KpiResult()
 
     private let jobsPath = Config.doc + "jobs"

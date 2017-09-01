@@ -20,50 +20,6 @@ class Maps {
     }
 }
 
-//MARK: - UITableViewDataSource
-extension JobsHome: UITableViewDataSource {
-    func maxItemOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = JobsHomeCell.dequeue(tableView, indexPath)
-        cell.delegate = self
-        cell.item(item: self.dataArray[indexPath.row] as! Job)
-        return cell
-    }
-}
-
-//MARK: - UITableViewDelegate
-extension JobsHome: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        MYJob.shared.job = self.dataArray[indexPath.row] as! Job
-        MYResult.shared.loadResult (jobId: MYJob.shared.job.id)
-        
-        let vc = JobDetail.Instance()
-        self.navigationController?.show(vc, sender: self)
-    }
-}
-
-//MARK: - JobsHomeCellDelegate
-extension JobsHome: JobsHomeCellDelegate {
-    func mapTapped(_ sender: JobsHomeCell, job: Job) {
-        if job.store.latitude == 0 || job.store.longitude == 0 {
-            return
-        }
-        _ = Maps(job: job)
-    }
-}
-
 class JobsHome: MYViewController {
     @IBOutlet private var tableView: UITableView!
     
@@ -246,3 +202,48 @@ class JobsHome: MYViewController {
         }
     }
 }
+
+//MARK: - UITableViewDataSource
+extension JobsHome: UITableViewDataSource {
+    func maxItemOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.dataArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = JobsHomeCell.dequeue(tableView, indexPath)
+        cell.delegate = self
+        cell.item(item: self.dataArray[indexPath.row] as! Job)
+        return cell
+    }
+}
+
+//MARK: - UITableViewDelegate
+extension JobsHome: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        MYJob.shared.job = self.dataArray[indexPath.row] as! Job
+        MYResult.shared.loadResult (jobId: MYJob.shared.job.id)
+        
+        let vc = JobDetail.Instance()
+        self.navigationController?.show(vc, sender: self)
+    }
+}
+
+//MARK: - JobsHomeCellDelegate
+extension JobsHome: JobsHomeCellDelegate {
+    func mapTapped(_ sender: JobsHomeCell, job: Job) {
+        if job.store.latitude == 0 || job.store.longitude == 0 {
+            return
+        }
+        _ = Maps(job: job)
+    }
+}
+

@@ -41,7 +41,7 @@ class SubDatePicker: KpiQuestSubView, UIPickerViewDelegate {
     override func initialize(kpiIndex: Int) {
         super.initialize(kpiIndex: kpiIndex)
         self.kpiPicker.date = kpiResult.value.isEmpty ? Date() :  kpiResult.value.toDate(withFormat: Date.fmtDataOraJson)
-        self.delegate?.subViewResized(newHeight: self.frame.size.height)
+        self.delegate?.kpiQuestSubViewNewHeight(self.frame.size.height)
     }
     
     override func getValuation () -> KpiResponseValues {

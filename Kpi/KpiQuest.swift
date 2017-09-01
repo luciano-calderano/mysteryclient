@@ -9,11 +9,6 @@
 import UIKit
 
 class KpiQuest: KpiViewController {
-//    override class func Instance() -> KpiQuest {
-//        let vc = self.load(storyboardName: "Kpi") as! KpiQuest
-//        return vc
-//    }
-//
     @IBOutlet private var content: UIView!
     @IBOutlet private var contentH: NSLayoutConstraint!
     
@@ -33,9 +28,6 @@ class KpiQuest: KpiViewController {
     @IBOutlet var subViewHeight: NSLayoutConstraint!
     @IBOutlet var kpiNote: UITextView!
 
-//    private var kpi: Job.Kpi!
-//    private var kpiResult: JobResult.KpiResult!
-    
     var valueMandatoty = true
     var attachmentImage: UIImage? {
         didSet { self.showAtch() }
@@ -109,6 +101,7 @@ class KpiQuest: KpiViewController {
         }
         
         let kpiResult = MYJob.shared.jobResult.results[self.kpiIndex]
+        let originaValue = kpiResult.value
         kpiResult.kpi_id = kpiQuest.id
         kpiResult.value = result.value
         kpiResult.notes = self.kpiNote.text
@@ -116,6 +109,9 @@ class KpiQuest: KpiViewController {
         MYJob.shared.jobResult.results[self.kpiIndex] = kpiResult
 
         if result.valuations != nil {
+            if originaValue != result.value {
+                self.resetDependencies(result: result)
+            }
             self.fixDependencies(result: result)
         }
 
@@ -124,6 +120,25 @@ class KpiQuest: KpiViewController {
         self.view.endEditing(true)
         return .next
     }
+    private func resetDependencies (result: KpiResponseValues) {
+        for val in result.valuations! {
+            for dep in val.dependencies {
+                let index = MYJob.shared.kpiKeys[dep.key]!
+                let kpi = MYJob.shared.job.kpis[index]
+                let kpiResult = MYJob.shared.jobResult.results[index]
+                kpiResult.kpi_id = kpi.id
+                kpiResult.value = ""
+                kpiResult.notes = ""
+                MYJob.shared.jobResult.results[index] = kpiResult
+                
+                let idx = MYJob.shared.invalidDependecies.index(of: "\(kpi.id)")
+                if (idx != nil) {
+                    MYJob.shared.invalidDependecies.remove(at: idx!)
+                }
+            }
+        }
+        print("reset \(MYJob.shared.invalidDependecies)")
+    }
     
     private func fixDependencies (result: KpiResponseValues) {
         for val in result.valuations! {
@@ -131,21 +146,25 @@ class KpiQuest: KpiViewController {
                 continue
             }
             for dep in val.dependencies {
-                for index in self.kpiIndex...MYJob.shared.job.kpis.count {
-                    let kpi = MYJob.shared.job.kpis[index]
-                    if kpi.id == dep.key {
-                        let kpiResult = MYJob.shared.jobResult.results[index]
-                        kpiResult.kpi_id = kpi.id
-                        kpiResult.value = dep.value
-                        kpiResult.notes = dep.notes
-                        MYJob.shared.jobResult.results[index] = kpiResult
-                        break
-                    }
+                let index = MYJob.shared.kpiKeys[dep.key]!
+                let kpi = MYJob.shared.job.kpis[index]
+                let kpiResult = MYJob.shared.jobResult.results[index]
+                kpiResult.kpi_id = kpi.id
+                kpiResult.value = dep.value
+                kpiResult.notes = dep.notes
+                MYJob.shared.jobResult.results[index] = kpiResult
+                
+                let idx = MYJob.shared.invalidDependecies.index(of: "\(kpi.id)")
+                if (idx == nil) {
+                    MYJob.shared.invalidDependecies.append("\(kpi.id)")
                 }
+                break
             }
         }
+        print("fix \(MYJob.shared.invalidDependecies)")
+
     }
-    
+
     func showAtch () {
         let kpiResult = MYJob.shared.jobResult.results[self.kpiIndex]
         if self.attachmentImage == nil {
@@ -172,16 +191,16 @@ class KpiQuest: KpiViewController {
     }
     
     func atchRemove () {
-        self.alert(Lng("atchRemove"), message: "",
-                   cancelBlock: nil) { (remove) in
-                    do {
-                        try FileManager.default.removeItem(atPath: self.fileName)
-                    }
-                    catch let error as NSError {
-                        print("removeItem atPath: \(error)")
-                    }
-                    self.attachmentImage = nil
-                    self.showAtch()
+        self.alert(Lng("atchRemove"), message: "", cancelBlock: nil) {
+            (remove) in
+            do {
+                try FileManager.default.removeItem(atPath: self.fileName)
+            }
+            catch let error as NSError {
+                print("removeItem atPath: \(error)")
+            }
+            self.attachmentImage = nil
+            self.showAtch()
         }
     }
     
@@ -237,7 +256,7 @@ class KpiQuest: KpiViewController {
 
 //MARK: - page subview delegate
 extension KpiQuest: KpiQuestSubViewDelegate {
-    func subViewResized (newHeight: CGFloat) {
+    func kpiQuestSubViewNewHeight (_ newHeight: CGFloat) {
         self.subViewHeight.constant = newHeight
     }
 }

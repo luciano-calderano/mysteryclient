@@ -18,7 +18,7 @@ protocol MenuViewDelegate {
     func menuSelectedItem(_ item: MenuItem)
 }
 
-class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
+class MenuView: UIView {
     class func Instance() -> MenuView {
         let id = String (describing: self)
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! MenuView
@@ -29,11 +29,10 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var backView: UIView!
     
+    var dataArray = [MenuItem]()
     var currentItem = MenuItemEnum._none
+    let cellId = "MenuCell"
     
-    private var dataArray = [MenuItem]()
-    private let cellId = "MenuCell"
-
     override func awakeFromNib() {
         super.awakeFromNib()
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.cellId)
@@ -64,10 +63,6 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
         return item
     }
 
-//    func loadData(items: [MenuItem]) {
-//        self.dataArray = items
-//    }
-//    
     func swipped () {
         self.menuHide()
         self.delegate?.menuVisible(false)
@@ -91,10 +86,11 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
             self.frame = rect
         }
     }
-    
-    
-    // MARK: table view
-    
+}
+
+// MARK:- UITableViewDataSource
+
+extension MenuView: UITableViewDataSource {
     func maxItemOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -107,7 +103,7 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
         return 45
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellId,
                                                  for: indexPath) as UITableViewCell
         let item = self.dataArray[indexPath.row]
@@ -118,15 +114,18 @@ class MenuView: UIView, UITableViewDelegate, UITableViewDataSource {
             cell.backgroundColor = UIColor.lightGray
         }
         else {
-            cell.backgroundColor = UIColor.white            
+            cell.backgroundColor = UIColor.white
         }
         return cell
     }
-    
+}
+
+// MARK:- UITableViewDelegate
+
+extension MenuView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = self.dataArray[indexPath.row]
         self.delegate?.menuSelectedItem(item)
     }
 }
-

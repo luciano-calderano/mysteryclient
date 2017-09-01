@@ -15,7 +15,7 @@ protocol KpiViewControllerDelegate {
 }
 
 protocol KpiQuestSubViewDelegate {
-    func subViewResized (newHeight: CGFloat)
+    func kpiQuestSubViewNewHeight (_ newHeight: CGFloat)
 }
 
 class KpiViewController: UIViewController {
@@ -32,7 +32,7 @@ class KpiViewController: UIViewController {
     }
 }
 
-//MARK: -
+//MARK:-
 
 struct KpiResponseValues {
     var value = ""
@@ -49,7 +49,7 @@ class KpiQuestSubView: UIView {
     func initialize (kpiIndex: Int) {
         self.kpi = MYJob.shared.job.kpis[kpiIndex]
         self.kpiResult = MYJob.shared.jobResult.results[kpiIndex]
-        self.delegate?.subViewResized(newHeight: 1)
+        self.delegate?.kpiQuestSubViewNewHeight(1)
     }
 
     func getValuation () -> KpiResponseValues {

@@ -10,7 +10,7 @@ import UIKit
 
 typealias JsonDict = Dictionary<String, Any>
 
-class Login: MYViewController, UITextFieldDelegate {
+class Login: MYViewController {
     class func Instance() -> Login {
         let vc = self.load(storyboardName: "Main") as! Login
         return vc
@@ -28,6 +28,8 @@ class Login: MYViewController, UITextFieldDelegate {
     var saveCred = false
 
     private var myWheel: MYWheel?
+    
+    //MARK:-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,12 +76,8 @@ class Login: MYViewController, UITextFieldDelegate {
         self.updateCheckCredential()
     }
 
-    @IBAction func credRecoverTapped () {
-        
+    @IBAction func credRecoverTapped () {        
         let ctrl = WebPage.Instance(type: .recover)
-//
-//        let sb = UIStoryboard.init(name: "Recover", bundle: nil)
-//        let ctrl = sb.instantiateInitialViewController()
         self.navigationController?.show(ctrl, sender: self)
     }
     
@@ -120,9 +118,11 @@ class Login: MYViewController, UITextFieldDelegate {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
         self.navigationController?.show(vc!, sender: self)
     }
-    
-    //MARK: - text field delegate
-    
+}
+
+//MARK:- UITextFieldDelegate
+
+extension Login: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.userText {
             self.passText.becomeFirstResponder()

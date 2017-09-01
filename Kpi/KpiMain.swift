@@ -62,6 +62,11 @@ class KpiMain: MYViewController {
             }
             MYResult.shared.saveResult()
         }
+        var i = 0
+        for kpi in MYJob.shared.job.kpis {
+            MYJob.shared.kpiKeys[kpi.id] = i
+            i += 1
+        }
         
         self.headerTitle = MYJob.shared.job.store.name
         
@@ -118,7 +123,6 @@ class KpiMain: MYViewController {
             self.kpiNavi.popViewController(animated: true)
             let vc = self.kpiNavi.viewControllers.last as! KpiViewController
             self.currentIndex = vc.kpiIndex
-//            self.showPageNum()
         }
     }
     
@@ -127,16 +131,18 @@ class KpiMain: MYViewController {
     private func showPageNum() {
         self.header?.header.kpiLabel.isHidden = false
         self.header?.header.kpiLabel.text = "\(self.currentIndex + 2)/\(MYJob.shared.job.kpis.count + 2)"
-
     }
     
     private func nextKpi () {
         self.currentIndex += 1
         var vc: KpiViewController
         if self.currentIndex < MYJob.shared.job.kpis.count {
-            let kpiResult = MYJob.shared.jobResult.results[self.currentIndex]
-            if kpiResult.value == "3" {
-                self.nextKpi()
+            let kpi = MYJob.shared.job.kpis[self.currentIndex]
+            let idx = MYJob.shared.invalidDependecies.index(of: "\(kpi.id)")
+            if (idx != nil) {
+//            let kpiResult = MYJob.shared.jobResult.results[self.currentIndex]
+//            if kpiResult.value == Config.nonPrevisto {
+                        self.nextKpi()
                 return
             }
             vc = KpiQuest.Instance()
@@ -149,8 +155,6 @@ class KpiMain: MYViewController {
         }
         vc.delegate = self
         self.kpiNavi.pushViewController(vc, animated: true)
-//        self.showPageNum()
-
     }
 
     private func sendKpiResult () {
@@ -205,6 +209,8 @@ class KpiMain: MYViewController {
     }
 }
 
+//MARK:- KpiViewControllerDelegate
+
 extension KpiMain: KpiViewControllerDelegate {
     //MARK: - mykeyboard function
     func endEditing() {
@@ -235,6 +241,8 @@ extension KpiMain: KpiViewControllerDelegate {
         self.present(alert, animated: true) { }
     }
 }
+
+//MARK:- UIImagePickerControllerDelegate, UINavigationControllerDelegate
 
 extension KpiMain: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

@@ -43,7 +43,7 @@ class SubRadio: KpiQuestSubView {
         var rect = self.frame
         rect.size.height = self.rowHeight * CGFloat(self.kpi.valuations.count)
         self.frame = rect
-        self.delegate?.subViewResized(newHeight: rect.size.height)
+        self.delegate?.kpiQuestSubViewNewHeight(rect.size.height)
     }
     
     override func getValuation () -> KpiResponseValues {
