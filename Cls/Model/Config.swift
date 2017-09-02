@@ -19,5 +19,7 @@ struct Config {
     static let nonPrevisto = "3"
 
     static let doc = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/"
+    static let jobsPath = Config.doc + "jobs"
+
     static let maxPicSize = 1200
 }

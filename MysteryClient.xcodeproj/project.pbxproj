@@ -35,6 +35,10 @@
 		0484D3401F13AF1900E9FB11 /* KpiLast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0484D33F1F13AF1900E9FB11 /* KpiLast.swift */; };
 		048837FD1F14E209002A2CF4 /* SubDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048837FC1F14E209002A2CF4 /* SubDatePicker.swift */; };
 		048837FF1F14E219002A2CF4 /* SubDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048837FE1F14E219002A2CF4 /* SubDatePicker.xib */; };
+		048C44811F5B10DB00E836C0 /* MYResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048C44801F5B10DB00E836C0 /* MYResult.swift */; };
+		048C44831F5B161C00E836C0 /* MYMaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048C44821F5B161C00E836C0 /* MYMaps.swift */; };
+		048C44851F5B167400E836C0 /* JobStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048C44841F5B167400E836C0 /* JobStruct.swift */; };
+		048C44871F5B183D00E836C0 /* ResultStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048C44861F5B183D00E836C0 /* ResultStruct.swift */; };
 		049489461F0A556100A40122 /* Ext.UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049489451F0A556100A40122 /* Ext.UIView.swift */; };
 		04A210981F03A81900D1480C /* JobDetailDesc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A210971F03A81900D1480C /* JobDetailDesc.xib */; };
 		04A2109A1F03A82A00D1480C /* JobDetailDesc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A210991F03A82A00D1480C /* JobDetailDesc.swift */; };
@@ -61,7 +65,7 @@
 		04EA388A1F5572C000D557D4 /* SubLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EA38891F5572C000D557D4 /* SubLabel.xib */; };
 		04EA388C1F5572D100D557D4 /* SubLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA388B1F5572D100D557D4 /* SubLabel.swift */; };
 		04FC171B1F010FF300226F1A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC171A1F010FF300226F1A /* Config.swift */; };
-		04FC17221F011CA600226F1A /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC17211F011CA600226F1A /* Job.swift */; };
+		04FC17221F011CA600226F1A /* MYJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC17211F011CA600226F1A /* MYJob.swift */; };
 		04FC17261F01330000226F1A /* WebPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04FC17241F01330000226F1A /* WebPage.storyboard */; };
 		04FC17271F01330000226F1A /* WebPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC17251F01330000226F1A /* WebPage.swift */; };
 		04FC17291F0145BC00226F1A /* ItemEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC17281F0145BC00226F1A /* ItemEnum.swift */; };
@@ -101,6 +105,10 @@
 		0484D33F1F13AF1900E9FB11 /* KpiLast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KpiLast.swift; path = Kpi/KpiLast.swift; sourceTree = "<group>"; };
 		048837FC1F14E209002A2CF4 /* SubDatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubDatePicker.swift; path = Kpi/Sub/SubDatePicker.swift; sourceTree = "<group>"; };
 		048837FE1F14E219002A2CF4 /* SubDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubDatePicker.xib; path = Kpi/Sub/SubDatePicker.xib; sourceTree = "<group>"; };
+		048C44801F5B10DB00E836C0 /* MYResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MYResult.swift; path = Model/MYResult.swift; sourceTree = "<group>"; };
+		048C44821F5B161C00E836C0 /* MYMaps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYMaps.swift; sourceTree = "<group>"; };
+		048C44841F5B167400E836C0 /* JobStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JobStruct.swift; path = Model/JobStruct.swift; sourceTree = "<group>"; };
+		048C44861F5B183D00E836C0 /* ResultStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResultStruct.swift; path = Model/ResultStruct.swift; sourceTree = "<group>"; };
 		049489451F0A556100A40122 /* Ext.UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.UIView.swift; sourceTree = "<group>"; };
 		04A210971F03A81900D1480C /* JobDetailDesc.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JobDetailDesc.xib; path = Detail/JobDetailDesc.xib; sourceTree = "<group>"; };
 		04A210991F03A82A00D1480C /* JobDetailDesc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JobDetailDesc.swift; path = Detail/JobDetailDesc.swift; sourceTree = "<group>"; };
@@ -124,11 +132,11 @@
 		04C910B21EFD2131000D2DB8 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		04D609B91F028BA30030968B /* JobDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetail.swift; sourceTree = "<group>"; };
 		04D609BB1F02A84B0030968B /* Ext.Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.Image.swift; sourceTree = "<group>"; };
-		04D74DB01F5AA8190093EB4B /* MYZip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MYZip.swift; path = Class/MYZip.swift; sourceTree = "<group>"; };
+		04D74DB01F5AA8190093EB4B /* MYZip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYZip.swift; sourceTree = "<group>"; };
 		04EA38891F5572C000D557D4 /* SubLabel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubLabel.xib; path = Kpi/Sub/SubLabel.xib; sourceTree = "<group>"; };
 		04EA388B1F5572D100D557D4 /* SubLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubLabel.swift; path = Kpi/Sub/SubLabel.swift; sourceTree = "<group>"; };
 		04FC171A1F010FF300226F1A /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Model/Config.swift; sourceTree = "<group>"; };
-		04FC17211F011CA600226F1A /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Job.swift; path = Model/Job.swift; sourceTree = "<group>"; };
+		04FC17211F011CA600226F1A /* MYJob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MYJob.swift; path = Model/MYJob.swift; sourceTree = "<group>"; };
 		04FC17241F01330000226F1A /* WebPage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WebPage.storyboard; path = WebPage/WebPage.storyboard; sourceTree = "<group>"; };
 		04FC17251F01330000226F1A /* WebPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebPage.swift; path = WebPage/WebPage.swift; sourceTree = "<group>"; };
 		04FC17281F0145BC00226F1A /* ItemEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemEnum.swift; path = Cls/Model/ItemEnum.swift; sourceTree = SOURCE_ROOT; };
@@ -241,10 +249,12 @@
 		04461A251EFA8558008CD1E2 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				04D74DB01F5AA8190093EB4B /* MYZip.swift */,
 				04B1BAD41F459D3A007A1B64 /* MYHttp.swift */,
 				04461A261EFA8558008CD1E2 /* MYLanguage.swift */,
 				04461A271EFA8558008CD1E2 /* MYWheel.swift */,
 				04A88E7A1F13D33800FBAE54 /* MYKeyboard.swift */,
+				048C44821F5B161C00E836C0 /* MYMaps.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -322,8 +332,10 @@
 				04FC17281F0145BC00226F1A /* ItemEnum.swift */,
 				04FC171A1F010FF300226F1A /* Config.swift */,
 				04BCAD331EFA9DCF00745556 /* User.swift */,
-				04FC17211F011CA600226F1A /* Job.swift */,
-				04D74DB01F5AA8190093EB4B /* MYZip.swift */,
+				04FC17211F011CA600226F1A /* MYJob.swift */,
+				048C44801F5B10DB00E836C0 /* MYResult.swift */,
+				048C44841F5B167400E836C0 /* JobStruct.swift */,
+				048C44861F5B183D00E836C0 /* ResultStruct.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -545,6 +557,7 @@
 				04D74DB11F5AA8190093EB4B /* MYZip.swift in Sources */,
 				0472E2A91EFAC74D001CE358 /* Ext.Dictionary.swift in Sources */,
 				04FCF19C1F0265D50087FBDF /* JobsHome.swift in Sources */,
+				048C44831F5B161C00E836C0 /* MYMaps.swift in Sources */,
 				04A2109D1F03AC3400D1480C /* JobDetailAtch.swift in Sources */,
 				049489461F0A556100A40122 /* Ext.UIView.swift in Sources */,
 				0484D33B1F13A50B00E9FB11 /* KpiStart.swift in Sources */,
@@ -561,8 +574,10 @@
 				04461A291EFA8558008CD1E2 /* MYWheel.swift in Sources */,
 				04461A041EFA66A7008CD1E2 /* MYButton.swift in Sources */,
 				04BCAD341EFA9DCF00745556 /* User.swift in Sources */,
+				048C44811F5B10DB00E836C0 /* MYResult.swift in Sources */,
 				04C910B31EFD2131000D2DB8 /* HeaderView.swift in Sources */,
 				04563F931F0CCA8F00B8BCC6 /* KpiMain.swift in Sources */,
+				048C44851F5B167400E836C0 /* JobStruct.swift in Sources */,
 				04461A241EFA84B9008CD1E2 /* Login.swift in Sources */,
 				0484D33D1F13A8A800E9FB11 /* KpiQuest.swift in Sources */,
 				04BC64121EFD830E00C0912D /* AppDelegate.swift in Sources */,
@@ -570,7 +585,8 @@
 				04EA388C1F5572D100D557D4 /* SubLabel.swift in Sources */,
 				04A2109A1F03A82A00D1480C /* JobDetailDesc.swift in Sources */,
 				04BCAD2D1EFA97B900745556 /* HomeCell.swift in Sources */,
-				04FC17221F011CA600226F1A /* Job.swift in Sources */,
+				04FC17221F011CA600226F1A /* MYJob.swift in Sources */,
+				048C44871F5B183D00E836C0 /* ResultStruct.swift in Sources */,
 				04461A2F1EFA85F7008CD1E2 /* Ext.String.swift in Sources */,
 				04FCF19D1F0265D50087FBDF /* JobsHomeCell.swift in Sources */,
 				04D609BA1F028BA30030968B /* JobDetail.swift in Sources */,

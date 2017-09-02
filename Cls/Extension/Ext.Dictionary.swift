@@ -1,22 +1,8 @@
 
-//        let sortedResults = arr.sorted (by: {
-//            (dictOne:Any, dictTwo:Any) -> Bool in
-//
-//            func eventDate(dict: JsonDict) -> String {
-//                let s = dict.string("Event.event_start")
-//                let date = s.range(iniz: 6, fine: 10) + s.range(iniz: 3, fine: 5) + s.range(iniz: 0, fine: 2)
-//                return date
-//            }
-//            let date1 = eventDate(dict: dictOne as! JsonDict)
-//            let date2 = eventDate(dict: dictTwo as! JsonDict)
-//
-//            return date1 > date2
-//        })
-
 import Foundation
 
 extension Dictionary {
-    func getVal(_ keys: String) -> Any? {
+    private func getVal(_ keys: String) -> Any? {
         let array = keys.components(separatedBy: ".")
 
         var dic = self as Dictionary<Key, Value>
@@ -109,13 +95,8 @@ extension Dictionary {
         return ret
     }
 
-    init(keys: [Key], values: [Value]) {
-        self.init()
-        for (index, key) in keys.enumerated() {
-            self[key] = values[index]
-        }
-    }
-
+    //MARK:- Disk utility
+    
     init (fromFile: String) {
         self.init()
         guard FileManager.default.fileExists(atPath: fromFile) else {
@@ -133,19 +114,6 @@ extension Dictionary {
         catch let error as NSError {
             fatalError("Error creating directory: \(error.localizedDescription)")
         }
-    }
-    
-    func readFromFile(_ file: String) -> JsonDict {
-        do {
-            let url = URL.init(fileURLWithPath: file)
-            let data = try Data.init(contentsOf:url)//
-            let dict = try PropertyListSerialization.propertyList(from: data, options: .mutableContainersAndLeaves, format: nil) as! JsonDict
-            return dict
-        }
-        catch let error as NSError {
-            fatalError("Error creating directory: \(error.localizedDescription)")
-        }
-        return [:]
     }
     
     func saveToFile(_ file: String) -> Bool {

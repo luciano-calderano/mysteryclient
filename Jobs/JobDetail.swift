@@ -102,7 +102,10 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     // MARK: - actions
     
     @IBAction func mapsTapped () {
-        _ = Maps(job: MYJob.shared.job)
+        let store = MYJob.shared.job.store
+        _ = Maps.init(lat: store.latitude,
+                      lon: store.longitude,
+                      name: store.name)
     }
     
     @IBAction func descTapped () {
