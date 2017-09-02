@@ -14,6 +14,11 @@ class Home: MenuViewController {
     override func headerViewSxTapped() {
         self.menuVisible(self.menuView.isHidden)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        MYUpload.startUpload()
+    }
 }
 
 extension Home: UITableViewDataSource {

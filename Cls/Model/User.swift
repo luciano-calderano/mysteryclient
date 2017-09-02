@@ -18,6 +18,12 @@ class User: NSObject {
     private let kTkn = "keyToken"
     
     var userData = [String: String]()
+    var token: String {
+        get {
+            let tkn = self.userData[self.kTkn]!
+            return tkn.isEmpty ? tkn : "Bearer " + tkn
+        }
+    }
     
     private let grant_type = "password"
     private let client_id = "mystery_app"
@@ -49,9 +55,9 @@ class User: NSObject {
         return (self.userData[self.kUsr]!, self.userData[self.kPwd]!)
     }
     
-    func getToken() -> String {
-        return self.userData[self.kTkn]!
-    }
+//    func getToken() -> String {
+//        return self.userData[self.kTkn]!
+//    }
     
     func logout() {
         self.userData[self.kTkn] = ""

@@ -127,10 +127,16 @@ class KpiQuest: KpiViewController {
         self.view.endEditing(true)
         return .next
     }
+    
     private func resetDependencies (result: KpiResponseValues) {
         for val in result.valuations! {
             for dep in val.dependencies {
-                let index = MYJob.shared.kpiKeys[dep.key]!
+//                let index = MYJob.shared.kpiKeys[dep.key]!
+                let idIndex = MYJob.shared.kpiKeyList.index(of: dep.key)
+                if idIndex == nil {
+                    continue
+                }
+                let index = idIndex!
                 let kpi = MYJob.shared.job.kpis[index]
                 
                 let kpiResult = MYJob.shared.jobResult.results[index]
@@ -154,7 +160,12 @@ class KpiQuest: KpiViewController {
                 continue
             }
             for dep in val.dependencies {
-                let index = MYJob.shared.kpiKeys[dep.key]!
+                let idIndex = MYJob.shared.kpiKeyList.index(of: dep.key)
+                if idIndex == nil {
+                    continue
+                }
+                let index = idIndex!
+//                let index = MYJob.shared.kpiKeys[dep.key]!
                 let kpi = MYJob.shared.job.kpis[index]
                 
                 let kpiResult = MYJob.shared.jobResult.results[index]
@@ -171,7 +182,6 @@ class KpiQuest: KpiViewController {
             }
         }
         print("fix \(MYJob.shared.invalidDependecies)")
-
     }
 
     func showAtch () {
@@ -196,7 +206,6 @@ class KpiQuest: KpiViewController {
         }
         self.atchName.text = kpiResult.attachment
         MYJob.shared.jobResult.results[self.kpiIndex] = kpiResult
-
     }
     
     func atchRemove () {

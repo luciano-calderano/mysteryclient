@@ -63,9 +63,9 @@ class WebPage: MYViewController, UIWebViewDelegate {
         
         self.requestObj = URLRequest.init(url: URL.init(string: self.page)!)
         
-        let token = User.shared.getToken()
+        let token = User.shared.token
         if token.isEmpty == false {
-            self.requestObj.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+            self.requestObj.setValue(token, forHTTPHeaderField: "Authorization")
         }
 
         self.webView.loadRequest(requestObj)

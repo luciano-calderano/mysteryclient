@@ -12,7 +12,7 @@ import Zip
 enum KpiResultType {
     case next
     case last
-    case home
+    
     case errValue
     case errNotes
     case errAttch
@@ -42,7 +42,6 @@ class KpiMain: MYViewController {
         super.viewDidLoad()
         
         self.myKeyboard = MYKeyboard(vc: self)
-//        self.showPageNum()
         
         let path = Config.doc + "/" + String(MYJob.shared.job.id)
         let fm = FileManager.default
@@ -62,12 +61,16 @@ class KpiMain: MYViewController {
             }
             MYResult.shared.saveResult()
         }
-        var i = 0
-        for kpi in MYJob.shared.job.kpis {
-            MYJob.shared.kpiKeys[kpi.id] = i
-            i += 1
-        }
         
+        MYJob.shared.kpiKeyList.removeAll()
+        for i in 0...MYJob.shared.job.kpis.count - 1 {
+            let kpi = MYJob.shared.job.kpis[i]
+            MYJob.shared.kpiKeyList.append(kpi.id)
+//            MYJob.shared.kpiKeys[kpi.id] = i
+            if kpi.valuations.count > 0 {
+                
+            }
+        }
         self.headerTitle = MYJob.shared.job.store.name
         
         for btn in [self.backBtn, self.nextBtn] as! [MYButton] {
@@ -93,12 +96,10 @@ class KpiMain: MYViewController {
     @IBAction func nextTapped () {
         let vc = self.kpiNavi.viewControllers.last as! KpiViewController
         switch vc.checkData() {
-        case .home:
-            self.navigationController?.popToRootViewController(animated: true)
-        case .last:
-            self.sendKpiResult()
         case .next:
             self.nextKpi()
+        case .last:
+            self.sendKpiResult()
         case .errValue:
             self.alert(Lng("error"), message: Lng("noValue"), okBlock: nil)
             return
@@ -142,7 +143,7 @@ class KpiMain: MYViewController {
             if (idx != nil) {
 //            let kpiResult = MYJob.shared.jobResult.results[self.currentIndex]
 //            if kpiResult.value == Config.nonPrevisto {
-                        self.nextKpi()
+                self.nextKpi()
                 return
             }
             vc = KpiQuest.Instance()
@@ -158,14 +159,14 @@ class KpiMain: MYViewController {
     }
 
     private func sendKpiResult () {
-        let zipUrl = MYResult.shared.createZipFile()
+        let zip = MYZip()
+        let zipUrl = zip.createZipFileWithDict(MYResult.shared.resultDict)
         
         if zipUrl == nil {
             self.alert("Errore", message: "", okBlock: nil)
             return
         }
         self.alert(Lng("readyToSend"), message: "", okBlock: { (ready) in
-            MYUpload.startUpload()
             self.navigationController?.popToRootViewController(animated: true)
         })
     }

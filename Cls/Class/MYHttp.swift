@@ -54,7 +54,7 @@ class MYHttp {
         self.printJson(self.json)
         var headers = [String: String]()
         if self.header == true {
-            headers["Authorization"] = "Bearer " + User.shared.getToken()
+            headers["Authorization"] = User.shared.token
         }
     
         Alamofire.request(self.apiUrl,
@@ -138,27 +138,16 @@ class MYHttp {
 }
 
 
-
-
 class MYUpload {
-    var url:URL!
-    let token = "Bearer " + User.shared.getToken()
-    
-    class func getFileName(jobId: String) -> String {
-        let file = "\(Config.filePrefix)\(jobId).zip"
-        return file
-    }
-    
     class func startUpload() {
         let me = MYUpload()
-        me.url = URL.init(string: Config.apiUrl + "rest/put")!
         
         let fm = FileManager.default
-        let path = Config.doc
         do {
-            let files = try fm.contentsOfDirectory(at: URL.init(string: path)!,
+            let docUrl = URL.init(string: Config.doc)!
+            let files = try fm.contentsOfDirectory(at: docUrl,
                                                    includingPropertiesForKeys: nil,
-                                                   options: [])
+                                                   options:[])
             
             let results = files.filter{ $0.absoluteString.contains(Config.filePrefix) }
             for file in results {
@@ -169,47 +158,41 @@ class MYUpload {
             }
         }
         catch {
-            
+            print("startUpload: error")
         }
     }
     
     func start (jobId: String, data: Data) {
+        let url = URL.init(string: Config.apiUrl + "rest/put")!
         let headers = [
-            "Authorization" : self.token
+            "Authorization" : User.shared.token
         ]
         
         do {
-            let URL = try! URLRequest(url: self.url, method: .post, headers: headers)
+            let URL = try! URLRequest(url: url, method: .post, headers: headers)
             Alamofire.upload(multipartFormData: { (multipartFormData) in
                 multipartFormData.append(data,
                                          withName: "object_file",
-                                         fileName: MYUpload.getFileName(jobId: jobId),
+                                         fileName:  MYZip.getZipFileName(id: jobId),
                                          mimeType: "multipart/form-data")
                 
                 let json = [
                     "object"        : "job",
-                    "object_id"     : "\(jobId)",
+                    "object_id"     : jobId,
                 ]
                 
                 for (key, value) in json {
                     multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
                 }
             }, with: URL, encodingCompletion: { (result) in
-                print(result)
                 switch result {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
-                        
-                        //                        print(response.request ?? "response.request")  // original URL request
-                        //                        print(response.response ?? "response.response") // URL response
-                        //                        print(response.data ?? "response.data")     // server data
-                        //                        print(response.result)   // result of response serialization
                         if let JSON = response.result.value {
                             print("JSON: \(JSON)")
                         }
-                        let fileName = Config.doc + MYUpload.getFileName(jobId: jobId)
                         do {
-                            try FileManager.default.removeItem(atPath: fileName)
+                            try FileManager.default.removeItem(atPath: MYZip.getZipFilePath(id: jobId))
                         }
                         catch {
                             

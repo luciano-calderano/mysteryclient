@@ -118,6 +118,9 @@ extension Dictionary {
 
     init (fromFile: String) {
         self.init()
+        guard FileManager.default.fileExists(atPath: fromFile) else {
+            return
+        }
         do {
             let url = URL.init(fileURLWithPath: fromFile)
             let data = try Data.init(contentsOf:url)//

@@ -61,7 +61,7 @@ class Login: MYViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if User.shared.getToken().isEmpty {
+        if User.shared.token.isEmpty {
             self.loginView.isHidden = false
         }
         else {

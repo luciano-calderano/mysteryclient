@@ -57,6 +57,7 @@
 		04C910B41EFD2131000D2DB8 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C910B21EFD2131000D2DB8 /* HeaderView.xib */; };
 		04D609BA1F028BA30030968B /* JobDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D609B91F028BA30030968B /* JobDetail.swift */; };
 		04D609BC1F02A84B0030968B /* Ext.Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D609BB1F02A84B0030968B /* Ext.Image.swift */; };
+		04D74DB11F5AA8190093EB4B /* MYZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D74DB01F5AA8190093EB4B /* MYZip.swift */; };
 		04EA388A1F5572C000D557D4 /* SubLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EA38891F5572C000D557D4 /* SubLabel.xib */; };
 		04EA388C1F5572D100D557D4 /* SubLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA388B1F5572D100D557D4 /* SubLabel.swift */; };
 		04FC171B1F010FF300226F1A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC171A1F010FF300226F1A /* Config.swift */; };
@@ -123,6 +124,7 @@
 		04C910B21EFD2131000D2DB8 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		04D609B91F028BA30030968B /* JobDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetail.swift; sourceTree = "<group>"; };
 		04D609BB1F02A84B0030968B /* Ext.Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.Image.swift; sourceTree = "<group>"; };
+		04D74DB01F5AA8190093EB4B /* MYZip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MYZip.swift; path = Class/MYZip.swift; sourceTree = "<group>"; };
 		04EA38891F5572C000D557D4 /* SubLabel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubLabel.xib; path = Kpi/Sub/SubLabel.xib; sourceTree = "<group>"; };
 		04EA388B1F5572D100D557D4 /* SubLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubLabel.swift; path = Kpi/Sub/SubLabel.swift; sourceTree = "<group>"; };
 		04FC171A1F010FF300226F1A /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Model/Config.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				04FC171A1F010FF300226F1A /* Config.swift */,
 				04BCAD331EFA9DCF00745556 /* User.swift */,
 				04FC17211F011CA600226F1A /* Job.swift */,
+				04D74DB01F5AA8190093EB4B /* MYZip.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -539,6 +542,7 @@
 				04461A201EFA705C008CD1E2 /* Home.swift in Sources */,
 				04461A071EFA66A7008CD1E2 /* MYTextField.swift in Sources */,
 				04FC17271F01330000226F1A /* WebPage.swift in Sources */,
+				04D74DB11F5AA8190093EB4B /* MYZip.swift in Sources */,
 				0472E2A91EFAC74D001CE358 /* Ext.Dictionary.swift in Sources */,
 				04FCF19C1F0265D50087FBDF /* JobsHome.swift in Sources */,
 				04A2109D1F03AC3400D1480C /* JobDetailAtch.swift in Sources */,

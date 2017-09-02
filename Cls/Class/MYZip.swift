@@ -1,0 +1,51 @@
+//
+//  MYZip.swift
+//  MysteryClient
+//
+//  Created by mac on 02/09/17.
+//  Copyright © 2017 Mebius. All rights reserved.
+//
+
+import Foundation
+import Zip
+
+class MYZip {
+    class func getZipFileName (id: String) -> String {
+        return Config.filePrefix + id + ".zip"
+    }
+    class func getZipFilePath (id: String) -> String {
+        return Config.doc + MYZip.getZipFileName(id: id)
+    }
+    
+    func createZipFileWithDict (_ dict: JsonDict) -> URL? {
+        let jobId = String(MYJob.shared.job.id)
+        let fm = FileManager.default
+        let jobPath = Config.doc + jobId
+        
+        do {
+        let json = try JSONSerialization.data(withJSONObject: dict,
+                                              options: .prettyPrinted)
+            
+            try? json.write(to: URL.init(fileURLWithPath: jobPath + "/job.json"))
+            
+            let filesToZip = try fm.contentsOfDirectory(at: URL.init(string: jobPath)!,
+                                                   includingPropertiesForKeys: nil,
+                                                   options: [])
+            
+            let zipFile = URL.init(fileURLWithPath: MYZip.getZipFilePath(id: jobId))
+            try Zip.zipFiles(paths: filesToZip,
+                             zipFilePath: zipFile,
+                             password: nil,
+                             progress: nil)
+            
+            try? fm.removeItem(atPath: jobPath)
+            MYResult.shared.removeResultWithId(MYJob.shared.job.id)
+            
+            return zipFile
+        } catch {
+            print("createZipFileWithDict: error")
+        }
+        return nil
+    }
+
+}

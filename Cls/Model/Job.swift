@@ -15,9 +15,7 @@ class MYJob {
     var job = Job()
     var jobResult = JobResult()
     var invalidDependecies = [String]()
-    var kpiKeys = [Int: Int]()
-    
-//    var kpiResult = JobResult.KpiResult()
+    var kpiKeyList = [Int]()
 
     private let jobsPath = Config.doc + "jobs"
     func saveJobs (_ jobs: [JsonDict]) {
@@ -81,21 +79,31 @@ class MYJob {
     
 class MYResult {
     static let shared = MYResult()
-    private let fileConfig  = UserDefaults.init(suiteName: "result")
-    
-    func getResultFromPlist () -> JsonDict {
-        let resultFromPlist = self.fileConfig?.value(forKey: String(MYJob.shared.jobResult.id)) as? JsonDict
-        if resultFromPlist != nil {
-            return resultFromPlist!
+    var resultDict = JsonDict()
+    private let pathName = Config.doc + "result/"
+    private var fileName: String {
+        get {
+            return pathName + "\(MYJob.shared.job.id).plist"
         }
-        return JsonDict()
+    }
+    
+    init() {
+        let fm = FileManager.default
+        do {
+            if fm.fileExists(atPath: self.pathName) == false {
+            try fm.createDirectory(atPath: self.pathName,
+                                   withIntermediateDirectories: true,
+                                   attributes: nil)
+            }
+        } catch let error as NSError {
+            NSLog("Directory (result) error: \(error.debugDescription)")
+        }
     }
     
     func loadResult (jobId id: Int) {
-        let result = MYJob.shared.jobResult
-
+        let result = JobResult()
         result.id = id
-        let dict = self.getResultFromPlist()
+        let dict = Dictionary<String, Any>(fromFile: self.fileName)
         if dict.isEmpty {
             return
         }
@@ -132,7 +140,6 @@ class MYResult {
         MYJob.shared.jobResult = result
     }
     
-    
     func saveResult () {
         var resultArray = [JsonDict]()
         let result = MYJob.shared.jobResult
@@ -158,7 +165,7 @@ class MYResult {
             "end_lng"    : result.positioning.end_lng,
             ]
         
-        let dict = [
+        self.resultDict = [
             "id"                        : result.id,
             "estimate_date"             : result.estimate_date,
             "compiled"                  : result.compiled,
@@ -174,35 +181,42 @@ class MYResult {
             "positioning"               : dictPos
             ] as JsonDict
         
-        self.fileConfig?.setValue(dict, forKey: String(result.id))
     }
     
-    func createZipFile () -> URL? {
-        let dict = self.getResultFromPlist()
+    func removeResultWithId (_ id: Int) {
         do {
-            let fm = FileManager.default
-            let path = Config.doc + String(MYJob.shared.job.id)
-            
-            let json = try JSONSerialization.data(withJSONObject: dict,
-                                                  options: .prettyPrinted)
-            try? json.write(to: URL.init(fileURLWithPath: path + "/job.json"))
-            
-            let files = try fm.contentsOfDirectory(at: URL.init(string: path)!,
-                                                   includingPropertiesForKeys: nil,
-                                                   options: [])
-
-            let zip = Config.doc + MYUpload.getFileName(jobId: String(MYJob.shared.job.id))
-            let zipFile = URL.init(fileURLWithPath: zip)
-            try Zip.zipFiles(paths: files,
-                             zipFilePath: zipFile,
-                             password: nil,
-                             progress: nil)
-            return zipFile
-        } catch {
-            print("zip error")
+            MYJob.shared.job.id = id
+            try? FileManager.default.removeItem(atPath: self.fileName)
         }
-        return nil
     }
+    
+//    func createZipFile () -> URL? {
+//        let dict = Dictionary<String, Any>(fromFile: self.fileName)
+//        do {
+//            let fm = FileManager.default
+//            let path = Config.doc + String(MYJob.shared.job.id)
+//            
+//            let json = try JSONSerialization.data(withJSONObject: dict,
+//                                                  options: .prettyPrinted)
+//            try? json.write(to: URL.init(fileURLWithPath: path + "/job.json"))
+//            
+//            let files = try fm.contentsOfDirectory(at: URL.init(string: path)!,
+//                                                   includingPropertiesForKeys: nil,
+//                                                   options: [])
+//
+//            let zipFileName = Config.doc + "\(Config.filePrefix)\(MYJob.shared.job.id).zip"
+//
+//            let zipFile = URL.init(fileURLWithPath: zipFileName)
+//            try Zip.zipFiles(paths: files,
+//                             zipFilePath: zipFile,
+//                             password: nil,
+//                             progress: nil)
+//            return zipFile
+//        } catch {
+//            print("zip error")
+//        }
+//        return nil
+//    }
 }
 
 class Job {
