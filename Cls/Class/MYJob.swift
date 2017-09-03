@@ -14,11 +14,7 @@ class MYJob {
 //    private let jobsPath = Config.doc + "jobs"
 
     var job = Job()
-    var jobResult = JobResult() {
-        didSet {
-            print("JobResult")
-        }
-    }
+    var jobResult = JobResult()
     var invalidDependecies = [String]()
     var kpiKeyList = [Int]()
 

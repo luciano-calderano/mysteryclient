@@ -98,8 +98,6 @@ extension SubCheckBox: UITableViewDataSource {
         
         cell.valuationTitle.text = item.name
         cell.icoCheck.isHidden = !selected
-        cell.icoNote.isHidden = item.note_required == false
-        cell.icoAtch.isHidden = item.attachment_required == false
         return cell
     }
 }
@@ -141,10 +139,7 @@ class SubCheckBoxCell: UITableViewCell {
     }
     
     @IBOutlet var icoCheck: UIImageView!
-    @IBOutlet var selectView: UIView!
-    
-    @IBOutlet var icoNote: UIImageView!
-    @IBOutlet var icoAtch: UIImageView!
+    @IBOutlet var selectView: UIView!    
     @IBOutlet var valuationTitle: MYLabel!
     
     override func awakeFromNib() {

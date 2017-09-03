@@ -95,8 +95,6 @@ extension SubRadio: UITableViewDataSource {
         
         let selected = (self.valuationSelected != nil && self.valuationSelected?.id == item.id)
         cell.selectedView.isHidden = !selected
-        cell.icoNote.isHidden = item.note_required == false
-        cell.icoAtch.isHidden = item.attachment_required == false
         return cell
     }
 }
@@ -120,9 +118,6 @@ class SubRadioCell: UITableViewCell {
     
     @IBOutlet var selectView: UIView!
     @IBOutlet var selectedView: UIView!
-    
-    @IBOutlet var icoNote: UIImageView!
-    @IBOutlet var icoAtch: UIImageView!
     @IBOutlet var valuationTitle: MYLabel!
     
     override func awakeFromNib() {

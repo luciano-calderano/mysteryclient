@@ -137,7 +137,6 @@ class MYHttp {
     }
 }
 
-
 class MYUpload {
     class func startUpload() {
         let me = MYUpload()
