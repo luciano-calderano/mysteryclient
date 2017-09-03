@@ -14,7 +14,11 @@ class MYJob {
 //    private let jobsPath = Config.doc + "jobs"
 
     var job = Job()
-    var jobResult = JobResult()
+    var jobResult = JobResult() {
+        didSet {
+            print("JobResult")
+        }
+    }
     var invalidDependecies = [String]()
     var kpiKeyList = [Int]()
 
@@ -50,7 +54,7 @@ class MYJob {
                 if array[1] != "plist" {
                     continue
                 }
-                let dict = JsonDict.init(fromFile: Config.jobsPath + "/" + file)
+                let dict = JsonDict.init(fromFile: Config.jobsPath + file)
                 jobs.append(dict)
             }
         }
@@ -60,9 +64,9 @@ class MYJob {
         return jobs
     }
     
-    func removeJob () {
+    func removeJobWithId (_ id: Int) {
         do {
-            try FileManager.default.removeItem(atPath: self.getFileName(id: MYJob.shared.job.id))
+            try FileManager.default.removeItem(atPath: self.getFileName(id: id))
         } catch let error as NSError {
             NSLog("Remove error: \(error.debugDescription)")
         }
@@ -187,7 +191,7 @@ class MYJob {
     }
     
     private func getFileName (id: Int) -> String {
-        let fileName = Config.jobsPath + "/" + String(id)  + ".plist"
+        let fileName = Config.jobsPath + String(id) + Config.plist
         return fileName
     }
 }

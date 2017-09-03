@@ -189,13 +189,8 @@ class MYUpload {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
                         if let JSON = response.result.value {
-                            print("JSON: \(JSON)")
-                        }
-                        do {
-                            try FileManager.default.removeItem(atPath: MYZip.getZipFilePath(id: jobId))
-                        }
-                        catch {
-                            
+                            print("Upload: Response.JSON: \(JSON)")
+                            MYZip.removeZipWithId(jobId)
                         }
                     }
                 case .failure(let encodingError):

@@ -141,8 +141,6 @@ class KpiMain: MYViewController {
             let kpi = MYJob.shared.job.kpis[self.currentIndex]
             let idx = MYJob.shared.invalidDependecies.index(of: "\(kpi.id)")
             if (idx != nil) {
-//            let kpiResult = MYJob.shared.jobResult.results[self.currentIndex]
-//            if kpiResult.value == Config.nonPrevisto {
                 self.nextKpi()
                 return
             }
@@ -167,13 +165,14 @@ class KpiMain: MYViewController {
             return
         }
         self.alert(Lng("readyToSend"), message: "", okBlock: { (ready) in
-            self.navigationController?.popToRootViewController(animated: true)
+            let nav = self.navigationController!
+            if nav.viewControllers.count > 1 {
+                let vc = nav.viewControllers[1]
+                nav.popToViewController(vc, animated: true)
+            } else {
+                nav.popToRootViewController(animated: true)
+            }
         })
-    }
-    
-    private func resultSent () {
-        MYJob.shared.removeJob()
-        self.navigationController?.popToRootViewController(animated: true)
     }
     
 //MARK - Image picker

@@ -16,7 +16,12 @@ class MYZip {
     class func getZipFilePath (id: String) -> String {
         return Config.doc + MYZip.getZipFileName(id: id)
     }
-    
+    class func removeZipWithId (_ id: String) {
+        do {
+            try? FileManager.default.removeItem(atPath: MYZip.getZipFilePath(id: id))
+        }
+    }
+
     func createZipFileWithDict (_ dict: JsonDict) -> URL? {
         let jobId = String(MYJob.shared.job.id)
         let fm = FileManager.default
@@ -39,6 +44,7 @@ class MYZip {
                              progress: nil)
             
             try? fm.removeItem(atPath: jobPath)
+            MYJob.shared.removeJobWithId(MYJob.shared.job.id)
             MYResult.shared.removeResultWithId(MYJob.shared.job.id)
             
             return zipFile
@@ -47,5 +53,4 @@ class MYZip {
         }
         return nil
     }
-
 }

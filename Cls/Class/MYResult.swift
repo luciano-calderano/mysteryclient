@@ -10,14 +10,14 @@ import Foundation
 
 class MYResult {
     static let shared = MYResult()
+
     var resultDict = JsonDict()
-    private let pathName = Config.doc + "result/"
     
     init() {
         let fm = FileManager.default
         do {
-            if fm.fileExists(atPath: self.pathName) == false {
-                try fm.createDirectory(atPath: self.pathName,
+            if fm.fileExists(atPath: Config.resultPath) == false {
+                try fm.createDirectory(atPath: Config.resultPath,
                                        withIntermediateDirectories: true,
                                        attributes: nil)
             }
@@ -27,12 +27,12 @@ class MYResult {
     }
     
     func getFileName (withId id: String) -> String {
-        return self.pathName + id + ".plist"
+        return Config.resultPath + id + Config.plist
     }
     
     func loadResult (jobId id: Int) {
         var result = JobResult()
-        result.id = id
+        MYJob.shared.jobResult.id = id
         let dict = JsonDict.init(fromFile: self.getFileName(withId: String(id)))
         if dict.isEmpty {
             return
