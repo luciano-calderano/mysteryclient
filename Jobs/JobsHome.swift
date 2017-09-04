@@ -34,7 +34,24 @@ class JobsHome: MYViewController {
         self.jobsDownload()
     }
     
+    func showJobDetail (_ job: Job) {
+        MYJob.shared.job = job
+        self.initializeSharedData()
+        let vc = JobDetail.Instance()
+        self.navigationController?.show(vc, sender: self)
+    }
+    
     // MARK: - private
+    
+    private func initializeSharedData () {
+        MYJob.shared.invalidDependecies.removeAll()
+        MYJob.shared.kpiKeyList.removeAll()
+        for i in 0...MYJob.shared.job.kpis.count - 1 {
+            let kpi = MYJob.shared.job.kpis[i]
+            MYJob.shared.kpiKeyList.append(kpi.id)
+        }
+        MYJob.shared.jobResult = MYResult.shared.loadResult (jobId: MYJob.shared.job.id)
+    }
     
     private func jobsDownload () {
         User.shared.getUserToken(completion: {
@@ -106,11 +123,7 @@ extension JobsHome: UITableViewDataSource {
 extension JobsHome: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        MYJob.shared.job = self.dataArray[indexPath.row] as! Job
-        MYResult.shared.loadResult (jobId: MYJob.shared.job.id)
-        
-        let vc = JobDetail.Instance()
-        self.navigationController?.show(vc, sender: self)
+        self.showJobDetail(self.dataArray[indexPath.row] as! Job)
     }
 }
 

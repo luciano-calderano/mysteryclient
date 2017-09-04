@@ -30,6 +30,7 @@ class KpiMain: MYViewController {
     @IBOutlet private var nextBtn: MYButton!
    
     private var kpiNavi = UINavigationController()
+    private let maxPage = MYJob.shared.job.kpis.count + 2
     
     var currentIndex = -1 {
         didSet {
@@ -62,15 +63,6 @@ class KpiMain: MYViewController {
             MYResult.shared.saveResult()
         }
         
-        MYJob.shared.kpiKeyList.removeAll()
-        for i in 0...MYJob.shared.job.kpis.count - 1 {
-            let kpi = MYJob.shared.job.kpis[i]
-            MYJob.shared.kpiKeyList.append(kpi.id)
-//            MYJob.shared.kpiKeys[kpi.id] = i
-            if kpi.valuations.count > 0 {
-                
-            }
-        }
         self.headerTitle = MYJob.shared.job.store.name
         
         for btn in [self.backBtn, self.nextBtn] as! [MYButton] {
@@ -131,7 +123,7 @@ class KpiMain: MYViewController {
     
     private func showPageNum() {
         self.header?.header.kpiLabel.isHidden = false
-        self.header?.header.kpiLabel.text = "\(self.currentIndex + 2)/\(MYJob.shared.job.kpis.count + 2)"
+        self.header?.header.kpiLabel.text = "\(self.currentIndex + 2)/\(maxPage)"
     }
     
     private func nextKpi () {

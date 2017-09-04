@@ -22,7 +22,7 @@ class MYResult {
                                        attributes: nil)
             }
         } catch let error as NSError {
-            NSLog("Directory (result) error: \(error.debugDescription)")
+            print("Directory (result) error: \(error.debugDescription)")
         }
     }
     
@@ -30,12 +30,12 @@ class MYResult {
         return Config.resultPath + id + Config.plist
     }
     
-    func loadResult (jobId id: Int) {
+    func loadResult (jobId id: Int) -> JobResult {
         var result = JobResult()
-        MYJob.shared.jobResult.id = id
+        result.id = id
         let dict = JsonDict.init(fromFile: self.getFileName(withId: String(id)))
         if dict.isEmpty {
-            return
+            return result
         }
         result.id                     = dict.int("id")
         result.estimate_date          = dict.string("estimate_date")
@@ -67,7 +67,7 @@ class MYResult {
             kpiResult.attachment    = kpiDict.string("attachment")
             result.results.append(kpiResult)
         }
-        MYJob.shared.jobResult = result
+        return result
     }
     
     func saveResult () {

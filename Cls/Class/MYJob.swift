@@ -11,7 +11,6 @@ import Zip
 
 class MYJob {
     static let shared = MYJob()
-//    private let jobsPath = Config.doc + "jobs"
 
     var job = Job()
     var jobResult = JobResult()
@@ -28,7 +27,7 @@ class MYJob {
                                    withIntermediateDirectories: true,
                                    attributes: nil)
         } catch let error as NSError {
-            NSLog("Directory error: \(error.debugDescription)")
+            print("Directory error: \(error.debugDescription)")
         }
         
         for dict in jobs {
@@ -43,7 +42,7 @@ class MYJob {
         do {
             let files = try fm.contentsOfDirectory(atPath: Config.jobsPath)
             for file in files {
-                let array = file.components(separatedBy: ".")
+                let array = file.components(separatedBy: ".") //Lc
                 if array.count != 2 {
                     continue
                 }
@@ -64,7 +63,7 @@ class MYJob {
         do {
             try FileManager.default.removeItem(atPath: self.getFileName(id: id))
         } catch let error as NSError {
-            NSLog("Remove error: \(error.debugDescription)")
+            print("Remove error: \(error.debugDescription)")
         }
     }
     
