@@ -139,6 +139,8 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
             self.navigationController?.show(ctrl, sender: self)
             return
         }
+        let wheel = MYWheel()
+        wheel.start(self.view)
         if MYJob.shared.jobResult.execution_date.isEmpty {
             MYJob.shared.jobResult.estimate_date = Date().toString(withFormat: Date.fmtDataJson)
             MYResult.shared.saveResult()
@@ -146,6 +148,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
 
         let ctrl = KpiMain.Instance()
         self.navigationController?.show(ctrl, sender: self)
+        wheel.stop()
     }
     
     @IBAction func tickTapped () {

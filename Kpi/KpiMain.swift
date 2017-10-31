@@ -131,7 +131,8 @@ class KpiMain: MYViewController {
         var vc: KpiViewController
         if self.currentIndex < MYJob.shared.job.kpis.count {
             let kpi = MYJob.shared.job.kpis[self.currentIndex]
-            let idx = MYJob.shared.invalidDependecies.index(of: "\(kpi.id)")
+            let id = String(kpi.id)
+            let idx = MYJob.shared.invalidDependecies.index(of: id)
             if (idx != nil) {
                 self.nextKpi()
                 return

@@ -111,7 +111,7 @@ class MYResult {
             "positioning"               : dictPos
             ] as JsonDict
         let id = String(result.id)
-        print("Saved: \(self.resultDict.saveToFile(self.getFileName(withId: id)))")
+        _ = self.resultDict.saveToFile(self.getFileName(withId: id))
     }
     
     func removeResultWithId (_ id: Int) {

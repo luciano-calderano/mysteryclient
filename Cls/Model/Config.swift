@@ -11,7 +11,7 @@
 import Foundation
 
 struct Config {
-    static let homePage = "http://mysteryclient.mebius.it/"
+    static let homePage = "https://mysteryclient.mebius.it/"
     static let apiUrl = Config.homePage + "default/"
 
     static let mapUrl = "http://maps.apple.com/?"
