@@ -65,7 +65,7 @@ class User: NSObject {
     }
     
     func checkUser (saveCredential: Bool, userName: String, password: String,
-                    completion: @escaping () -> () = { success in },
+                    completion: @escaping () -> () = { () in },
                     failure: @escaping (String, String) -> () = { errorCode, message in }) {
         self.userData[self.kUsr] = userName
         self.userData[self.kPwd] = password
@@ -80,7 +80,7 @@ class User: NSObject {
         }
     }
     
-    func getUserToken(completion: @escaping () -> () = { success in },
+    func getUserToken(completion: @escaping () -> () = { () in },
                       failure: @escaping (String, String) -> () = { errorCode, message in }) {
         let param = [
             "grant_type"   : self.grant_type,

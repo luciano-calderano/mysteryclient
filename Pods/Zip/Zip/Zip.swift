@@ -82,7 +82,7 @@ public class Zip {
      - notes: Supports implicit progress composition
      */
     
-    public class func unzipFile(_ zipFilePath: URL, destination: URL, overwrite: Bool, password: String?, progress: ((_ progress: Double) -> ())?) throws {
+    public class func unzipFile(_ zipFilePath: URL, destination: URL, overwrite: Bool, password: String?, progress: ((_ progress: Double) -> ())? = nil, fileOutputHandler: ((_ unzippedFile: URL) -> Void)? = nil) throws {
         
         // File manager
         let fileManager = FileManager.default
@@ -164,16 +164,16 @@ public class Zip {
 
             let fullPath = destination.appendingPathComponent(pathString).path
 
-            let creationDate = Date()
-            let directoryAttributes = [FileAttributeKey.creationDate.rawValue : creationDate,
-                                       FileAttributeKey.modificationDate.rawValue : creationDate]
+//            let creationDate = Date()
+//            let directoryAttributes = [FileAttributeKey.creationDate.rawValue : creationDate,
+//                                       FileAttributeKey.modificationDate.rawValue : creationDate]
             do {
                 if isDirectory {
-                    try fileManager.createDirectory(atPath: fullPath, withIntermediateDirectories: true, attributes: directoryAttributes)
+                    try fileManager.createDirectory(atPath: fullPath, withIntermediateDirectories: true, attributes: nil)
                 }
                 else {
                     let parentDirectory = (fullPath as NSString).deletingLastPathComponent
-                    try fileManager.createDirectory(atPath: parentDirectory, withIntermediateDirectories: true, attributes: directoryAttributes)
+                    try fileManager.createDirectory(atPath: parentDirectory, withIntermediateDirectories: true, attributes: nil)
                 }
             } catch {}
             if fileManager.fileExists(atPath: fullPath) && !isDirectory && !overwrite {
@@ -216,6 +216,11 @@ public class Zip {
             // Update progress handler
             if let progressHandler = progress{
                 progressHandler((currentPosition/totalSize))
+            }
+            
+            if let fileHandler = fileOutputHandler,
+                let fileUrl = URL(string: fullPath) {
+                fileHandler(fileUrl)
             }
             
             progressTracker.completedUnitCount = Int64(currentPosition)

@@ -13,7 +13,7 @@ extension String {
         var s = self as String
         if (s.characters.count > 0) {
             if s[s.startIndex..<s.characters.index(s.startIndex, offsetBy: 1)] == "#" {
-                s = s[s.characters.index(s.startIndex, offsetBy: 1)..<s.endIndex]
+                s = String(s[s.characters.index(s.startIndex, offsetBy: 1)..<s.endIndex])
                 s = Lng(s)
             }
         }
@@ -27,13 +27,14 @@ extension String {
             return ""
         }
         else {
-            return self[self.startIndex..<self.characters.index(self.startIndex, offsetBy: numOfChars)]
+            return String(self[self.startIndex..<self.characters.index(self.startIndex, offsetBy: numOfChars)])
         }
     }
     
     func range (_ iniz: Int, fine: Int) -> String {
         let ini = self.index(self.startIndex, offsetBy: iniz)
         let end = self.index(self.startIndex, offsetBy: fine)
-        return self.substring(with: ini..<end)
+        let s = self[ini..<end]
+        return String(s)
     }
 }

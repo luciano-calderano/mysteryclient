@@ -95,7 +95,7 @@ class Login: MYViewController {
         User.shared.checkUser(saveCredential: self.saveCred,
                               userName: self.userText.text!,
                               password: self.passText.text!,
-                              completion: { Bool in
+                              completion: { () in
                                 self.userLogged()
                                 
         }) { (errorCode, message) in

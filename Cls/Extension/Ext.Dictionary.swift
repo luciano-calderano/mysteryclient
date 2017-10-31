@@ -120,7 +120,7 @@ extension Dictionary {
         do {
             let data = try PropertyListSerialization.data(fromPropertyList: self,
                                                           format: .binary,
-                                                          options: .allZeros)
+                                                          options: 0)
             try data.write(to: URL.init(fileURLWithPath: file))
             return true
         }

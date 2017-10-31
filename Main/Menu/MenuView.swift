@@ -63,7 +63,7 @@ class MenuView: UIView {
         return item
     }
 
-    func swipped () {
+    @objc func swipped () {
         self.menuHide()
         self.delegate?.menuVisible(false)
     }

@@ -150,7 +150,7 @@ class KpiQuest: KpiViewController {
         MYJob.shared.jobResult.results[self.kpiIndex] = kpiResult
     }
     
-    func atchRemove () {
+    @objc func atchRemove () {
         self.alert(Lng("atchRemove"), message: "", cancelBlock: nil) {
             (remove) in
             do {
