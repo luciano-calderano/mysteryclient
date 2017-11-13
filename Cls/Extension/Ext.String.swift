@@ -11,9 +11,9 @@ import Foundation
 extension String {
     func tryLang() -> String {
         var s = self as String
-        if (s.characters.count > 0) {
-            if s[s.startIndex..<s.characters.index(s.startIndex, offsetBy: 1)] == "#" {
-                s = String(s[s.characters.index(s.startIndex, offsetBy: 1)..<s.endIndex])
+        if (s.count > 0) {
+            if s[s.startIndex..<s.index(s.startIndex, offsetBy: 1)] == "#" {
+                s = String(s[s.index(s.startIndex, offsetBy: 1)..<s.endIndex])
                 s = Lng(s)
             }
         }
@@ -23,11 +23,11 @@ extension String {
     }
     
     func left(_ numOfChars: Int) -> String {
-        if (self.characters.count < numOfChars) {
+        if (self.count < numOfChars) {
             return ""
         }
         else {
-            return String(self[self.startIndex..<self.characters.index(self.startIndex, offsetBy: numOfChars)])
+            return String(self[self.startIndex..<self.index(self.startIndex, offsetBy: numOfChars)])
         }
     }
     

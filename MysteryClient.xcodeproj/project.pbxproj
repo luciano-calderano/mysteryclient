@@ -72,7 +72,6 @@
 		04FCF19B1F0265D50087FBDF /* Jobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04FCF1981F0265D50087FBDF /* Jobs.storyboard */; };
 		04FCF19C1F0265D50087FBDF /* JobsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCF1991F0265D50087FBDF /* JobsHome.swift */; };
 		04FCF19D1F0265D50087FBDF /* JobsHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCF19A1F0265D50087FBDF /* JobsHomeCell.swift */; };
-		3C3E073CEA6762013E689B7C /* Pods_MysteryClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06921CF6A6C66A2D2726D7D4 /* Pods_MysteryClient.framework */; };
 		477A5EDDA92FBB0E32E9092D /* Pods_MysteryClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D49868019DDD33475B413ED8 /* Pods_MysteryClient.framework */; };
 /* End PBXBuildFile section */
 
@@ -158,7 +157,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				477A5EDDA92FBB0E32E9092D /* Pods_MysteryClient.framework in Frameworks */,
-				3C3E073CEA6762013E689B7C /* Pods_MysteryClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,7 +434,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = Mebius;
 				TargetAttributes = {
 					044619CF1EFA640F008CD1E2 = {

@@ -164,12 +164,12 @@ public class Zip {
 
             let fullPath = destination.appendingPathComponent(pathString).path
 
-//            let creationDate = Date()
-//            let directoryAttributes = [FileAttributeKey.creationDate.rawValue : creationDate,
-//                                       FileAttributeKey.modificationDate.rawValue : creationDate]
+            let creationDate = Date()
+            let directoryAttributes = [FileAttributeKey.creationDate : creationDate,
+                                       FileAttributeKey.modificationDate : creationDate]
             do {
                 if isDirectory {
-                    try fileManager.createDirectory(atPath: fullPath, withIntermediateDirectories: true, attributes: nil)
+                    try fileManager.createDirectory(atPath: fullPath, withIntermediateDirectories: true, attributes: directoryAttributes)
                 }
                 else {
                     let parentDirectory = (fullPath as NSString).deletingLastPathComponent

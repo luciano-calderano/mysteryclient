@@ -34,10 +34,10 @@ class LanguageClass {
         self.langSelected = self.languages[langIdFromSettings] ?? -1
         if self.langSelected < 0 {
             var strIso = Locale.current.identifier
-            if (strIso.characters.count < 2) {
+            if (strIso.count < 2) {
                 strIso = Bundle.main.preferredLocalizations.first!
             }
-            else if (strIso.characters.count > 2) {
+            else if (strIso.count > 2) {
                 strIso = strIso.left(2)
             }
             self.langSelected = self.languages[strIso] ?? 0
