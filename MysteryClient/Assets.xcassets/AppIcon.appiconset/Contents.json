@@ -47,6 +47,12 @@
       "idiom" : "iphone",
       "filename" : "appIcon.png",
       "scale" : "3x"
+    },
+    {
+      "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "mela-1024.png",
+      "scale" : "1x"
     }
   ],
   "info" : {
