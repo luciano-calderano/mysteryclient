@@ -434,7 +434,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = Mebius;
 				TargetAttributes = {
 					044619CF1EFA640F008CD1E2 = {

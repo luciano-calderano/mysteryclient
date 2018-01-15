@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MYLib
 
 protocol JobsHomeCellDelegate {
     func mapTapped (_ sender: JobsHomeCell, job: Job)

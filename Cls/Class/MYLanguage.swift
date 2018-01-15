@@ -38,7 +38,7 @@ class LanguageClass {
                 strIso = Bundle.main.preferredLocalizations.first!
             }
             else if (strIso.count > 2) {
-                strIso = strIso.left(2)
+                strIso = strIso.left(lenght: 2)
             }
             self.langSelected = self.languages[strIso] ?? 0
         }
