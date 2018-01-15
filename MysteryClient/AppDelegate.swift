@@ -16,12 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        let s = "1234567890"
-        print(s.left(lenght: 20))
-        print(s.right(lenght: 20))
-        print(s.mid(startAtChar: 3, lenght: 20))
-
-        
         LanguageClass.shared.selectLanguage()
 
         return true
