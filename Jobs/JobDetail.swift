@@ -124,11 +124,11 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     }
     
     @IBAction func spreTapped () {
-        let ctrl = WebPage.Instance(type: .bookingRemove)
+        let ctrl = WebPage.Instance(type: .bookingRemove, id: MYJob.shared.job.id)
         self.gotoCtrl(ctrl)
     }
     @IBAction func dateTapped () {
-        let ctrl = WebPage.Instance(type: .bookingMove)
+        let ctrl = WebPage.Instance(type: .bookingMove, id: MYJob.shared.job.id)
         self.gotoCtrl(ctrl)
     }
     
@@ -192,14 +192,15 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     func openFileFromUrlWithString(_ page: String) {
         let ctrl = WebPage.Instance(type: .none)
         ctrl.page = page
-        self.navigationController?.show(ctrl, sender: self)
+        self.gotoCtrl(ctrl)
+//        self.navigationController?.show(ctrl, sender: self)
     }
 
     // MARK: - private
     
     private func gotoCtrl (_ ctrl: WebPage) {
-//        UIApplication.shared.openURL(URL.init(string: ctrl.page)!)
-        self.navigationController?.show(ctrl, sender: self)
+        UIApplication.shared.openURL(URL.init(string: ctrl.page)!)
+//        self.navigationController?.show(ctrl, sender: self)
     }
     
     private func showData () {

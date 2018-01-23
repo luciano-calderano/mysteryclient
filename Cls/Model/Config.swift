@@ -10,6 +10,8 @@
 
 import Foundation
 
+typealias JsonDict = Dictionary<String, Any>
+
 struct Config {
     static let homePage = "https://mysteryclient.mebius.it/"
     static let apiUrl = Config.homePage + "default/"

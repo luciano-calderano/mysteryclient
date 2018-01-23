@@ -8,8 +8,6 @@
 
 import UIKit
 
-typealias JsonDict = Dictionary<String, Any>
-
 class Login: MYViewController {
     class func Instance() -> Login {
         let vc = self.load(storyboardName: "Main") as! Login
@@ -53,8 +51,8 @@ class Login: MYViewController {
         let credential = User.shared.credential()
         self.userText.text = credential.user
         self.passText.text = credential.pass
-//        self.userText.text = "utente_gen"
-//        self.passText.text = "novella44"
+        self.userText.text = "utente_gen"
+        self.passText.text = "novella44"
         self.saveCred = !credential.user.isEmpty
         self.updateCheckCredential()
     }
