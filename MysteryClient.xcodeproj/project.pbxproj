@@ -45,9 +45,6 @@
 		04A2109E1F03AC3400D1480C /* JobDetailAtch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A2109C1F03AC3400D1480C /* JobDetailAtch.xib */; };
 		04A88E7B1F13D33800FBAE54 /* MYKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A88E7A1F13D33800FBAE54 /* MYKeyboard.swift */; };
 		04B1BAD51F459D3A007A1B64 /* MYHttp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1BAD41F459D3A007A1B64 /* MYHttp.swift */; };
-		04BB55582017686000CE9153 /* MYExt.Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB55542017685F00CE9153 /* MYExt.Dictionary.swift */; };
-		04BB55592017686000CE9153 /* MYExt.String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB55552017685F00CE9153 /* MYExt.String.swift */; };
-		04BB555A2017686000CE9153 /* MYExt.Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB55562017685F00CE9153 /* MYExt.Date.swift */; };
 		04BB77D11F0E3284002AEEF6 /* SubRadio.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BB77D01F0E3284002AEEF6 /* SubRadio.xib */; };
 		04BB77D61F0E3670002AEEF6 /* SubRadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BB77D51F0E3670002AEEF6 /* SubRadioCell.xib */; };
 		04BC64121EFD830E00C0912D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC640D1EFD830E00C0912D /* AppDelegate.swift */; };
@@ -76,7 +73,22 @@
 		04FCF19C1F0265D50087FBDF /* JobsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCF1991F0265D50087FBDF /* JobsHome.swift */; };
 		04FCF19D1F0265D50087FBDF /* JobsHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCF19A1F0265D50087FBDF /* JobsHomeCell.swift */; };
 		477A5EDDA92FBB0E32E9092D /* Pods_MysteryClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D49868019DDD33475B413ED8 /* Pods_MysteryClient.framework */; };
+		4B4E7E46207540110077383D /* MYLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B4E7E45207540110077383D /* MYLib.framework */; };
+		E9796C641D66EBADAFE1F959 /* Pods_MysteryClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06921CF6A6C66A2D2726D7D4 /* Pods_MysteryClient.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0432523C20177938005DE31E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		044619D01EFA640F008CD1E2 /* MysteryClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MysteryClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,9 +130,6 @@
 		04A2109C1F03AC3400D1480C /* JobDetailAtch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JobDetailAtch.xib; path = Detail/JobDetailAtch.xib; sourceTree = "<group>"; };
 		04A88E7A1F13D33800FBAE54 /* MYKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYKeyboard.swift; sourceTree = "<group>"; };
 		04B1BAD41F459D3A007A1B64 /* MYHttp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYHttp.swift; sourceTree = "<group>"; };
-		04BB55542017685F00CE9153 /* MYExt.Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYExt.Dictionary.swift; sourceTree = "<group>"; };
-		04BB55552017685F00CE9153 /* MYExt.String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYExt.String.swift; sourceTree = "<group>"; };
-		04BB55562017685F00CE9153 /* MYExt.Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYExt.Date.swift; sourceTree = "<group>"; };
 		04BB77D01F0E3284002AEEF6 /* SubRadio.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubRadio.xib; path = Kpi/Sub/SubRadio.xib; sourceTree = "<group>"; };
 		04BB77D51F0E3670002AEEF6 /* SubRadioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubRadioCell.xib; path = Kpi/Sub/SubRadioCell.xib; sourceTree = "<group>"; };
 		04BC640D1EFD830E00C0912D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +160,7 @@
 		04FCF19A1F0265D50087FBDF /* JobsHomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsHomeCell.swift; sourceTree = "<group>"; };
 		06921CF6A6C66A2D2726D7D4 /* Pods_MysteryClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MysteryClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44B7A6A76E5901851685C383 /* Pods-MysteryClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.debug.xcconfig"; sourceTree = "<group>"; };
+		4B4E7E45207540110077383D /* MYLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MYLib.framework; path = ../../MYLib/MYLib.framework; sourceTree = "<group>"; };
 		4F47EB038F49AEA7DFDCA283 /* Pods-MysteryClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.release.xcconfig"; sourceTree = "<group>"; };
 		92A0ADA7AC428E0280CB7A9D /* Pods-MysteryClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.release.xcconfig"; sourceTree = "<group>"; };
 		96089E4665AB951BC88709F2 /* Pods-MysteryClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.debug.xcconfig"; sourceTree = "<group>"; };
@@ -163,6 +173,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				477A5EDDA92FBB0E32E9092D /* Pods_MysteryClient.framework in Frameworks */,
+				4B4E7E46207540110077383D /* MYLib.framework in Frameworks */,
+				E9796C641D66EBADAFE1F959 /* Pods_MysteryClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,7 +211,6 @@
 		044619EC1EFA66A7008CD1E2 /* Cls */ = {
 			isa = PBXGroup;
 			children = (
-				04BB55522017685F00CE9153 /* MYLib */,
 				04BCAD321EFA9DB400745556 /* Model */,
 				04461A251EFA8558008CD1E2 /* Class */,
 				044619ED1EFA66A7008CD1E2 /* CustomClass */,
@@ -303,17 +314,6 @@
 			name = Detail;
 			sourceTree = "<group>";
 		};
-		04BB55522017685F00CE9153 /* MYLib */ = {
-			isa = PBXGroup;
-			children = (
-				04BB55542017685F00CE9153 /* MYExt.Dictionary.swift */,
-				04BB55552017685F00CE9153 /* MYExt.String.swift */,
-				04BB55562017685F00CE9153 /* MYExt.Date.swift */,
-			);
-			name = MYLib;
-			path = ../../../MYLib/MYLib;
-			sourceTree = "<group>";
-		};
 		04BB77D21F0E328A002AEEF6 /* QuestSubView */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +391,7 @@
 		119C7DC6C3018448103470AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4B4E7E45207540110077383D /* MYLib.framework */,
 				06921CF6A6C66A2D2726D7D4 /* Pods_MysteryClient.framework */,
 			);
 			name = Frameworks;
@@ -435,6 +436,7 @@
 				044619CE1EFA640F008CD1E2 /* Resources */,
 				829B30E3DC90C861FAC3E3EC /* [CP] Embed Pods Frameworks */,
 				C234FA720E77BE73D000DF74 /* [CP] Copy Pods Resources */,
+				0432523C20177938005DE31E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -452,12 +454,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Mebius;
 				TargetAttributes = {
 					044619CF1EFA640F008CD1E2 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = K2DWY28S5B;
+						DevelopmentTeam = PN8JTL5X6T;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
@@ -574,14 +576,12 @@
 				04BF307C1F16192900DE05BA /* SubCheckBox.swift in Sources */,
 				0484D3381F1382F600E9FB11 /* SubText.swift in Sources */,
 				04461A2C1EFA85CF008CD1E2 /* Ext.Date.swift in Sources */,
-				04BB55582017686000CE9153 /* MYExt.Dictionary.swift in Sources */,
 				04563F8F1F0CC83C00B8BCC6 /* SubRadio.swift in Sources */,
 				048837FD1F14E209002A2CF4 /* SubDatePicker.swift in Sources */,
 				04461A331EFA8955008CD1E2 /* Ext.UIViewController.swift in Sources */,
 				047ACEE51F0F703D008F2045 /* KpiPageBase.swift in Sources */,
 				04461A201EFA705C008CD1E2 /* Home.swift in Sources */,
 				04461A071EFA66A7008CD1E2 /* MYTextField.swift in Sources */,
-				04BB55592017686000CE9153 /* MYExt.String.swift in Sources */,
 				04FC17271F01330000226F1A /* WebPage.swift in Sources */,
 				04D74DB11F5AA8190093EB4B /* MYZip.swift in Sources */,
 				0472E2A91EFAC74D001CE358 /* Ext.Dictionary.swift in Sources */,
@@ -606,7 +606,6 @@
 				04C910B31EFD2131000D2DB8 /* HeaderView.swift in Sources */,
 				04563F931F0CCA8F00B8BCC6 /* KpiMain.swift in Sources */,
 				048C44851F5B167400E836C0 /* JobStruct.swift in Sources */,
-				04BB555A2017686000CE9153 /* MYExt.Date.swift in Sources */,
 				04BEDABB1F5BF8640076A05E /* MYResult.swift in Sources */,
 				04461A241EFA84B9008CD1E2 /* Login.swift in Sources */,
 				0484D33D1F13A8A800E9FB11 /* KpiQuest.swift in Sources */,
@@ -640,6 +639,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -647,6 +647,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -696,6 +697,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -703,6 +705,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -736,7 +739,11 @@
 			baseConfigurationReference = 96089E4665AB951BC88709F2 /* Pods-MysteryClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = K2DWY28S5B;
+				DEVELOPMENT_TEAM = PN8JTL5X6T;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = MysteryClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -752,7 +759,11 @@
 			baseConfigurationReference = 92A0ADA7AC428E0280CB7A9D /* Pods-MysteryClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = K2DWY28S5B;
+				DEVELOPMENT_TEAM = PN8JTL5X6T;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = MysteryClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
