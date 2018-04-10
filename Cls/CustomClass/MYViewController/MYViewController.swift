@@ -59,7 +59,7 @@ class MenuViewController: MYViewController {
     }
 
     private func loadData() {
-        self.dataArray = [
+        dataArray = [
             self.addMenuItem("ico.incarichi", type: .inca),
             self.addMenuItem("ico.ricInc",    type: .stor),
             self.addMenuItem("ico.profilo",   type: .prof),
@@ -126,27 +126,29 @@ class MenuViewController: MYViewController {
             return
         }
         let ctrl = WebPage.Instance(type: webType)
-        self.navigationController?.show(ctrl, sender: self)
+        UIApplication.shared.openURL(URL.init(string: ctrl.page)!)
+
+//        self.navigationController?.show(ctrl, sender: self)
     }
 
     //MARK: - Menu show/hode
 
     func menuHide() {
         self.menuView.menuHide()
-        self.headerTitle = Lng("home")
+        self.headerTitle = MYLng("home")
         self.header?.header.sxButton.setImage(UIImage.init(named: "ico.menu"), for: .normal)
     }
     
     func menuShow () {
         self.menuView.menuShow()
-        self.headerTitle = Lng("menu")
+        self.headerTitle = MYLng("menu")
         self.header?.header.sxButton.setImage(UIImage.init(named: "ico.back"), for: .normal)
     }
 }
 
 extension MenuViewController: MenuViewDelegate {
     func menuSelectedItem(_ item: MenuItem) {
-        self.selectedItem(item)
+        selectedItem(item)
     }
     
     func menuVisible(_ visible: Bool) {

@@ -27,7 +27,7 @@ extension Home: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataArray.count
+        return dataArray.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -36,7 +36,7 @@ extension Home: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = HomeCell.dequeue(tableView, indexPath)
-        let item = self.dataArray[indexPath.row] as! MenuItem
+        let item = dataArray[indexPath.row] as! MenuItem
         cell.title = item.type.rawValue
         return cell
     }
@@ -45,8 +45,8 @@ extension Home: UITableViewDataSource {
 extension Home: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = self.dataArray[indexPath.row] as! MenuItem
-        self.menuSelectedItem(item)
+        let item = dataArray[indexPath.row] as! MenuItem
+        menuSelectedItem(item)
     }
 }
 

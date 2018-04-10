@@ -10,7 +10,7 @@ import UIKit
 
 class SubRadio: KpiQuestSubView {
     class func Instance() -> SubRadio {
-        let id = String (describing: self)
+        let id = "SubRadio"
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubRadio
     }
     
@@ -20,13 +20,13 @@ class SubRadio: KpiQuestSubView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        SubRadioCell.register(tableView: self.tableView)
+        SubRadioCell.register(tableView: tableView)
     }
     
     override func initialize(kpiIndex: Int) {
         super.initialize(kpiIndex: kpiIndex)
-        self.tableView.layer.borderColor = UIColor.lightGray.cgColor
-        self.tableView.layer.borderWidth = 1
+        tableView.layer.borderColor = UIColor.lightGray.cgColor
+        tableView.layer.borderWidth = 1
         
         if self.kpiResult.value.isEmpty == false {
             let index = Int(self.kpiResult.value)
@@ -39,19 +39,18 @@ class SubRadio: KpiQuestSubView {
         }
         
         
-        self.tableView.reloadData()
+        tableView.reloadData()
         
         var rect = self.frame
         rect.size.height = self.rowHeight * CGFloat(self.kpi.valuations.count)
         self.frame = rect
-        self.delegate?.kpiQuestSubViewNewHeight(rect.size.height)
+        delegate?.kpiQuestSubViewNewHeight(rect.size.height)
     }
     
     override func getValuation () -> KpiResponseValues {
         var response = KpiResponseValues()
-        if self.valuationSelected != nil {
-            let item = self.valuationSelected!
-            response.value = String(item.id)
+        if let item = valuationSelected {
+            response.value = "\(item.id)"
             response.notesReq = item.note_required
             response.attchReq = item.attachment_required
             
@@ -68,8 +67,8 @@ class SubRadio: KpiQuestSubView {
 extension SubRadio: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.valuationSelected = self.kpi.valuations[indexPath.row]
-        self.tableView.reloadData()
+        valuationSelected = kpi.valuations[indexPath.row]
+        tableView.reloadData()
     }
 }
 

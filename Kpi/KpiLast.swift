@@ -8,9 +8,9 @@
 
 import UIKit
 
-class KpiLast: KpiViewController, UITextViewDelegate {
+class KpiLast: KpiViewController {
     override class func Instance() -> KpiLast {
-        let vc = self.load(storyboardName: "Kpi") as! KpiLast
+        let vc = InstanceFromSb("Kpi") as! KpiLast
         return vc
     }
     
@@ -20,31 +20,33 @@ class KpiLast: KpiViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.finalText.text = MYJob.shared.jobResult.comment
-        self.finalText.layer.borderColor = UIColor.lightGray.cgColor
-        self.finalText.layer.borderWidth = 1
-        self.finalText.delegate = self
+        finalText.text = MYJob.shared.jobResult.comment
+        finalText.layer.borderColor = UIColor.lightGray.cgColor
+        finalText.layer.borderWidth = 1
+        finalText.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if MYJob.shared.jobResult.compilation_date.isEmpty == false {
             let d = MYJob.shared.jobResult.compilation_date
-            let date = d.toDate(withFormat: Date.fmtDataOraJson)
-            self.datePicker.date = date
+            let date = d.toDate(withFormat: Config.DateFmt.DataOraJson)
+            datePicker.date = date
         }
     }
     
-    override func checkData() -> KpiResultType {
-        MYJob.shared.jobResult.comment = self.finalText.text!
+    override func checkData() -> KpiMain.ResultType {
+        MYJob.shared.jobResult.comment = finalText.text!
         MYJob.shared.jobResult.compiled = 1
-        MYJob.shared.jobResult.compilation_date = self.datePicker.date.toString(withFormat: Date.fmtDataOraJson)
-        MYJob.shared.jobResult.execution_end_time = self.datePicker.date.toString(withFormat: Date.fmtOra)
+        MYJob.shared.jobResult.compilation_date = datePicker.date.toString(withFormat: Config.DateFmt.DataOraJson)
+        MYJob.shared.jobResult.execution_end_time = datePicker.date.toString(withFormat: Config.DateFmt.Ora)
         MYResult.shared.saveResult()
         
         return .last
     }
-    
+}
+
+extension KpiLast: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()

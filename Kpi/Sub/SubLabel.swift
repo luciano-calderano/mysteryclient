@@ -10,7 +10,7 @@ import UIKit
 
 class SubLabel: KpiQuestSubView, UITextFieldDelegate {
     class func Instance() -> SubLabel {
-        let id = String (describing: self)
+        let id = "SubLabel"
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubLabel
     }
     
@@ -18,7 +18,7 @@ class SubLabel: KpiQuestSubView, UITextFieldDelegate {
     
     override func initialize(kpiIndex: Int) {
         super.initialize(kpiIndex: kpiIndex)
-        self.kpiLabel.text = kpiResult.value
+        kpiLabel.text = kpiResult.value
     }
 }
 

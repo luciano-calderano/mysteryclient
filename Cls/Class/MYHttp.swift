@@ -13,9 +13,9 @@ extension NSMutableData {
     }
 }
 
-enum MYHttpType: String {
-    case oauth_grant    = "oauth/grant"
-    case rest_get       = "rest/get"
+enum MYHttpType {
+    case grant
+    case get
 }
 
 import Foundation
@@ -26,56 +26,55 @@ class MYHttp {
     
     private var json = JsonDict()    
     private var type: HTTPMethod!
-    private var page = ""
     private var apiUrl = ""
     private var header = true
-
+    
     private var myWheel:MYWheel?
-
-    init(_ type: MYHttpType, param: JsonDict, showWheel: Bool = true, header: Bool = true) {
-        self.page = type.rawValue
-        self.apiUrl = Config.apiUrl + self.page
-        self.json = param
-        self.header = header
+    
+    init(_ httpType: MYHttpType, param: JsonDict, showWheel: Bool = true, hasHeader: Bool = true) {
+        json = param
+        header = hasHeader
         
-        switch type {
-        case .rest_get:
-            self.type = .get
-        default:
-            self.type = .post
+        switch httpType {
+        case .get:
+            type = .get
+            apiUrl = Config.Url.get
+        case .grant:
+            type = .post
+            apiUrl = Config.Url.grant
         }
-
+        
         self.startWheel(showWheel)
     }
     
     func load(ok: @escaping (JsonDict) -> Void = { response in },
               KO: @escaping (String, String) -> Void = { code, error in } ) {
-
-        self.printJson(self.json)
+        
+        printJson(self.json)
         var headers = [String: String]()
-        if self.header == true {
+        if header == true {
             headers["Authorization"] = User.shared.token
         }
-    
+        
         Alamofire.request(self.apiUrl,
                           method: self.type,
                           parameters: self.json,
                           headers: headers).responseString { response in
                             self.startWheel(false)
-                            self.response(response,
-                                          ok: { (json) in
-                                            ok (json)
-                                            self.printJson(json)
-                            },
-                                          KO: { (code, error) in
-                                            KO (code, error)
+                            self.checkResponse(response,  ok: {
+                                (json) in
+                                ok (json)
+                                self.printJson(json)
+                            }, KO: {
+                                (code, error) in
+                                KO (code, error)
                             })
         }
     }
     
-    private func response (_ response: DataResponse<String>,
-                           ok: @escaping (JsonDict) -> () = { response in },
-                           KO: @escaping (String, String) -> () = { code, error in } ) {
+    private func checkResponse (_ response: DataResponse<String>,
+                                ok: @escaping (JsonDict) -> () = { response in },
+                                KO: @escaping (String, String) -> () = { code, error in } ) {
         var statusCode = response.response?.statusCode
         var errorMessage = ""
         
@@ -96,7 +95,7 @@ class MYHttp {
                 errorMessage = "Errore generico"
             }
         }
-        KO ("\(self.page) - Err. \(statusCode!)", errorMessage)
+        KO ("\(apiUrl) - Err. \(statusCode!)", errorMessage)
     }
     
     private func removeNullFromJsonString (_ text: String) -> JsonDict {
@@ -143,7 +142,7 @@ class MYUpload {
         
         let fm = FileManager.default
         do {
-            let docUrl = URL.init(string: Config.doc)!
+            let docUrl = URL.init(string: Config.Path.doc)!
             let files = try fm.contentsOfDirectory(at: docUrl,
                                                    includingPropertiesForKeys: nil,
                                                    options:[])
@@ -162,7 +161,7 @@ class MYUpload {
     }
     
     func start (jobId: String, data: Data) {
-        let url = URL.init(string: Config.apiUrl + "rest/put")!
+        let url = URL.init(string: Config.Url.put)!
         let headers = [
             "Authorization" : User.shared.token
         ]
@@ -178,7 +177,7 @@ class MYUpload {
                 let json = [
                     "object"        : "job",
                     "object_id"     : jobId,
-                ]
+                    ]
                 
                 for (key, value) in json {
                     multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)

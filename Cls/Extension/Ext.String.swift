@@ -14,7 +14,7 @@ extension String {
         if (s.count > 0) {
             if s[s.startIndex..<s.index(s.startIndex, offsetBy: 1)] == "#" {
                 s = String(s[s.index(s.startIndex, offsetBy: 1)..<s.endIndex])
-                s = Lng(s)
+                s = MYLng(s)
             }
         }
         

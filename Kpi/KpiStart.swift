@@ -10,7 +10,7 @@ import UIKit
 
 class KpiStart: KpiViewController {
     override class func Instance() -> KpiStart {
-        let vc = self.load(storyboardName: "Kpi") as! KpiStart
+        let vc = InstanceFromSb("Kpi") as! KpiStart
         return vc
     }
     
@@ -33,12 +33,12 @@ class KpiStart: KpiViewController {
         super.viewWillAppear(animated)
         if MYJob.shared.jobResult.execution_date.isEmpty == false {
             let d = MYJob.shared.jobResult.execution_date + " " + MYJob.shared.jobResult.execution_start_time + ":00"
-            let date = d.toDate(withFormat: Date.fmtDataOraJson)
+            let date = d.toDate(withFormat: Config.DateFmt.DataOraJson)
             self.datePicker.date = date
         }
     }
     
-    override func checkData() -> KpiResultType {
+    override func checkData() -> KpiMain.ResultType {
         if self.undoneView.isHidden == false {
             if (self.undondeText.text?.isEmpty)! {
                 self.undondeText.becomeFirstResponder()
@@ -50,8 +50,8 @@ class KpiStart: KpiViewController {
             return .last
         }
 
-        MYJob.shared.jobResult.execution_date = self.datePicker.date.toString(withFormat: Date.fmtDataJson)
-        MYJob.shared.jobResult.execution_start_time = self.datePicker.date.toString(withFormat: Date.fmtOra)
+        MYJob.shared.jobResult.execution_date = self.datePicker.date.toString(withFormat: Config.DateFmt.DataJson)
+        MYJob.shared.jobResult.execution_start_time = self.datePicker.date.toString(withFormat: Config.DateFmt.Ora)
         MYResult.shared.saveResult()
         return .next
     }

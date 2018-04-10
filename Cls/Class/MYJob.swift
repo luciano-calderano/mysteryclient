@@ -17,21 +17,17 @@ class MYJob {
     var invalidDependecies = [String]()
     var kpiKeyList = [Int]()
 
-    func saveJobs (_ jobs: [JsonDict]) {
+    func clearJobs () {
         let fm = FileManager.default
         do {
-            if fm.fileExists(atPath: Config.jobsPath) {
-                try FileManager.default.removeItem(atPath: Config.jobsPath)
+            if fm.fileExists(atPath: Config.Path.jobs) {
+                try FileManager.default.removeItem(atPath: Config.Path.jobs)
             }
-            try fm.createDirectory(atPath: Config.jobsPath,
+            try fm.createDirectory(atPath: Config.Path.jobs,
                                    withIntermediateDirectories: true,
                                    attributes: nil)
         } catch let error as NSError {
             print("Directory error: \(error.debugDescription)")
-        }
-        
-        for dict in jobs {
-            _ = dict.saveToFile(self.getFileName(id: dict.int("id")))
         }
     }
     
@@ -40,16 +36,16 @@ class MYJob {
         let fm = FileManager.default
         
         do {
-            let files = try fm.contentsOfDirectory(atPath: Config.jobsPath)
+            let files = try fm.contentsOfDirectory(atPath: Config.Path.jobs)
             for file in files {
-                let array = file.components(separatedBy: ".") //Lc
+                let array = file.components(separatedBy: ".") 
                 if array.count != 2 {
                     continue
                 }
                 if array[1] != "plist" {
                     continue
                 }
-                let dict = JsonDict.init(fromFile: Config.jobsPath + file)
+                let dict = JsonDict.init(fromFile: Config.Path.jobs + file)
                 jobs.append(dict)
             }
         }
@@ -68,6 +64,8 @@ class MYJob {
     }
     
     func createJob(withDict dict: JsonDict) -> Job {
+        _ = dict.saveToFile(self.getFileName(id: dict.int("id")))
+
         var job = Job()
         job.compiled = dict.bool("compiled")    // Boolean [0/1]
         job.irregular = dict.bool("irregular")  // Boolean [0/1]
@@ -88,20 +86,20 @@ class MYJob {
         job.description = dict.string("description")
         job.additional_description = dict.string("additional_description")
         job.details = dict.string("details")
-        job.start_date = dict.date("start_date", fmt: Date.fmtDataJson)
-        job.end_date = dict.date("end_date", fmt: Date.fmtDataJson)
-        job.estimate_date = dict.date("estimate_date", fmt: Date.fmtDataJson)
+        job.start_date = dict.date("start_date", fmt: Config.DateFmt.DataJson)
+        job.end_date = dict.date("end_date", fmt: Config.DateFmt.DataJson)
+        job.estimate_date = dict.date("estimate_date", fmt: Config.DateFmt.DataJson)
         
         job.fee_desc = dict.string("fee_desc")
         job.status = dict.string("status")
         job.booked = dict.bool("booked") // Boolean [0/1]
-        job.booking_date = dict.date("booking_date", fmt: Date.fmtDataOraJson)
-        job.compilation_date = dict.date("compilation_date", fmt: Date.fmtDataOraJson)
-        job.update_date = dict.date("update_date", fmt: Date.fmtDataOraJson)
+        job.booking_date = dict.date("booking_date", fmt: Config.DateFmt.DataOraJson)
+        job.compilation_date = dict.date("compilation_date", fmt: Config.DateFmt.DataOraJson)
+        job.update_date = dict.date("update_date", fmt: Config.DateFmt.DataOraJson)
         job.validated = dict.bool("validated") // Boolean [0/1]
-        job.validation_date = dict.date("validation_date", fmt: Date.fmtDataOraJson)
+        job.validation_date = dict.date("validation_date", fmt: Config.DateFmt.DataOraJson)
         job.notes = dict.string("notes")
-        job.execution_date = dict.date("execution_date", fmt: Date.fmtDataJson)
+        job.execution_date = dict.date("execution_date", fmt: Config.DateFmt.DataJson)
         job.execution_start_time = dict.string("execution_start_time") // Time [hh:mm]
         job.execution_end_time = dict.string("execution_end_time") // Time [hh:mm]
         job.comment = dict.string("comment")
@@ -135,7 +133,15 @@ class MYJob {
             att.url = attachment.string("url")
             job.attachments.append(att)
         }
-        for kpiDict in dict.array("kpis") as! [JsonDict] {
+        
+        job.kpis = updateKpisWithDict(dict)
+        return job
+    }
+    
+    private func updateKpisWithDict (_ dict: JsonDict) -> [Job.Kpi] {
+        var array = [Job.Kpi]()
+        let kpis = dict.array("kpis") as! [JsonDict]
+        for kpiDict in kpis {
             let kpi = Job.Kpi()
             kpi.id = kpiDict.int("id")
             kpi.name = kpiDict.string("name")
@@ -180,13 +186,13 @@ class MYJob {
             kpi.result.attachment = result.string("attachment")
             kpi.result.url = result.string("url")
             
-            job.kpis.append(kpi)
+            array.append(kpi)
         }
-        return job
+        return array
     }
     
     private func getFileName (id: Int) -> String {
-        let fileName = Config.jobsPath + String(id) + Config.plist
+        let fileName = Config.Path.jobs + String(id) + Config.plist
         return fileName
     }
 }

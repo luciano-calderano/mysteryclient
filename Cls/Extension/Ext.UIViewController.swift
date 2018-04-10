@@ -9,13 +9,10 @@
 import UIKit
 
 extension UIViewController {
-//    class func load (storyboard sbType: StoryboardType) -> UIViewController {
-//        return self.load(storyboardName: sbType.rawValue)
-//    }
-    class func load (storyboardName: String) -> UIViewController {
-        let vcName = String (describing: self)
-        let sb = UIStoryboard.init(name: storyboardName, bundle: nil)
-        let vc = sb.instantiateViewController(withIdentifier: vcName)
+    class func InstanceFromSb (_ sb: String) -> UIViewController {
+        let id = String (describing: self)
+        let sb = UIStoryboard.init(name: sb, bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: id)
         return vc
     }
 

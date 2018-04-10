@@ -14,7 +14,7 @@ class MYZip {
         return Config.filePrefix + id + ".zip"
     }
     class func getZipFilePath (id: String) -> String {
-        return Config.doc + MYZip.getZipFileName(id: id)
+        return Config.Path.doc + MYZip.getZipFileName(id: id)
     }
     class func removeZipWithId (_ id: String) {
         do {
@@ -25,7 +25,7 @@ class MYZip {
     func createZipFileWithDict (_ dict: JsonDict) -> URL? {
         let jobId = String(MYJob.shared.job.id)
         let fm = FileManager.default
-        let jobPath = Config.doc + jobId
+        let jobPath = Config.Path.doc + jobId
         
         do {
         let json = try JSONSerialization.data(withJSONObject: dict,

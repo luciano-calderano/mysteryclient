@@ -10,7 +10,7 @@ import UIKit
 
 class Login: MYViewController {
     class func Instance() -> Login {
-        let vc = self.load(storyboardName: "Main") as! Login
+        let vc = InstanceFromSb("Main") as! Login
         return vc
     }
     @IBOutlet var loginView: UIView!
@@ -31,68 +31,68 @@ class Login: MYViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(Config.doc)
+        print(Config.Path.doc)
         
-        self.loginView.isHidden = true
-        self.checkImg = self.saveCredButton.image(for: .normal)
-        self.saveCredButton.imageEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2)
+        loginView.isHidden = true
+        checkImg = saveCredButton.image(for: .normal)
+        saveCredButton.imageEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2)
 
-        self.userView.layer.cornerRadius = self.userView.frame.size.height / 2
-        self.passView.layer.cornerRadius = self.passView.frame.size.height / 2
+        userView.layer.cornerRadius = userView.frame.size.height / 2
+        passView.layer.cornerRadius = passView.frame.size.height / 2
         
-        self.saveCredButton.setImage(nil, for: .normal)
+        saveCredButton.setImage(nil, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.myWheel = MYWheel()
-        self.myWheel?.start(self.view)
+        myWheel = MYWheel()
+        myWheel?.start(view)
 
         let credential = User.shared.credential()
-        self.userText.text = credential.user
-        self.passText.text = credential.pass
-        self.userText.text = "utente_gen"
-        self.passText.text = "novella44"
-        self.saveCred = !credential.user.isEmpty
-        self.updateCheckCredential()
+        userText.text = credential.user
+        passText.text = credential.pass
+//        userText.text = "utente_gen"
+//        passText.text = "novella44"
+        saveCred = !credential.user.isEmpty
+        updateCheckCredential()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if User.shared.token.isEmpty {
-            self.loginView.isHidden = false
+            loginView.isHidden = false
         }
         else {
-            self.userLogged()
+            userLogged()
         }
-        self.myWheel?.stop()
-        self.myWheel = nil
+        myWheel?.stop()
+        myWheel = nil
     }
 
     @IBAction func saveCredTapped () {
-        self.saveCred = !self.saveCred
-        self.updateCheckCredential()
+        saveCred = !saveCred
+        updateCheckCredential()
     }
 
     @IBAction func credRecoverTapped () {        
         let ctrl = WebPage.Instance(type: .recover)
-        self.navigationController?.show(ctrl, sender: self)
+        navigationController?.show(ctrl, sender: self)
     }
     
     @IBAction func signInTapped () {
-        if self.userText.text!.isEmpty {
-            self.userText.becomeFirstResponder()
+        if userText.text!.isEmpty {
+            userText.becomeFirstResponder()
             return
         }
-        if self.passText.text!.isEmpty {
-            self.passText.becomeFirstResponder()
+        if passText.text!.isEmpty {
+            passText.becomeFirstResponder()
             return
         }
         self.view.endEditing(true)
 
-        User.shared.checkUser(saveCredential: self.saveCred,
-                              userName: self.userText.text!,
-                              password: self.passText.text!,
+        User.shared.checkUser(saveCredential: saveCred,
+                              userName: userText.text!,
+                              password: passText.text!,
                               completion: { () in
                                 self.userLogged()
                                 
@@ -102,19 +102,19 @@ class Login: MYViewController {
     }
     @IBAction func signUpTapped () {
         let ctrl = WebPage.Instance(type: .register)
-        self.navigationController?.show(ctrl, sender: self)
+        navigationController?.show(ctrl, sender: self)
     }
     
     //MARK: - private
     
     private func updateCheckCredential() {
-        let img: UIImage? = self.saveCred == true ? self.checkImg : nil
-        self.saveCredButton.setImage(img, for: .normal)
+        let img: UIImage? = saveCred == true ? checkImg : nil
+        saveCredButton.setImage(img, for: .normal)
     }
     
     private func userLogged () {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
-        self.navigationController?.show(vc!, sender: self)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "Home")
+        navigationController?.show(vc!, sender: self)
     }
 }
 
@@ -122,11 +122,11 @@ class Login: MYViewController {
 
 extension Login: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == self.userText {
-            self.passText.becomeFirstResponder()
+        if textField == userText {
+            passText.becomeFirstResponder()
             return true
         }
-        if textField == self.passText {
+        if textField == passText {
             self.view.endEditing(true)
         }
         return true

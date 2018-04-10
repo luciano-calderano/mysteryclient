@@ -35,11 +35,11 @@ class MenuView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.cellId)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.cellId)
         let tapBack = UITapGestureRecognizer.init(target: self, action: #selector(swipped))
         self.backView.addGestureRecognizer(tapBack)
         
-        self.dataArray = [
+        dataArray = [
             self.addMenuItem("ico.home",      type: .home),
             self.addMenuItem("ico.incarichi", type: .inca),
             self.addMenuItem("ico.ricInc",    type: .stor),
@@ -96,7 +96,7 @@ extension MenuView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataArray.count
+        return dataArray.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -106,7 +106,7 @@ extension MenuView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellId,
                                                  for: indexPath) as UITableViewCell
-        let item = self.dataArray[indexPath.row]
+        let item = dataArray[indexPath.row]
         cell.imageView!.image = item.icon
         cell.textLabel?.text = item.type.rawValue
         cell.textLabel?.font = UIFont.size(14)
@@ -125,7 +125,7 @@ extension MenuView: UITableViewDataSource {
 extension MenuView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = self.dataArray[indexPath.row]
+        let item = dataArray[indexPath.row]
         self.delegate?.menuSelectedItem(item)
     }
 }

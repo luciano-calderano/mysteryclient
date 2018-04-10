@@ -23,88 +23,64 @@ class JobsHome: MYViewController {
         
         let jobs = MYJob.shared.loadJobs()
         if jobs.count > 0 {
-            self.jobs(jobs)
+            jobsListWithArray(jobs)
         }
         else {
-            self.jobsDownload()
+            jobsDownload()
         }
     }
     
     override func headerViewDxTapped() {
-        self.jobsDownload()
+        MYJob.shared.clearJobs()
+        jobsDownload()
     }
-    
-    func showJobDetail (_ job: Job) {
-        MYJob.shared.job = job
-        self.initializeSharedData()
-        let vc = JobDetail.Instance()
-        self.navigationController?.show(vc, sender: self)
-    }
-    
-    // MARK: - private
-    
-    private func initializeSharedData () {
-        MYJob.shared.invalidDependecies.removeAll()
-        MYJob.shared.kpiKeyList.removeAll()
-        for i in 0...MYJob.shared.job.kpis.count - 1 {
-            let kpi = MYJob.shared.job.kpis[i]
-            MYJob.shared.kpiKeyList.append(kpi.id)
-        }
-        MYJob.shared.jobResult = MYResult.shared.loadResult (jobId: MYJob.shared.job.id)
-    }
-    
+}
+
+
+// MARK: - Job List
+
+extension JobsHome {
     private func jobsDownload () {
         User.shared.getUserToken(completion: {
-            self.loadData()
+            download()
         }) { (errorCode, message) in
             self.alert("Error: \(errorCode)", message: message, okBlock: nil)
         }
-    }
-    
-    private func loadData() {
-        let param = [
-            "object" : "jobs",
-            ]
-        let request = MYHttp.init(.rest_get, param: param)
         
-        request.load(ok: { (response) in
-            self.jobs(response.array("jobs") as! [JsonDict])
-        }) { (title, error) in
-            self.alert(title, message: error, okBlock: nil)
-        }
-    }
-    
-    private func jobs (_ dict: [JsonDict]) {
-        MYJob.shared.saveJobs(dict)
-        let jobs = Jobs.init(withArray: dict)
-        self.dataArray = jobs.jobList
-        self.tableView.reloadData()
-    }
-    
-    // MARK: - Dict -> Job Class
-    
-    class Jobs {
-        var jobList = [Job]()
-        
-        init (withArray jobsArray: [JsonDict]) {
-            for dict in jobsArray {
-                let job = MYJob.shared.createJob(withDict: dict)
-                if job.id > 0 {
-                    self.jobList.append(job)
-                }
+        func download() {
+            let param = [ "object" : "jobs_list" ]
+            let request = MYHttp.init(.get, param: param)
+            
+            request.load(ok: { (response) in
+                self.jobsListWithArray(response.array("jobs") as! [JsonDict])
+            }) { (title, error) in
+                self.alert(title, message: error, okBlock: nil)
             }
         }
+    }
+    
+    private func jobsListWithArray (_ dictArray: [JsonDict]) {
+        var jobsArray = [Job]()        
+        for dict in dictArray {
+            let job = MYJob.shared.createJob(withDict: dict)
+            if job.id > 0 {
+                jobsArray.append(job)
+            }
+        }
+        dataArray = jobsArray
+        tableView.reloadData()
     }
 }
 
 //MARK: - UITableViewDataSource
+
 extension JobsHome: UITableViewDataSource {
     func maxItemOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataArray.count
+        return dataArray.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -114,20 +90,73 @@ extension JobsHome: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = JobsHomeCell.dequeue(tableView, indexPath)
         cell.delegate = self
-        cell.item(item: self.dataArray[indexPath.row] as! Job)
+        cell.job =  dataArray[indexPath.row] as! Job
         return cell
     }
 }
 
 //MARK: - UITableViewDelegate
+
 extension JobsHome: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.showJobDetail(self.dataArray[indexPath.row] as! Job)
+        selectedJob(job: dataArray[indexPath.row] as! Job)
     }
 }
 
+// MARK: - Selected job
+
+extension JobsHome {
+    private func selectedJob (job: Job) {
+        
+        func getDetail () {
+            User.shared.getUserToken(completion: {
+                loadJobKpis()
+            }) { (errorCode, message) in
+                self.alert("Error: \(errorCode)", message: message, okBlock: nil)
+            }
+            
+            func loadJobKpis () {
+                let job = MYJob.shared.job
+                let param = [ "object" : "job", "object_id":  job.id ] as JsonDict
+                let request = MYHttp.init(.get, param: param)
+                
+                request.load(ok: { (response) in
+                    let dict = response.dictionary("job")
+                    MYJob.shared.job = MYJob.shared.createJob(withDict: dict)
+                    self.openJobDetail()
+                    
+                }) { (title, error) in
+                    self.alert(title, message: error, okBlock: nil)
+                }
+            }
+        }
+        
+        MYJob.shared.job = job
+        MYJob.shared.invalidDependecies.removeAll()
+        MYJob.shared.kpiKeyList.removeAll()
+        for kpi in MYJob.shared.job.kpis {
+            MYJob.shared.kpiKeyList.append(kpi.id)
+        }
+        MYJob.shared.jobResult = MYResult.shared.loadResult (jobId: MYJob.shared.job.id)
+
+        if MYJob.shared.jobResult.execution_date.isEmpty {
+            getDetail ()
+        } else {
+            openJobDetail()
+        }
+    }
+    private func openJobDetail () {
+        let vc = JobDetail.Instance()
+        self.navigationController?.show(vc, sender: self)
+    }
+    
+
+}
+
+
 //MARK: - JobsHomeCellDelegate
+
 extension JobsHome: JobsHomeCellDelegate {
     func mapTapped(_ sender: JobsHomeCell, job: Job) {
         let store = job.store

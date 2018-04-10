@@ -15,7 +15,7 @@ class Maps {
         }
         let name = name.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
         let page = "ll=\(lat),\(lon)&q=" + name + "&z=10"
-        let url = URL.init(string: Config.mapUrl + page)!
+        let url = URL.init(string: Config.Url.maps + page)!
         UIApplication.shared.openURL(url)
     }
 }

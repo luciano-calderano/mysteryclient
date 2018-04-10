@@ -9,24 +9,24 @@
 import UIKit
 import CoreLocation
 
-class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDelegate {
+class JobDetail: MYViewController {
     class func Instance() -> JobDetail {
-        let vc = self.load(storyboardName: "Jobs") as! JobDetail
+        let vc = InstanceFromSb("Jobs") as! JobDetail
         return vc
     }
-
+    
     private let locationManager = CLLocationManager()
     private var locationValue = CLLocationCoordinate2D()
-
+    
     @IBOutlet var infoLabel: MYLabel!
     @IBOutlet var nameLabel: MYLabel!
     @IBOutlet var addrLabel: MYLabel!
-
+    
     @IBOutlet var descBtn: MYButton!
     @IBOutlet var alleBtn: MYButton!
     @IBOutlet var spreBtn: MYButton!
     @IBOutlet var dateBtn: MYButton!
-
+    
     @IBOutlet var contBtn: MYButton!
     @IBOutlet var tickBtn: MYButton!
     @IBOutlet var strtBtn: MYButton!
@@ -34,13 +34,13 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.isAuthorizedtoGetUserLocation()
+        isAuthorizedtoGetUserLocation()
         if CLLocationManager.locationServicesEnabled() {
-            self.locationManager.delegate = self
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         }
         
-        for btn in [self.contBtn, self.tickBtn] as! [MYButton] {
+        for btn in [contBtn, tickBtn] as! [MYButton] {
             let ico = btn.image(for: .normal)?.resize(16)
             btn.setImage(ico, for: .normal)
             btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10)
@@ -52,7 +52,7 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
             btn.layer.masksToBounds = false
         }
         
-        for btn in [self.strtBtn, self.stopBtn] as! [MYButton] {
+        for btn in [strtBtn, stopBtn] as! [MYButton] {
             let ico = btn.image(for: .normal)?.resize(16)
             btn.setImage(ico, for: .normal)
             
@@ -62,41 +62,16 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
             let center = btn.frame.size.width / 2
             
             btn.imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: center - imageSize.width/2, bottom: 0, right: -titleSize.width)
-
+            
             btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: -(titleSize.width + imageSize.width) / 2, bottom: -(imageSize.height + spacing), right: 0)
         }
         
-        self.showData()
+        showData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.loadAndShowResult()
-    }
-    
-    // MARK: - Location manager
-    
-    func isAuthorizedtoGetUserLocation() {
-        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
-            self.locationManager.requestWhenInUseAuthorization()
-        }
-    }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            print("User allowed us to access location")
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.locationValue = (manager.location?.coordinate)!
-        print("Loc. \(self.locationValue)")
-        self.locationManager.stopUpdatingLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Location updates error \(error)")
+        loadAndShowResult()
     }
     
     // MARK: - actions
@@ -110,58 +85,59 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
     
     @IBAction func descTapped () {
         let subView = JobDetailDesc.Instance()
-        subView.frame = self.view.frame
+        subView.frame = view.frame
         subView.jobDesc.text = MYJob.shared.job.description
-        self.view.addSubview(subView)
+        view.addSubview(subView)
     }
     
     @IBAction func atchTapped () {
         let subView = JobDetailAtch.Instance()
-        subView.frame = self.view.frame
+        subView.frame = view.frame
         subView.job = MYJob.shared.job
         subView.delegate = self
-        self.view.addSubview(subView)
+        view.addSubview(subView)
     }
     
     @IBAction func spreTapped () {
         let ctrl = WebPage.Instance(type: .bookingRemove, id: MYJob.shared.job.id)
-        self.gotoCtrl(ctrl)
+        gotoCtrl(ctrl)
     }
     @IBAction func dateTapped () {
         let ctrl = WebPage.Instance(type: .bookingMove, id: MYJob.shared.job.id)
-        self.gotoCtrl(ctrl)
+        gotoCtrl(ctrl)
     }
     
     @IBAction func contTapped () {
         guard MYJob.shared.job.learning_done else {
             let ctrl = WebPage.Instance(type: .none)
             ctrl.page = MYJob.shared.job.learning_url
-            self.navigationController?.show(ctrl, sender: self)
+            gotoCtrl(ctrl)
+//            navigationController?.show(ctrl, sender: self)
             return
         }
         let wheel = MYWheel()
-        wheel.start(self.view)
+        wheel.start(view)
         if MYJob.shared.jobResult.execution_date.isEmpty {
-            MYJob.shared.jobResult.estimate_date = Date().toString(withFormat: Date.fmtDataJson)
+            MYJob.shared.jobResult.estimate_date = Date().toString(withFormat: Config.DateFmt.DataJson)
             MYResult.shared.saveResult()
         }
-
+        
         let ctrl = KpiMain.Instance()
-        self.navigationController?.show(ctrl, sender: self)
+        navigationController?.show(ctrl, sender: self)
         wheel.stop()
     }
     
     @IBAction func tickTapped () {
         let ctrl = WebPage.Instance(type: .ticketView)
-        self.gotoCtrl(ctrl)
+        gotoCtrl(ctrl)
     }
     
     @IBAction func strtTapped () {
-        self.locationManager.startUpdatingLocation()
-        self.executionTime()
+        locationManager.startUpdatingLocation()
+        executionTime()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             MYJob.shared.jobResult.positioning.start = true
-            MYJob.shared.jobResult.positioning.start_date = Date().toString(withFormat: Date.fmtDataOraJson)
+            MYJob.shared.jobResult.positioning.start_date = Date().toString(withFormat: Config.DateFmt.DataOraJson)
             MYJob.shared.jobResult.positioning.start_lat = self.locationValue.latitude
             MYJob.shared.jobResult.positioning.start_lng = self.locationValue.longitude
             MYResult.shared.saveResult()
@@ -170,75 +146,101 @@ class JobDetail: MYViewController, JobDetailAtchDelegate, CLLocationManagerDeleg
         }
     }
     @IBAction func stopTapped () {
-        self.locationManager.startUpdatingLocation()
-        self.executionTime()
+        locationManager.startUpdatingLocation()
+        executionTime()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             
             MYJob.shared.jobResult.positioning.end = true
-            MYJob.shared.jobResult.positioning.end_date = Date().toString(withFormat: Date.fmtDataOraJson)
+            MYJob.shared.jobResult.positioning.end_date = Date().toString(withFormat: Config.DateFmt.DataOraJson)
             MYJob.shared.jobResult.positioning.end_lat = self.locationValue.latitude
             MYJob.shared.jobResult.positioning.end_lng = self.locationValue.longitude
             if MYJob.shared.jobResult.execution_end_time.isEmpty {
-                MYJob.shared.jobResult.execution_end_time = Date().toString(withFormat: Date.fmtOra)
+                MYJob.shared.jobResult.execution_end_time = Date().toString(withFormat: Config.DateFmt.Ora)
             }
             MYResult.shared.saveResult()
             
             self.locationManager.stopUpdatingLocation()
         }
     }
-
-    // MARK: - Attachment delegate
     
-    func openFileFromUrlWithString(_ page: String) {
-        let ctrl = WebPage.Instance(type: .none)
-        ctrl.page = page
-        self.gotoCtrl(ctrl)
-//        self.navigationController?.show(ctrl, sender: self)
-    }
-
     // MARK: - private
     
     private func gotoCtrl (_ ctrl: WebPage) {
         UIApplication.shared.openURL(URL.init(string: ctrl.page)!)
-//        self.navigationController?.show(ctrl, sender: self)
+        //        navigationController?.show(ctrl, sender: self)
     }
     
     private func showData () {
-        self.header?.header.titleLabel.text = MYJob.shared.job.store.name
-        self.infoLabel.text =
-            Lng("rifNum") + ": \(MYJob.shared.job.reference)\n" +
-            Lng("verIni") + ": \(MYJob.shared.job.start_date.toString(withFormat: Date.fmtData))\n" +
-            Lng("verEnd") + ": \(MYJob.shared.job.end_date.toString(withFormat: Date.fmtData))\n"
-        self.nameLabel.text = MYJob.shared.job.store.name
-        self.addrLabel.text = MYJob.shared.job.store.address
+        header?.header.titleLabel.text = MYJob.shared.job.store.name
+        infoLabel.text =
+            MYLng("rifNum") + ": \(MYJob.shared.job.reference)\n" +
+            MYLng("verIni") + ": \(MYJob.shared.job.start_date.toString(withFormat: Config.DateFmt.Data))\n" +
+            MYLng("verEnd") + ": \(MYJob.shared.job.end_date.toString(withFormat: Config.DateFmt.Data))\n"
+        nameLabel.text = MYJob.shared.job.store.name
+        addrLabel.text = MYJob.shared.job.store.address
     }
     
     private func loadAndShowResult () {
-        self.executionTime()
+        executionTime()
         var title = ""
         if MYJob.shared.job.learning_done == false {
-            title = Lng("learning")
+            title = "learning"
         }
         else {
             title = MYJob.shared.jobResult.execution_date.isEmpty ? "kpiInit" : "kpiCont"
         }
-        self.contBtn.setTitle(Lng(title), for: .normal)
+        contBtn.setTitle(MYLng(title), for: .normal)
     }
     
     private func executionTime () {
-        self.strtBtn.isEnabled = false
-        self.stopBtn.isEnabled = false
-        self.strtBtn.backgroundColor = UIColor.lightGray
-        self.stopBtn.backgroundColor = UIColor.lightGray
+        strtBtn.isEnabled = false
+        stopBtn.isEnabled = false
+        strtBtn.backgroundColor = UIColor.lightGray
+        stopBtn.backgroundColor = UIColor.lightGray
         
         if MYJob.shared.jobResult.positioning.start == false {
-            self.strtBtn.isEnabled = true
-            self.strtBtn.backgroundColor = UIColor.white
+            strtBtn.isEnabled = true
+            strtBtn.backgroundColor = UIColor.white
         }
         else if MYJob.shared.jobResult.positioning.end == false {
-            self.stopBtn.isEnabled = true
-            self.stopBtn.backgroundColor = UIColor.white
+            stopBtn.isEnabled = true
+            stopBtn.backgroundColor = UIColor.white
         }
     }
 }
 
+// MARK: - Attachment delegate
+
+extension JobDetail: JobDetailAtchDelegate {
+    func openFileFromUrlWithString(_ page: String) {
+        let ctrl = WebPage.Instance(type: .none)
+        ctrl.page = page
+        gotoCtrl(ctrl)
+    }
+}
+
+// MARK: - Location manager delegate
+
+extension JobDetail: CLLocationManagerDelegate {
+    func isAuthorizedtoGetUserLocation() {
+        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            print("User allowed us to access location")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locationValue = (manager.location?.coordinate)!
+        print("Loc. \(locationValue)")
+        locationManager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location updates error \(error)")
+    }
+}

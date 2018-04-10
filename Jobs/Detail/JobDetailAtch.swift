@@ -14,7 +14,7 @@ protocol JobDetailAtchDelegate {
 
 class JobDetailAtch: UIView, UITableViewDelegate, UITableViewDataSource {
     class func Instance() -> JobDetailAtch {
-        let id = String (describing: self)
+        let id = "JobDetailAtch"
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! JobDetailAtch
     }
     
@@ -26,14 +26,14 @@ class JobDetailAtch: UIView, UITableViewDelegate, UITableViewDataSource {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.cellId)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.cellId)
     }
     
     @IBAction func okTapped () {
         self.removeFromSuperview()
     }
     
-    // MARK: - table view
+    // MARK:- table view
     
     func maxItemOfSections(in tableView: UITableView) -> Int {
         return 1

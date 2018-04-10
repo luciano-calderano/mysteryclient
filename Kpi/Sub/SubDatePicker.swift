@@ -29,18 +29,18 @@ class SubDatePicker: KpiQuestSubView, UIPickerViewDelegate {
         super.awakeFromNib()
         switch type {
         case .time:
-            self.kpiPicker.datePickerMode = .time
+            kpiPicker.datePickerMode = .time
         case .date:
-            self.kpiPicker.datePickerMode = .date
+            kpiPicker.datePickerMode = .date
         default:
-            self.kpiPicker.datePickerMode = .dateAndTime
+            kpiPicker.datePickerMode = .dateAndTime
         }
-        self.kpiPicker.minuteInterval = 15
+        kpiPicker.minuteInterval = 15
     }
     
     override func initialize(kpiIndex: Int) {
         super.initialize(kpiIndex: kpiIndex)
-        self.kpiPicker.date = kpiResult.value.isEmpty ? Date() :  kpiResult.value.toDate(withFormat: Date.fmtDataOraJson)
+        kpiPicker.date = kpiResult.value.isEmpty ? Date() :  kpiResult.value.toDate(withFormat: Config.DateFmt.DataOraJson)
         self.delegate?.kpiQuestSubViewNewHeight(self.frame.size.height)
     }
     
@@ -49,13 +49,13 @@ class SubDatePicker: KpiQuestSubView, UIPickerViewDelegate {
         var fmt = ""
         switch type {
         case .time:
-            fmt = Date.fmtOra
+            fmt = Config.DateFmt.Ora
         case .date:
-            fmt = Date.fmtDataJson
+            fmt = Config.DateFmt.DataJson
         default:
-            fmt = Date.fmtDataOraJson
+            fmt = Config.DateFmt.DataOraJson
         }
-        response.value = self.kpiPicker.date.toString(withFormat: fmt)
+        response.value = kpiPicker.date.toString(withFormat: fmt)
         return response
     }
 }

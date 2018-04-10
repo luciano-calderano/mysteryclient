@@ -16,12 +16,14 @@ protocol JobsHomeCellDelegate {
 class JobsHomeCell: UITableViewCell {
     class func dequeue (_ tableView: UITableView,
                         _ indexPath: IndexPath) -> JobsHomeCell {
-        let id = String (describing: self)
-        return tableView.dequeueReusableCell(withIdentifier: id, for: indexPath)
-            as! JobsHomeCell
+        return tableView.dequeueReusableCell(withIdentifier: "JobsHomeCell", for: indexPath)  as! JobsHomeCell
     }
     
-    var job: Job!
+    var job: Job! {
+        didSet {
+            update ()
+        }
+    }
     var delegate: JobsHomeCellDelegate?
     
     @IBOutlet private var name: MYLabel!
@@ -34,17 +36,16 @@ class JobsHomeCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func item (item: Job) {
-        self.job = item
-        self.name.text = self.job.store.name
-        self.address.text = self.job.store.address
-        self.rif.text = "Rif. " + self.job.reference
-        self.day.text = self.job.estimate_date.toString(withFormat: "dd")
-        self.month.text = self.job.estimate_date.toString(withFormat: "MMM")
+    private func update () {
+        name.text = job.store.name
+        address.text = job.store.address
+        rif.text = "Rif. " + job.reference
+        day.text = job.estimate_date.toString(withFormat: "dd")
+        month.text = job.estimate_date.toString(withFormat: "MMM")
     }
     
     @IBAction func mapTapped () {
-        self.delegate?.mapTapped(self, job: self.job)
+        delegate?.mapTapped(self, job: job)
     }
 }
 

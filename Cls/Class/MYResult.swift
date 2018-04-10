@@ -16,8 +16,8 @@ class MYResult {
     init() {
         let fm = FileManager.default
         do {
-            if fm.fileExists(atPath: Config.resultPath) == false {
-                try fm.createDirectory(atPath: Config.resultPath,
+            if fm.fileExists(atPath: Config.Path.result) == false {
+                try fm.createDirectory(atPath: Config.Path.result,
                                        withIntermediateDirectories: true,
                                        attributes: nil)
             }
@@ -27,7 +27,7 @@ class MYResult {
     }
     
     func getFileName (withId id: String) -> String {
-        return Config.resultPath + id + Config.plist
+        return Config.Path.result + id + Config.plist
     }
     
     func loadResult (jobId id: Int) -> JobResult {

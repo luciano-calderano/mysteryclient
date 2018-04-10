@@ -23,43 +23,43 @@ class SubCheckBox: KpiQuestSubView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.layer.borderColor = UIColor.lightGray.cgColor
-        self.tableView.layer.borderWidth = 1
-        self.addSubviewWithConstraints(self.tableView)
-        SubCheckBoxCell.register(tableView: self.tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.layer.borderColor = UIColor.lightGray.cgColor
+        tableView.layer.borderWidth = 1
+        addSubviewWithConstraints(tableView)
+        SubCheckBoxCell.register(tableView: tableView)
     }
     
     override func initialize(kpiIndex: Int) {
         super.initialize(kpiIndex: kpiIndex)
         
-        if self.kpiResult.value.isEmpty == false {
-            let itemsId = self.kpiResult.value.components(separatedBy: self.separator)
-            for item in self.kpi.valuations {
+        if kpiResult.value.isEmpty == false {
+            let itemsId = kpiResult.value.components(separatedBy: separator)
+            for item in kpi.valuations {
                 let id = String(item.id)
                 if itemsId.contains(id) {
-                    self.selectedId.append(id)
+                    selectedId.append(id)
                 }
             }
         }
         
-        self.tableView.reloadData()
+        tableView.reloadData()
         
-        var rect = self.frame
-        rect.size.height = self.rowHeight * CGFloat(self.kpi.valuations.count)
-        self.frame = rect
-        self.delegate?.kpiQuestSubViewNewHeight(rect.size.height)
+        var rect = frame
+        rect.size.height = rowHeight * CGFloat(kpi.valuations.count)
+        frame = rect
+        delegate?.kpiQuestSubViewNewHeight(rect.size.height)
     }
     
     override func getValuation () -> KpiResponseValues {
         var response = KpiResponseValues()
-        if self.selectedId.count > 0 {
-            for item in self.kpi.valuations {
+        if selectedId.count > 0 {
+            for item in kpi.valuations {
                 let id = String(item.id)
-                if self.selectedId.contains(id) {
+                if selectedId.contains(id) {
                     if response.value.isEmpty == false {
-                        response.value += self.separator
+                        response.value += separator
                     }
                     response.value += String(item.id)
                     if item.note_required == true {
@@ -83,18 +83,18 @@ extension SubCheckBox: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.kpi.valuations.count
+        return kpi.valuations.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.rowHeight
+        return rowHeight
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SubCheckBoxCell.dequeue(tableView, indexPath)
-        let item = self.kpi.valuations[indexPath.row]
+        let item = kpi.valuations[indexPath.row]
         let id = String(item.id)
-        let selected = self.selectedId.contains(id)
+        let selected = selectedId.contains(id)
         
         cell.valuationTitle.text = item.name
         cell.icoCheck.isHidden = !selected
@@ -107,16 +107,16 @@ extension SubCheckBox: UITableViewDataSource {
 extension SubCheckBox: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = self.kpi.valuations[indexPath.row]
+        let item = kpi.valuations[indexPath.row]
         let id = String(item.id)
-        if self.selectedId.contains(id) {
-            let idx = self.selectedId.index(of: id)
-            self.selectedId.remove(at: idx!)
+        if selectedId.contains(id) {
+            let idx = selectedId.index(of: id)
+            selectedId.remove(at: idx!)
         }
         else {
-            self.selectedId.append(id)
+            selectedId.append(id)
         }
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
 }
 
@@ -133,7 +133,7 @@ class SubCheckBoxCell: UITableViewCell {
     class func dequeue (_ tableView: UITableView,
                         _ indexPath: IndexPath) -> SubCheckBoxCell {
         
-        let id = String (describing: self)
+        let id = "SubCheckBoxCell"
         return tableView.dequeueReusableCell(withIdentifier: id, for: indexPath)
             as! SubCheckBoxCell
     }
@@ -144,7 +144,7 @@ class SubCheckBoxCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectView.layer.borderWidth = 1
-        self.selectView.layer.borderColor = UIColor.lightGray.cgColor
+        selectView.layer.borderWidth = 1
+        selectView.layer.borderColor = UIColor.lightGray.cgColor
     }
 }

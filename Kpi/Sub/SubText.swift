@@ -18,13 +18,13 @@ class SubText: KpiQuestSubView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.kpiText.delegate = self
+        kpiText.delegate = self
     }
     
     override func initialize(kpiIndex: Int) {
         super.initialize(kpiIndex: kpiIndex)
-        self.kpiText.text = kpiResult.value
-        self.delegate?.kpiQuestSubViewNewHeight(self.frame.size.height)
+        kpiText.text = kpiResult.value
+        delegate?.kpiQuestSubViewNewHeight(self.frame.size.height)
     }
     
     override func getValuation () -> KpiResponseValues {

@@ -20,14 +20,14 @@ protocol KpiQuestSubViewDelegate {
 
 class KpiViewController: UIViewController {
     class func Instance() -> KpiViewController {
-        let vc = self.load(storyboardName: "Kpi") as! KpiViewController
+        let vc = InstanceFromSb("Kpi") as! KpiViewController
         return vc
     }
     
     var delegate: KpiViewControllerDelegate?
     var kpiIndex = 0
 
-    func checkData() -> KpiResultType {
+    func checkData() -> KpiMain.ResultType {
         return .err
     }
 }
