@@ -51,28 +51,32 @@ class WebPage: MYViewController, UIWebViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.webView.delegate = self
+        webView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.myWheel.start(self.webView)
-        if self.page.isEmpty {
+        if page.isEmpty {
             return
         }
         
-        self.requestObj = URLRequest.init(url: URL.init(string: self.page)!)
+        myWheel.start(webView)
+        requestObj = URLRequest.init(url: URL.init(string: self.page)!)
         
         let token = User.shared.token
         if token.isEmpty == false {
-            self.requestObj.setValue(token, forHTTPHeaderField: "Authorization")
+            requestObj.setValue(token, forHTTPHeaderField: "Authorization")
         }
 
-        self.webView.loadRequest(requestObj)
+        webView.loadRequest(requestObj)
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        self.myWheel.stop()
+        myWheel.stop()
+    }
+    
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        myWheel.stop()
     }
     
 //    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {

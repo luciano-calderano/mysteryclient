@@ -83,8 +83,8 @@ class HeaderView : UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.kpiLabel.layer.cornerRadius = self.kpiLabel.frame.size.height / 2
-        self.kpiLabel.layer.masksToBounds = true
+        kpiLabel.layer.cornerRadius = self.kpiLabel.frame.size.height / 2
+        kpiLabel.layer.masksToBounds = true
     }
     
     @IBAction func sxButtonTapped() {

@@ -10,9 +10,8 @@ import UIKit
 class MYViewController: UIViewController, HeaderViewDelegate {
     @IBOutlet var header: HeaderContainerView?
     var dataArray = [Any]()
-    var headerTitle: String {
-        get { return (self.header?.header.titleLabel.text)! }
-        set { self.header?.header.titleLabel.text = newValue }
+    var headerTitle = "" {
+        didSet { header?.header.titleLabel.text = headerTitle }
     }
 
     override func viewDidLoad() {
@@ -21,7 +20,8 @@ class MYViewController: UIViewController, HeaderViewDelegate {
         view.backgroundColor = UIColor.myGreenDark
         self.view.addSubview(view)
         self.view.backgroundColor = UIColor.white
-        self.header?.delegate = self
+        header?.delegate = self
+        header?.header.kpiLabel.isHidden = true
 //        if self.header?.header.dxButton.image(for: .normal) == nil {
 //            self.header?.header.dxButton.isHidden = true
 //        }
@@ -29,7 +29,7 @@ class MYViewController: UIViewController, HeaderViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.header?.header.kpiLabel.isHidden = true
+//        header?.header.kpiLabel.isHidden = true
     }
     
     func headerViewSxTapped() {
@@ -52,33 +52,21 @@ class MenuViewController: MYViewController {
         rect.origin.x = -rect.size.width
         rect.origin.y = (self.header?.frame.origin.y)! + (self.header?.frame.size.height)!
         rect.size.height -= rect.origin.y
-        self.menuView.frame = rect
-        self.menuView.isHidden = true
-        self.menuView.delegate = self
+        menuView.frame = rect
+        menuView.isHidden = true
+        menuView.delegate = self
         self.view.addSubview(self.menuView)
     }
 
     private func loadData() {
         dataArray = [
-            self.addMenuItem("ico.incarichi", type: .inca),
-            self.addMenuItem("ico.ricInc",    type: .stor),
-            self.addMenuItem("ico.profilo",   type: .prof),
-            self.addMenuItem("ico.cercando",  type: .cerc),
-            self.addMenuItem("ico.news",      type: .news),
-            self.addMenuItem("ico.learning",  type: .lear),
+            addMenuItem("ico.incarichi", type: .inca),
+            addMenuItem("ico.ricInc",    type: .stor),
+            addMenuItem("ico.profilo",   type: .prof),
+            addMenuItem("ico.cercando",  type: .cerc),
+            addMenuItem("ico.news",      type: .news),
+            addMenuItem("ico.learning",  type: .lear),
         ]
-        
-        //        self.menuArray = [
-        //            self.addMenuItem("ico.home",      type: .home),
-        //            self.addMenuItem("ico.incarichi", type: .inca),
-        //            self.addMenuItem("ico.ricInc",    type: .stor),
-        //            self.addMenuItem("ico.profilo",   type: .prof),
-        //            self.addMenuItem("ico.cercando",  type: .cerc),
-        //            self.addMenuItem("ico.news",      type: .news),
-        //            self.addMenuItem("ico.mail",      type: .cont),
-        //            self.addMenuItem("ico.logout",    type: .logout),
-        //        ]
-        //        self.menuView.loadData(items: self.menuArray)
     }
     
     private func addMenuItem (_ iconName: String, type: MenuItemEnum) -> MenuItem {
@@ -104,9 +92,6 @@ class MenuViewController: MYViewController {
             self.navigationController?.show(ctrl!, sender: self)
             return
         case .stor :
-//            ///////// Lc
-//            MYUpload.startUpload()
-//            return
             webType = .storico
         case .prof :
             webType = .profile
@@ -126,23 +111,22 @@ class MenuViewController: MYViewController {
             return
         }
         let ctrl = WebPage.Instance(type: webType)
-        UIApplication.shared.openURL(URL.init(string: ctrl.page)!)
-
-//        self.navigationController?.show(ctrl, sender: self)
+//        UIApplication.shared.openURL(URL.init(string: ctrl.page)!)
+        self.navigationController?.show(ctrl, sender: self)
     }
 
     //MARK: - Menu show/hode
 
     func menuHide() {
-        self.menuView.menuHide()
-        self.headerTitle = MYLng("home")
-        self.header?.header.sxButton.setImage(UIImage.init(named: "ico.menu"), for: .normal)
+        menuView.menuHide()
+        headerTitle = MYLng("home")
+        header?.header.sxButton.setImage(UIImage.init(named: "ico.menu"), for: .normal)
     }
     
     func menuShow () {
-        self.menuView.menuShow()
-        self.headerTitle = MYLng("menu")
-        self.header?.header.sxButton.setImage(UIImage.init(named: "ico.back"), for: .normal)
+        menuView.menuShow()
+        headerTitle = MYLng("menu")
+        header?.header.sxButton.setImage(UIImage.init(named: "ico.back"), for: .normal)
     }
 }
 
@@ -153,10 +137,10 @@ extension MenuViewController: MenuViewDelegate {
     
     func menuVisible(_ visible: Bool) {
         if visible {
-            self.menuShow()
+            menuShow()
         }
         else {
-            self.menuHide()
+            menuHide()
         }
     }
 }

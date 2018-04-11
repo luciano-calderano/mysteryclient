@@ -49,7 +49,7 @@ class MYWheel: UIView {
     
     func start(_ uiView: UIView = UIApplication.shared.keyWindow!) -> Void {
         self.frame = uiView.bounds
-        self.center = uiView.center
+//        self.center = uiView.center
         uiView.addSubview(self)
         activityIndicatorView.startAnimating()
     }

@@ -20,7 +20,7 @@ protocol MenuViewDelegate {
 
 class MenuView: UIView {
     class func Instance() -> MenuView {
-        let id = String (describing: self)
+        let id = "MenuView"
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! MenuView
     }
 
@@ -77,14 +77,20 @@ class MenuView: UIView {
             self.isHidden = true
         }
     }
-    
+
     func menuShow () {
         self.isHidden = false
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.5,
+                                   delay: 0,
+                                   usingSpringWithDamping: 0.6,
+                                   initialSpringVelocity: 0.1,
+                                   options: .curveEaseInOut,
+                                   animations: {
+//        UIView.animate(withDuration: 0.3) {
             var rect = self.frame
             rect.origin.x = 0
             self.frame = rect
-        }
+        })
     }
 }
 

@@ -12,7 +12,15 @@ class Home: MenuViewController {
     @IBOutlet private var tableView: UITableView!
     
     override func headerViewSxTapped() {
-        self.menuVisible(self.menuView.isHidden)
+//                let animator = UIDynamicAnimator.init(referenceView: self.view)
+////                let elastic = UIDynamicItemBehavior.init(items: [menuView])
+//                let collision = UICollisionBehavior.init(items: [menuView])
+//                collision.translatesReferenceBoundsIntoBoundary = true
+////                elastic.elasticity = 0.7
+//                animator.addBehavior(collision)
+//
+//        
+        menuVisible(menuView.isHidden)
     }
     
     override func viewWillAppear(_ animated: Bool) {

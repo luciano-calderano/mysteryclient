@@ -18,7 +18,6 @@ class JobDetailAtch: UIView, UITableViewDelegate, UITableViewDataSource {
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! JobDetailAtch
     }
     
-    var job: Job!
     var delegate: JobDetailAtchDelegate?
     
     @IBOutlet private var tableView: UITableView!
@@ -40,7 +39,7 @@ class JobDetailAtch: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.job.attachments.count
+        return MYJob.shared.job.attachments.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -53,7 +52,7 @@ class JobDetailAtch: UIView, UITableViewDelegate, UITableViewDataSource {
             cell = UITableViewCell(style: .default, reuseIdentifier: self.cellId)
         }
 
-        let item = self.job.attachments[indexPath.row]
+        let item = MYJob.shared.job.attachments[indexPath.row]
         cell?.imageView?.image = UIImage.init(named: "ico.download")?.resize(16)
         cell?.textLabel?.text = item.name
         return cell!
@@ -61,7 +60,7 @@ class JobDetailAtch: UIView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = self.job.attachments[indexPath.row]
+        let item = MYJob.shared.job.attachments[indexPath.row]
         self.delegate?.openFileFromUrlWithString(item.url + "/" + item.filename)
     }
 }

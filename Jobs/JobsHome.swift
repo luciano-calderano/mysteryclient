@@ -20,19 +20,26 @@ class JobsHome: MYViewController {
         
         MYJob.shared.job = Job()
         MYJob.shared.jobResult = JobResult()
-        
-        let jobs = MYJob.shared.loadJobs()
-        if jobs.count > 0 {
-            jobsListWithArray(jobs)
-        }
-        else {
-            jobsDownload()
-        }
+        loadJobs()
     }
     
     override func headerViewDxTapped() {
         MYJob.shared.clearJobs()
-        jobsDownload()
+        loadJobs()
+    }
+    
+    private func loadJobs () {
+        getList(done: { (array) in
+            var jobsArray = [Job]()
+            for dict in array {
+                let job = MYJob.shared.createJob(withDict: dict)
+                if job.id > 0 {
+                    jobsArray.append(job)
+                }
+            }
+            self.dataArray = jobsArray
+            self.tableView.reloadData()
+        })
     }
 }
 
@@ -40,35 +47,24 @@ class JobsHome: MYViewController {
 // MARK: - Job List
 
 extension JobsHome {
-    private func jobsDownload () {
-        User.shared.getUserToken(completion: {
-            download()
-        }) { (errorCode, message) in
-            self.alert("Error: \(errorCode)", message: message, okBlock: nil)
+    private func getList(done: @escaping  ([JsonDict]) -> () = { array in })  {
+        let jobs = MYJob.shared.loadJobs()
+        if jobs.count > 0 {
+            done (jobs)
+            return
         }
-        
-        func download() {
+
+        User.shared.getUserToken(completion: {
             let param = [ "object" : "jobs_list" ]
             let request = MYHttp.init(.get, param: param)
-            
             request.load(ok: { (response) in
-                self.jobsListWithArray(response.array("jobs") as! [JsonDict])
+                done (response.array("jobs") as! [JsonDict])
             }) { (title, error) in
                 self.alert(title, message: error, okBlock: nil)
             }
+        }) { (errorCode, message) in
+            self.alert("Error: \(errorCode)", message: message, okBlock: nil)
         }
-    }
-    
-    private func jobsListWithArray (_ dictArray: [JsonDict]) {
-        var jobsArray = [Job]()        
-        for dict in dictArray {
-            let job = MYJob.shared.createJob(withDict: dict)
-            if job.id > 0 {
-                jobsArray.append(job)
-            }
-        }
-        dataArray = jobsArray
-        tableView.reloadData()
     }
 }
 
@@ -108,7 +104,6 @@ extension JobsHome: UITableViewDelegate {
 
 extension JobsHome {
     private func selectedJob (job: Job) {
-        
         func getDetail () {
             User.shared.getUserToken(completion: {
                 loadJobKpis()
@@ -150,8 +145,6 @@ extension JobsHome {
         let vc = JobDetail.Instance()
         self.navigationController?.show(vc, sender: self)
     }
-    
-
 }
 
 

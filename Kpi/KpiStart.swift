@@ -34,7 +34,7 @@ class KpiStart: KpiViewController {
         if MYJob.shared.jobResult.execution_date.isEmpty == false {
             let d = MYJob.shared.jobResult.execution_date + " " + MYJob.shared.jobResult.execution_start_time + ":00"
             let date = d.toDate(withFormat: Config.DateFmt.DataOraJson)
-            self.datePicker.date = date
+            datePicker.date = date
         }
     }
     

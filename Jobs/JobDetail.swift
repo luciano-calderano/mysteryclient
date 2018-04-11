@@ -93,26 +93,20 @@ class JobDetail: MYViewController {
     @IBAction func atchTapped () {
         let subView = JobDetailAtch.Instance()
         subView.frame = view.frame
-        subView.job = MYJob.shared.job
         subView.delegate = self
         view.addSubview(subView)
     }
     
     @IBAction func spreTapped () {
-        let ctrl = WebPage.Instance(type: .bookingRemove, id: MYJob.shared.job.id)
-        gotoCtrl(ctrl)
+        openWeb(type: .bookingRemove, id: MYJob.shared.job.id)
     }
     @IBAction func dateTapped () {
-        let ctrl = WebPage.Instance(type: .bookingMove, id: MYJob.shared.job.id)
-        gotoCtrl(ctrl)
+        openWeb(type: .bookingMove, id: MYJob.shared.job.id)
     }
     
     @IBAction func contTapped () {
         guard MYJob.shared.job.learning_done else {
-            let ctrl = WebPage.Instance(type: .none)
-            ctrl.page = MYJob.shared.job.learning_url
-            gotoCtrl(ctrl)
-//            navigationController?.show(ctrl, sender: self)
+            openWeb(type: .none, urlPage:  MYJob.shared.job.learning_url)
             return
         }
         let wheel = MYWheel()
@@ -122,14 +116,15 @@ class JobDetail: MYViewController {
             MYResult.shared.saveResult()
         }
         
+//        let ctrl = KMain.Instance() // KpiMain.Instance()
         let ctrl = KpiMain.Instance()
+
         navigationController?.show(ctrl, sender: self)
         wheel.stop()
     }
     
     @IBAction func tickTapped () {
-        let ctrl = WebPage.Instance(type: .ticketView)
-        gotoCtrl(ctrl)
+        openWeb(type: .ticketView)
     }
     
     @IBAction func strtTapped () {
@@ -165,11 +160,6 @@ class JobDetail: MYViewController {
     
     // MARK: - private
     
-    private func gotoCtrl (_ ctrl: WebPage) {
-        UIApplication.shared.openURL(URL.init(string: ctrl.page)!)
-        //        navigationController?.show(ctrl, sender: self)
-    }
-    
     private func showData () {
         header?.header.titleLabel.text = MYJob.shared.job.store.name
         infoLabel.text =
@@ -185,8 +175,7 @@ class JobDetail: MYViewController {
         var title = ""
         if MYJob.shared.job.learning_done == false {
             title = "learning"
-        }
-        else {
+        } else {
             title = MYJob.shared.jobResult.execution_date.isEmpty ? "kpiInit" : "kpiCont"
         }
         contBtn.setTitle(MYLng(title), for: .normal)
@@ -195,17 +184,35 @@ class JobDetail: MYViewController {
     private func executionTime () {
         strtBtn.isEnabled = false
         stopBtn.isEnabled = false
-        strtBtn.backgroundColor = UIColor.lightGray
-        stopBtn.backgroundColor = UIColor.lightGray
+        strtBtn.backgroundColor = .lightGray
+        stopBtn.backgroundColor = .lightGray
         
         if MYJob.shared.jobResult.positioning.start == false {
             strtBtn.isEnabled = true
             strtBtn.backgroundColor = UIColor.white
-        }
-        else if MYJob.shared.jobResult.positioning.end == false {
+        } else if MYJob.shared.jobResult.positioning.end == false {
             stopBtn.isEnabled = true
             stopBtn.backgroundColor = UIColor.white
         }
+    }
+}
+
+extension JobDetail {
+    private func openWeb (type: WebPage.WebPageEnum, id: Int = 0, urlPage: String = "") {
+        let ctrl = WebPage.Instance(type: type, id: id)
+        if urlPage.isEmpty == false {
+            ctrl.page = urlPage
+        }
+        navigationController?.show(ctrl, sender: self)
+        
+        //        var page = urlPage
+        //        if page.isEmpty {
+        //            page = Config.Url.home + type.rawValue
+        //            if id > 0 {
+        //                page += String(id)
+        //            }
+        //        }
+        //        UIApplication.shared.openURL(URL.init(string: page)!)
     }
 }
 
@@ -213,9 +220,7 @@ class JobDetail: MYViewController {
 
 extension JobDetail: JobDetailAtchDelegate {
     func openFileFromUrlWithString(_ page: String) {
-        let ctrl = WebPage.Instance(type: .none)
-        ctrl.page = page
-        gotoCtrl(ctrl)
+        openWeb(type: .none, urlPage: page)
     }
 }
 
