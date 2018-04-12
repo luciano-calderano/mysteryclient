@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubText: KpiQuestSubView {
+class SubText: KpiBaseSubView {
     class func Instance() -> SubText {
         let id = String (describing: self)
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubText
@@ -16,20 +16,21 @@ class SubText: KpiQuestSubView {
 
     @IBOutlet private var kpiText: MYTextField!
 
+    override var kpiResult: JobResult.KpiResult? {
+        didSet {
+            kpiText.text = kpiResult?.value
+            delegate?.kpiViewHeight(self.frame.size.height)
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         kpiText.delegate = self
-    }
-    
-    override func initialize(kpiIndex: Int) {
-        super.initialize(kpiIndex: kpiIndex)
-        kpiText.text = kpiResult.value
-        delegate?.kpiQuestSubViewNewHeight(self.frame.size.height)
+        kpiText.text = ""
     }
     
     override func getValuation () -> KpiResponseValues {
         var response = KpiResponseValues()
-        response.value = self.kpiText.text!
+        response.value = kpiText.text!
         return response
     }
 }

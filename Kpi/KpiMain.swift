@@ -9,59 +9,41 @@
 import UIKit
 import Zip
 
-
 class KpiMain: MYViewController {
     class func Instance() -> KpiMain {
-        let vc = InstanceFromSb("Kpi") as! KpiMain
-        return vc
-    }
-    enum ResultType {
-        case next
-        case last
-        
-        case errValue
-        case errNotes
-        case errAttch
-        case err
+        let id = "KpiMain"
+        let sb = UIStoryboard.init(name: "Kpi", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: id)
+        return vc as! KpiMain
     }
 
     @IBOutlet private var container: UIView!
+    @IBOutlet private var scroll: UIScrollView!
     @IBOutlet private var backBtn: MYButton!
     @IBOutlet private var nextBtn: MYButton!
-   
-    private var kpiNavi = UINavigationController()
-    private let maxPage = MYJob.shared.job.kpis.count + 2
     
-    var currentIndex = -1 {
-        didSet {
-            showPageNum()
-        }
-    }
+    private var kpiView: KpiBaseView!
+    
+    var currentIndex = -1
     var myKeyboard: MYKeyboard!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        myKeyboard = MYKeyboard(vc: self)
-        
-        let path = "\(Config.Path.doc)/\(MYJob.shared.job.id)"
-        let fm = FileManager.default
-        if fm.fileExists(atPath: path) == false {
-            do {
-                try fm.createDirectory(atPath: path,
-                                       withIntermediateDirectories: true,
-                                       attributes: nil)
-            } catch let error as NSError {
-                print("Unable to create directory \(error.debugDescription)")
-            }
+        if currentIndex < 0 {
+            kpiView = KpiInitView.Instance()
+        } else if currentIndex == MYJob.shared.job.kpis.count {
+            kpiView = KpiLastView.Instance()
+        } else {
+            kpiView = KpiQuestView.Instance()
+            kpiView.kpiIndex = currentIndex
+            kpiView.mainVC = self
+            scroll.backgroundColor = UIColor.white
         }
-        
-        if MYJob.shared.jobResult.results.count < MYJob.shared.job.kpis.count {
-            for _ in MYJob.shared.jobResult.results.count...MYJob.shared.job.kpis.count - 1 {
-                MYJob.shared.jobResult.results.append(JobResult.KpiResult())
-            }
-            MYResult.shared.saveResult()
-        }
+        kpiView.delegate = self
+        scroll.addSubviewWithConstraints(kpiView)
+        showPageNum()
+
+        myKeyboard = MYKeyboard(vc: self, scroll: scroll)
         
         headerTitle = MYJob.shared.job.store.name
         
@@ -74,20 +56,15 @@ class KpiMain: MYViewController {
         nextBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is UINavigationController {
-            kpiNavi = segue.destination as! UINavigationController
-            let vc = kpiNavi.viewControllers.first as! KpiStart
-            vc.delegate = self
-            vc.kpiIndex = currentIndex
-        }
+    override func headerViewSxTapped() {
+        let vc = self.navigationController?.viewControllers[2]
+        self.navigationController?.popToViewController(vc!, animated: true)
     }
     
-// MARK: - Actions
+    // MARK: - Actions
     
     @IBAction func nextTapped () {
-        let vc = kpiNavi.viewControllers.last as! KpiViewController
-        switch vc.checkData() {
+        switch kpiView.checkData() {
         case .next:
             nextKpi()
         case .last:
@@ -107,57 +84,63 @@ class KpiMain: MYViewController {
     }
     
     @IBAction func prevTapped () {
-        switch kpiNavi.viewControllers.count {
-        case 1:
-            navigationController?.popViewController(animated: true)
-        default:
-            nextBtn.setTitle(MYLng("next"), for: .normal)
-            view.endEditing(true)
-            kpiNavi.popViewController(animated: true)
-            let vc = kpiNavi.viewControllers.last as! KpiViewController
-            currentIndex = vc.kpiIndex
-        }
+        self.navigationController?.popViewController(animated: true)
     }
     
-//MARK: - Private
+    //MARK: - Private
     
     private func showPageNum() {
-        header?.header.kpiLabel.isHidden = false
-        header?.header.kpiLabel.text = "\(currentIndex + 2)/\(maxPage)"
+        if let label = header?.header.kpiLabel {
+            label.isHidden = false
+            label.text = "\(currentIndex + 2)/\(MYJob.shared.job.kpis.count + 2)"
+        }
     }
     
     private func nextKpi () {
-        currentIndex += 1
-        var vc: KpiViewController
-        if currentIndex < MYJob.shared.job.kpis.count {
-            let kpi = MYJob.shared.job.kpis[currentIndex]
-            let id = String(kpi.id)
-            let idx = MYJob.shared.invalidDependecies.index(of: id)
-            if (idx != nil) {
-                nextKpi()
-                return
-            }
-            vc = KpiQuest.Instance()
-            vc.kpiIndex = currentIndex
-            nextBtn.setTitle(MYLng("next"), for: .normal)
+        func loadCtrl (index: Int) {
+            let vc = KpiMain.Instance()
+            vc.currentIndex = index
+            self.navigationController?.pushViewController(vc, animated: true)
+            let title = index == MYJob.shared.job.kpis.count ? "lastPage" : "next"
+            nextBtn.setTitle(MYLng(title), for: .normal)
         }
-        else {
-            vc = KpiLast.Instance()
-            nextBtn.setTitle(MYLng("lastPage"), for: .normal)
-        }
-        vc.delegate = self
-        kpiNavi.pushViewController(vc, animated: true)
-    }
-
-    private func sendKpiResult () {
-        let zip = MYZip()
-        let zipUrl = zip.createZipFileWithDict(MYResult.shared.resultDict)
         
-        if zipUrl == nil {
-            alert("Errore", message: "", okBlock: nil)
+        let lastKpi = MYJob.shared.job.kpis.count - 1
+        if currentIndex == lastKpi {
+            loadCtrl(index: MYJob.shared.job.kpis.count)
             return
         }
-        alert(MYLng("readyToSend"), message: "", okBlock: { (ready) in
+        for index in currentIndex + 1...lastKpi {
+            let kpi = MYJob.shared.job.kpis[index]
+            let id = String(kpi.id)
+            if MYJob.shared.invalidDependecies.index(of: id) == nil {
+                loadCtrl(index: index)
+                return
+            }
+        }
+    }
+}
+
+//MARK:- KpiDelegate
+
+extension KpiMain: KpiDelegate {
+    func kpiEndEditing() {
+        myKeyboard.endEditing()
+    }
+
+    func kpiStartEditingAtPosY(_ y: CGFloat) {
+        myKeyboard.startEditing(y: y)
+    }
+}
+
+extension KpiMain {
+    private func sendKpiResult () {
+        guard MYZip().createZipFileWithDict(MYResult.shared.resultDict) else {
+            alert ("Errore zip", message: "", okBlock: nil)
+            return
+        }
+        alert (MYLng("readyToSend"), message: "", okBlock: {
+            (ready) in
             let nav = self.navigationController!
             if nav.viewControllers.count > 1 {
                 let vc = nav.viewControllers[1]
@@ -166,90 +149,5 @@ class KpiMain: MYViewController {
                 nav.popToRootViewController(animated: true)
             }
         })
-    }
-    
-//MARK - Image picker
-    
-    private let picker = UIImagePickerController()
-    func openGallary() {
-        picker.delegate = self
-        picker.allowsEditing = false
-        picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        present(picker, animated: true, completion: nil)
-    }
-    
-    func openCamera() {
-        picker.delegate = self
-        if (UIImagePickerController .isSourceTypeAvailable(.camera)) {
-            picker.allowsEditing = false
-            picker.sourceType = UIImagePickerControllerSourceType.camera
-            picker.cameraCaptureMode = .photo
-            present(picker, animated: true, completion: nil)
-        }
-        else {
-            let alert = UIAlertController(title: "Camera Not Found",
-                                          message: "This device has no Camera",
-                                          preferredStyle: .alert)
-            let ok = UIAlertAction(title: "OK", style:.default, handler: nil)
-            alert.addAction(ok)
-            present(alert, animated: true, completion: nil)
-        }
-    }
-
-    func imageSelected (_ image: UIImage) {
-        let vc = kpiNavi.viewControllers.last as! KpiQuest
-        vc.attachmentImage = image
-    }
-}
-
-//MARK:- KpiViewControllerDelegate
-
-extension KpiMain: KpiViewControllerDelegate {
-    //MARK: - mykeyboard function
-    func endEditing() {
-        myKeyboard.endEditing()
-    }
-    
-    func startEditing(scroll: UIScrollView, y: CGFloat) {
-        myKeyboard.startEditing(scroll: scroll, y: y)
-    }
-    
-    //MARK: - attachment tapped
-    func atchButtonTapped() {
-        let alert = UIAlertController(title: MYLng("uploadPic") as String,
-                                      message: "" as String,
-                                      preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction.init(title: MYLng("picFromCam"),
-                                           style: .default,
-                                           handler: { (action) in
-                                            self.openCamera()
-        }))
-        
-        alert.addAction(UIAlertAction.init(title: MYLng("picFromGal"),
-                                           style: .default,
-                                           handler: { (action) in
-                                            self.openGallary()
-        }))
-        
-        present(alert, animated: true) { }
-    }
-}
-
-//MARK:- UIImagePickerControllerDelegate, UINavigationControllerDelegate
-
-extension KpiMain: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            let image = pickedImage.resize(CGFloat(Config.maxPicSize))!
-            imageSelected(image)
-        }
-        
-        dismiss(animated: true) { }
     }
 }

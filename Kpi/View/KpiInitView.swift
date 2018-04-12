@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SubMain: KpisSubView {
-    class func Instance() -> SubMain {
-        let id = "SubMain"
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubMain
+class KpiInitView: KpiBaseView {
+    class func Instance() -> KpiInitView {
+        let id = "KpiInitView"
+        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! KpiInitView
     }
 
     @IBOutlet private var undoneView: UIView!
@@ -25,6 +25,7 @@ class SubMain: KpisSubView {
         for btn in [okButton, noButton] {
             btn?.layer.cornerRadius = (btn?.frame.size.height)! / 2
         }
+        firstLoad()
         okTapped()
     }
     
@@ -38,7 +39,7 @@ class SubMain: KpisSubView {
         }
     }
     
-    override func checkData() -> KpiMain.ResultType {
+    override func checkData() -> KpiResultType {
         if undoneView.isHidden == false && (undondeText.text?.isEmpty)! {
             undondeText.becomeFirstResponder()
             return .errNotes
@@ -62,6 +63,27 @@ class SubMain: KpisSubView {
         undoneView.isHidden = false
         okButton.backgroundColor = UIColor.lightGray
         noButton.backgroundColor = UIColor.white
+    }
+    
+    private func firstLoad () {
+        let path = "\(Config.Path.doc)/\(MYJob.shared.job.id)"
+        let fm = FileManager.default
+        if fm.fileExists(atPath: path) == false {
+            do {
+                try fm.createDirectory(atPath: path,
+                                       withIntermediateDirectories: true,
+                                       attributes: nil)
+            } catch let error as NSError {
+                print("Unable to create directory \(error.debugDescription)")
+            }
+        }
+        
+        if MYJob.shared.jobResult.results.count < MYJob.shared.job.kpis.count {
+            for _ in MYJob.shared.jobResult.results.count...MYJob.shared.job.kpis.count - 1 {
+                MYJob.shared.jobResult.results.append(JobResult.KpiResult())
+            }
+            MYResult.shared.saveResult()
+        }
     }
 }
 

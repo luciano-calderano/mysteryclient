@@ -105,10 +105,10 @@ class JobDetail: MYViewController {
     }
     
     @IBAction func contTapped () {
-        guard MYJob.shared.job.learning_done else {
-            openWeb(type: .none, urlPage:  MYJob.shared.job.learning_url)
-            return
-        }
+//        guard MYJob.shared.job.learning_done else {
+//            openWeb(type: .none, urlPage:  MYJob.shared.job.learning_url)
+//            return
+//        }
         let wheel = MYWheel()
         wheel.start(view)
         if MYJob.shared.jobResult.execution_date.isEmpty {
@@ -116,9 +116,7 @@ class JobDetail: MYViewController {
             MYResult.shared.saveResult()
         }
         
-//        let ctrl = KMain.Instance() // KpiMain.Instance()
         let ctrl = KpiMain.Instance()
-
         navigationController?.show(ctrl, sender: self)
         wheel.stop()
     }

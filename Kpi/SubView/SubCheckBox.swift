@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubCheckBox: KpiQuestSubView {
+class SubCheckBox: KpiBaseSubView {
     class func Instance() -> SubCheckBox {
         let id = String (describing: self)
         return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubCheckBox
@@ -20,6 +20,25 @@ class SubCheckBox: KpiQuestSubView {
     var selectedId = [String]()
     
     // MARK:-
+    override var kpiResult: JobResult.KpiResult? {
+        didSet {
+            if let value = kpiResult?.value {
+                let itemsId = value.components(separatedBy: separator)
+                for item in currentKpi.valuations {
+                    let id = String(item.id)
+                    if itemsId.contains(id) {
+                        selectedId.append(id)
+                    }
+                }
+            }
+            tableView.reloadData()
+            
+            var rect = frame
+            rect.size.height = rowHeight * CGFloat(currentKpi.valuations.count)
+            frame = rect
+            delegate?.kpiViewHeight(rect.size.height)
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,31 +50,10 @@ class SubCheckBox: KpiQuestSubView {
         SubCheckBoxCell.register(tableView: tableView)
     }
     
-    override func initialize(kpiIndex: Int) {
-        super.initialize(kpiIndex: kpiIndex)
-        
-        if kpiResult.value.isEmpty == false {
-            let itemsId = kpiResult.value.components(separatedBy: separator)
-            for item in kpi.valuations {
-                let id = String(item.id)
-                if itemsId.contains(id) {
-                    selectedId.append(id)
-                }
-            }
-        }
-        
-        tableView.reloadData()
-        
-        var rect = frame
-        rect.size.height = rowHeight * CGFloat(kpi.valuations.count)
-        frame = rect
-        delegate?.kpiQuestSubViewNewHeight(rect.size.height)
-    }
-    
     override func getValuation () -> KpiResponseValues {
         var response = KpiResponseValues()
         if selectedId.count > 0 {
-            for item in kpi.valuations {
+            for item in currentKpi.valuations {
                 let id = String(item.id)
                 if selectedId.contains(id) {
                     if response.value.isEmpty == false {
@@ -83,7 +81,7 @@ extension SubCheckBox: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return kpi.valuations.count
+        return currentKpi.valuations.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -92,7 +90,7 @@ extension SubCheckBox: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SubCheckBoxCell.dequeue(tableView, indexPath)
-        let item = kpi.valuations[indexPath.row]
+        let item = currentKpi.valuations[indexPath.row]
         let id = String(item.id)
         let selected = selectedId.contains(id)
         
@@ -107,7 +105,7 @@ extension SubCheckBox: UITableViewDataSource {
 extension SubCheckBox: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = kpi.valuations[indexPath.row]
+        let item = currentKpi.valuations[indexPath.row]
         let id = String(item.id)
         if selectedId.contains(id) {
             let idx = selectedId.index(of: id)

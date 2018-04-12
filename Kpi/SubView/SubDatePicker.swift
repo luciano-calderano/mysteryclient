@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubDatePicker: KpiQuestSubView, UIPickerViewDelegate {
+class SubDatePicker: KpiBaseSubView, UIPickerViewDelegate {
     class func Instance(type: SubDatePicker.PickerType) -> SubDatePicker {
         let id = String (describing: self)
         let me = Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubDatePicker
@@ -22,6 +22,15 @@ class SubDatePicker: KpiQuestSubView, UIPickerViewDelegate {
         case datetime
     }
     
+    override var kpiResult: JobResult.KpiResult? {
+        didSet {
+            if let value = kpiResult?.value {
+                kpiPicker.date = value.isEmpty ? Date() : value.toDate(withFormat: Config.DateFmt.DataJson)
+            }
+            delegate?.kpiViewHeight(self.frame.size.height)
+        }
+    }
+
     @IBOutlet private var kpiPicker: UIDatePicker!
     var type = PickerType.datetime
     
@@ -36,12 +45,6 @@ class SubDatePicker: KpiQuestSubView, UIPickerViewDelegate {
             kpiPicker.datePickerMode = .dateAndTime
         }
         kpiPicker.minuteInterval = 15
-    }
-    
-    override func initialize(kpiIndex: Int) {
-        super.initialize(kpiIndex: kpiIndex)
-        kpiPicker.date = kpiResult.value.isEmpty ? Date() :  kpiResult.value.toDate(withFormat: Config.DateFmt.DataOraJson)
-        self.delegate?.kpiQuestSubViewNewHeight(self.frame.size.height)
     }
     
     override func getValuation () -> KpiResponseValues {

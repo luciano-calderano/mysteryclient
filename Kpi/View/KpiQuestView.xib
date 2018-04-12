@@ -12,12 +12,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SubKpi" customModule="MysteryClient" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="318"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="KpiQuestView" customModule="MysteryClient" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9jF-Xo-5NK">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="298"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructions" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xon-BF-Vaa" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
                             <rect key="frame" x="16" y="90" width="351" height="14.5"/>
@@ -75,6 +75,9 @@
                                     <real key="value" value="16"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="atchButtonTapped" destination="iN0-l3-epB" eventType="touchUpInside" id="XmI-B1-8KZ"/>
+                            </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hJ4-9v-VMJ">
                             <rect key="frame" x="8" y="256.5" width="359" height="40"/>
@@ -111,20 +114,6 @@
                                 <constraint firstItem="EHw-mn-HbG" firstAttribute="leading" secondItem="hJ4-9v-VMJ" secondAttribute="leading" id="gdO-vE-FJn"/>
                             </constraints>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico.matita.red" translatesAutoresizingMaskIntoConstraints="NO" id="4KT-7K-ePw">
-                            <rect key="frame" x="336" y="2" width="16" height="16"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="16" id="8Uu-ap-LGf"/>
-                                <constraint firstAttribute="height" constant="16" id="ldl-Ht-OKD"/>
-                            </constraints>
-                        </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico.atch.red" translatesAutoresizingMaskIntoConstraints="NO" id="cEA-JH-Ho8">
-                            <rect key="frame" x="356" y="2" width="16" height="16"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="16" id="k0S-ey-k2g"/>
-                                <constraint firstAttribute="width" constant="16" id="mne-y4-T5g"/>
-                            </constraints>
-                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vdb-aU-cdv" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
                             <rect key="frame" x="8" y="23" width="359" height="20"/>
                             <constraints>
@@ -144,7 +133,6 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="4KT-7K-ePw" secondAttribute="trailing" constant="23" id="1T3-sw-fbL"/>
                         <constraint firstAttribute="trailing" secondItem="yWH-aM-1wj" secondAttribute="trailing" constant="8" id="3Kb-ql-eHL"/>
                         <constraint firstAttribute="trailing" secondItem="hJ4-9v-VMJ" secondAttribute="trailing" constant="8" id="9qW-m2-cSz"/>
                         <constraint firstItem="jes-6j-yjm" firstAttribute="leading" secondItem="9jF-Xo-5NK" secondAttribute="leading" constant="8" id="Bc3-xo-Iul"/>
@@ -155,8 +143,6 @@
                         <constraint firstItem="hJ4-9v-VMJ" firstAttribute="leading" secondItem="9jF-Xo-5NK" secondAttribute="leading" constant="8" id="LGn-YJ-DdQ"/>
                         <constraint firstItem="vdb-aU-cdv" firstAttribute="leading" secondItem="9jF-Xo-5NK" secondAttribute="leading" constant="8" id="M5a-AE-zup"/>
                         <constraint firstItem="UHy-jZ-SkU" firstAttribute="top" secondItem="4TT-sT-pT3" secondAttribute="bottom" constant="2" id="N5P-D8-OBB"/>
-                        <constraint firstAttribute="trailing" secondItem="cEA-JH-Ho8" secondAttribute="trailing" constant="3" id="RXt-7V-I9o"/>
-                        <constraint firstItem="cEA-JH-Ho8" firstAttribute="top" secondItem="4KT-7K-ePw" secondAttribute="bottom" constant="-16" id="Ujt-zC-Nie"/>
                         <constraint firstItem="UHy-jZ-SkU" firstAttribute="leading" secondItem="9jF-Xo-5NK" secondAttribute="leading" constant="5" id="Ut8-B7-pT0"/>
                         <constraint firstItem="81b-rd-Px6" firstAttribute="top" secondItem="jes-6j-yjm" secondAttribute="bottom" id="Ve0-jr-66n"/>
                         <constraint firstAttribute="trailing" secondItem="4TT-sT-pT3" secondAttribute="trailing" constant="8" id="Y4o-t8-8SW"/>
@@ -172,8 +158,6 @@
                         <constraint firstItem="yWH-aM-1wj" firstAttribute="top" secondItem="Xon-BF-Vaa" secondAttribute="bottom" constant="7" id="h8S-go-nuL"/>
                         <constraint firstAttribute="trailing" secondItem="1TA-2z-Eqh" secondAttribute="trailing" constant="16" id="iyr-q7-h1y"/>
                         <constraint firstItem="Xon-BF-Vaa" firstAttribute="top" secondItem="81b-rd-Px6" secondAttribute="bottom" constant="4" id="nCV-Mv-a86"/>
-                        <constraint firstAttribute="height" constant="298" id="oFT-ob-b7q"/>
-                        <constraint firstItem="4KT-7K-ePw" firstAttribute="top" secondItem="9jF-Xo-5NK" secondAttribute="top" constant="2" id="rb2-ci-802"/>
                         <constraint firstItem="U2L-QM-eso" firstAttribute="top" secondItem="1TA-2z-Eqh" secondAttribute="bottom" constant="11" id="rqg-4m-IGH"/>
                         <constraint firstItem="81b-rd-Px6" firstAttribute="top" secondItem="vdb-aU-cdv" secondAttribute="bottom" constant="25" id="sSH-Xp-fDb"/>
                         <constraint firstItem="U2L-QM-eso" firstAttribute="leading" secondItem="9jF-Xo-5NK" secondAttribute="leading" constant="5" id="snv-dX-Tyq"/>
@@ -186,7 +170,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="9jF-Xo-5NK" secondAttribute="bottom" constant="20" id="XNX-PP-Upx"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="9jF-Xo-5NK" secondAttribute="bottom" id="XNX-PP-Upx"/>
                 <constraint firstItem="9jF-Xo-5NK" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Zo4-Ml-k8h"/>
                 <constraint firstItem="9jF-Xo-5NK" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="gYh-ms-cWv"/>
                 <constraint firstItem="9jF-Xo-5NK" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="sc4-TH-XgH"/>
@@ -199,9 +183,6 @@
                 <outlet property="atchView" destination="hJ4-9v-VMJ" id="wqf-U0-yJL"/>
                 <outlet property="bottomLine" destination="U2L-QM-eso" id="4JL-64-a5Z"/>
                 <outlet property="content" destination="9jF-Xo-5NK" id="DLs-I7-Zxc"/>
-                <outlet property="contentH" destination="oFT-ob-b7q" id="uFx-B8-lvj"/>
-                <outlet property="hasAttch" destination="cEA-JH-Ho8" id="fIV-0x-Dk8"/>
-                <outlet property="hasNotes" destination="4KT-7K-ePw" id="Hdt-Mh-uuw"/>
                 <outlet property="kpiAtchBtn" destination="1TA-2z-Eqh" id="6B5-E1-yyw"/>
                 <outlet property="kpiInstructions" destination="Xon-BF-Vaa" id="PFU-qS-x8i"/>
                 <outlet property="kpiNote" destination="UHy-jZ-SkU" id="Ohf-jO-Ama"/>
@@ -210,12 +191,10 @@
                 <outlet property="subView" destination="yWH-aM-1wj" id="ReP-Jc-Mhb"/>
                 <outlet property="subViewHeight" destination="QDd-EE-ZVN" id="qAr-g4-kiy"/>
             </connections>
-            <point key="canvasLocation" x="33.5" y="-121"/>
+            <point key="canvasLocation" x="33.5" y="-105"/>
         </view>
     </objects>
     <resources>
-        <image name="ico.atch.red" width="200" height="200"/>
         <image name="ico.clean" width="64" height="64"/>
-        <image name="ico.matita.red" width="80" height="80"/>
     </resources>
 </document>

@@ -9,15 +9,16 @@
 import UIKit
 
 class MYKeyboard {
-    private var scroll: UIScrollView!
+    private var scroll: UIScrollView?
     private var prevOffset = CGPoint.zero
-    private var vc: UIViewController!
-    private var h:CGFloat = 0
+//    private var vc: UIViewController!
+    private var kbHeight:CGFloat = 0
     init() {
         
     }
-    init(vc: UIViewController) {
-        self.vc = vc
+    init(vc: UIViewController, scroll: UIScrollView? = nil) {
+//        self.vc = vc
+        self.scroll = scroll
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.keyboardWillShow(notification:)),
                                                name:NSNotification.Name.UIKeyboardWillShow,
@@ -34,28 +35,25 @@ class MYKeyboard {
     
     @objc func keyboardWillShow (notification: NSNotification) {
         let kbSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as! NSValue
-        self.h = kbSize.cgRectValue.size.height
+        kbHeight = kbSize.cgRectValue.size.height
     }
     
     @objc func keyboardWillHide (notification: NSNotification) {
-        if self.scroll != nil {
-            self.scroll.contentInset = UIEdgeInsets.zero
-        }
+        scroll?.contentInset = UIEdgeInsets.zero
     }
     
     func endEditing() {
-        self.scroll.contentOffset = self.prevOffset
+        scroll?.contentOffset = prevOffset
     }
     
-    func startEditing(scroll: UIScrollView, y: CGFloat) {
-        self.scroll = scroll
-        self.scroll.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: self.h, right: 0)
-        
-        self.prevOffset = self.scroll.contentOffset
-        var offset = self.scroll.contentOffset
-        offset.y = y
-        self.scroll.contentOffset = offset
+    func startEditing(y: CGFloat) {
+        if let scroll = scroll {
+            scroll.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: kbHeight, right: 0)
+            
+            prevOffset = scroll.contentOffset
+            var offset = scroll.contentOffset
+            offset.y = y
+            scroll.contentOffset = offset
+        }
     }
-    
 }
-

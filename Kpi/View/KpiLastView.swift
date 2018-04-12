@@ -8,26 +8,26 @@
 
 import UIKit
 
-class KpiLast: KpiViewController {
-    override class func Instance() -> KpiLast {
-        let vc = InstanceFromSb("Kpi") as! KpiLast
-        return vc
+class KpiLastView: KpiBaseView {
+    class func Instance() -> KpiLastView {
+        let id = "KpiLastView"
+        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! KpiLastView
     }
     
     @IBOutlet private var finalView: UIView!
     @IBOutlet private var finalText: UITextView!
     @IBOutlet private var datePicker: UIDatePicker!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func awakeFromNib() {
+        super.awakeFromNib()
         finalText.text = MYJob.shared.jobResult.comment
         finalText.layer.borderColor = UIColor.lightGray.cgColor
         finalText.layer.borderWidth = 1
         finalText.delegate = self
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
         if MYJob.shared.jobResult.compilation_date.isEmpty == false {
             let d = MYJob.shared.jobResult.compilation_date
             let date = d.toDate(withFormat: Config.DateFmt.DataOraJson)
@@ -35,7 +35,7 @@ class KpiLast: KpiViewController {
         }
     }
     
-    override func checkData() -> KpiMain.ResultType {
+    override func checkData() -> KpiResultType {
         MYJob.shared.jobResult.comment = finalText.text!
         MYJob.shared.jobResult.compiled = 1
         MYJob.shared.jobResult.compilation_date = datePicker.date.toString(withFormat: Config.DateFmt.DataOraJson)
@@ -46,7 +46,7 @@ class KpiLast: KpiViewController {
     }
 }
 
-extension KpiLast: UITextViewDelegate {
+extension KpiLastView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()

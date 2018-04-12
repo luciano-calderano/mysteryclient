@@ -22,7 +22,7 @@ class MYZip {
         }
     }
 
-    func createZipFileWithDict (_ dict: JsonDict) -> URL? {
+    func createZipFileWithDict (_ dict: JsonDict) -> Bool {
         let jobId = String(MYJob.shared.job.id)
         let fm = FileManager.default
         let jobPath = Config.Path.doc + jobId
@@ -47,10 +47,10 @@ class MYZip {
             MYJob.shared.removeJobWithId(MYJob.shared.job.id)
             MYResult.shared.removeResultWithId(MYJob.shared.job.id)
             
-            return zipFile
+            return true
         } catch {
             print("createZipFileWithDict: error")
         }
-        return nil
+        return false
     }
 }
