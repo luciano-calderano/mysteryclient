@@ -40,20 +40,20 @@ enum KpiResultType {
 }
 
 class QuestDependency {
-    var result: KpiResponseValues!
-    init(withResult r: KpiResponseValues) {
-        result = r
+    var responseValue: KpiResponseValues!
+    init(withResponse r: KpiResponseValues) {
+        responseValue = r
     }
     
     func update (withReset: Bool) {
         if withReset {
-            for val in result.valuations! {
+            for val in responseValue.valuations! {
                 updateInvalidKpiWithDep(val, isReset: true)
             }
             print("reset \(MYJob.shared.invalidDependecies)")
         }
-        for val in result.valuations! {
-            if val.id == Int(result.value) {
+        for val in responseValue.valuations! {
+            if val.id == Int(responseValue.value) {
                 updateInvalidKpiWithDep(val, isReset: false)
             }
         }
@@ -66,8 +66,8 @@ class QuestDependency {
             if idIndex == nil {
                 return
             }
-            let index = idIndex!
             
+            let index = idIndex!
             let kpiResult = MYJob.shared.jobResult.results[index]
             kpiResult.kpi_id = dep.key
             if isReset {
@@ -80,14 +80,12 @@ class QuestDependency {
             }
             MYJob.shared.jobResult.results[index] = kpiResult
             
-            let idx = MYJob.shared.invalidDependecies.index(of: String(dep.key))
-            if isReset {
-                if (idx != nil) {
-                    MYJob.shared.invalidDependecies.remove(at: idx!)
-                }
-            } else {
-                if (idx == nil) {
-                    MYJob.shared.invalidDependecies.append(String(dep.key))
+            let depKey = "\(dep.key)"
+            if let idx = MYJob.shared.invalidDependecies.index(of: depKey) {
+                if isReset {
+                    MYJob.shared.invalidDependecies.remove(at: idx)
+                } else {
+                    MYJob.shared.invalidDependecies.append(depKey)
                 }
             }
         }

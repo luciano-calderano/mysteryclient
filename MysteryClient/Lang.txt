@@ -1,5 +1,6 @@
 yes=Si
 no=No
+cancel=Annulla
 
 user=Username
 pass=Password
@@ -53,12 +54,15 @@ error=Errore
 noValue=Selezionare un valore
 noNotes=Inserire una nota
 noAttch=Inserire un allegato
-uploadPic=Upload da:
+uploadPic=Allegato richiesto
 picFromCam=Scatta una foto
-picFromGal=Allega dalla galleria
+picFromGal=Carica dalla galleria
 
 jobFinal=Commento finale
 jobFinalTime=Ora di fine esecuzione
 readyToSend=Pronto per l'invio
 
 noDependency=Scenario non previsto
+noAtchTitle=Allegato richiesto. Continuo ?
+noAtchMsg=Premi [Si] se non puoi allegare il documento richiesto.\nQuesto dovrà essere mandato in seguito per email, per permettere la chiusura dell'incarico.
+

@@ -16,7 +16,7 @@ class KpiMain: MYViewController {
         let vc = sb.instantiateViewController(withIdentifier: id)
         return vc as! KpiMain
     }
-
+    
     @IBOutlet private var container: UIView!
     @IBOutlet private var scroll: UIScrollView!
     @IBOutlet private var backBtn: MYButton!
@@ -42,7 +42,7 @@ class KpiMain: MYViewController {
         kpiView.delegate = self
         scroll.addSubviewWithConstraints(kpiView)
         showPageNum()
-
+        
         myKeyboard = MYKeyboard(vc: self, scroll: scroll)
         
         headerTitle = MYJob.shared.job.store.name
@@ -64,7 +64,19 @@ class KpiMain: MYViewController {
     // MARK: - Actions
     
     @IBAction func nextTapped () {
-        switch kpiView.checkData() {
+        kpiView.checkData { (response) in
+            self.validateResponse(response)
+        }
+    }
+    
+    @IBAction func prevTapped () {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - Private
+    
+    private func validateResponse (_ response: KpiResultType) {
+        switch response {
         case .next:
             nextKpi()
         case .last:
@@ -83,12 +95,6 @@ class KpiMain: MYViewController {
         }
     }
     
-    @IBAction func prevTapped () {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    //MARK: - Private
-    
     private func showPageNum() {
         if let label = header?.header.kpiLabel {
             label.isHidden = false
@@ -97,24 +103,24 @@ class KpiMain: MYViewController {
     }
     
     private func nextKpi () {
-        func loadCtrl (index: Int) {
+        let lastKpi = MYJob.shared.job.kpis.count - 1
+        let loadCtrlWithIndex: (Int) -> () = { index in
             let vc = KpiMain.Instance()
             vc.currentIndex = index
             self.navigationController?.pushViewController(vc, animated: true)
             let title = index == MYJob.shared.job.kpis.count ? "lastPage" : "next"
-            nextBtn.setTitle(MYLng(title), for: .normal)
+            self.nextBtn.setTitle(MYLng(title), for: .normal)
         }
         
-        let lastKpi = MYJob.shared.job.kpis.count - 1
         if currentIndex == lastKpi {
-            loadCtrl(index: MYJob.shared.job.kpis.count)
+            loadCtrlWithIndex (MYJob.shared.job.kpis.count)
             return
         }
         for index in currentIndex + 1...lastKpi {
             let kpi = MYJob.shared.job.kpis[index]
-            let id = String(kpi.id)
-            if MYJob.shared.invalidDependecies.index(of: id) == nil {
-                loadCtrl(index: index)
+            let kpiId = String(kpi.id)
+            if MYJob.shared.invalidDependecies.index(of: kpiId) == nil {
+                loadCtrlWithIndex(index)
                 return
             }
         }
@@ -127,11 +133,13 @@ extension KpiMain: KpiDelegate {
     func kpiEndEditing() {
         myKeyboard.endEditing()
     }
-
+    
     func kpiStartEditingAtPosY(_ y: CGFloat) {
         myKeyboard.startEditing(y: y)
     }
 }
+
+//MARK:- sendKpiResult
 
 extension KpiMain {
     private func sendKpiResult () {

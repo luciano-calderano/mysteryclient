@@ -36,6 +36,11 @@ class KpiAtch: NSObject, UIImagePickerControllerDelegate, UINavigationController
                                             self.openGallary()
         }))
         
+        alert.addAction(UIAlertAction.init(title: MYLng("cancel"),
+                                           style: .cancel,
+                                           handler: { (action) in
+        }))
+
         mainVC.present(alert, animated: true) { }
         //        delegate?.kpiAtchButtonTapped()
     }

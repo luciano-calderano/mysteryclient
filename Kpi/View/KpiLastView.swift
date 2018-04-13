@@ -35,14 +35,13 @@ class KpiLastView: KpiBaseView {
         }
     }
     
-    override func checkData() -> KpiResultType {
+    override func checkData(completion: @escaping (KpiResultType) -> ()) {
         MYJob.shared.jobResult.comment = finalText.text!
         MYJob.shared.jobResult.compiled = 1
         MYJob.shared.jobResult.compilation_date = datePicker.date.toString(withFormat: Config.DateFmt.DataOraJson)
         MYJob.shared.jobResult.execution_end_time = datePicker.date.toString(withFormat: Config.DateFmt.Ora)
-        MYResult.shared.saveResult()
-        
-        return .last
+        MYResult.shared.saveResult()        
+        completion (.last)
     }
 }
 

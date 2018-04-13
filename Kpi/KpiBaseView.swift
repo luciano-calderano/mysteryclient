@@ -34,7 +34,7 @@ class KpiBaseView: UIView {
     func initialize () {
     }
     
-    func checkData() -> KpiResultType {
-        return .err
-    }    
+    func checkData(completion: @escaping (KpiResultType) -> ()) {
+//        return .err
+    }
 }

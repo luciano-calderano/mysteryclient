@@ -65,48 +65,58 @@ class KpiQuestView: KpiBaseView {
         addQuestSubview(type: currentKpi.type)
     }
     
-    override func checkData() -> KpiResultType {
+    override func checkData(completion: @escaping (KpiResultType) -> ()) {
         var noteRequired = currentKpi.note_required
         var atchRequired = currentKpi.attachment_required
-        let result = kpiQuestSubView.getValuation()
+        let responseValue = kpiQuestSubView.getValuation()
         
         if currentKpi.required == true {
-            if result.value.isEmpty && valueMandatoty == true {
-                return .errValue
+            if responseValue.value.isEmpty && valueMandatoty == true {
+                completion (.errValue)
             }
-            if result.notesReq == true {
-                noteRequired = result.notesReq
+            if responseValue.notesReq == true {
+                noteRequired = responseValue.notesReq
             }
-            if result.attchReq == true {
-                atchRequired = result.attchReq
+            if responseValue.attchReq == true {
+                atchRequired = responseValue.attchReq
             }
         }
         
         if noteRequired == true && kpiNote.text.isEmpty {
-            return .errNotes
+            completion (.errNotes)
         }
         
         if atchRequired == true && atchImage.image == nil {
-            return .errAttch
+            askNoAtch { (result) in
+                if result  {
+                    saveResult()
+                    completion (.next)
+                } else {
+                    completion (.errAttch)
+
+                }
+            }
         }
-        
-        let kpiResult = MYJob.shared.jobResult.results[kpiIndex]
-        let originaValue = kpiResult.value
-        kpiResult.kpi_id = currentKpi.id
-        kpiResult.value = result.value
-        kpiResult.notes = kpiNote.text
-        kpiResult.attachment = atchName.text!
-        MYJob.shared.jobResult.results[kpiIndex] = kpiResult
-        
-        if result.valuations != nil {
-            let qDep = QuestDependency(withResult: result)
-            qDep.update(withReset: originaValue != result.value)
+        func saveResult () {
+            let kpiResult = MYJob.shared.jobResult.results[kpiIndex]
+            let originaValue = kpiResult.value
+            kpiResult.kpi_id = currentKpi.id
+            kpiResult.value = responseValue.value
+            kpiResult.notes = kpiNote.text
+            kpiResult.attachment = atchName.text!
+            MYJob.shared.jobResult.results[kpiIndex] = kpiResult
+            
+            if responseValue.valuations != nil {
+                let qDep = QuestDependency(withResponse: responseValue)
+                qDep.update(withReset: originaValue != responseValue.value)
+            }
+            
+            MYResult.shared.saveResult()
+            
+            self.endEditing(true)
         }
-        
-        MYResult.shared.saveResult()
-        
-        self.endEditing(true)
-        return .next
+        saveResult()
+        completion (.next)
     }
     
     func showAtch () {
@@ -149,6 +159,26 @@ class KpiQuestView: KpiBaseView {
             kpiAtch?.delegate = self
         }
         kpiAtch?.showArchSelection()
+    }
+    
+    private func askNoAtch (completion: @escaping (Bool) -> ()) {
+        let alert = UIAlertController(title: MYLng("noAtchTitle"),
+                                      message:MYLng("noAtchMsg"),
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction.init(title: MYLng("no"),
+                                           style: .default,
+                                           handler: { (action) in
+                                            completion(false)
+        }))
+        
+        alert.addAction(UIAlertAction.init(title: MYLng("yes"),
+                                           style: .default,
+                                           handler: { (action) in
+                                            completion(true)
+        }))
+        
+        mainVC.present(alert, animated: true) { }
+
     }
     
     //MARK: - Private

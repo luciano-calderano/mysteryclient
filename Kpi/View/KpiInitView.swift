@@ -39,16 +39,16 @@ class KpiInitView: KpiBaseView {
         }
     }
     
-    override func checkData() -> KpiResultType {
+    override func checkData(completion: @escaping (KpiResultType) -> ()) {
         if undoneView.isHidden == false && (undondeText.text?.isEmpty)! {
             undondeText.becomeFirstResponder()
-            return .errNotes
+            completion (.errNotes)
         }
         
         MYJob.shared.jobResult.execution_date = datePicker.date.toString(withFormat: Config.DateFmt.DataJson)
         MYJob.shared.jobResult.execution_start_time = datePicker.date.toString(withFormat: Config.DateFmt.Ora)
         MYResult.shared.saveResult()
-        return .next
+        completion (.next)
     }
     
     // MARK: - Actions
