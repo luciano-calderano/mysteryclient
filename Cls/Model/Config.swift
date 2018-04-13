@@ -14,12 +14,11 @@ typealias JsonDict = Dictionary<String, Any>
 
 struct Config {
     struct Url {
-        static let home     = "https://mysteryclient.mebius.it/"
-        static let grant    = Config.Url.home + "default/oauth/grant"
-        static let get      = Config.Url.home + "default/rest/get"
-        static let put      = Config.Url.home + "default/rest/put"
-
-        static let maps = "http://maps.apple.com/?"
+        static let home  = "https://mysteryclient.mebius.it/"
+        static let grant = Config.Url.home + "default/oauth/grant"
+        static let get   = Config.Url.home + "default/rest/get"
+        static let put   = Config.Url.home + "default/rest/put"
+        static let maps  = "http://maps.apple.com/?"
     }
 
     static let filePrefix = "id_"
