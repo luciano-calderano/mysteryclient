@@ -10,8 +10,7 @@ import UIKit
 
 class SubRadio: KpiBaseSubView {
     class func Instance() -> SubRadio {
-        let id = "SubRadio"
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubRadio
+        return InstanceView() as! SubRadio
     }
     
     @IBOutlet var tableView: UITableView!
@@ -104,15 +103,10 @@ class SubRadioCell: UITableViewCell {
         let nib = UINib(nibName: id, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: id)
     }
-    
-    class func dequeue (_ tableView: UITableView,
-                        _ indexPath: IndexPath) -> SubRadioCell {
-        
-        let id = String (describing: self)
-        return tableView.dequeueReusableCell(withIdentifier: id, for: indexPath)
-            as! SubRadioCell
+    class func dequeue (_ tableView: UITableView, _ indexPath: IndexPath) -> SubRadioCell {
+        return tableView.dequeueReusableCell(withIdentifier: "SubRadioCell", for: indexPath) as! SubRadioCell
     }
-    
+
     @IBOutlet var selectView: UIView!
     @IBOutlet var selectedView: UIView!
     @IBOutlet var valuationTitle: MYLabel!

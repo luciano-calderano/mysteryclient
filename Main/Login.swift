@@ -10,9 +10,9 @@ import UIKit
 
 class Login: MYViewController {
     class func Instance() -> Login {
-        let vc = InstanceFromSb("Main") as! Login
-        return vc
+        return Instance(sbName: "Main", "Login") as! Login
     }
+
     @IBOutlet var loginView: UIView!
     
     @IBOutlet var userView: UIView!

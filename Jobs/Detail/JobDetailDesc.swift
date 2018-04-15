@@ -10,8 +10,7 @@ import UIKit
 
 class JobDetailDesc: UIView {
     class func Instance() -> JobDetailDesc {
-        let id = String (describing: self)
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! JobDetailDesc
+        return InstanceView() as! JobDetailDesc
     }
     
     @IBOutlet var jobDesc: UITextView!

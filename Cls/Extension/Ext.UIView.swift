@@ -9,21 +9,21 @@
 import UIKit
 
 extension UIView {
-    class func loadXib (xibName: String = "") -> Any {
-        let viewName = xibName.isEmpty ? String (describing: self) : xibName
+    class func InstanceView (xibName: String? = nil) -> Any {
+        let viewName = xibName ?? String (describing: self)
         let array = Bundle.main.loadNibNamed(viewName, owner: self, options: nil)
         return array!.first ?? UIView()
     }
 
     func addSubviewWithConstraints (_ view: UIView, edge: UIEdgeInsets = UIEdgeInsets.zero) {
         self.addSubview(view)
-        self.costraintTo(view: view, atb: .top,     f: edge.top)
-        self.costraintTo(view: view, atb: .left,    f: edge.left)
-        self.costraintTo(view: view, atb: .bottom,  f: edge.bottom)
-        self.costraintTo(view: view, atb: .right,   f: edge.right)
+        costraintTo(view: view, atb: .top,     f: edge.top)
+        costraintTo(view: view, atb: .left,    f: edge.left)
+        costraintTo(view: view, atb: .bottom,  f: edge.bottom)
+        costraintTo(view: view, atb: .right,   f: edge.right)
         if self is UIScrollView {
-            self.costraintTo(view: view, atb: .centerX, f: 0)
-            self.costraintTo(view: view, atb: .height, f: view.frame.size.height)
+            costraintTo(view: view, atb: .centerX, f: 0)
+            costraintTo(view: view, atb: .height, f: view.frame.size.height)
         }
     }
 

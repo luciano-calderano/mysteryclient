@@ -11,10 +11,7 @@ import Zip
 
 class KpiMain: MYViewController {
     class func Instance() -> KpiMain {
-        let id = "KpiMain"
-        let sb = UIStoryboard.init(name: "Kpi", bundle: nil)
-        let vc = sb.instantiateViewController(withIdentifier: id)
-        return vc as! KpiMain
+        return Instance(sbName: "Kpi", "KpiMain") as! KpiMain
     }
     
     @IBOutlet private var container: UIView!
@@ -82,13 +79,13 @@ class KpiMain: MYViewController {
         case .last:
             sendKpiResult()
         case .errValue:
-            alert(MYLng("error"), message: MYLng("noValue"), okBlock: nil)
+            alert(MYLng("error"), message: MYLng("noValue"))
             return
         case .errNotes:
-            alert(MYLng("error"), message: MYLng("noNotes"), okBlock: nil)
+            alert(MYLng("error"), message: MYLng("noNotes"))
             return
         case .errAttch:
-            alert(MYLng("error"), message: MYLng("noAttch"), okBlock: nil)
+            alert(MYLng("error"), message: MYLng("noAttch"))
             return
         case .err:
             return

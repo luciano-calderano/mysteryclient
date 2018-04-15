@@ -20,8 +20,7 @@ protocol MenuViewDelegate {
 
 class MenuView: UIView {
     class func Instance() -> MenuView {
-        let id = "MenuView"
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! MenuView
+        return InstanceView() as! MenuView
     }
 
     var delegate: MenuViewDelegate?
@@ -35,7 +34,10 @@ class MenuView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+//        UITableViewCell.register(tableView, cellId: cellId)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.cellId)
+
         let tapBack = UITapGestureRecognizer.init(target: self, action: #selector(swipped))
         self.backView.addGestureRecognizer(tapBack)
         
@@ -110,8 +112,9 @@ extension MenuView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellId,
-                                                 for: indexPath) as UITableViewCell
+//        let cell = UITableViewCell.dequeue(tableView, indexPath, cellId: cellId)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as UITableViewCell
+
         let item = dataArray[indexPath.row]
         cell.imageView!.image = item.icon
         cell.textLabel?.text = item.type.rawValue

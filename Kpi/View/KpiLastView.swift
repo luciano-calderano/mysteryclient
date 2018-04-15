@@ -10,8 +10,7 @@ import UIKit
 
 class KpiLastView: KpiBaseView {
     class func Instance() -> KpiLastView {
-        let id = "KpiLastView"
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! KpiLastView
+        return InstanceView() as! KpiLastView
     }
     
     @IBOutlet private var finalView: UIView!

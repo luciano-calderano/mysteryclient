@@ -14,11 +14,10 @@ protocol JobsHomeCellDelegate {
 }
 
 class JobsHomeCell: UITableViewCell {
-    class func dequeue (_ tableView: UITableView,
-                        _ indexPath: IndexPath) -> JobsHomeCell {
-        return tableView.dequeueReusableCell(withIdentifier: "JobsHomeCell", for: indexPath)  as! JobsHomeCell
+    class func dequeue (_ tableView: UITableView, _ indexPath: IndexPath) -> JobsHomeCell {
+        return tableView.dequeueReusableCell(withIdentifier: "JobsHomeCell", for: indexPath) as! JobsHomeCell
     }
-    
+
     var job: Job! {
         didSet {
             update ()

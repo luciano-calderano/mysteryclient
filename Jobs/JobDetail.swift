@@ -11,8 +11,7 @@ import CoreLocation
 
 class JobDetail: MYViewController {
     class func Instance() -> JobDetail {
-        let vc = InstanceFromSb("Jobs") as! JobDetail
-        return vc
+        return Instance(sbName: "Jobs", "JobDetail") as! JobDetail
     }
     
     private let locationManager = CLLocationManager()
@@ -105,10 +104,12 @@ class JobDetail: MYViewController {
     }
     
     @IBAction func contTapped () {
-//        guard MYJob.shared.job.learning_done else {
-//            openWeb(type: .none, urlPage:  MYJob.shared.job.learning_url)
-//            return
-//        }
+        guard MYJob.shared.job.learning_done else {
+            openWeb(type: .none, urlPage:  MYJob.shared.job.learning_url)
+            MYJob.shared.job.learning_done = true
+            loadAndShowResult()
+            return
+        }
         let wheel = MYWheel()
         wheel.start(view)
         if MYJob.shared.jobResult.execution_date.isEmpty {

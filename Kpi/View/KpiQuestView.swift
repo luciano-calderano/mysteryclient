@@ -9,28 +9,20 @@ import UIKit
 
 class KpiQuestView: KpiBaseView {
     class func Instance() -> KpiQuestView {
-        let id = "KpiQuestView"
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! KpiQuestView
+        return InstanceView() as! KpiQuestView
     }
     
     @IBOutlet private var content: UIView!
-//    @IBOutlet private var contentH: NSLayoutConstraint!
-    
+    @IBOutlet private var containerSubView: UIView!
     @IBOutlet private var atchView: UIView!
-    @IBOutlet private var atchName: MYLabel!
     @IBOutlet private var atchImage: UIImageView!
-    
-    @IBOutlet private var subView: UIView!
-    @IBOutlet private var bottomLine: UIView!
-    
+    @IBOutlet private var atchName: MYLabel!
     @IBOutlet private var kpiTitle: MYLabel!
     @IBOutlet private var kpiQuestion: MYLabel!
     @IBOutlet private var kpiInstructions: MYLabel!
     @IBOutlet private var kpiAtchBtn: MYButton!
-    
+    @IBOutlet private var kpiNote: UITextView!
     @IBOutlet private var subViewHeight: NSLayoutConstraint!
-    
-    @IBOutlet var kpiNote: UITextView!
     
     private var valueMandatoty = true
     private var kpiQuestSubView: KpiBaseSubView!
@@ -89,15 +81,14 @@ class KpiQuestView: KpiBaseView {
         if atchRequired == true && atchImage.image == nil {
             askNoAtch { (result) in
                 if result  {
-                    saveResult()
-                    completion (.next)
+                    completion (saveResult())
                 } else {
                     completion (.errAttch)
-
                 }
             }
         }
-        func saveResult () {
+        
+        func saveResult () -> KpiResultType {
             let kpiResult = MYJob.shared.jobResult.results[kpiIndex]
             let originaValue = kpiResult.value
             kpiResult.kpi_id = currentKpi.id
@@ -114,9 +105,9 @@ class KpiQuestView: KpiBaseView {
             MYResult.shared.saveResult()
             
             self.endEditing(true)
+            return .next
         }
-        saveResult()
-        completion (.next)
+        completion (saveResult())
     }
     
     func showAtch () {
@@ -206,7 +197,7 @@ class KpiQuestView: KpiBaseView {
             kpiQuestSubView = KpiBaseSubView()
             valueMandatoty = false
         }
-        subView.addSubviewWithConstraints(kpiQuestSubView)
+        containerSubView.addSubviewWithConstraints(kpiQuestSubView)
         kpiQuestSubView.delegate = self
         kpiQuestSubView.currentKpi = currentKpi
         kpiQuestSubView.kpiResult = kpiResult

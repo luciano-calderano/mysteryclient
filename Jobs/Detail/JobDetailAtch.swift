@@ -14,8 +14,7 @@ protocol JobDetailAtchDelegate {
 
 class JobDetailAtch: UIView, UITableViewDelegate, UITableViewDataSource {
     class func Instance() -> JobDetailAtch {
-        let id = "JobDetailAtch"
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! JobDetailAtch
+        return InstanceView() as! JobDetailAtch
     }
     
     var delegate: JobDetailAtchDelegate?

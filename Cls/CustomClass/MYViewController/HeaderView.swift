@@ -65,9 +65,7 @@ class HeaderContainerView : UIView, HeaderViewDelegate {
 
 class HeaderView : UIView {
     class func Instance() -> HeaderView {
-        let nib = UINib(nibName: "HeaderView", bundle: nil)
-        let view = nib.instantiate(withOwner: self, options: nil).first as! HeaderView
-        return view
+        return InstanceView() as! HeaderView
     }
 
     @IBOutlet var titleLabel: MYLabel!

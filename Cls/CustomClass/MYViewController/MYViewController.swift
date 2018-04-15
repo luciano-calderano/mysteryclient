@@ -42,7 +42,7 @@ class MYViewController: UIViewController, HeaderViewDelegate {
 }
 
 class MenuViewController: MYViewController {
-    var menuView = MenuView.Instance()
+    let menuView = MenuView.Instance()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,15 +81,16 @@ class MenuViewController: MYViewController {
         return item
     }
     
-    func selectedItem(_ item: MenuItem) {
-        self.menuHide()
+    private func selectedItem(_ item: MenuItem) {
+        menuHide()
         
         var webType = WebPage.WebPageEnum.none
         switch item.type {
         case .inca :
-            let sb = UIStoryboard.init(name: "Jobs", bundle: nil)
-            let ctrl = sb.instantiateInitialViewController()
-            self.navigationController?.show(ctrl!, sender: self)
+            let vc = JobsHome.Instance()
+//            let sb = UIStoryboard.init(name: "Jobs", bundle: nil)
+//            let ctrl = sb.instantiateInitialViewController()
+            self.navigationController?.show(vc, sender: self)
             return
         case .stor :
             webType = .storico

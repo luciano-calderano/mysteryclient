@@ -10,8 +10,7 @@ import UIKit
 
 class SubCheckBox: KpiBaseSubView {
     class func Instance() -> SubCheckBox {
-        let id = String (describing: self)
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubCheckBox
+        return InstanceView() as! SubCheckBox
     }
     private let separator = ","
     
@@ -127,15 +126,10 @@ class SubCheckBoxCell: UITableViewCell {
         let nib = UINib(nibName: id, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: id)
     }
-    
-    class func dequeue (_ tableView: UITableView,
-                        _ indexPath: IndexPath) -> SubCheckBoxCell {
-        
-        let id = "SubCheckBoxCell"
-        return tableView.dequeueReusableCell(withIdentifier: id, for: indexPath)
-            as! SubCheckBoxCell
+    class func dequeue (_ tableView: UITableView, _ indexPath: IndexPath) -> SubCheckBoxCell {
+        return tableView.dequeueReusableCell(withIdentifier: "SubCheckBoxCell", for: indexPath) as! SubCheckBoxCell
     }
-    
+
     @IBOutlet var icoCheck: UIImageView!
     @IBOutlet var selectView: UIView!    
     @IBOutlet var valuationTitle: MYLabel!

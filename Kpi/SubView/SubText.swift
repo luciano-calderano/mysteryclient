@@ -10,8 +10,7 @@ import UIKit
 
 class SubText: KpiBaseSubView {
     class func Instance() -> SubText {
-        let id = String (describing: self)
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubText
+        return InstanceView() as! SubText
     }
 
     @IBOutlet private var kpiText: MYTextField!

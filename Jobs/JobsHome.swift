@@ -9,6 +9,10 @@
 import UIKit
 
 class JobsHome: MYViewController {
+    class func Instance() -> JobsHome {
+        return Instance(sbName: "Jobs", isInitial: true) as! JobsHome
+    }
+
     @IBOutlet private var tableView: UITableView!
     
     override func viewDidLoad() {

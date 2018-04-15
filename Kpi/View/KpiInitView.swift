@@ -10,8 +10,7 @@ import UIKit
 
 class KpiInitView: KpiBaseView {
     class func Instance() -> KpiInitView {
-        let id = "KpiInitView"
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! KpiInitView
+        return InstanceView() as! KpiInitView
     }
 
     @IBOutlet private var undoneView: UIView!

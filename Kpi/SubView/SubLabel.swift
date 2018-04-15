@@ -10,8 +10,7 @@ import UIKit
 
 class SubLabel: KpiBaseSubView, UITextFieldDelegate {
     class func Instance() -> SubLabel {
-        let id = "SubLabel"
-        return Bundle.main.loadNibNamed(id, owner: self, options: nil)?.first as! SubLabel
+        return InstanceView() as! SubLabel
     }
     override var kpiResult: JobResult.KpiResult? {
         didSet {
