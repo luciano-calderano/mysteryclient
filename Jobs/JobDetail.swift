@@ -104,18 +104,18 @@ class JobDetail: MYViewController {
     }
     
     @IBAction func contTapped () {
-        guard MYJob.shared.job.learning_done else {
-            openWeb(type: .none, urlPage:  MYJob.shared.job.learning_url)
-            MYJob.shared.job.learning_done = true
-            loadAndShowResult()
-            return
-        }
-        let wheel = MYWheel()
-        wheel.start(view)
         if MYJob.shared.jobResult.execution_date.isEmpty {
+            guard MYJob.shared.job.learning_done else {
+                openWeb(type: .none, urlPage:  MYJob.shared.job.learning_url)
+                MYJob.shared.job.learning_done = true
+                loadAndShowResult()
+                return
+            }
             MYJob.shared.jobResult.estimate_date = Date().toString(withFormat: Config.DateFmt.DataJson)
             MYResult.shared.saveResult()
         }
+        let wheel = MYWheel()
+        wheel.start(view)
         
         let ctrl = KpiMain.Instance()
         navigationController?.show(ctrl, sender: self)
@@ -172,10 +172,12 @@ class JobDetail: MYViewController {
     private func loadAndShowResult () {
         executionTime()
         var title = ""
-        if MYJob.shared.job.learning_done == false {
+        if  MYJob.shared.jobResult.execution_date.isEmpty == false {
+            title = "kpiCont"
+        } else if MYJob.shared.job.learning_done == false {
             title = "learning"
         } else {
-            title = MYJob.shared.jobResult.execution_date.isEmpty ? "kpiInit" : "kpiCont"
+            title = "kpiInit"
         }
         contBtn.setTitle(MYLng(title), for: .normal)
     }

@@ -80,12 +80,15 @@ class QuestDependency {
             }
             MYJob.shared.jobResult.results[index] = kpiResult
             
-            let depKey = "\(dep.key)"
-            if let idx = MYJob.shared.invalidDependecies.index(of: depKey) {
-                if isReset {
-                    MYJob.shared.invalidDependecies.remove(at: idx)
-                } else {
-                    MYJob.shared.invalidDependecies.append(depKey)
+            let key = "\(dep.key)"
+            let idx = MYJob.shared.invalidDependecies.index(of: key)
+            if isReset {
+                if (idx != nil) {
+                    MYJob.shared.invalidDependecies.remove(at: idx!)
+                }
+            } else {
+                if (idx == nil) {
+                    MYJob.shared.invalidDependecies.append(key)
                 }
             }
         }

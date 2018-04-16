@@ -30,6 +30,7 @@ class KpiMain: MYViewController {
             kpiView = KpiInitView.Instance()
         } else if currentIndex == MYJob.shared.job.kpis.count {
             kpiView = KpiLastView.Instance()
+            nextBtn.setTitle(MYLng("lastPage"), for: .normal)
         } else {
             kpiView = KpiQuestView.Instance()
             kpiView.kpiIndex = currentIndex
@@ -105,8 +106,6 @@ class KpiMain: MYViewController {
             let vc = KpiMain.Instance()
             vc.currentIndex = index
             self.navigationController?.pushViewController(vc, animated: true)
-            let title = index == MYJob.shared.job.kpis.count ? "lastPage" : "next"
-            self.nextBtn.setTitle(MYLng(title), for: .normal)
         }
         
         if currentIndex == lastKpi {
