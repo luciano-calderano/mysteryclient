@@ -74,11 +74,6 @@ class Login: MYViewController {
         updateCheckCredential()
     }
 
-    @IBAction func credRecoverTapped () {        
-        let ctrl = WebPage.Instance(type: .recover)
-        navigationController?.show(ctrl, sender: self)
-    }
-    
     @IBAction func signInTapped () {
         if userText.text!.isEmpty {
             userText.becomeFirstResponder()
@@ -101,10 +96,14 @@ class Login: MYViewController {
         }
     }
     @IBAction func signUpTapped () {
-        let ctrl = WebPage.Instance(type: .register)
-        navigationController?.show(ctrl, sender: self)
+        openWeb(type: .register, title: "signUp")
+    }
+
+    @IBAction func credRecoverTapped () {
+        openWeb(type: .recover, title: "passForg")
     }
     
+
     //MARK: - private
     
     private func updateCheckCredential() {
@@ -115,6 +114,12 @@ class Login: MYViewController {
     private func userLogged () {
         let vc = storyboard?.instantiateViewController(withIdentifier: "Home")
         navigationController?.show(vc!, sender: self)
+    }
+    
+    private func openWeb (type: WebPage.WebPageEnum, title: String) {
+        let ctrl = WebPage.Instance(type: type)
+        navigationController?.show(ctrl, sender: self)
+        ctrl.title = MYLng(title)
     }
 }
 

@@ -92,7 +92,7 @@ class User: NSObject {
             "password"      : userData[kPwd]!,
         ]
 
-        let req = MYHttp.init(.grant, param: param, hasHeader: false)
+        let req = MYHttp.init(.grant, param: param, showWheel: false, hasHeader: false)
         req.load(ok: {
             (response) in
             self.tokenWithDict(response.dictionary("token"))

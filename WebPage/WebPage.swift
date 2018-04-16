@@ -9,7 +9,8 @@
 import UIKit
 import WebKit
 
-class WebPage: MYViewController, UIWebViewDelegate {
+
+class WebPage: MYViewController { //}, UIWebViewDelegate {
     enum WebPageEnum: String {
         case recover = "login/retrieve-password?app=1"
         case register = "login/register?app=1"
@@ -26,11 +27,9 @@ class WebPage: MYViewController, UIWebViewDelegate {
         case ticketView = "checking/ticket-view?id="
         case none = ""
     }
-   
+    
     class func Instance (type: WebPageEnum, id: Int = 0) -> WebPage {
-        let vcName = String (describing: self)
-        let sb = UIStoryboard.init(name: "WebPage", bundle: nil)
-        let vc = sb.instantiateViewController(withIdentifier: vcName) as! WebPage
+        let vc = Instance(sbName: "WebPage", isInitial: true) as! WebPage
         if type != .none {
             var page = Config.Url.home + type.rawValue
             if id > 0 {
@@ -38,20 +37,22 @@ class WebPage: MYViewController, UIWebViewDelegate {
             }
             vc.page = page
         }
-
         return vc
     }
-
-    @IBOutlet private var webView: UIWebView!
-
-    var page = ""
     
+    private var webView = WKWebView()
+    @IBOutlet private var container: UIImageView!
+
+    var page = ""    
     private var myWheel = MYWheel()
-    private var requestObj: URLRequest!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        webView.delegate = self
+        container.isUserInteractionEnabled = true
+        webView.navigationDelegate = self
+        if self.title?.isEmpty == false {
+            headerTitle = self.title!
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -59,31 +60,37 @@ class WebPage: MYViewController, UIWebViewDelegate {
         if page.isEmpty {
             return
         }
-        
-        myWheel.start(webView)
-        requestObj = URLRequest.init(url: URL.init(string: self.page)!)
-        
-        let token = User.shared.token
-        if token.isEmpty == false {
-            requestObj.setValue(token, forHTTPHeaderField: "Authorization")
-        }
+        myWheel.start(container)
 
-        webView.loadRequest(requestObj)
+        func hasToekn () {
+            var request = URLRequest(url: URL(string: page)!)
+            request.setValue(User.shared.token, forHTTPHeaderField: "Authorization")
+            webView.load(request)
+        }
+        
+        User.shared.getUserToken(completion: {
+            hasToekn()
+        }) { (errorCode, message) in
+            self.alert("Error: \(errorCode)", message: message) {
+                (result) in
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+}
+
+extension WebPage: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         myWheel.stop()
+        alert("Errore", message: error.localizedDescription) {
+            (result) in
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         myWheel.stop()
+        webView.frame = container.bounds
+        container.addSubview(webView)
     }
-    
-//    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-//        if request.url == url { // || request.url! == URL.init(string: Config.basePath) {
-//            return true
-//        }
-//        self.navigationController?.popToRootViewController(animated: true)
-//        return false
-//    }
 }

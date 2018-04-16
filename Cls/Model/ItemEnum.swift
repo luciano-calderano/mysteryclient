@@ -20,13 +20,3 @@ enum MenuItemEnum: String {
     case logout = "Logout"
     case _none = ""
 }
-
-//enum HomeItemEnum: String {
-//    case daComp = "Da compilare"
-//    case daConv = "Da convalidare"
-//    case irrego = "Irregolari"
-//    case annull = "Annullati"
-//    case inPaga = "In pagamento"
-//    case conclu = "Conclusi"
-//}
-//

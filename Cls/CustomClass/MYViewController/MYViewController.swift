@@ -20,11 +20,10 @@ class MYViewController: UIViewController, HeaderViewDelegate {
         view.backgroundColor = UIColor.myGreenDark
         self.view.addSubview(view)
         self.view.backgroundColor = UIColor.white
-        header?.delegate = self
-        header?.header.kpiLabel.isHidden = true
-//        if self.header?.header.dxButton.image(for: .normal) == nil {
-//            self.header?.header.dxButton.isHidden = true
-//        }
+        if let header = header {
+            header.delegate = self
+            header.header.kpiLabel.isHidden = true
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,9 +110,10 @@ class MenuViewController: MYViewController {
         default:
             return
         }
-        let ctrl = WebPage.Instance(type: webType)
 //        UIApplication.shared.openURL(URL.init(string: ctrl.page)!)
+        let ctrl = WebPage.Instance(type: webType)
         self.navigationController?.show(ctrl, sender: self)
+        ctrl.title = item.type.rawValue
     }
 
     //MARK: - Menu show/hode
