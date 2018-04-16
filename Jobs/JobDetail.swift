@@ -162,9 +162,9 @@ class JobDetail: MYViewController {
     private func showData () {
         header?.header.titleLabel.text = MYJob.shared.job.store.name
         infoLabel.text =
-            MYLng("rifNum") + ": \(MYJob.shared.job.reference)\n" +
-            MYLng("verIni") + ": \(MYJob.shared.job.start_date.toString(withFormat: Config.DateFmt.Data))\n" +
-            MYLng("verEnd") + ": \(MYJob.shared.job.end_date.toString(withFormat: Config.DateFmt.Data))\n"
+            Lng("rifNum") + ": \(MYJob.shared.job.reference)\n" +
+            Lng("verIni") + ": \(MYJob.shared.job.start_date.toString(withFormat: Config.DateFmt.Data))\n" +
+            Lng("verEnd") + ": \(MYJob.shared.job.end_date.toString(withFormat: Config.DateFmt.Data))\n"
         nameLabel.text = MYJob.shared.job.store.name
         addrLabel.text = MYJob.shared.job.store.address
     }
@@ -179,7 +179,7 @@ class JobDetail: MYViewController {
         } else {
             title = "kpiInit"
         }
-        contBtn.setTitle(MYLng(title), for: .normal)
+        contBtn.setTitle(Lng(title), for: .normal)
     }
     
     private func executionTime () {

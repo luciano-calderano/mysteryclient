@@ -21,22 +21,22 @@ class KpiAtch: NSObject, UIImagePickerControllerDelegate, UINavigationController
     }
     
     func showArchSelection () {
-        let alert = UIAlertController(title: MYLng("uploadPic") as String,
+        let alert = UIAlertController(title: Lng("uploadPic") as String,
                                       message: "" as String,
                                       preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction.init(title: MYLng("picFromCam"),
+        alert.addAction(UIAlertAction.init(title: Lng("picFromCam"),
                                            style: .default,
                                            handler: { (action) in
                                             self.openCamera()
         }))
         
-        alert.addAction(UIAlertAction.init(title: MYLng("picFromGal"),
+        alert.addAction(UIAlertAction.init(title: Lng("picFromGal"),
                                            style: .default,
                                            handler: { (action) in
                                             self.openGallary()
         }))
         
-        alert.addAction(UIAlertAction.init(title: MYLng("cancel"),
+        alert.addAction(UIAlertAction.init(title: Lng("cancel"),
                                            style: .cancel,
                                            handler: { (action) in
         }))

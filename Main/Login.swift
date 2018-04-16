@@ -119,7 +119,7 @@ class Login: MYViewController {
     private func openWeb (type: WebPage.WebPageEnum, title: String) {
         let ctrl = WebPage.Instance(type: type)
         navigationController?.show(ctrl, sender: self)
-        ctrl.title = MYLng(title)
+        ctrl.title = Lng(title)
     }
 }
 

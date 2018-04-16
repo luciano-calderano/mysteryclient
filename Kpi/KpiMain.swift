@@ -30,7 +30,7 @@ class KpiMain: MYViewController {
             kpiView = KpiInitView.Instance()
         } else if currentIndex == MYJob.shared.job.kpis.count {
             kpiView = KpiLastView.Instance()
-            nextBtn.setTitle(MYLng("lastPage"), for: .normal)
+            nextBtn.setTitle(Lng("lastPage"), for: .normal)
         } else {
             kpiView = KpiQuestView.Instance()
             kpiView.kpiIndex = currentIndex
@@ -80,13 +80,13 @@ class KpiMain: MYViewController {
         case .last:
             sendKpiResult()
         case .errValue:
-            alert(MYLng("error"), message: MYLng("noValue"))
+            alert(Lng("error"), message: Lng("noValue"))
             return
         case .errNotes:
-            alert(MYLng("error"), message: MYLng("noNotes"))
+            alert(Lng("error"), message: Lng("noNotes"))
             return
         case .errAttch:
-            alert(MYLng("error"), message: MYLng("noAttch"))
+            alert(Lng("error"), message: Lng("noAttch"))
             return
         case .err:
             return
@@ -143,7 +143,7 @@ extension KpiMain {
             alert ("Errore zip", message: "", okBlock: nil)
             return
         }
-        alert (MYLng("readyToSend"), message: "", okBlock: {
+        alert (Lng("readyToSend"), message: "", okBlock: {
             (ready) in
             let nav = self.navigationController!
             if nav.viewControllers.count > 1 {

@@ -130,7 +130,7 @@ class KpiQuestView: KpiBaseView {
     
     @objc func atchRemove () {
         let fileName = kpiQuestPath + kpiResult.attachment
-        mainVC.alert(MYLng("atchRemove"), message: "", cancelBlock: nil) {
+        mainVC.alert(Lng("atchRemove"), message: "", cancelBlock: nil) {
             (remove) in
             do {
                 try FileManager.default.removeItem(atPath: fileName)
@@ -153,16 +153,16 @@ class KpiQuestView: KpiBaseView {
     }
     
     private func askNoAtch (completion: @escaping (Bool) -> ()) {
-        let alert = UIAlertController(title: MYLng("noAtchTitle"),
-                                      message:MYLng("noAtchMsg"),
+        let alert = UIAlertController(title: Lng("noAtchTitle"),
+                                      message:Lng("noAtchMsg"),
                                       preferredStyle: .alert)
-        alert.addAction(UIAlertAction.init(title: MYLng("no"),
+        alert.addAction(UIAlertAction.init(title: Lng("no"),
                                            style: .default,
                                            handler: { (action) in
                                             completion(false)
         }))
         
-        alert.addAction(UIAlertAction.init(title: MYLng("yes"),
+        alert.addAction(UIAlertAction.init(title: Lng("yes"),
                                            style: .default,
                                            handler: { (action) in
                                             completion(true)

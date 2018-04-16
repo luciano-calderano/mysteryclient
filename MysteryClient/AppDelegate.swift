@@ -9,10 +9,6 @@
 import UIKit
 import MYLib
 
-func MYLng(_ key: String) -> String {
-    return Lng(key)
-}
-
 @UIApplicationMain
 
 class AppDelegate: UIResponder, UIApplicationDelegate {

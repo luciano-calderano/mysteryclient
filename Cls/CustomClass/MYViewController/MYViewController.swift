@@ -120,13 +120,13 @@ class MenuViewController: MYViewController {
 
     func menuHide() {
         menuView.menuHide()
-        headerTitle = MYLng("home")
+        headerTitle = Lng("home")
         header?.header.sxButton.setImage(UIImage.init(named: "ico.menu"), for: .normal)
     }
     
     func menuShow () {
         menuView.menuShow()
-        headerTitle = MYLng("menu")
+        headerTitle = Lng("menu")
         header?.header.sxButton.setImage(UIImage.init(named: "ico.back"), for: .normal)
     }
 }

@@ -74,18 +74,9 @@
 		4B31134B207E174700BA77D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B311344207E174700BA77D8 /* Main.storyboard */; };
 		4B31134C207E174700BA77D8 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B311346207E174700BA77D8 /* MenuView.xib */; };
 		4B31134D207E174700BA77D8 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B311347207E174700BA77D8 /* MenuView.swift */; };
+		4B34F8BE2084D73B0089264B /* MYLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B34F8BB2084D5E00089264B /* MYLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B6C1BCB207F867300715B82 /* KpiAtch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C1BCA207F867300715B82 /* KpiAtch.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		4B31136D207E5D2000BA77D8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4B311369207E5D2000BA77D8 /* MYLib.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 04CEB511200CA4AD0069179D;
-			remoteInfo = MYLib;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		0432523C20177938005DE31E /* Embed Frameworks */ = {
@@ -94,6 +85,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4B34F8BE2084D73B0089264B /* MYLib.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -171,7 +163,7 @@
 		4B311344207E174700BA77D8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4B311346207E174700BA77D8 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
 		4B311347207E174700BA77D8 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		4B311369207E5D2000BA77D8 /* MYLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MYLib.xcodeproj; path = ../../MYLib/MYLib.xcodeproj; sourceTree = "<group>"; };
+		4B34F8BB2084D5E00089264B /* MYLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MYLib.framework; sourceTree = "<group>"; };
 		4B6C1BCA207F867300715B82 /* KpiAtch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KpiAtch.swift; sourceTree = "<group>"; };
 		4F47EB038F49AEA7DFDCA283 /* Pods-MysteryClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.release.xcconfig"; sourceTree = "<group>"; };
 		92A0ADA7AC428E0280CB7A9D /* Pods-MysteryClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.release.xcconfig"; sourceTree = "<group>"; };
@@ -344,7 +336,7 @@
 		119C7DC6C3018448103470AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4B311369207E5D2000BA77D8 /* MYLib.xcodeproj */,
+				4B34F8BB2084D5E00089264B /* MYLib.framework */,
 				06921CF6A6C66A2D2726D7D4 /* Pods_MysteryClient.framework */,
 			);
 			name = Frameworks;
@@ -424,14 +416,6 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
-		4B31136A207E5D2000BA77D8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4B31136E207E5D2000BA77D8 /* MYLib.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		ED20667E76FEFF411228DFC2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,28 +487,12 @@
 			mainGroup = 044619C71EFA640F008CD1E2;
 			productRefGroup = 044619C71EFA640F008CD1E2;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 4B31136A207E5D2000BA77D8 /* Products */;
-					ProjectRef = 4B311369207E5D2000BA77D8 /* MYLib.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				044619CF1EFA640F008CD1E2 /* MysteryClient */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		4B31136E207E5D2000BA77D8 /* MYLib.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = MYLib.framework;
-			remoteRef = 4B31136D207E5D2000BA77D8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		044619CE1EFA640F008CD1E2 /* Resources */ = {
