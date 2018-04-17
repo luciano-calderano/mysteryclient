@@ -33,7 +33,7 @@ class MYResult {
     func loadResult (jobId id: Int) -> JobResult {
         var result = JobResult()
         result.id = id
-        let dict = JsonDict.init(fromFile: self.getFileName(withId: String(id)))
+        let dict = JsonDict.init(fromFile: getFileName(withId: String(id)))
         if dict.isEmpty {
             return result
         }

@@ -39,56 +39,32 @@ enum KpiResultType {
     case err
 }
 
-class QuestDependency {
-    var responseValue: KpiResponseValues!
-    init(withResponse r: KpiResponseValues) {
-        responseValue = r
-    }
-    
-    func update (withReset: Bool) {
-        if withReset {
-            for val in responseValue.valuations! {
-                updateInvalidKpiWithDep(val, isReset: true)
-            }
-            print("reset \(MYJob.shared.invalidDependecies)")
-        }
-        for val in responseValue.valuations! {
-            if val.id == Int(responseValue.value) {
-                updateInvalidKpiWithDep(val, isReset: false)
-            }
-        }
-        print("fix \(MYJob.shared.invalidDependecies)")
-    }
-    
-    private func updateInvalidKpiWithDep (_ val: Job.Kpi.Valuation, isReset: Bool) {
-        for dep in val.dependencies {
-            let idIndex = MYJob.shared.kpiKeyList.index(of: dep.key)
-            if idIndex == nil {
-                return
-            }
+class InvalidValuations {
+    private class func fixVValuation (isValid: Bool, dep: Job.Kpi.Valuation.Dependency) {
+        if let idx = MYJob.shared.kpiKeyList.index(of: dep.key) {
+            MYJob.shared.job.kpis[idx].isValid = isValid
             
-            let index = idIndex!
-            let kpiResult = MYJob.shared.jobResult.results[index]
+            let kpiResult = MYJob.shared.jobResult.results[idx]
             kpiResult.kpi_id = dep.key
-            if isReset {
-                kpiResult.value = ""
-                kpiResult.notes = ""
-                
-            } else {
-                kpiResult.value = dep.value
-                kpiResult.notes = dep.notes
+            kpiResult.value = isValid ? "" : dep.value
+            kpiResult.notes = isValid ? "" : dep.notes
+            MYJob.shared.jobResult.results[idx] = kpiResult
+        }
+    }
+    
+    class func resetWithKpi (_ kpi: Job.Kpi) {
+        for val in kpi.valuations {
+            for dep in val.dependencies {
+                fixVValuation(isValid: true, dep: dep)
             }
-            MYJob.shared.jobResult.results[index] = kpiResult
-            
-            let key = "\(dep.key)"
-            let idx = MYJob.shared.invalidDependecies.index(of: key)
-            if isReset {
-                if (idx != nil) {
-                    MYJob.shared.invalidDependecies.remove(at: idx!)
-                }
-            } else {
-                if (idx == nil) {
-                    MYJob.shared.invalidDependecies.append(key)
+        }
+    }
+    
+    class func updateWithKpi (_ kpi: Job.Kpi, response: KpiResponseValues!) {
+        for val in kpi.valuations {
+            if val.id == Int(response.value) {
+                for dep in val.dependencies {
+                    fixVValuation(isValid: false, dep: dep)
                 }
             }
         }

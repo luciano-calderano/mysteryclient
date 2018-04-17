@@ -132,11 +132,6 @@ extension JobsHome {
         }
         
         MYJob.shared.job = job
-        MYJob.shared.invalidDependecies.removeAll()
-        MYJob.shared.kpiKeyList.removeAll()
-        for kpi in MYJob.shared.job.kpis {
-            MYJob.shared.kpiKeyList.append(kpi.id)
-        }
         MYJob.shared.jobResult = MYResult.shared.loadResult (jobId: MYJob.shared.job.id)
 
         if MYJob.shared.jobResult.execution_date.isEmpty {
@@ -146,6 +141,15 @@ extension JobsHome {
         }
     }
     private func openJobDetail () {
+        
+        
+//        MYJob.shared.invalidDependecies.removeAll()
+        MYJob.shared.kpiKeyList.removeAll()
+        for kpi in MYJob.shared.job.kpis {
+            kpi.isValid = true
+            MYJob.shared.kpiKeyList.append(kpi.id)
+        }
+
         let vc = JobDetail.Instance()
         self.navigationController?.show(vc, sender: self)
     }

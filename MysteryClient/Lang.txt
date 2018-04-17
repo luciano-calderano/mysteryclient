@@ -63,8 +63,8 @@ jobFinalTime=Ora di fine esecuzione
 readyToSend=Pronto per l'invio
 
 noDependency=Scenario non previsto
-noAtchTitle=L'allegato è obbligatorio. Vuoi continuare?
-noAtchMsg=Premi [Si] se non riesci ad allegare il documento richiesto. La verifica verrà impostata come Irregolare e dovrai inserire il documento mancante con il tuo computer entro i termini.
+noAtchTitle=L'allegato è obbligatorio.\nVuoi continuare?
+noAtchMsg=Premi [Si] se non riesci ad allegare il documento richiesto.\nLa verifica verrà impostata come Irregolare e dovrai inserire il documento mancante con il tuo computer entro i termini.
 
 
 

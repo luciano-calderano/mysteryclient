@@ -104,7 +104,9 @@ class User: NSObject {
     }
     
     private func tokenWithDict (_ dict: JsonDict) {
-        userData[kTkn] = dict.string("access_token")
+        let token = dict.string("access_token")
+        print ("\ntoken: " + token)
+        userData[kTkn] = token
         saveUserData()
     }
 }

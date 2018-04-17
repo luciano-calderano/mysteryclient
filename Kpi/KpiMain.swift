@@ -113,9 +113,10 @@ class KpiMain: MYViewController {
             return
         }
         for index in currentIndex + 1...lastKpi {
-            let kpi = MYJob.shared.job.kpis[index]
-            let kpiId = String(kpi.id)
-            if MYJob.shared.invalidDependecies.index(of: kpiId) == nil {
+            let kpi = MYJob.shared.job.kpis[index]            
+//            let kpiId = String(kpi.id)
+            if kpi.isValid == true {
+//            if MYJob.shared.invalidDependecies.index(of: kpiId) == nil {
                 loadCtrlWithIndex(index)
                 return
             }

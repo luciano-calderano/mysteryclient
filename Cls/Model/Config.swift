@@ -32,7 +32,6 @@ struct Config {
         static let doc = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/"
         static let jobs = Config.Path.doc + "jobs/"
         static let result = Config.Path.doc + "result/"
-
     }
 
     struct DateFmt {

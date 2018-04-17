@@ -90,7 +90,10 @@ class KpiQuestView: KpiBaseView {
         
         func saveResult () -> KpiResultType {
             let kpiResult = MYJob.shared.jobResult.results[kpiIndex]
-            let originaValue = kpiResult.value
+            if  kpiResult.value != responseValue.value {
+                InvalidValuations.resetWithKpi(currentKpi)
+            }
+            
             kpiResult.kpi_id = currentKpi.id
             kpiResult.value = responseValue.value
             kpiResult.notes = kpiNote.text
@@ -98,8 +101,7 @@ class KpiQuestView: KpiBaseView {
             MYJob.shared.jobResult.results[kpiIndex] = kpiResult
             
             if responseValue.valuations != nil {
-                let qDep = QuestDependency(withResponse: responseValue)
-                qDep.update(withReset: originaValue != responseValue.value)
+                InvalidValuations.updateWithKpi(currentKpi, response: responseValue)
             }
             
             MYResult.shared.saveResult()
