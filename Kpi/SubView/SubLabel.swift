@@ -12,9 +12,9 @@ class SubLabel: KpiBaseSubView, UITextFieldDelegate {
     class func Instance() -> SubLabel {
         return InstanceView() as! SubLabel
     }
-    override var kpiResult: JobResult.KpiResult? {
+    override var currentResult: JobResult.KpiResult? {
         didSet {
-            if let value = kpiResult?.value {
+            if let value = currentResult?.value {
                 kpiLabel.text = value
             }
             delegate?.kpiViewHeight(self.frame.size.height)

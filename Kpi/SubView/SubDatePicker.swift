@@ -22,9 +22,9 @@ class SubDatePicker: KpiBaseSubView, UIPickerViewDelegate {
         case datetime
     }
     
-    override var kpiResult: JobResult.KpiResult? {
+    override var currentResult: JobResult.KpiResult? {
         didSet {
-            if let value = kpiResult?.value {
+            if let value = currentResult?.value {
                 kpiPicker.date = value.isEmpty ? Date() : value.toDate(withFormat: Config.DateFmt.DataJson)
             }
             delegate?.kpiViewHeight(self.frame.size.height)

@@ -76,8 +76,7 @@ class User: NSObject {
         }
     }
     
-    func getUserToken(completion: @escaping () -> () = { () in },
-                      failure: @escaping (String, String) -> () = { errorCode, message in }) {
+    func getUserToken(completion: @escaping () -> (), failure: @escaping (String, String) -> ()) {
         var version = "?"
         if let vers = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             version = vers

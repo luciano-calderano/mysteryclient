@@ -24,7 +24,7 @@ class MYButton: UIButton {
 
     var title: String {
         get { return self.titleLabel!.text! }
-        set { self.setTitle(newValue.tryLang(), for: UIControlState()) }
+        set { self.setTitle(newValue.toLang(), for: UIControlState()) }
     }
     
     required internal init?(coder aDecoder: NSCoder) {

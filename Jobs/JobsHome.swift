@@ -108,29 +108,6 @@ extension JobsHome: UITableViewDelegate {
 
 extension JobsHome {
     private func selectedJob (job: Job) {
-        func getDetail () {
-            User.shared.getUserToken(completion: {
-                loadJobKpis()
-            }) { (errorCode, message) in
-                self.alert("Error: \(errorCode)", message: message, okBlock: nil)
-            }
-            
-            func loadJobKpis () {
-                let job = MYJob.shared.job
-                let param = [ "object" : "job", "object_id":  job.id ] as JsonDict
-                let request = MYHttp.init(.get, param: param)
-                
-                request.load(ok: { (response) in
-                    let dict = response.dictionary("job")
-                    MYJob.shared.job = MYJob.shared.createJob(withDict: dict)
-                    self.openJobDetail()
-                    
-                }) { (title, error) in
-                    self.alert(title, message: error, okBlock: nil)
-                }
-            }
-        }
-        
         MYJob.shared.job = job
         MYJob.shared.jobResult = MYResult.shared.loadResult (jobId: MYJob.shared.job.id)
 
@@ -140,10 +117,32 @@ extension JobsHome {
             openJobDetail()
         }
     }
+    
+    private func getDetail () {
+        User.shared.getUserToken(completion: {
+            loadJobKpis()
+        }) { (errorCode, message) in
+            self.alert("Error: \(errorCode)", message: message, okBlock: nil)
+        }
+        
+        func loadJobKpis () {
+            let job = MYJob.shared.job
+            let param = [ "object" : "job", "object_id":  job.id ] as JsonDict
+            let request = MYHttp.init(.get, param: param)
+            
+            request.load(ok: { (response) in
+                let dict = response.dictionary("job")
+                MYJob.shared.job = MYJob.shared.createJob(withDict: dict)
+                self.openJobDetail()
+                
+            }) { (title, error) in
+                self.alert(title, message: error, okBlock: nil)
+            }
+        }
+    }
+    
+
     private func openJobDetail () {
-        
-        
-//        MYJob.shared.invalidDependecies.removeAll()
         MYJob.shared.kpiKeyList.removeAll()
         for kpi in MYJob.shared.job.kpis {
             kpi.isValid = true

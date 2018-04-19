@@ -8,15 +8,17 @@
 
 import UIKit
 
-protocol KpiDelegate {
+protocol KpiSubViewDelegate {
     func kpiViewHeight(_ height: CGFloat)
+}
+
+protocol KpiDelegate {
     func kpiStartEditingAtPosY (_ y: CGFloat)
     func kpiEndEditing ()
     func kpiAtchButtonTapped ()
 }
 
 extension KpiDelegate {
-    func kpiViewHeight(_ height: CGFloat) {}
     func kpiStartEditingAtPosY (_ y: CGFloat) {}
     func kpiEndEditing () {}
     func kpiAtchButtonTapped () {}

@@ -14,7 +14,7 @@ class MYLabel: UILabel {
             return self.text!
         }
         set {
-            self.text = newValue.tryLang()
+            self.text = newValue.toLang()
         }
     }
     required internal init?(coder aDecoder: NSCoder) {

@@ -51,7 +51,7 @@ class KpiQuestView: KpiBaseView {
         kpiInstructions.text = currentKpi.instructions
         kpiAtchBtn.isHidden = !currentKpi.attachment && !currentKpi.attachment_required
         
-        kpiNote.text = kpiResult.notes
+        kpiNote.text = currentResult.notes
         showAtch()
         
         addQuestSubview(type: currentKpi.type)
@@ -79,26 +79,26 @@ class KpiQuestView: KpiBaseView {
         }
         
         if atchRequired == true && atchImage.image == nil {
-            askNoAtch { (result) in
-                if result  {
-                    completion (saveResult())
+            askNoAtch { (okSelected) in
+                if okSelected  {
+                    completion (saveResult(newValue: responseValue.value))
                 } else {
                     completion (.errAttch)
                 }
             }
         }
-        
-        func saveResult () -> KpiResultType {
-            let kpiResult = MYJob.shared.jobResult.results[kpiIndex]
-            if  kpiResult.value != responseValue.value {
+
+        func saveResult (newValue: String) -> KpiResultType {
+//            let kpiResult = MYJob.shared.jobResult.results[kpiIndex]
+            if  currentResult.value != newValue {
                 InvalidValuations.resetWithKpi(currentKpi)
             }
             
-            kpiResult.kpi_id = currentKpi.id
-            kpiResult.value = responseValue.value
-            kpiResult.notes = kpiNote.text
-            kpiResult.attachment = atchName.text!
-            MYJob.shared.jobResult.results[kpiIndex] = kpiResult
+            currentResult.kpi_id = currentKpi.id
+            currentResult.value = newValue
+            currentResult.notes = kpiNote.text
+            currentResult.attachment = atchName.text!
+//            MYJob.shared.jobResult.results[kpiIndex] = kpiResult
             
             if responseValue.valuations != nil {
                 InvalidValuations.updateWithKpi(currentKpi, response: responseValue)
@@ -109,29 +109,29 @@ class KpiQuestView: KpiBaseView {
             self.endEditing(true)
             return .next
         }
-        completion (saveResult())
+        completion (saveResult(newValue: responseValue.value))
     }
     
     func showAtch () {
         atchImage.image = nil
-        if kpiResult.attachment.isEmpty == false {
-            let fileName = kpiQuestPath + kpiResult.attachment
+        if currentResult.attachment.isEmpty == false {
+            let fileName = kpiQuestPath + currentResult.attachment
             let imageURL = URL(fileURLWithPath: fileName)
             atchImage.image = UIImage(contentsOfFile: imageURL.path)
         }
         
         if atchImage.image == nil {
             atchView.isHidden = true
-            kpiResult.attachment = ""
+            currentResult.attachment = ""
         } else {
             atchView.isHidden = false
         }
-        atchName.text = kpiResult.attachment
-        MYJob.shared.jobResult.results[kpiIndex] = kpiResult
+        atchName.text = currentResult.attachment
+//        MYJob.shared.jobResult.results[kpiIndex] = kpiResult
     }
     
     @objc func atchRemove () {
-        let fileName = kpiQuestPath + kpiResult.attachment
+        let fileName = kpiQuestPath + currentResult.attachment
         mainVC.alert(Lng("atchRemove"), message: "", cancelBlock: nil) {
             (remove) in
             do {
@@ -171,7 +171,6 @@ class KpiQuestView: KpiBaseView {
         }))
         
         mainVC.present(alert, animated: true) { }
-
     }
     
     //MARK: - Private
@@ -202,13 +201,13 @@ class KpiQuestView: KpiBaseView {
         containerSubView.addSubviewWithConstraints(kpiQuestSubView)
         kpiQuestSubView.delegate = self
         kpiQuestSubView.currentKpi = currentKpi
-        kpiQuestSubView.kpiResult = kpiResult
+        kpiQuestSubView.currentResult = currentResult
     }
 }
 
-//MARK: - page subview delegate
+//MARK: - KpiSubViewDelegate
 
-extension KpiQuestView: KpiDelegate {
+extension KpiQuestView: KpiSubViewDelegate {
     func kpiViewHeight(_ height: CGFloat) {
         subViewHeight.constant = height
         var rect = self.frame
@@ -217,7 +216,7 @@ extension KpiQuestView: KpiDelegate {
     }
 }
 
-//MARK: - text view delegate
+//MARK: - UITextViewDelegate
 
 extension KpiQuestView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -238,8 +237,8 @@ extension KpiQuestView: UITextViewDelegate {
 
 extension KpiQuestView: KpiAtchDelegate {
     func kpiAtchSelectedImage(_ image: UIImage) {
-        kpiResult.attachment = "\(MYJob.shared.job.reference).\(currentKpi.id).jpg"
-        let fileName = kpiQuestPath + kpiResult.attachment
+        currentResult.attachment = "\(MYJob.shared.job.reference).\(currentKpi.id).jpg"
+        let fileName = kpiQuestPath + currentResult.attachment
         
         do {
             if let data = UIImageJPEGRepresentation(image, 0.7) {

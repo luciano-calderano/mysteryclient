@@ -26,17 +26,18 @@ class KpiMain: MYViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if currentIndex < 0 {
+        switch currentIndex {
+        case -1:
             kpiView = KpiInitView.Instance()
-        } else if currentIndex == MYJob.shared.job.kpis.count {
+        case MYJob.shared.job.kpis.count:
             kpiView = KpiLastView.Instance()
             nextBtn.setTitle(Lng("lastPage"), for: .normal)
-        } else {
+        default:
             kpiView = KpiQuestView.Instance()
             kpiView.kpiIndex = currentIndex
-            kpiView.mainVC = self
             scroll.backgroundColor = UIColor.white
         }
+        kpiView.mainVC = self
         kpiView.delegate = self
         scroll.addSubviewWithConstraints(kpiView)
         showPageNum()
@@ -114,9 +115,7 @@ class KpiMain: MYViewController {
         }
         for index in currentIndex + 1...lastKpi {
             let kpi = MYJob.shared.job.kpis[index]            
-//            let kpiId = String(kpi.id)
             if kpi.isValid == true {
-//            if MYJob.shared.invalidDependecies.index(of: kpiId) == nil {
                 loadCtrlWithIndex(index)
                 return
             }

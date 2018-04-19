@@ -46,7 +46,6 @@
 		04FCF19B1F0265D50087FBDF /* Jobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04FCF1981F0265D50087FBDF /* Jobs.storyboard */; };
 		04FCF19C1F0265D50087FBDF /* JobsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCF1991F0265D50087FBDF /* JobsHome.swift */; };
 		04FCF19D1F0265D50087FBDF /* JobsHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCF19A1F0265D50087FBDF /* JobsHomeCell.swift */; };
-		202C53B5FE2CD06014E4D9AB /* Pods_MysteryClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06921CF6A6C66A2D2726D7D4 /* Pods_MysteryClient.framework */; };
 		4B30C1F8207F59270018BD6C /* KpiBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30C1E0207F59270018BD6C /* KpiBaseView.swift */; };
 		4B30C1F9207F59270018BD6C /* KpiMainUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30C1E1207F59270018BD6C /* KpiMainUtil.swift */; };
 		4B30C1FA207F59270018BD6C /* KpiInitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30C1E3207F59270018BD6C /* KpiInitView.swift */; };
@@ -74,8 +73,10 @@
 		4B31134B207E174700BA77D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B311344207E174700BA77D8 /* Main.storyboard */; };
 		4B31134C207E174700BA77D8 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B311346207E174700BA77D8 /* MenuView.xib */; };
 		4B31134D207E174700BA77D8 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B311347207E174700BA77D8 /* MenuView.swift */; };
-		4B34F8BE2084D73B0089264B /* MYLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B34F8BB2084D5E00089264B /* MYLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4B580B882088CCF1009E1508 /* MYLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B580B872088CCF1009E1508 /* MYLib.framework */; };
+		4B580B892088CD10009E1508 /* MYLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B580B872088CCF1009E1508 /* MYLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B6C1BCB207F867300715B82 /* KpiAtch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C1BCA207F867300715B82 /* KpiAtch.swift */; };
+		7BE0E1503FF2AEED31C69ED3 /* Pods_MysteryClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32157FCD74F4B95BCFDAE0F9 /* Pods_MysteryClient.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -85,7 +86,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4B34F8BE2084D73B0089264B /* MYLib.framework in Embed Frameworks */,
+				4B580B892088CD10009E1508 /* MYLib.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,7 +135,7 @@
 		04FCF1981F0265D50087FBDF /* Jobs.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Jobs.storyboard; sourceTree = "<group>"; };
 		04FCF1991F0265D50087FBDF /* JobsHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsHome.swift; sourceTree = "<group>"; };
 		04FCF19A1F0265D50087FBDF /* JobsHomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsHomeCell.swift; sourceTree = "<group>"; };
-		06921CF6A6C66A2D2726D7D4 /* Pods_MysteryClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MysteryClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		32157FCD74F4B95BCFDAE0F9 /* Pods_MysteryClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MysteryClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44B7A6A76E5901851685C383 /* Pods-MysteryClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.debug.xcconfig"; sourceTree = "<group>"; };
 		4B30C1E0207F59270018BD6C /* KpiBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KpiBaseView.swift; sourceTree = "<group>"; };
 		4B30C1E1207F59270018BD6C /* KpiMainUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KpiMainUtil.swift; sourceTree = "<group>"; };
@@ -163,12 +164,9 @@
 		4B311344207E174700BA77D8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4B311346207E174700BA77D8 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
 		4B311347207E174700BA77D8 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		4B34F8BB2084D5E00089264B /* MYLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MYLib.framework; sourceTree = "<group>"; };
+		4B580B872088CCF1009E1508 /* MYLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MYLib.framework; path = ../../MYLib/MYLib.framework; sourceTree = "<group>"; };
 		4B6C1BCA207F867300715B82 /* KpiAtch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KpiAtch.swift; sourceTree = "<group>"; };
 		4F47EB038F49AEA7DFDCA283 /* Pods-MysteryClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.release.xcconfig"; sourceTree = "<group>"; };
-		92A0ADA7AC428E0280CB7A9D /* Pods-MysteryClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.release.xcconfig"; sourceTree = "<group>"; };
-		96089E4665AB951BC88709F2 /* Pods-MysteryClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.debug.xcconfig"; sourceTree = "<group>"; };
-		D49868019DDD33475B413ED8 /* Pods_MysteryClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MysteryClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,7 +174,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				202C53B5FE2CD06014E4D9AB /* Pods_MysteryClient.framework in Frameworks */,
+				4B580B882088CCF1009E1508 /* MYLib.framework in Frameworks */,
+				7BE0E1503FF2AEED31C69ED3 /* Pods_MysteryClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				04BC64101EFD830E00C0912D /* Lang.txt */,
-				10BE02BFF0AE8026C48A4C7A /* Altro */,
+				10BE02BFF0AE8026C48A4C7A /* App */,
 				04BC640D1EFD830E00C0912D /* AppDelegate.swift */,
 				04BC640E1EFD830E00C0912D /* Assets.xcassets */,
 				04BC640F1EFD830E00C0912D /* Info.plist */,
@@ -322,30 +321,20 @@
 			path = Jobs;
 			sourceTree = "<group>";
 		};
-		10BE02BFF0AE8026C48A4C7A /* Altro */ = {
+		10BE02BFF0AE8026C48A4C7A /* App */ = {
 			isa = PBXGroup;
 			children = (
-				23F2754AE21AC66D77C5818E /* Frameworks */,
-				F7C43EE5EBD77688D3F2E26A /* Pods */,
 				044619D01EFA640F008CD1E2 /* MysteryClient.app */,
 			);
-			name = Altro;
+			name = App;
 			path = ..;
 			sourceTree = "<group>";
 		};
 		119C7DC6C3018448103470AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4B34F8BB2084D5E00089264B /* MYLib.framework */,
-				06921CF6A6C66A2D2726D7D4 /* Pods_MysteryClient.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		23F2754AE21AC66D77C5818E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D49868019DDD33475B413ED8 /* Pods_MysteryClient.framework */,
+				4B580B872088CCF1009E1508 /* MYLib.framework */,
+				32157FCD74F4B95BCFDAE0F9 /* Pods_MysteryClient.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -421,15 +410,6 @@
 			children = (
 				44B7A6A76E5901851685C383 /* Pods-MysteryClient.debug.xcconfig */,
 				4F47EB038F49AEA7DFDCA283 /* Pods-MysteryClient.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		F7C43EE5EBD77688D3F2E26A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				96089E4665AB951BC88709F2 /* Pods-MysteryClient.debug.xcconfig */,
-				92A0ADA7AC428E0280CB7A9D /* Pods-MysteryClient.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -749,7 +729,7 @@
 		};
 		044619E31EFA6410008CD1E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 96089E4665AB951BC88709F2 /* Pods-MysteryClient.debug.xcconfig */;
+			baseConfigurationReference = 44B7A6A76E5901851685C383 /* Pods-MysteryClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = PN8JTL5X6T;
@@ -769,7 +749,7 @@
 		};
 		044619E41EFA6410008CD1E2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92A0ADA7AC428E0280CB7A9D /* Pods-MysteryClient.release.xcconfig */;
+			baseConfigurationReference = 4F47EB038F49AEA7DFDCA283 /* Pods-MysteryClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = PN8JTL5X6T;

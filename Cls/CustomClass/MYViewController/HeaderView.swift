@@ -35,7 +35,7 @@ class HeaderContainerView : UIView, HeaderViewDelegate {
         header.delegate = self
         header.frame = self.bounds
         header.backgroundColor = self.backgroundColor
-        header.titleLabel.text = self.title.tryLang()
+        header.titleLabel.text = self.title.toLang()
 
         if self.sxImage == nil {
             header.sxButton.isHidden = true

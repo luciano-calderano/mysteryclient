@@ -47,8 +47,7 @@ class MYHttp {
         self.startWheel(showWheel)
     }
     
-    func load(ok: @escaping (JsonDict) -> Void = { response in },
-              KO: @escaping (String, String) -> Void = { code, error in } ) {
+    func load(ok: @escaping (JsonDict) -> (), KO: @escaping (String, String) -> ()) {
         
         printJson(self.json)
         var headers = [String: String]()
@@ -61,48 +60,39 @@ class MYHttp {
                           parameters: self.json,
                           headers: headers).responseString { response in
                             self.startWheel(false)
-                            self.checkResponse(response,  ok: {
-                                (json) in
-                                ok (json)
-                                self.printJson(json)
-                            }, KO: {
-                                (code, error) in
-                                KO (code, error)
-                            })
+                            let data = self.fixResponse(response)
+                            if data.isValid {
+                                ok (data.dict)
+                            } else {
+                                KO (data.dict.string("err"), data.dict.string("msg"))
+                            }
         }
     }
     
-    private func checkResponse (_ response: DataResponse<String>,
-                                ok: @escaping (JsonDict) -> () = { response in },
-                                KO: @escaping (String, String) -> () = { code, error in } ) {
+    private func fixResponse (_ response: DataResponse<String>) -> (isValid: Bool, dict: JsonDict) {
         var statusCode = response.response?.statusCode
         var errorMessage = ""
         
         if response.result.isSuccess {
-            let dict = self.removeNullFromJsonString(response.result.value!)
-            statusCode = dict.int("code")
+            let dict = removeNullFromJsonString(response.result.value!)
             errorMessage = dict.string("status")
-            if response.response?.statusCode == 200 && errorMessage == "ok" {
-                ok (dict)
-                return
+            if statusCode == 200 && errorMessage == "ok" {
+                self.printJson(dict)
+                return (true, dict)
             }
+            statusCode = dict.int("code")
+        } else {
+            errorMessage = response.error == nil ? "Errore generico" :  (response.error?.localizedDescription)!
         }
-        else {
-            if response.error != nil {
-                errorMessage = (response.error?.localizedDescription)!
-            }
-            else {
-                errorMessage = "Errore generico"
-            }
-        }
-        KO ("\(apiUrl) - Err. \(statusCode!)", errorMessage)
+        let array = apiUrl.components(separatedBy: "/")
+        let dict = [ "err" : array.last ?? apiUrl + " - Err. \(statusCode!)",  "msg" : errorMessage ]
+        return (false, dict)
     }
     
     private func removeNullFromJsonString (_ text: String) -> JsonDict {
         if text.isEmpty {
             return [:]
         }
-        
         let jsonString = text.replacingOccurrences(of: ":null", with: ":\"\"")
         if let data = jsonString.data(using: .utf8) {
             do {
@@ -118,19 +108,19 @@ class MYHttp {
     
     fileprivate func printJson (_ json: JsonDict) {
         if MYHttp.printJson {
-            print("\n[ \(self.apiUrl) ]\n\(json)\n------------")
+            print("\n[ \(apiUrl) ]\n\(json)\n------------")
         }
     }
     
     fileprivate func startWheel(_ start: Bool, inView: UIView = UIApplication.shared.keyWindow!) {
         if start {
-            self.myWheel = MYWheel()
-            self.myWheel?.start(inView)
+            myWheel = MYWheel()
+            myWheel?.start(inView)
         }
         else {
-            if self.myWheel != nil {
-                self.myWheel?.stop()
-                self.myWheel = nil
+            if let wheel = myWheel {
+                wheel.stop()
+                myWheel = nil
             }
         }
     }

@@ -28,7 +28,7 @@ class MYTextField: UITextField {
     }
     
     fileprivate func initialize () {
-        self.placeholder = self.placeholder?.tryLang()
+        self.placeholder = self.placeholder?.toLang()
         self.spellCheckingType = .no
         self.autocorrectionType = .no
         self.autocapitalizationType = (self.keyboardType == .default) ? .sentences : .none

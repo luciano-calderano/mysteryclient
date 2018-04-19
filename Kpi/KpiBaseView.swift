@@ -9,9 +9,9 @@
 import UIKit
 
 class KpiBaseSubView: UIView {
-    var delegate: KpiDelegate?
+    var delegate: KpiSubViewDelegate?
     var currentKpi: Job.Kpi!
-    var kpiResult: JobResult.KpiResult!
+    var currentResult: JobResult.KpiResult!
 
     func getValuation () -> KpiResponseValues {
         return KpiResponseValues()
@@ -22,11 +22,11 @@ class KpiBaseView: UIView {
     var delegate: KpiDelegate?
     var mainVC: KpiMain!
     var currentKpi: Job.Kpi!
-    var kpiResult: JobResult.KpiResult!
+    var currentResult: JobResult.KpiResult!
     var kpiIndex = 0 {
         didSet {
             currentKpi = MYJob.shared.job.kpis[kpiIndex]
-            kpiResult = MYJob.shared.jobResult.results[kpiIndex]
+            currentResult = MYJob.shared.jobResult.results[kpiIndex]
             initialize()
         }
     }
