@@ -15,20 +15,18 @@ protocol KpiSubViewDelegate {
 protocol KpiDelegate {
     func kpiStartEditingAtPosY (_ y: CGFloat)
     func kpiEndEditing ()
-    func kpiAtchButtonTapped ()
 }
 
 extension KpiDelegate {
     func kpiStartEditingAtPosY (_ y: CGFloat) {}
     func kpiEndEditing () {}
-    func kpiAtchButtonTapped () {}
 }
 
 struct KpiResponseValues {
     var value = ""
     var notesReq = false
     var attchReq = false
-    var valuations:[Job.Kpi.Valuation]?
+    var dependencies = [Job.Kpi.Valuation.Dependency]()
 }
 
 enum KpiResultType {
@@ -41,8 +39,8 @@ enum KpiResultType {
     case err
 }
 
-class InvalidValuations {
-    private class func fixVValuation (isValid: Bool, dep: Job.Kpi.Valuation.Dependency) {
+class InvalidKpi {
+    private class func fixValuation (isValid: Bool, dep: Job.Kpi.Valuation.Dependency) {
         if let idx = MYJob.shared.kpiKeyList.index(of: dep.key) {
             MYJob.shared.job.kpis[idx].isValid = isValid
             
@@ -54,21 +52,17 @@ class InvalidValuations {
         }
     }
     
-    class func resetWithKpi (_ kpi: Job.Kpi) {
+    class func resetDependenciesWithKpi (_ kpi: Job.Kpi) {
         for val in kpi.valuations {
             for dep in val.dependencies {
-                fixVValuation(isValid: true, dep: dep)
+                fixValuation(isValid: true, dep: dep)
             }
         }
     }
     
-    class func updateWithKpi (_ kpi: Job.Kpi, response: KpiResponseValues!) {
-        for val in kpi.valuations {
-            if val.id == Int(response.value) {
-                for dep in val.dependencies {
-                    fixVValuation(isValid: false, dep: dep)
-                }
-            }
+    class func updateWithResponse (_ response: KpiResponseValues!) {
+        for dep in response.dependencies {
+            fixValuation(isValid: false, dep: dep)
         }
     }
 }

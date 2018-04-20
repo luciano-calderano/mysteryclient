@@ -42,7 +42,6 @@ class KpiAtch: NSObject, UIImagePickerControllerDelegate, UINavigationController
         }))
 
         mainVC.present(alert, animated: true) { }
-        //        delegate?.kpiAtchButtonTapped()
     }
     
     //MARK:- Image picker

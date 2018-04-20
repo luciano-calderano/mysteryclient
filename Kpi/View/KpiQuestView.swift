@@ -45,7 +45,6 @@ class KpiQuestView: KpiBaseView {
     }
     
     override func initialize() {
-        super.initialize()
         kpiTitle.text = currentKpi.factor
         kpiQuestion.text = currentKpi.standard
         kpiInstructions.text = currentKpi.instructions
@@ -58,10 +57,27 @@ class KpiQuestView: KpiBaseView {
     }
     
     override func checkData(completion: @escaping (KpiResultType) -> ()) {
+        let responseValue = kpiQuestSubView.getValuation()
         var noteRequired = currentKpi.note_required
         var atchRequired = currentKpi.attachment_required
-        let responseValue = kpiQuestSubView.getValuation()
-        
+        var saveResult: KpiResultType {
+            if currentResult.value != responseValue.value {
+                InvalidKpi.resetDependenciesWithKpi(currentKpi)
+            }
+            
+            currentResult.kpi_id = currentKpi.id
+            currentResult.value = responseValue.value
+            currentResult.notes = kpiNote.text
+            currentResult.attachment = atchName.text!
+            
+            if responseValue.dependencies.count > 0 {
+                InvalidKpi.updateWithResponse(responseValue)
+            }
+            
+            MYResult.shared.saveResult()
+            return .next
+        }
+
         if currentKpi.required == true {
             if responseValue.value.isEmpty && valueMandatoty == true {
                 completion (.errValue)
@@ -78,38 +94,18 @@ class KpiQuestView: KpiBaseView {
             completion (.errNotes)
         }
         
+        self.endEditing(true)
         if atchRequired == true && atchImage.image == nil {
             askNoAtch { (okSelected) in
                 if okSelected  {
-                    completion (saveResult(newValue: responseValue.value))
+                    completion (saveResult)
                 } else {
                     completion (.errAttch)
                 }
             }
+        } else {
+            completion (saveResult)
         }
-
-        func saveResult (newValue: String) -> KpiResultType {
-//            let kpiResult = MYJob.shared.jobResult.results[kpiIndex]
-            if  currentResult.value != newValue {
-                InvalidValuations.resetWithKpi(currentKpi)
-            }
-            
-            currentResult.kpi_id = currentKpi.id
-            currentResult.value = newValue
-            currentResult.notes = kpiNote.text
-            currentResult.attachment = atchName.text!
-//            MYJob.shared.jobResult.results[kpiIndex] = kpiResult
-            
-            if responseValue.valuations != nil {
-                InvalidValuations.updateWithKpi(currentKpi, response: responseValue)
-            }
-            
-            MYResult.shared.saveResult()
-            
-            self.endEditing(true)
-            return .next
-        }
-        completion (saveResult(newValue: responseValue.value))
     }
     
     func showAtch () {
@@ -127,7 +123,6 @@ class KpiQuestView: KpiBaseView {
             atchView.isHidden = false
         }
         atchName.text = currentResult.attachment
-//        MYJob.shared.jobResult.results[kpiIndex] = kpiResult
     }
     
     @objc func atchRemove () {

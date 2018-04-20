@@ -14,7 +14,6 @@
 		04461A0E1EFA66A7008CD1E2 /* Ext.Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044619FB1EFA66A7008CD1E2 /* Ext.Color.swift */; };
 		04461A291EFA8558008CD1E2 /* MYWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A271EFA8558008CD1E2 /* MYWheel.swift */; };
 		04461A2D1EFA85CF008CD1E2 /* Ext.UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A2B1EFA85CF008CD1E2 /* Ext.UIFont.swift */; };
-		04461A2F1EFA85F7008CD1E2 /* Ext.String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A2E1EFA85F7008CD1E2 /* Ext.String.swift */; };
 		04461A331EFA8955008CD1E2 /* Ext.UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */; };
 		0472E2A91EFAC74D001CE358 /* Ext.Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472E2A81EFAC74D001CE358 /* Ext.Dictionary.swift */; };
 		048C44831F5B161C00E836C0 /* MYMaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048C44821F5B161C00E836C0 /* MYMaps.swift */; };
@@ -102,7 +101,6 @@
 		044619FB1EFA66A7008CD1E2 /* Ext.Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.Color.swift; sourceTree = "<group>"; };
 		04461A271EFA8558008CD1E2 /* MYWheel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYWheel.swift; sourceTree = "<group>"; };
 		04461A2B1EFA85CF008CD1E2 /* Ext.UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.UIFont.swift; sourceTree = "<group>"; };
-		04461A2E1EFA85F7008CD1E2 /* Ext.String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.String.swift; sourceTree = "<group>"; };
 		04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.UIViewController.swift; sourceTree = "<group>"; };
 		0472E2A81EFAC74D001CE358 /* Ext.Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext.Dictionary.swift; sourceTree = "<group>"; };
 		048C44821F5B161C00E836C0 /* MYMaps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYMaps.swift; sourceTree = "<group>"; };
@@ -236,7 +234,6 @@
 				04461A321EFA8955008CD1E2 /* Ext.UIViewController.swift */,
 				04461A2B1EFA85CF008CD1E2 /* Ext.UIFont.swift */,
 				044619FB1EFA66A7008CD1E2 /* Ext.Color.swift */,
-				04461A2E1EFA85F7008CD1E2 /* Ext.String.swift */,
 				049489451F0A556100A40122 /* Ext.UIView.swift */,
 			);
 			path = Extension;
@@ -608,7 +605,6 @@
 				4B30C1F8207F59270018BD6C /* KpiBaseView.swift in Sources */,
 				4B6C1BCB207F867300715B82 /* KpiAtch.swift in Sources */,
 				4B31134D207E174700BA77D8 /* MenuView.swift in Sources */,
-				04461A2F1EFA85F7008CD1E2 /* Ext.String.swift in Sources */,
 				04BEDABA1F5BF8640076A05E /* MYJob.swift in Sources */,
 				04FCF19D1F0265D50087FBDF /* JobsHomeCell.swift in Sources */,
 				04D609BA1F028BA30030968B /* JobDetail.swift in Sources */,

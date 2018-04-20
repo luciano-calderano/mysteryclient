@@ -87,7 +87,7 @@ class KpiMain: MYViewController {
             alert(Lng("error"), message: Lng("noNotes"))
             return
         case .errAttch:
-            alert(Lng("error"), message: Lng("noAttch"))
+//            alert(Lng("error"), message: Lng("noAttch"))
             return
         case .err:
             return

@@ -50,10 +50,7 @@ class SubRadio: KpiBaseSubView {
             response.value = "\(item.id)"
             response.notesReq = item.note_required
             response.attchReq = item.attachment_required
-            
-            if item.dependencies.count > 0 {
-                response.valuations = currentKpi.valuations
-            }
+            response.dependencies = item.dependencies
         }
         return response
     }
