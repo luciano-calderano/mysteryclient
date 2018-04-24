@@ -50,10 +50,6 @@ class User: NSObject {
         return (userData[kUsr]!, userData[kPwd]!)
     }
     
-//    func getToken() -> String {
-//        return userData[kTkn]!
-//    }
-    
     func logout() {
         userData[kTkn] = ""
         saveUserData()

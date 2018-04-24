@@ -56,8 +56,9 @@ class KpiMain: MYViewController {
     }
     
     override func headerViewSxTapped() {
-        let vc = self.navigationController?.viewControllers[2]
-        self.navigationController?.popToViewController(vc!, animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
+//        let vc = self.navigationController?.viewControllers[2]
+//        self.navigationController?.popToViewController(vc!, animated: true)
     }
     
     // MARK: - Actions
@@ -145,13 +146,14 @@ extension KpiMain {
         }
         alert (Lng("readyToSend"), message: "", okBlock: {
             (ready) in
-            let nav = self.navigationController!
-            if nav.viewControllers.count > 1 {
-                let vc = nav.viewControllers[1]
-                nav.popToViewController(vc, animated: true)
-            } else {
-                nav.popToRootViewController(animated: true)
-            }
+            self.navigationController!.popToRootViewController(animated: true)
+//            let nav = self.navigationController!
+//            if nav.viewControllers.count > 1 {
+//                let vc = nav.viewControllers[1]
+//                nav.popToViewController(vc, animated: true)
+//            } else {
+//                nav.popToRootViewController(animated: true)
+//            }
         })
     }
 }

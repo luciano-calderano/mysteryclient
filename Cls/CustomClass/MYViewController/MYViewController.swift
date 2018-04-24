@@ -26,13 +26,8 @@ class MYViewController: UIViewController, HeaderViewDelegate {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        header?.header.kpiLabel.isHidden = true
-    }
-    
     func headerViewSxTapped() {
-        _ = self.navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: true)
     }
     
     func headerViewDxTapped() {
@@ -45,16 +40,16 @@ class MenuViewController: MYViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loadData()
+        loadData()
         
         var rect = self.view.frame
         rect.origin.x = -rect.size.width
-        rect.origin.y = (self.header?.frame.origin.y)! + (self.header?.frame.size.height)!
+        rect.origin.y = (header?.frame.origin.y)! + (header?.frame.size.height)!
         rect.size.height -= rect.origin.y
         menuView.frame = rect
         menuView.isHidden = true
         menuView.delegate = self
-        self.view.addSubview(self.menuView)
+        self.view.addSubview(menuView)
     }
 
     private func loadData() {
@@ -87,8 +82,6 @@ class MenuViewController: MYViewController {
         switch item.type {
         case .inca :
             let vc = JobsHome.Instance()
-//            let sb = UIStoryboard.init(name: "Jobs", bundle: nil)
-//            let ctrl = sb.instantiateInitialViewController()
             self.navigationController?.show(vc, sender: self)
             return
         case .stor :
@@ -106,14 +99,21 @@ class MenuViewController: MYViewController {
         case .logout :
             User.shared.logout()
             self.navigationController?.popToRootViewController(animated: true)
+            chechUser()
             return
         default:
             return
         }
-//        UIApplication.shared.openURL(URL.init(string: ctrl.page)!)
         let ctrl = WebPage.Instance(type: webType)
         self.navigationController?.show(ctrl, sender: self)
         ctrl.title = item.type.rawValue
+    }
+
+    func chechUser () {
+//        if User.shared.token.isEmpty {
+//            let loginCtrl = LoginView.Instance()
+//            self.view.addSubviewWithConstraints(loginCtrl.view)
+//        }
     }
 
     //MARK: - Menu show/hode

@@ -45,6 +45,8 @@
 		04FCF19B1F0265D50087FBDF /* Jobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04FCF1981F0265D50087FBDF /* Jobs.storyboard */; };
 		04FCF19C1F0265D50087FBDF /* JobsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCF1991F0265D50087FBDF /* JobsHome.swift */; };
 		04FCF19D1F0265D50087FBDF /* JobsHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCF19A1F0265D50087FBDF /* JobsHomeCell.swift */; };
+		4B261B0A208E20A00055520E /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B261B09208E20A00055520E /* LoginView.xib */; };
+		4B261B0C208E2C0C0055520E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B261B0B208E2C0C0055520E /* LoginView.swift */; };
 		4B30C1F8207F59270018BD6C /* KpiBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30C1E0207F59270018BD6C /* KpiBaseView.swift */; };
 		4B30C1F9207F59270018BD6C /* KpiMainUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30C1E1207F59270018BD6C /* KpiMainUtil.swift */; };
 		4B30C1FA207F59270018BD6C /* KpiInitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30C1E3207F59270018BD6C /* KpiInitView.swift */; };
@@ -67,11 +69,10 @@
 		4B30C20B207F59270018BD6C /* SubDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B30C1F5207F59270018BD6C /* SubDatePicker.xib */; };
 		4B30C20C207F59270018BD6C /* SubRadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B30C1F6207F59270018BD6C /* SubRadioCell.xib */; };
 		4B30C20D207F59270018BD6C /* Kpi.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B30C1F7207F59270018BD6C /* Kpi.storyboard */; };
-		4B311348207E174700BA77D8 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B311341207E174700BA77D8 /* Login.swift */; };
-		4B31134A207E174700BA77D8 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B311343207E174700BA77D8 /* Home.swift */; };
 		4B31134B207E174700BA77D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B311344207E174700BA77D8 /* Main.storyboard */; };
 		4B31134C207E174700BA77D8 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B311346207E174700BA77D8 /* MenuView.xib */; };
 		4B31134D207E174700BA77D8 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B311347207E174700BA77D8 /* MenuView.swift */; };
+		4B43C493208E07CB0073D566 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B43C492208E07CB0073D566 /* Main.swift */; };
 		4B580B882088CCF1009E1508 /* MYLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B580B872088CCF1009E1508 /* MYLib.framework */; };
 		4B580B892088CD10009E1508 /* MYLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B580B872088CCF1009E1508 /* MYLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B6C1BCB207F867300715B82 /* KpiAtch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C1BCA207F867300715B82 /* KpiAtch.swift */; };
@@ -135,6 +136,8 @@
 		04FCF19A1F0265D50087FBDF /* JobsHomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsHomeCell.swift; sourceTree = "<group>"; };
 		32157FCD74F4B95BCFDAE0F9 /* Pods_MysteryClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MysteryClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44B7A6A76E5901851685C383 /* Pods-MysteryClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.debug.xcconfig"; sourceTree = "<group>"; };
+		4B261B09208E20A00055520E /* LoginView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
+		4B261B0B208E2C0C0055520E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4B30C1E0207F59270018BD6C /* KpiBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KpiBaseView.swift; sourceTree = "<group>"; };
 		4B30C1E1207F59270018BD6C /* KpiMainUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KpiMainUtil.swift; sourceTree = "<group>"; };
 		4B30C1E3207F59270018BD6C /* KpiInitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KpiInitView.swift; sourceTree = "<group>"; };
@@ -157,11 +160,10 @@
 		4B30C1F5207F59270018BD6C /* SubDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubDatePicker.xib; sourceTree = "<group>"; };
 		4B30C1F6207F59270018BD6C /* SubRadioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubRadioCell.xib; sourceTree = "<group>"; };
 		4B30C1F7207F59270018BD6C /* Kpi.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Kpi.storyboard; sourceTree = "<group>"; };
-		4B311341207E174700BA77D8 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
-		4B311343207E174700BA77D8 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		4B311344207E174700BA77D8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4B311346207E174700BA77D8 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
 		4B311347207E174700BA77D8 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		4B43C492208E07CB0073D566 /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		4B580B872088CCF1009E1508 /* MYLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MYLib.framework; path = ../../MYLib/MYLib.framework; sourceTree = "<group>"; };
 		4B6C1BCA207F867300715B82 /* KpiAtch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KpiAtch.swift; sourceTree = "<group>"; };
 		4F47EB038F49AEA7DFDCA283 /* Pods-MysteryClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.release.xcconfig"; sourceTree = "<group>"; };
@@ -336,6 +338,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4B1B0ACE208F7AF1009E9633 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				4B261B09208E20A00055520E /* LoginView.xib */,
+				4B261B0B208E2C0C0055520E /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		4B30C1DF207F59270018BD6C /* Kpi */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,8 +397,8 @@
 			isa = PBXGroup;
 			children = (
 				4B311344207E174700BA77D8 /* Main.storyboard */,
-				4B311341207E174700BA77D8 /* Login.swift */,
-				4B311343207E174700BA77D8 /* Home.swift */,
+				4B43C492208E07CB0073D566 /* Main.swift */,
+				4B1B0ACE208F7AF1009E9633 /* Login */,
 				4B311345207E174700BA77D8 /* Menu */,
 			);
 			path = Main;
@@ -486,6 +497,7 @@
 				4B30C1FD207F59270018BD6C /* KpiQuestView.xib in Resources */,
 				4B30C20B207F59270018BD6C /* SubDatePicker.xib in Resources */,
 				04FC17261F01330000226F1A /* WebPage.storyboard in Resources */,
+				4B261B0A208E20A00055520E /* LoginView.xib in Resources */,
 				4B30C206207F59270018BD6C /* SubRadio.xib in Resources */,
 				4B30C1FC207F59270018BD6C /* KpiInitView.xib in Resources */,
 				04BC64161EFD830E00C0912D /* LaunchScreen.storyboard in Resources */,
@@ -573,8 +585,8 @@
 				0472E2A91EFAC74D001CE358 /* Ext.Dictionary.swift in Sources */,
 				04FCF19C1F0265D50087FBDF /* JobsHome.swift in Sources */,
 				4B30C204207F59270018BD6C /* SubDatePicker.swift in Sources */,
+				4B43C493208E07CB0073D566 /* Main.swift in Sources */,
 				048C44831F5B161C00E836C0 /* MYMaps.swift in Sources */,
-				4B31134A207E174700BA77D8 /* Home.swift in Sources */,
 				04A2109D1F03AC3400D1480C /* JobDetailAtch.swift in Sources */,
 				049489461F0A556100A40122 /* Ext.UIView.swift in Sources */,
 				04461A2D1EFA85CF008CD1E2 /* Ext.UIFont.swift in Sources */,
@@ -584,7 +596,6 @@
 				04461A051EFA66A7008CD1E2 /* MYLabel.swift in Sources */,
 				04FC171B1F010FF300226F1A /* Config.swift in Sources */,
 				04D609BC1F02A84B0030968B /* Ext.Image.swift in Sources */,
-				4B311348207E174700BA77D8 /* Login.swift in Sources */,
 				4B30C202207F59270018BD6C /* SubText.swift in Sources */,
 				04461A0B1EFA66A7008CD1E2 /* MYViewController.swift in Sources */,
 				04461A0E1EFA66A7008CD1E2 /* Ext.Color.swift in Sources */,
@@ -597,6 +608,7 @@
 				04C910B31EFD2131000D2DB8 /* HeaderView.swift in Sources */,
 				048C44851F5B167400E836C0 /* JobStruct.swift in Sources */,
 				04BEDABB1F5BF8640076A05E /* MYResult.swift in Sources */,
+				4B261B0C208E2C0C0055520E /* LoginView.swift in Sources */,
 				04BC64121EFD830E00C0912D /* AppDelegate.swift in Sources */,
 				4B30C200207F59270018BD6C /* KpiMain.swift in Sources */,
 				04A2109A1F03A82A00D1480C /* JobDetailDesc.swift in Sources */,
