@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>180503</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -27,10 +27,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Uso foto?</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Attivare geolocalizzazione?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Attivare geolocalizzazione?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Uso album?</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -45,11 +51,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Uso album?</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Uso foto?</string>
-	<key>UIFileSharingEnabled</key>
-	<true/>
 </dict>
 </plist>

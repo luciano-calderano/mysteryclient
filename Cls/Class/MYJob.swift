@@ -63,6 +63,7 @@ class MYJob {
     }
     
     func createJob(withDict dict: JsonDict) -> Job {
+        clearJobs()
         _ = dict.saveToFile(self.getFileName(id: dict.int("id")))
 
         var job = Job()

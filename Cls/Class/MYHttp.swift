@@ -22,7 +22,7 @@ import Foundation
 import Alamofire
 
 class MYHttp {
-    static let printJson = false
+    static let printJson = true
     
     private var json = JsonDict()    
     private var type: HTTPMethod!
@@ -48,16 +48,16 @@ class MYHttp {
     }
     
     func load(ok: @escaping (JsonDict) -> (), KO: @escaping (String, String) -> ()) {
-        
-        printJson(self.json)
+        printJson(json)
         var headers = [String: String]()
         if header == true {
             headers["Authorization"] = User.shared.token
+            print ("Auth: " + User.shared.token)
         }
         
-        Alamofire.request(self.apiUrl,
-                          method: self.type,
-                          parameters: self.json,
+        Alamofire.request(apiUrl,
+                          method: type,
+                          parameters: json,
                           headers: headers).responseString { response in
                             self.startWheel(false)
                             let data = self.fixResponse(response)
@@ -70,22 +70,23 @@ class MYHttp {
     }
     
     private func fixResponse (_ response: DataResponse<String>) -> (isValid: Bool, dict: JsonDict) {
-        var statusCode = response.response?.statusCode
-        var errorMessage = ""
-        
-        if response.result.isSuccess {
-            let dict = removeNullFromJsonString(response.result.value!)
-            errorMessage = dict.string("status")
-            if statusCode == 200 && errorMessage == "ok" {
-                self.printJson(dict)
-                return (true, dict)
-            }
-            statusCode = dict.int("code")
-        } else {
-            errorMessage = response.error == nil ? "Errore generico" :  (response.error?.localizedDescription)!
-        }
+        let statusCode = response.response?.statusCode
         let array = apiUrl.components(separatedBy: "/")
-        let dict = [ "err" : array.last ?? apiUrl + " - Err. \(statusCode!)",  "msg" : errorMessage ]
+        let object = json.string("object")
+        let page = object.isEmpty ? (array.last ?? apiUrl) : object
+        
+        if response.result.isSuccess && statusCode == 200 {
+            var dict = removeNullFromJsonString(response.result.value!)
+            printJson(dict)
+            
+            let isValid = dict.string("status") == "ok"
+            if isValid == false {
+                dict = [ "err" : "Err. \(dict.string("code"))\n[ \(page) ]", "msg" : dict.string("message") ]
+            }
+            return (isValid, dict)
+        }
+        let errorMessage = response.error == nil ? "Server error" :  (response.error?.localizedDescription)!
+        let dict = [ "err" : "Err. \(statusCode!)\n[ \(page) ]",  "msg" : errorMessage ]
         return (false, dict)
     }
     

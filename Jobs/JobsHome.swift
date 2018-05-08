@@ -47,7 +47,6 @@ class JobsHome: MYViewController {
     }
 }
 
-
 // MARK: - Job List
 
 extension JobsHome {
@@ -59,15 +58,22 @@ extension JobsHome {
         }
 
         User.shared.getUserToken(completion: {
+            loadJobList()
+        }) {
+            (errorCode, message) in
+            self.alert(errorCode, message: message, okBlock: nil)
+        }
+        
+        func loadJobList () {
             let param = [ "object" : "jobs_list" ]
             let request = MYHttp.init(.get, param: param)
-            request.load(ok: { (response) in
+            request.load(ok: {
+                (response) in
                 done (response.array("jobs") as! [JsonDict])
-            }) { (title, error) in
-                self.alert(title, message: error, okBlock: nil)
+            }) {
+                (errorCode, message) in
+                self.alert(errorCode, message: message, okBlock: nil)
             }
-        }) { (errorCode, message) in
-            self.alert("Error: \(errorCode)", message: message, okBlock: nil)
         }
     }
 }
@@ -120,28 +126,30 @@ extension JobsHome {
     
     private func getDetail () {
         User.shared.getUserToken(completion: {
-            loadJobKpis()
-        }) { (errorCode, message) in
-            self.alert("Error: \(errorCode)", message: message, okBlock: nil)
+            loadJobDetail()
+        }) {
+            (errorCode, message) in
+            self.alert(errorCode, message: message, okBlock: nil)
         }
         
-        func loadJobKpis () {
+        func loadJobDetail () {
             let job = MYJob.shared.job
             let param = [ "object" : "job", "object_id":  job.id ] as JsonDict
             let request = MYHttp.init(.get, param: param)
             
-            request.load(ok: { (response) in
+            request.load(ok: {
+                (response) in
                 let dict = response.dictionary("job")
                 MYJob.shared.job = MYJob.shared.createJob(withDict: dict)
                 self.openJobDetail()
                 
-            }) { (title, error) in
-                self.alert(title, message: error, okBlock: nil)
+            }) {
+                (errorCode, message) in
+                self.alert(errorCode, message: message, okBlock: nil)
             }
         }
     }
     
-
     private func openJobDetail () {
         MYJob.shared.kpiKeyList.removeAll()
         for kpi in MYJob.shared.job.kpis {

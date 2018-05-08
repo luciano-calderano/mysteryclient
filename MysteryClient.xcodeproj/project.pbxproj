@@ -73,9 +73,11 @@
 		4B31134C207E174700BA77D8 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B311346207E174700BA77D8 /* MenuView.xib */; };
 		4B31134D207E174700BA77D8 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B311347207E174700BA77D8 /* MenuView.swift */; };
 		4B43C493208E07CB0073D566 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B43C492208E07CB0073D566 /* Main.swift */; };
-		4B580B882088CCF1009E1508 /* MYLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B580B872088CCF1009E1508 /* MYLib.framework */; };
-		4B580B892088CD10009E1508 /* MYLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B580B872088CCF1009E1508 /* MYLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B6C1BCB207F867300715B82 /* KpiAtch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C1BCA207F867300715B82 /* KpiAtch.swift */; };
+		4BF963C3209C5D5300D57E21 /* MYExt.Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF963BE209C5D4D00D57E21 /* MYExt.Date.swift */; };
+		4BF963C4209C5D5300D57E21 /* MYExt.Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF963BF209C5D4D00D57E21 /* MYExt.Dictionary.swift */; };
+		4BF963C5209C5D5300D57E21 /* MYExt.String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF963C0209C5D4D00D57E21 /* MYExt.String.swift */; };
+		4BF963C6209C5D5300D57E21 /* MYLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF963C2209C5D4D00D57E21 /* MYLanguage.swift */; };
 		7BE0E1503FF2AEED31C69ED3 /* Pods_MysteryClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32157FCD74F4B95BCFDAE0F9 /* Pods_MysteryClient.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,7 +88,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4B580B892088CD10009E1508 /* MYLib.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -164,8 +165,11 @@
 		4B311346207E174700BA77D8 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
 		4B311347207E174700BA77D8 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		4B43C492208E07CB0073D566 /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
-		4B580B872088CCF1009E1508 /* MYLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MYLib.framework; path = ../../MYLib/MYLib.framework; sourceTree = "<group>"; };
 		4B6C1BCA207F867300715B82 /* KpiAtch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KpiAtch.swift; sourceTree = "<group>"; };
+		4BF963BE209C5D4D00D57E21 /* MYExt.Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYExt.Date.swift; sourceTree = "<group>"; };
+		4BF963BF209C5D4D00D57E21 /* MYExt.Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYExt.Dictionary.swift; sourceTree = "<group>"; };
+		4BF963C0209C5D4D00D57E21 /* MYExt.String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYExt.String.swift; sourceTree = "<group>"; };
+		4BF963C2209C5D4D00D57E21 /* MYLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYLanguage.swift; sourceTree = "<group>"; };
 		4F47EB038F49AEA7DFDCA283 /* Pods-MysteryClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,7 +178,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B580B882088CCF1009E1508 /* MYLib.framework in Frameworks */,
 				7BE0E1503FF2AEED31C69ED3 /* Pods_MysteryClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,6 +202,7 @@
 		044619EC1EFA66A7008CD1E2 /* Cls */ = {
 			isa = PBXGroup;
 			children = (
+				4BF963BC209C5D4C00D57E21 /* MYLib.Cls */,
 				04BCAD321EFA9DB400745556 /* Model */,
 				04461A251EFA8558008CD1E2 /* Class */,
 				044619ED1EFA66A7008CD1E2 /* CustomClass */,
@@ -332,7 +336,6 @@
 		119C7DC6C3018448103470AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4B580B872088CCF1009E1508 /* MYLib.framework */,
 				32157FCD74F4B95BCFDAE0F9 /* Pods_MysteryClient.framework */,
 			);
 			name = Frameworks;
@@ -413,6 +416,34 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
+		4BF963BC209C5D4C00D57E21 /* MYLib.Cls */ = {
+			isa = PBXGroup;
+			children = (
+				4BF963BD209C5D4D00D57E21 /* Extension */,
+				4BF963C1209C5D4D00D57E21 /* Language */,
+			);
+			name = MYLib.Cls;
+			path = ../../../MYLib/MYLib.Cls;
+			sourceTree = "<group>";
+		};
+		4BF963BD209C5D4D00D57E21 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4BF963BE209C5D4D00D57E21 /* MYExt.Date.swift */,
+				4BF963BF209C5D4D00D57E21 /* MYExt.Dictionary.swift */,
+				4BF963C0209C5D4D00D57E21 /* MYExt.String.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		4BF963C1209C5D4D00D57E21 /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				4BF963C2209C5D4D00D57E21 /* MYLanguage.swift */,
+			);
+			path = Language;
+			sourceTree = "<group>";
+		};
 		ED20667E76FEFF411228DFC2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -458,7 +489,7 @@
 				TargetAttributes = {
 					044619CF1EFA640F008CD1E2 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = PN8JTL5X6T;
+						DevelopmentTeam = K2DWY28S5B;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
@@ -577,6 +608,7 @@
 			files = (
 				04FC17291F0145BC00226F1A /* ItemEnum.swift in Sources */,
 				04461A331EFA8955008CD1E2 /* Ext.UIViewController.swift in Sources */,
+				4BF963C6209C5D5300D57E21 /* MYLanguage.swift in Sources */,
 				04461A071EFA66A7008CD1E2 /* MYTextField.swift in Sources */,
 				04FC17271F01330000226F1A /* WebPage.swift in Sources */,
 				04D74DB11F5AA8190093EB4B /* MYZip.swift in Sources */,
@@ -585,6 +617,7 @@
 				0472E2A91EFAC74D001CE358 /* Ext.Dictionary.swift in Sources */,
 				04FCF19C1F0265D50087FBDF /* JobsHome.swift in Sources */,
 				4B30C204207F59270018BD6C /* SubDatePicker.swift in Sources */,
+				4BF963C3209C5D5300D57E21 /* MYExt.Date.swift in Sources */,
 				4B43C493208E07CB0073D566 /* Main.swift in Sources */,
 				048C44831F5B161C00E836C0 /* MYMaps.swift in Sources */,
 				04A2109D1F03AC3400D1480C /* JobDetailAtch.swift in Sources */,
@@ -615,8 +648,10 @@
 				4B30C1F9207F59270018BD6C /* KpiMainUtil.swift in Sources */,
 				048C44871F5B183D00E836C0 /* ResultStruct.swift in Sources */,
 				4B30C1F8207F59270018BD6C /* KpiBaseView.swift in Sources */,
+				4BF963C5209C5D5300D57E21 /* MYExt.String.swift in Sources */,
 				4B6C1BCB207F867300715B82 /* KpiAtch.swift in Sources */,
 				4B31134D207E174700BA77D8 /* MenuView.swift in Sources */,
+				4BF963C4209C5D5300D57E21 /* MYExt.Dictionary.swift in Sources */,
 				04BEDABA1F5BF8640076A05E /* MYJob.swift in Sources */,
 				04FCF19D1F0265D50087FBDF /* JobsHomeCell.swift in Sources */,
 				04D609BA1F028BA30030968B /* JobDetail.swift in Sources */,
@@ -740,7 +775,7 @@
 			baseConfigurationReference = 44B7A6A76E5901851685C383 /* Pods-MysteryClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = PN8JTL5X6T;
+				DEVELOPMENT_TEAM = K2DWY28S5B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -748,7 +783,7 @@
 				INFOPLIST_FILE = MysteryClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = it.mebius.MysteryClient;
+				PRODUCT_BUNDLE_IDENTIFIER = it.mebius.Mystery.Client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -760,7 +795,7 @@
 			baseConfigurationReference = 4F47EB038F49AEA7DFDCA283 /* Pods-MysteryClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = PN8JTL5X6T;
+				DEVELOPMENT_TEAM = K2DWY28S5B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -768,7 +803,7 @@
 				INFOPLIST_FILE = MysteryClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = it.mebius.MysteryClient;
+				PRODUCT_BUNDLE_IDENTIFIER = it.mebius.Mystery.Client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
