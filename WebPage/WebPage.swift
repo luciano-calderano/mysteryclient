@@ -10,13 +10,14 @@ import UIKit
 import WebKit
 
 
-class WebPage: MYViewController { //}, UIWebViewDelegate {
+class WebPage: MYViewController {
     enum WebPageEnum: String {
         case recover = "login/retrieve-password?app=1"
         case register = "login/register?app=1"
         
         case profile = "mystery/profile"
         case storico = "checking/validated"
+        case find = "checking/finder"
         case cercando = "mystery/communications"
         case news = "mystery/news"
         case contattaci = "ticket"
@@ -70,8 +71,9 @@ class WebPage: MYViewController { //}, UIWebViewDelegate {
         
         User.shared.getUserToken(completion: {
             hasToekn()
-        }) { (errorCode, message) in
-            self.alert("Error: \(errorCode)", message: message) {
+        }) {
+            (errorCode, message) in
+            self.alert(errorCode, message: message) {
                 (result) in
                 self.navigationController?.popViewController(animated: true)
             }
@@ -93,4 +95,14 @@ extension WebPage: WKNavigationDelegate {
         webView.frame = container.bounds
         container.addSubview(webView)
     }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        print(navigationResponse.response)
+        decisionHandler(.allow)
+    }
+    
+//    func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+//        print(challenge)
+//        completionHandler(.useCredential, nil)
+//    }
 }

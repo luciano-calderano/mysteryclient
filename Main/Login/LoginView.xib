@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="Xu6-ec-UnK">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cmo-ic-35S">
                     <rect key="frame" x="44" y="160" width="288" height="346"/>
@@ -192,12 +192,19 @@
                         <constraint firstItem="PmT-jB-8NB" firstAttribute="top" secondItem="w51-hS-sFG" secondAttribute="bottom" constant="12" id="zjr-zV-fLp"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vers." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLH-kd-UCE">
+                    <rect key="frame" x="328" y="643" width="31" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Xu6-ec-UnK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="93m-SL-au2"/>
+                <constraint firstItem="Xu6-ec-UnK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="44" id="93m-SL-au2"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="xLH-kd-UCE" secondAttribute="bottom" constant="8" id="9yg-Cx-BMq"/>
                 <constraint firstItem="Xu6-ec-UnK" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="KAm-P6-KAd"/>
                 <constraint firstItem="Cmo-ic-35S" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="P5W-KQ-vca"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xLH-kd-UCE" secondAttribute="trailing" constant="16" id="PA5-3Y-fc9"/>
                 <constraint firstItem="Cmo-ic-35S" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="brs-Zp-6mb"/>
                 <constraint firstItem="Xu6-ec-UnK" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="pdz-aT-d5E"/>
                 <constraint firstAttribute="trailing" secondItem="Xu6-ec-UnK" secondAttribute="trailing" id="sJn-gb-aCZ"/>
@@ -210,6 +217,7 @@
                 <outlet property="saveCredButton" destination="Knv-bS-dHi" id="ne2-hO-msO"/>
                 <outlet property="userText" destination="tGX-tg-0aF" id="xFf-af-3iO"/>
                 <outlet property="userView" destination="fAs-cW-YZ5" id="8cA-ha-BpB"/>
+                <outlet property="versLabel" destination="xLH-kd-UCE" id="RVj-c5-lye"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="55.5"/>
         </view>

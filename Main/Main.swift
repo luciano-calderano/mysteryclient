@@ -10,26 +10,36 @@ import UIKit
 
 class Main: MYViewController {
     @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var versLabel: UILabel!
     let menuView = MenuView.Instance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(Config.Path.doc)
+
         loadData()
-        
-        var rect = self.view.frame
-        rect.origin.x = -rect.size.width
-        rect.origin.y = (header?.frame.origin.y)! + (header?.frame.size.height)!
-        rect.size.height -= rect.origin.y
-        menuView.frame = rect
+        versLabel.text = "Vers.\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
         menuView.isHidden = true
         menuView.delegate = self
         self.view.addSubview(menuView)
+        
+        checkUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         MYUpload.startUpload()
-        checkUser()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        var rect = self.view.frame
+        rect.origin.x = -rect.size.width
+        rect.origin.y = (header?.frame.origin.y)! + (header?.frame.size.height)!
+        rect.size.height -= rect.origin.y
+        menuView.frame = rect
+
+//        checkUser()
     }
     
     override func headerViewSxTapped() {
@@ -39,8 +49,8 @@ class Main: MYViewController {
     private func checkUser () {
         if User.shared.token.isEmpty {
             let loginView = LoginView.Instance()
-            loginView.delgate = self
             self.view.addSubviewWithConstraints(loginView)
+            loginView.delgate = self
         }
     }
 }
@@ -79,6 +89,7 @@ extension Main {
         dataArray = [
             addMenuItem("ico.incarichi", type: .inca),
             addMenuItem("ico.ricInc",    type: .stor),
+            addMenuItem("ico.find",      type: .find),
             addMenuItem("ico.profilo",   type: .prof),
             addMenuItem("ico.cercando",  type: .cerc),
             addMenuItem("ico.news",      type: .news),
@@ -109,6 +120,8 @@ extension Main {
             return
         case .stor :
             webType = .storico
+        case .find :
+            webType = .find
         case .prof :
             webType = .profile
         case .cerc :

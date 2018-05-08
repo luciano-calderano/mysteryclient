@@ -12,6 +12,7 @@ enum MenuItemEnum: String {
     case home = "Home"
     case inca = "Incarichi"
     case stor = "Storico incarichi"
+    case find = "Cerca incarichi"
     case prof = "Profilo"
     case cerc = "Stiamo cercando"
     case news = "Mystery News"

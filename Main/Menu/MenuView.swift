@@ -45,6 +45,7 @@ class MenuView: UIView {
             self.addMenuItem("ico.home",      type: .home),
             self.addMenuItem("ico.incarichi", type: .inca),
             self.addMenuItem("ico.ricInc",    type: .stor),
+            self.addMenuItem("ico.find",      type: .find),
             self.addMenuItem("ico.profilo",   type: .prof),
             self.addMenuItem("ico.cercando",  type: .cerc),
             self.addMenuItem("ico.news",      type: .news),

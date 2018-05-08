@@ -28,6 +28,8 @@ class LoginView: UIView {
     @IBOutlet var passText: MYTextField!
     
     @IBOutlet var saveCredButton: MYButton!
+    @IBOutlet private var versLabel: UILabel!
+
     private var checkImg: UIImage?
     private var saveCred = false
     
@@ -35,8 +37,7 @@ class LoginView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        print(Config.Path.doc)
-        
+        versLabel.text = "Vers.\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"        
         checkImg = saveCredButton.image(for: .normal)
         saveCredButton.imageEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2)
         

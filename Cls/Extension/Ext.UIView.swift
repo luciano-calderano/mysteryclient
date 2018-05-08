@@ -15,6 +15,11 @@ extension UIView {
         return array!.first ?? UIView()
     }
 
+    func addSubviewWithConstraints (_ view: UIView, T: CGFloat = 0, L: CGFloat = 0, B: CGFloat = 0, R: CGFloat = 0) {
+        let edge = UIEdgeInsets.init(top: T, left: L, bottom: B, right: R)
+        addSubviewWithConstraints(view, edge: edge)
+    }
+    
     func addSubviewWithConstraints (_ view: UIView, edge: UIEdgeInsets = UIEdgeInsets.zero) {
         self.addSubview(view)
         costraintTo(view: view, atb: .top,     f: edge.top)
