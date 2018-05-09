@@ -37,9 +37,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="Daf-rw-h5Y">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nEO-5f-RCn" customClass="HeaderContainerView" customModule="MysteryClient" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="55"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.81960784310000001" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -96,16 +93,12 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="ZRb-Ol-9m6" firstAttribute="top" secondItem="VY4-m6-sJW" secondAttribute="bottom" constant="80" id="0xn-LO-gFs"/>
-                            <constraint firstItem="1sm-oQ-rgX" firstAttribute="top" secondItem="Daf-rw-h5Y" secondAttribute="bottom" id="BBJ-bz-VZ9"/>
                             <constraint firstAttribute="trailing" secondItem="nEO-5f-RCn" secondAttribute="trailing" id="E94-YM-k6b"/>
-                            <constraint firstItem="Daf-rw-h5Y" firstAttribute="leading" secondItem="zLx-Rc-vtB" secondAttribute="leading" id="KZV-bM-PIl"/>
                             <constraint firstItem="nEO-5f-RCn" firstAttribute="top" secondItem="VY4-m6-sJW" secondAttribute="bottom" id="LB9-Aa-fH0"/>
                             <constraint firstItem="nEO-5f-RCn" firstAttribute="leading" secondItem="zLx-Rc-vtB" secondAttribute="leading" id="NMi-Cf-kAr"/>
                             <constraint firstItem="ZRb-Ol-9m6" firstAttribute="leading" secondItem="zLx-Rc-vtB" secondAttribute="leading" constant="16" id="aSE-hE-C9D"/>
                             <constraint firstAttribute="trailing" secondItem="ZRb-Ol-9m6" secondAttribute="trailing" constant="16" id="g9C-OB-bLE"/>
-                            <constraint firstItem="Daf-rw-h5Y" firstAttribute="top" secondItem="VY4-m6-sJW" secondAttribute="bottom" id="gEy-wS-ZvQ"/>
                             <constraint firstItem="1sm-oQ-rgX" firstAttribute="top" secondItem="ZRb-Ol-9m6" secondAttribute="bottom" constant="30" id="gqo-Rf-uJv"/>
-                            <constraint firstAttribute="trailing" secondItem="Daf-rw-h5Y" secondAttribute="trailing" id="mBI-0w-Db1"/>
                             <constraint firstAttribute="trailing" secondItem="YFR-OE-KB2" secondAttribute="trailing" constant="16" id="sv0-Hu-c95"/>
                             <constraint firstItem="1sm-oQ-rgX" firstAttribute="top" secondItem="YFR-OE-KB2" secondAttribute="bottom" constant="8" id="zb8-zj-zsn"/>
                         </constraints>
@@ -124,7 +117,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back" width="1440" height="2559"/>
         <image name="ico.menu" width="200" height="200"/>
     </resources>
 </document>

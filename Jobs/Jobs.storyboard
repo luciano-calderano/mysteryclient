@@ -100,10 +100,18 @@
                                                         <action selector="mapTapped" destination="dlN-xa-jb3" eventType="touchUpInside" id="kTV-gR-21i"/>
                                                     </connections>
                                                 </button>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico.warn" translatesAutoresizingMaskIntoConstraints="NO" id="0GN-el-yZM">
+                                                    <rect key="frame" x="335" y="71" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="DcT-MR-eoq"/>
+                                                        <constraint firstAttribute="height" constant="24" id="fmU-ux-hxx"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="sLZ-Tj-CAi" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" constant="50" id="1z2-Lg-8R0"/>
+                                                <constraint firstAttribute="bottom" secondItem="0GN-el-yZM" secondAttribute="bottom" constant="4.5" id="2y7-E1-YdD"/>
                                                 <constraint firstItem="LnW-jk-5LL" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" constant="2" id="3bl-jL-9Cv"/>
                                                 <constraint firstAttribute="trailing" secondItem="sLZ-Tj-CAi" secondAttribute="trailing" constant="47" id="3zT-sQ-GjV"/>
                                                 <constraint firstItem="lnJ-zf-ORg" firstAttribute="leading" secondItem="LnW-jk-5LL" secondAttribute="trailing" constant="4" id="4pT-p6-oAU"/>
@@ -118,6 +126,7 @@
                                                 <constraint firstItem="XHV-a4-ZbS" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" constant="2" id="f11-Xc-MtN"/>
                                                 <constraint firstItem="XHV-a4-ZbS" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="top" constant="26" id="oy6-OW-ySk"/>
                                                 <constraint firstAttribute="trailing" secondItem="haH-R7-rk4" secondAttribute="trailing" constant="12" id="pv9-Wj-aZt"/>
+                                                <constraint firstAttribute="trailing" secondItem="0GN-el-yZM" secondAttribute="trailing" constant="16" id="vnI-Dx-DU1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -127,6 +136,7 @@
                                             <outlet property="month" destination="LnW-jk-5LL" id="RTh-Wa-73H"/>
                                             <outlet property="name" destination="lUL-eh-v3X" id="JuO-T3-BNa"/>
                                             <outlet property="rif" destination="sLZ-Tj-CAi" id="DLc-Xv-huw"/>
+                                            <outlet property="warn" destination="0GN-el-yZM" id="wOw-68-QIZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -530,6 +540,7 @@
         <image name="ico.start_tempo" width="80" height="80"/>
         <image name="ico.stop_tempo" width="80" height="80"/>
         <image name="ico.ticket" width="80" height="80"/>
+        <image name="ico.warn" width="128" height="118"/>
         <image name="photo" width="1439" height="661"/>
         <image name="reload" width="100" height="100"/>
     </resources>

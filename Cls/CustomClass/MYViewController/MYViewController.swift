@@ -16,10 +16,8 @@ class MYViewController: UIViewController, HeaderViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let view = UIView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 20))
-//        view.backgroundColor = UIColor.myGreenDark
-//        self.view.addSubview(view)
         self.view.backgroundColor = UIColor.black
+        
         if let header = header {
             header.delegate = self
             header.header.kpiLabel.isHidden = true

@@ -16,12 +16,30 @@ class MYZip {
     class func getZipFilePath (id: String) -> String {
         return Config.Path.doc + MYZip.getZipFileName(id: id)
     }
+    class func reopenSentZip (ID: Int) {
+        let id = String(ID)
+        let file = MYZip.getZipFilePath(id: id)
+        let sent = file.replacingOccurrences(of: Config.filePrefix, with: Config.zipSentPrefixt)
+        if FileManager.default.fileExists(atPath: sent) {
+            let urlFile = URL.init(string: sent)!
+            let urlDest = URL.init(string: Config.Path.jobs)!
+            try? Zip.unzipFile(urlFile, destination: urlDest, overwrite: true, password: nil)
+            try? FileManager.default.removeItem(atPath: sent)
+        }
+    }
+    
     class func removeZipWithId (_ id: String) {
         do {
-            try? FileManager.default.removeItem(atPath: MYZip.getZipFilePath(id: id))
+            let file = MYZip.getZipFilePath(id: id)
+            let sent = file.replacingOccurrences(of: Config.filePrefix, with: Config.zipSentPrefixt)
+            try? FileManager.default.moveItem(at: URL.init(string: file)!,
+                                              to: URL.init(string: sent)!)
+//            try? FileManager.default.removeItem(atPath: MYZip.getZipFilePath(id: id))
         }
     }
 
+    
+    
     func createZipFileWithDict (_ dict: JsonDict) -> Bool {
         let jobId = String(MYJob.shared.job.id)
         let fm = FileManager.default

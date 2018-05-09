@@ -25,6 +25,7 @@ struct Config {
         static let maps  = "http://maps.apple.com/?"
     }
 
+    static let zipSentPrefixt = "sent_"
     static let filePrefix = "id_"
     static let plist = ".plist"
 

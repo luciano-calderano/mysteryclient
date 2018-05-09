@@ -17,6 +17,12 @@ class Main: MYViewController {
         super.viewDidLoad()
         print(Config.Path.doc)
 
+        let imv = UIImageView()
+        let img = UIImage.init(named: "back")
+        imv.image = img
+        self.view.addSubviewWithConstraints(imv, T: 40)
+        self.view.sendSubview(toBack: imv)
+        
         loadData()
         versLabel.text = "Vers.\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
         menuView.isHidden = true

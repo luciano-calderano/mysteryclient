@@ -29,7 +29,8 @@ class JobsHomeCell: UITableViewCell {
     @IBOutlet private var rif: MYLabel!
     @IBOutlet private var day: MYLabel!
     @IBOutlet private var month: MYLabel!
-    
+    @IBOutlet private var warn: UIImageView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -40,6 +41,7 @@ class JobsHomeCell: UITableViewCell {
         rif.text = "Rif. " + job.reference
         day.text = job.estimate_date.toString(withFormat: "dd")
         month.text = job.estimate_date.toString(withFormat: "MMM")
+        warn.isHidden = job.irregular == false
     }
     
     @IBAction func mapTapped () {
