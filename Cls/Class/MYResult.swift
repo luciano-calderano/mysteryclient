@@ -14,16 +14,6 @@ class MYResult {
     var resultDict = JsonDict()
     
     init() {
-        let fm = FileManager.default
-        do {
-            if fm.fileExists(atPath: Config.Path.result) == false {
-                try fm.createDirectory(atPath: Config.Path.result,
-                                       withIntermediateDirectories: true,
-                                       attributes: nil)
-            }
-        } catch let error as NSError {
-            print("Directory (result) error: \(error.debugDescription)")
-        }
     }
     
     func getFileName (withId id: String) -> String {
@@ -32,11 +22,16 @@ class MYResult {
     
     func loadResult (jobId id: Int) -> JobResult {
         var result = JobResult()
-        result.id = id
         let dict = JsonDict.init(fromFile: getFileName(withId: String(id)))
         if dict.isEmpty {
+            result.id = id
             return result
         }
+        return resultWithDict(dict)
+    }
+    
+    func resultWithDict(_ dict: JsonDict) -> JobResult {
+        var result = JobResult()
         result.id                     = dict.int("id")
         result.estimate_date          = dict.string("estimate_date")
         result.compiled               = dict.int("compiled")

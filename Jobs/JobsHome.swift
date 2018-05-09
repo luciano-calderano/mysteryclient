@@ -157,7 +157,6 @@ extension JobsHome {
             MYJob.shared.kpiKeyList.append(kpi.id)
         }
 
-        MYZip.reopenSentZip(ID: MYJob.shared.job.id)
         let vc = JobDetail.Instance()
         self.navigationController?.show(vc, sender: self)
     }

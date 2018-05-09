@@ -17,24 +17,48 @@ class MYZip {
         return Config.Path.doc + MYZip.getZipFileName(id: id)
     }
     class func reopenSentZip (ID: Int) {
+        func reloadJsonWithId (_ id: Int) -> JsonDict {
+            let fromFile = "\(Config.Path.doc)/\(id)/job.json"
+            do {
+                let url = URL.init(fileURLWithPath: fromFile)
+                let data = try Data.init(contentsOf:url)
+                do {
+                    let dict = try JSONSerialization.jsonObject(with: data, options: []) as! JsonDict
+                    return dict
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+            catch let error as NSError {
+                print("Error creating Dictionary: \(error.localizedDescription)")
+            }
+            return JsonDict()
+        }
+
+        let fm = FileManager.default
         let id = String(ID)
         let file = MYZip.getZipFilePath(id: id)
         let sent = file.replacingOccurrences(of: Config.filePrefix, with: Config.zipSentPrefixt)
-        if FileManager.default.fileExists(atPath: sent) {
+        if fm.fileExists(atPath: sent) {
             let urlFile = URL.init(string: sent)!
-            let urlDest = URL.init(string: Config.Path.jobs)!
+            let urlDest = URL.init(string: "\(Config.Path.doc)/\(MYJob.shared.job.id)")!
             try? Zip.unzipFile(urlFile, destination: urlDest, overwrite: true, password: nil)
-            try? FileManager.default.removeItem(atPath: sent)
+            let dict = reloadJsonWithId(MYJob.shared.job.id)
+            MYJob.shared.jobResult = MYResult.shared.resultWithDict(dict)
+            try? fm.removeItem(atPath: sent)
         }
+        
+
     }
     
     class func removeZipWithId (_ id: String) {
+        let file = "file://" + MYZip.getZipFilePath(id: id)
+        let sent = file.replacingOccurrences(of: Config.filePrefix, with: Config.zipSentPrefixt)
         do {
-            let file = MYZip.getZipFilePath(id: id)
-            let sent = file.replacingOccurrences(of: Config.filePrefix, with: Config.zipSentPrefixt)
-            try? FileManager.default.moveItem(at: URL.init(string: file)!,
-                                              to: URL.init(string: sent)!)
-//            try? FileManager.default.removeItem(atPath: MYZip.getZipFilePath(id: id))
+            try FileManager.default.moveItem(at: URL.init(string: file)!,
+                                             to: URL.init(string: sent)!)
+        } catch let error as NSError {
+            print(error)
         }
     }
 

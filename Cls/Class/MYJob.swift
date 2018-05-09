@@ -73,7 +73,7 @@ class MYJob {
         
         if job.compiled == true {
             if job.irregular == false || job.updated == true {
-                return job
+//                return job
             }
         }
         //            compiled = false

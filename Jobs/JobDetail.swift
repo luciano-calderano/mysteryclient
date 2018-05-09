@@ -33,6 +33,7 @@ class JobDetail: MYViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initialize()
         isAuthorizedtoGetUserLocation()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -158,6 +159,24 @@ class JobDetail: MYViewController {
     }
     
     // MARK: - private
+    
+    private func initialize () {
+        let path = "\(Config.Path.doc)/\(MYJob.shared.job.id)"
+        let fm = FileManager.default
+        if fm.fileExists(atPath: path) == false {
+            do {
+                try fm.createDirectory(atPath: path,
+                                       withIntermediateDirectories: true,
+                                       attributes: nil)
+            } catch let error as NSError {
+                print("Unable to create directory \(error.debugDescription)")
+            }
+        }
+        
+        if MYJob.shared.job.irregular == false {
+            MYZip.reopenSentZip(ID: MYJob.shared.job.id)
+        }
+    }
     
     private func showData () {
         header?.header.titleLabel.text = MYJob.shared.job.store.name

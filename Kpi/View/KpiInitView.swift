@@ -65,18 +65,6 @@ class KpiInitView: KpiBaseView {
     }
     
     private func firstLoad () {
-        let path = "\(Config.Path.doc)/\(MYJob.shared.job.id)"
-        let fm = FileManager.default
-        if fm.fileExists(atPath: path) == false {
-            do {
-                try fm.createDirectory(atPath: path,
-                                       withIntermediateDirectories: true,
-                                       attributes: nil)
-            } catch let error as NSError {
-                print("Unable to create directory \(error.debugDescription)")
-            }
-        }
-        
         if MYJob.shared.jobResult.results.count < MYJob.shared.job.kpis.count {
             for _ in MYJob.shared.jobResult.results.count...MYJob.shared.job.kpis.count - 1 {
                 MYJob.shared.jobResult.results.append(JobResult.KpiResult())
