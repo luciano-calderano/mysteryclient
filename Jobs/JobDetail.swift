@@ -172,10 +172,6 @@ class JobDetail: MYViewController {
                 print("Unable to create directory \(error.debugDescription)")
             }
         }
-        
-        if MYJob.shared.job.irregular == false {
-            MYZip.reopenSentZip(ID: MYJob.shared.job.id)
-        }
     }
     
     private func showData () {

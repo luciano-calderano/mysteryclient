@@ -14,7 +14,8 @@ class JobsHome: MYViewController {
     }
 
     @IBOutlet private var tableView: UITableView!
-    
+    private let wheel = MYWheel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -110,59 +111,6 @@ extension JobsHome: UITableViewDelegate {
     }
 }
 
-// MARK: - Selected job
-
-extension JobsHome {
-    private func selectedJob (job: Job) {
-        MYJob.shared.job = job
-        MYJob.shared.jobResult = MYResult.shared.loadResult (jobId: MYJob.shared.job.id)
-
-        if MYJob.shared.jobResult.execution_date.isEmpty {
-            getDetail ()
-        } else {
-            openJobDetail()
-        }
-    }
-    
-    private func getDetail () {
-        User.shared.getUserToken(completion: {
-            loadJobDetail()
-        }) {
-            (errorCode, message) in
-            self.alert(errorCode, message: message, okBlock: nil)
-        }
-        
-        func loadJobDetail () {
-            let job = MYJob.shared.job
-            let param = [ "object" : "job", "object_id":  job.id ] as JsonDict
-            let request = MYHttp.init(.get, param: param)
-            
-            request.load(ok: {
-                (response) in
-                let dict = response.dictionary("job")
-                MYJob.shared.job = MYJob.shared.createJob(withDict: dict)
-                self.openJobDetail()
-                
-            }) {
-                (errorCode, message) in
-                self.alert(errorCode, message: message, okBlock: nil)
-            }
-        }
-    }
-    
-    private func openJobDetail () {
-        MYJob.shared.kpiKeyList.removeAll()
-        for kpi in MYJob.shared.job.kpis {
-            kpi.isValid = true
-            MYJob.shared.kpiKeyList.append(kpi.id)
-        }
-
-        let vc = JobDetail.Instance()
-        self.navigationController?.show(vc, sender: self)
-    }
-}
-
-
 //MARK: - JobsHomeCellDelegate
 
 extension JobsHome: JobsHomeCellDelegate {
@@ -173,4 +121,30 @@ extension JobsHome: JobsHomeCellDelegate {
                       name: store.name)
     }
 }
+
+// MARK: - Selected job
+
+extension JobsHome {
+    private func selectedJob (job: Job) {
+        wheel.start(self.view)
+        
+        let loadJob = LoadJob()
+        loadJob.delegate = self
+        loadJob.selectedJob(job)
+    }
+}
+
+extension JobsHome: LoadJobDelegate {
+    func loadJobSuccess(_ loadJob: LoadJob) {
+        wheel.stop()
+        let vc = JobDetail.Instance()
+        self.navigationController?.show(vc, sender: self)
+    }
+
+    func loadJobError(_ loadJob: LoadJob, errorCode: String, message: String) {
+        wheel.stop()
+        self.alert(errorCode, message: message, okBlock: nil)
+    }
+}
+
 

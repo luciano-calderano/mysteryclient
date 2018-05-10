@@ -14,7 +14,7 @@ extension UIImage {
         let scale = maxSize / maxOrigSize
         let newSize = CGSize.init(width: self.size.width * scale, height: self.size.height * scale)
         
-        return self.resize(newSize: newSize)
+        return resize(newSize: newSize)
     }
     
     func resize(newWidth: CGFloat) -> UIImage? {
@@ -22,7 +22,7 @@ extension UIImage {
         let newHeight = self.size.height * scale
         let newSize = CGSize.init(width: newWidth, height: newHeight)
         
-        return self.resize(newSize: newSize)
+        return resize(newSize: newSize)
     }
     
     func resize(newSize: CGSize) -> UIImage? {

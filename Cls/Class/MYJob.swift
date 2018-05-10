@@ -73,7 +73,7 @@ class MYJob {
         
         if job.compiled == true {
             if job.irregular == false || job.updated == true {
-//                return job
+//Lc                return job
             }
         }
         //            compiled = false
@@ -192,7 +192,7 @@ class MYJob {
     }
     
     private func getFileName (id: Int) -> String {
-        let fileName = Config.Path.jobs + String(id) + Config.plist
+        let fileName = Config.Path.jobs + String(id) + Config.File.plist
         return fileName
     }
 }

@@ -45,6 +45,7 @@
 		04FCF19B1F0265D50087FBDF /* Jobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04FCF1981F0265D50087FBDF /* Jobs.storyboard */; };
 		04FCF19C1F0265D50087FBDF /* JobsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCF1991F0265D50087FBDF /* JobsHome.swift */; };
 		04FCF19D1F0265D50087FBDF /* JobsHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCF19A1F0265D50087FBDF /* JobsHomeCell.swift */; };
+		4B15739E20A4348500E9FFF7 /* LoadJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B15739D20A4348500E9FFF7 /* LoadJob.swift */; };
 		4B261B0A208E20A00055520E /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B261B09208E20A00055520E /* LoginView.xib */; };
 		4B261B0C208E2C0C0055520E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B261B0B208E2C0C0055520E /* LoginView.swift */; };
 		4B30C1F8207F59270018BD6C /* KpiBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30C1E0207F59270018BD6C /* KpiBaseView.swift */; };
@@ -137,6 +138,7 @@
 		04FCF19A1F0265D50087FBDF /* JobsHomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsHomeCell.swift; sourceTree = "<group>"; };
 		32157FCD74F4B95BCFDAE0F9 /* Pods_MysteryClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MysteryClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44B7A6A76E5901851685C383 /* Pods-MysteryClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MysteryClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MysteryClient/Pods-MysteryClient.debug.xcconfig"; sourceTree = "<group>"; };
+		4B15739D20A4348500E9FFF7 /* LoadJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadJob.swift; sourceTree = "<group>"; };
 		4B261B09208E20A00055520E /* LoginView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
 		4B261B0B208E2C0C0055520E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4B30C1E0207F59270018BD6C /* KpiBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KpiBaseView.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			children = (
 				04FCF1991F0265D50087FBDF /* JobsHome.swift */,
 				04FCF19A1F0265D50087FBDF /* JobsHomeCell.swift */,
+				4B15739D20A4348500E9FFF7 /* LoadJob.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -637,6 +640,7 @@
 				4B30C207207F59270018BD6C /* SubRadio.swift in Sources */,
 				04461A041EFA66A7008CD1E2 /* MYButton.swift in Sources */,
 				04BCAD341EFA9DCF00745556 /* User.swift in Sources */,
+				4B15739E20A4348500E9FFF7 /* LoadJob.swift in Sources */,
 				4B30C205207F59270018BD6C /* SubCheckBox.swift in Sources */,
 				04C910B31EFD2131000D2DB8 /* HeaderView.swift in Sources */,
 				048C44851F5B167400E836C0 /* JobStruct.swift in Sources */,

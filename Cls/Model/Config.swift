@@ -25,9 +25,12 @@ struct Config {
         static let maps  = "http://maps.apple.com/?"
     }
 
-    static let zipSentPrefixt = "sent_"
-    static let filePrefix = "id_"
-    static let plist = ".plist"
+    struct File {
+        static let json = "/job.json"
+        static let zipPefix = "id_"
+        static let zipSentPrefix = "sent_"
+        static let plist = ".plist"
+    }
 
     struct Path {
         static let doc = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/"
@@ -35,6 +38,7 @@ struct Config {
         static let result = Config.Path.doc + "result/"
     }
 
+    
     struct DateFmt {
         static let Ora           = "HH:mm"
         static let DataJson      = "yyyy-MM-dd"

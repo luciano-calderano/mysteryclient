@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Jobs/JobDetail.swift"
-            timestampString = "547561237.4254791"
+            filePath = "Cls/Class/MYJob.swift"
+            timestampString = "547636068.000581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "initialize()"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "createJob(withDict:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Cls/Class/MYJob.swift"
-            timestampString = "547559681.530918"
+            filePath = "Jobs/LoadJob.swift"
+            timestampString = "547636128.982911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "createJob(withDict:)"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "openJobDetail()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

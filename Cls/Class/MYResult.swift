@@ -17,7 +17,7 @@ class MYResult {
     }
     
     func getFileName (withId id: String) -> String {
-        return Config.Path.result + id + Config.plist
+        return Config.Path.result + id + Config.File.plist
     }
     
     func loadResult (jobId id: Int) -> JobResult {

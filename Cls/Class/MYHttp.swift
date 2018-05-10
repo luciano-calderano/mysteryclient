@@ -138,10 +138,10 @@ class MYUpload {
                                                    includingPropertiesForKeys: nil,
                                                    options:[])
             
-            let results = files.filter{ $0.absoluteString.contains(Config.filePrefix) }
+            let results = files.filter{ $0.absoluteString.contains(Config.File.zipPefix) }
             for file in results {
                 let data = try Data.init(contentsOf: file, options: .mappedIfSafe)
-                let fileName = file.absoluteString.components(separatedBy: Config.filePrefix).last
+                let fileName = file.absoluteString.components(separatedBy: Config.File.zipPefix).last
                 let id = fileName?.components(separatedBy: ".").first
                 me.start(jobId: id!, data: data)
             }
@@ -179,7 +179,7 @@ class MYUpload {
                     upload.responseJSON { response in
                         if let JSON = response.result.value {
                             print("Upload: Response.JSON: \(JSON)")
-                            MYZip.removeZipWithId(jobId)
+                            MYZip.renameZipWithId(jobId)
                         }
                     }
                 case .failure(let encodingError):
