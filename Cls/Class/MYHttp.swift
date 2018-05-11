@@ -69,6 +69,21 @@ class MYHttp {
         }
     }
     
+    func loadAtch(url: String, ok: @escaping (Data) -> ()) {
+        printJson(json)
+        var headers = [String: String]()
+        headers["Authorization"] = User.shared.token
+
+        Alamofire.request(url,
+                          method: type,
+                          parameters: json,
+                          headers: headers).responseString { response in
+                            if response.result.isSuccess  {
+                                ok(response.data!)
+                            }
+        }
+    }
+    
     private func fixResponse (_ response: DataResponse<String>) -> (isValid: Bool, dict: JsonDict) {
         let statusCode = response.response?.statusCode
         let array = apiUrl.components(separatedBy: "/")
@@ -179,7 +194,7 @@ class MYUpload {
                     upload.responseJSON { response in
                         if let JSON = response.result.value {
                             print("Upload: Response.JSON: \(JSON)")
-                            MYZip.renameZipWithId(jobId)
+                            MYZip.removeZipWithId(jobId)
                         }
                     }
                 case .failure(let encodingError):

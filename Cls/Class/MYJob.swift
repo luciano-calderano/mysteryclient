@@ -67,22 +67,11 @@ class MYJob {
         _ = dict.saveToFile(self.getFileName(id: dict.int("id")))
 
         var job = Job()
-        job.compiled = dict.bool("compiled")    // Boolean [0/1]
-        job.irregular = dict.bool("irregular")  // Boolean [0/1]
-        job.updated = dict.bool("updated")      // Boolean [0/1]
-        
-        if job.compiled == true {
-            if job.irregular == false || job.updated == true {
-//Lc                return job
-            }
-        }
-        //            compiled = false
-        //            compiled = true & irregular = true & updated = false
-        //            print(job.compiled, job.irregular, job.updated)
-        
+
         job.id = dict.int("id")
         job.reference = dict.string("reference")
-        
+        job.irregular = dict.bool("irregular")  // Boolean [0/1]
+
         job.description = dict.string("description")
         job.additional_description = dict.string("additional_description")
         job.details = dict.string("details")
@@ -92,12 +81,7 @@ class MYJob {
         
         job.fee_desc = dict.string("fee_desc")
         job.status = dict.string("status")
-        job.booked = dict.bool("booked") // Boolean [0/1]
         job.booking_date = dict.date("booking_date", fmt: Config.DateFmt.DataOraJson)
-        job.compilation_date = dict.date("compilation_date", fmt: Config.DateFmt.DataOraJson)
-        job.update_date = dict.date("update_date", fmt: Config.DateFmt.DataOraJson)
-        job.validated = dict.bool("validated") // Boolean [0/1]
-        job.validation_date = dict.date("validation_date", fmt: Config.DateFmt.DataOraJson)
         job.notes = dict.string("notes")
         job.execution_date = dict.date("execution_date", fmt: Config.DateFmt.DataJson)
         job.execution_start_time = dict.string("execution_start_time") // Time [hh:mm]
@@ -185,7 +169,9 @@ class MYJob {
             kpi.result.notes = result.string("notes")
             kpi.result.attachment = result.string("attachment")
             kpi.result.url = result.string("url")
-            
+            kpi.result.irregular = result.bool("irregular")
+            kpi.result.irregular_note = result.string("irregular_note")
+
             array.append(kpi)
         }
         return array

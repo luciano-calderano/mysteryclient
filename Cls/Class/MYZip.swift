@@ -20,18 +20,22 @@ class MYZip {
         try? Zip.unzipFile(urlFile, destination: urlDest, overwrite: true, password: nil)
     }
     
-    class func renameZipWithId (_ id: String) {
-        let file = "file://" + MYZip.getZipFilePath(id: id)
-        let sent = file.replacingOccurrences(of: Config.File.zipPefix, with: Config.File.zipSentPrefix)
+    class func removeZipWithId (_ id: String) {
         do {
-            try FileManager.default.moveItem(at: URL.init(string: file)!,
-                                             to: URL.init(string: sent)!)
-        } catch let error as NSError {
-            print(error)
+            try? FileManager.default.removeItem(atPath: MYZip.getZipFilePath(id: id))
         }
     }
-
-    func createZipFileWithDict (_ dict: JsonDict) -> Bool {
+    class func zipFiles (_ files: [URL], toZipFile zipFile: URL) -> Bool {
+        do {
+            try Zip.zipFiles(paths: files, zipFilePath: zipFile, password: nil, progress: nil)
+            return true
+        } catch  {
+            print("Zip error")
+        }
+        return false
+    }
+    
+    class func createZipFileWithDict (_ dict: JsonDict) -> Bool {
         let jobId = String(MYJob.shared.job.id)
         let fm = FileManager.default
         let jobPath = Config.Path.doc + jobId

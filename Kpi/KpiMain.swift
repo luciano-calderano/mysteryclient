@@ -18,7 +18,8 @@ class KpiMain: MYViewController {
     @IBOutlet private var scroll: UIScrollView!
     @IBOutlet private var backBtn: MYButton!
     @IBOutlet private var nextBtn: MYButton!
-    
+    @IBOutlet private var warnBtn: UIButton!
+
     private var kpiView: KpiBaseView!
     
     var currentIndex = -1
@@ -26,6 +27,8 @@ class KpiMain: MYViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        warnBtn.isHidden = true
+        self.view.bringSubview(toFront: warnBtn)
         switch currentIndex {
         case -1:
             kpiView = KpiInitView.Instance()
@@ -36,6 +39,8 @@ class KpiMain: MYViewController {
             kpiView = KpiQuestView.Instance()
             kpiView.kpiIndex = currentIndex
             scroll.backgroundColor = UIColor.white
+            let kpi = MYJob.shared.job.kpis[currentIndex]
+            warnBtn.isHidden = (kpi.result.irregular == false)
         }
         kpiView.mainVC = self
         kpiView.delegate = self
@@ -57,8 +62,6 @@ class KpiMain: MYViewController {
     
     override func headerViewSxTapped() {
         self.navigationController?.popToRootViewController(animated: true)
-//        let vc = self.navigationController?.viewControllers[2]
-//        self.navigationController?.popToViewController(vc!, animated: true)
     }
     
     // MARK: - Actions
@@ -71,6 +74,11 @@ class KpiMain: MYViewController {
     
     @IBAction func prevTapped () {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func warnTapped () {
+        let kpi = MYJob.shared.job.kpis[currentIndex]
+        self.alert("Irregolare", message: kpi.result.irregular_note)
     }
     
     //MARK: - Private
@@ -140,20 +148,17 @@ extension KpiMain: KpiDelegate {
 
 extension KpiMain {
     private func sendKpiResult () {
-        guard MYZip().createZipFileWithDict(MYResult.shared.resultDict) else {
-            alert ("Errore zip", message: "", okBlock: nil)
+        let sendJob = SendJob()
+        let result = sendJob.createZipFileWithDict(MYResult.shared.resultDict)
+        
+        guard result.isEmpty else {
+            alert ("Errore zip", message: result, okBlock: nil)
             return
         }
+        
         alert (Lng("readyToSend"), message: "", okBlock: {
             (ready) in
             self.navigationController!.popToRootViewController(animated: true)
-//            let nav = self.navigationController!
-//            if nav.viewControllers.count > 1 {
-//                let vc = nav.viewControllers[1]
-//                nav.popToViewController(vc, animated: true)
-//            } else {
-//                nav.popToRootViewController(animated: true)
-//            }
         })
     }
 }

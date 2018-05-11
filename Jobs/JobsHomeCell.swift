@@ -29,7 +29,7 @@ class JobsHomeCell: UITableViewCell {
     @IBOutlet private var rif: MYLabel!
     @IBOutlet private var day: MYLabel!
     @IBOutlet private var month: MYLabel!
-    @IBOutlet private var warn: UIImageView!
+    @IBOutlet private var warn: MYLabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

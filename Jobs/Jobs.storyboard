@@ -39,15 +39,15 @@
                                 <rect key="frame" x="0.0" y="75" width="375" height="592"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="JobsHomeCell" rowHeight="100" id="dlN-xa-jb3" customClass="JobsHomeCell" customModule="MysteryClient" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="JobsHomeCell" rowHeight="120" id="dlN-xa-jb3" customClass="JobsHomeCell" customModule="MysteryClient" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dlN-xa-jb3" id="SUC-Ks-xWJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUL-eh-v3X" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
-                                                    <rect key="frame" x="50" y="2" width="314" height="24"/>
+                                                    <rect key="frame" x="50" y="22" width="314" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="hhw-gB-72w"/>
                                                     </constraints>
@@ -55,7 +55,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Addr." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnJ-zf-ORg" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
-                                                    <rect key="frame" x="50" y="31" width="278" height="17"/>
+                                                    <rect key="frame" x="50" y="51" width="278" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="52" id="9l7-av-6bj"/>
                                                     </constraints>
@@ -63,7 +63,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rif. " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sLZ-Tj-CAi" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
-                                                    <rect key="frame" x="50" y="75" width="278" height="20"/>
+                                                    <rect key="frame" x="50" y="95" width="278" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="PTA-x9-vEd"/>
                                                     </constraints>
@@ -72,7 +72,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dd" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHV-a4-ZbS" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
-                                                    <rect key="frame" x="2" y="26" width="44" height="30"/>
+                                                    <rect key="frame" x="2" y="46" width="44" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="BYF-we-InR"/>
                                                         <constraint firstAttribute="height" constant="30" id="Um4-cq-zZK"/>
@@ -81,7 +81,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mmm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnW-jk-5LL" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
-                                                    <rect key="frame" x="2" y="56" width="44" height="18"/>
+                                                    <rect key="frame" x="2" y="76" width="44" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="HaN-sR-Y3m"/>
                                                         <constraint firstAttribute="width" constant="44" id="O1q-WA-qdU"/>
@@ -90,7 +90,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="haH-R7-rk4">
-                                                    <rect key="frame" x="331" y="34" width="32" height="32"/>
+                                                    <rect key="frame" x="331" y="64" width="32" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="Gb1-8O-8s4"/>
                                                         <constraint firstAttribute="height" constant="32" id="XnC-Vi-dg0"/>
@@ -100,33 +100,33 @@
                                                         <action selector="mapTapped" destination="dlN-xa-jb3" eventType="touchUpInside" id="kTV-gR-21i"/>
                                                     </connections>
                                                 </button>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico.warn" translatesAutoresizingMaskIntoConstraints="NO" id="0GN-el-yZM">
-                                                    <rect key="frame" x="335" y="71" width="24" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="24" id="DcT-MR-eoq"/>
-                                                        <constraint firstAttribute="height" constant="24" id="fmU-ux-hxx"/>
-                                                    </constraints>
-                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IRREGOLARE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7XG-Qq-2Tf" customClass="MYLabel" customModule="MysteryClient" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="4" width="375" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="sLZ-Tj-CAi" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" constant="50" id="1z2-Lg-8R0"/>
-                                                <constraint firstAttribute="bottom" secondItem="0GN-el-yZM" secondAttribute="bottom" constant="4.5" id="2y7-E1-YdD"/>
                                                 <constraint firstItem="LnW-jk-5LL" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" constant="2" id="3bl-jL-9Cv"/>
                                                 <constraint firstAttribute="trailing" secondItem="sLZ-Tj-CAi" secondAttribute="trailing" constant="47" id="3zT-sQ-GjV"/>
+                                                <constraint firstAttribute="trailing" secondItem="7XG-Qq-2Tf" secondAttribute="trailing" id="4WN-LW-PEd"/>
                                                 <constraint firstItem="lnJ-zf-ORg" firstAttribute="leading" secondItem="LnW-jk-5LL" secondAttribute="trailing" constant="4" id="4pT-p6-oAU"/>
-                                                <constraint firstItem="haH-R7-rk4" firstAttribute="centerY" secondItem="SUC-Ks-xWJ" secondAttribute="centerY" id="9G0-fI-EUG"/>
-                                                <constraint firstItem="lUL-eh-v3X" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="top" constant="2" id="AYZ-Xu-3bd"/>
+                                                <constraint firstItem="haH-R7-rk4" firstAttribute="centerY" secondItem="SUC-Ks-xWJ" secondAttribute="centerY" constant="20.25" id="9G0-fI-EUG"/>
+                                                <constraint firstItem="lUL-eh-v3X" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="top" constant="22" id="AYZ-Xu-3bd"/>
                                                 <constraint firstItem="lUL-eh-v3X" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" constant="50" id="GDi-Xa-rtv"/>
                                                 <constraint firstAttribute="trailing" secondItem="lUL-eh-v3X" secondAttribute="trailing" constant="11" id="LwH-VG-GVW"/>
                                                 <constraint firstAttribute="bottom" secondItem="sLZ-Tj-CAi" secondAttribute="bottom" constant="4.5" id="PaD-Gy-UUf"/>
                                                 <constraint firstItem="haH-R7-rk4" firstAttribute="leading" secondItem="lnJ-zf-ORg" secondAttribute="trailing" constant="3" id="QEE-SV-exO"/>
+                                                <constraint firstItem="7XG-Qq-2Tf" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="top" constant="4" id="QEg-ER-f0o"/>
                                                 <constraint firstItem="LnW-jk-5LL" firstAttribute="top" secondItem="XHV-a4-ZbS" secondAttribute="bottom" id="aQE-NW-bX0"/>
-                                                <constraint firstItem="lnJ-zf-ORg" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="topMargin" constant="20" id="cnh-wb-9oh"/>
+                                                <constraint firstItem="7XG-Qq-2Tf" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" id="bDR-g8-BbJ"/>
+                                                <constraint firstItem="lnJ-zf-ORg" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="topMargin" constant="40" id="cnh-wb-9oh"/>
                                                 <constraint firstItem="XHV-a4-ZbS" firstAttribute="leading" secondItem="SUC-Ks-xWJ" secondAttribute="leading" constant="2" id="f11-Xc-MtN"/>
-                                                <constraint firstItem="XHV-a4-ZbS" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="top" constant="26" id="oy6-OW-ySk"/>
+                                                <constraint firstItem="XHV-a4-ZbS" firstAttribute="top" secondItem="SUC-Ks-xWJ" secondAttribute="top" constant="46" id="oy6-OW-ySk"/>
                                                 <constraint firstAttribute="trailing" secondItem="haH-R7-rk4" secondAttribute="trailing" constant="12" id="pv9-Wj-aZt"/>
-                                                <constraint firstAttribute="trailing" secondItem="0GN-el-yZM" secondAttribute="trailing" constant="16" id="vnI-Dx-DU1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -136,7 +136,7 @@
                                             <outlet property="month" destination="LnW-jk-5LL" id="RTh-Wa-73H"/>
                                             <outlet property="name" destination="lUL-eh-v3X" id="JuO-T3-BNa"/>
                                             <outlet property="rif" destination="sLZ-Tj-CAi" id="DLc-Xv-huw"/>
-                                            <outlet property="warn" destination="0GN-el-yZM" id="wOw-68-QIZ"/>
+                                            <outlet property="warn" destination="7XG-Qq-2Tf" id="4x8-a1-XP2"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -540,7 +540,6 @@
         <image name="ico.start_tempo" width="80" height="80"/>
         <image name="ico.stop_tempo" width="80" height="80"/>
         <image name="ico.ticket" width="80" height="80"/>
-        <image name="ico.warn" width="128" height="118"/>
         <image name="photo" width="1439" height="661"/>
         <image name="reload" width="100" height="100"/>
     </resources>

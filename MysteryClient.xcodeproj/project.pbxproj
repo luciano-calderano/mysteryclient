@@ -75,6 +75,7 @@
 		4B31134D207E174700BA77D8 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B311347207E174700BA77D8 /* MenuView.swift */; };
 		4B43C493208E07CB0073D566 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B43C492208E07CB0073D566 /* Main.swift */; };
 		4B6C1BCB207F867300715B82 /* KpiAtch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C1BCA207F867300715B82 /* KpiAtch.swift */; };
+		4BC22C0B20A46F00006E7E19 /* SendJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC22C0A20A46F00006E7E19 /* SendJob.swift */; };
 		4BF963C3209C5D5300D57E21 /* MYExt.Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF963BE209C5D4D00D57E21 /* MYExt.Date.swift */; };
 		4BF963C4209C5D5300D57E21 /* MYExt.Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF963BF209C5D4D00D57E21 /* MYExt.Dictionary.swift */; };
 		4BF963C5209C5D5300D57E21 /* MYExt.String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF963C0209C5D4D00D57E21 /* MYExt.String.swift */; };
@@ -168,6 +169,7 @@
 		4B311347207E174700BA77D8 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		4B43C492208E07CB0073D566 /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		4B6C1BCA207F867300715B82 /* KpiAtch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KpiAtch.swift; sourceTree = "<group>"; };
+		4BC22C0A20A46F00006E7E19 /* SendJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendJob.swift; sourceTree = "<group>"; };
 		4BF963BE209C5D4D00D57E21 /* MYExt.Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYExt.Date.swift; sourceTree = "<group>"; };
 		4BF963BF209C5D4D00D57E21 /* MYExt.Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYExt.Dictionary.swift; sourceTree = "<group>"; };
 		4BF963C0209C5D4D00D57E21 /* MYExt.String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYExt.String.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				4B30C1E0207F59270018BD6C /* KpiBaseView.swift */,
 				4B30C1E1207F59270018BD6C /* KpiMainUtil.swift */,
 				4B6C1BCA207F867300715B82 /* KpiAtch.swift */,
+				4BC22C0A20A46F00006E7E19 /* SendJob.swift */,
 			);
 			path = Kpi;
 			sourceTree = "<group>";
@@ -647,6 +650,7 @@
 				04BEDABB1F5BF8640076A05E /* MYResult.swift in Sources */,
 				4B261B0C208E2C0C0055520E /* LoginView.swift in Sources */,
 				04BC64121EFD830E00C0912D /* AppDelegate.swift in Sources */,
+				4BC22C0B20A46F00006E7E19 /* SendJob.swift in Sources */,
 				4B30C200207F59270018BD6C /* KpiMain.swift in Sources */,
 				04A2109A1F03A82A00D1480C /* JobDetailDesc.swift in Sources */,
 				4B30C1F9207F59270018BD6C /* KpiMainUtil.swift in Sources */,

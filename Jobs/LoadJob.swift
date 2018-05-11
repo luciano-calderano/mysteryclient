@@ -59,7 +59,11 @@ class LoadJob {
             (response) in
             let dict = response.dictionary("job")
             MYJob.shared.job = MYJob.shared.createJob(withDict: dict)
-            self.openJobDetail()
+            if MYJob.shared.job.irregular == true {
+                self.downloadResult()
+            } else {
+                self.openJobDetail()
+            }
             
         }) {
             (errorCode, message) in
@@ -74,52 +78,40 @@ class LoadJob {
             MYJob.shared.kpiKeyList.append(kpi.id)
         }
         
-        if MYJob.shared.job.irregular == true {
-        }
-        reopenSentZip()
-
         self.delegate?.loadJobSuccess(self)
     }
     
     //MARK:- Irregular = true
     
-    private func reopenSentZip () {
-        let id = String(MYJob.shared.job.id)
-        let file = MYZip.getZipFilePath(id: id)
-        let sent = file.replacingOccurrences(of: Config.File.zipPefix, with: Config.File.zipSentPrefix)
-        guard fm.fileExists(atPath: sent) else {
-            return
+    private func downloadResult () {
+        for kpi in MYJob.shared.job.kpis {
+            let kpiResult = kpi.result
+            let result = JobResult.KpiResult()
+            result.kpi_id = kpiResult.id
+            result.value = kpiResult.value
+            result.notes = kpiResult.notes
+            result.attachment = kpiResult.attachment
+            MYJob.shared.jobResult.results.append(result)
+            if kpiResult.url.isEmpty == false {
+                downloadAtch(url: kpiResult.url, kpiId: kpi.id)
+            }
         }
-        
-        let urlFile = URL.init(string: sent)!
-        let urlDest = URL.init(string: workingPath)!
-        MYZip.unzip(urlFile: urlFile, urlDest: urlDest)
-        
-        let dict = reloadJson()
-        MYJob.shared.jobResult = MYResult.shared.resultWithDict(dict)
-        try? fm.removeItem(atPath: sent)
+        openJobDetail()
     }
-    
-    private func reloadJson () -> JsonDict {
-        let jsonFile = workingPath + Config.File.json
-        let url = URL.init(fileURLWithPath: jsonFile)
-        do {
-            let data = try Data.init(contentsOf:url)
-            return createJsonWithData(data)
-        }
-        catch let error as NSError {
-            print("\nError reading data: \(error.localizedDescription)")
-        }
-        return JsonDict()
-    }
-    
-    private func createJsonWithData (_ data: Data) -> JsonDict {
-        do {
-            let dict = try JSONSerialization.jsonObject(with: data, options: []) as! JsonDict
-            return dict
-        } catch {
-            print("\nJSONSerialization: \(error.localizedDescription)")
-        }
-        return JsonDict()
+
+    private func downloadAtch (url urlString: String, kpiId: Int) {
+        let job = MYJob.shared.job
+        let param = [ "object" : "job", "result_attachment":  job.id ] as JsonDict
+        let request = MYHttp.init(.get, param: param, showWheel: false)
+        
+        request.loadAtch(url: urlString, ok: {
+            (response) in
+            let dest = self.workingPath + "/\(MYJob.shared.job.reference).\(kpiId).jpg"
+            do {
+                try response.write(to: URL.init(string: "file://" + dest)!)
+            } catch {
+                print("Unable to load data: \(error)")
+            }
+        })
     }
 }

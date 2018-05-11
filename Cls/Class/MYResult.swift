@@ -13,9 +13,6 @@ class MYResult {
 
     var resultDict = JsonDict()
     
-    init() {
-    }
-    
     func getFileName (withId id: String) -> String {
         return Config.Path.result + id + Config.File.plist
     }

@@ -20,14 +20,7 @@ struct Job {
     var estimate_date: Date! //  = "" // Date [aaaa-mm-dd]
     var fee_desc = ""
     var status = ""
-    var booked = false
     var booking_date: Date! // = "" //Date and Time [aaaa-mm-dd hh:mm:ss]
-    var compiled = false
-    var compilation_date: Date! //  = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
-    var updated = false
-    var update_date: Date? //  = "" // Date and Time [aaaa-mm-dd hh:mm:ss]
-    var validated = false
-    var validation_date: Date? //  = "" // Date and Time
     var irregular = false
     var notes = ""
     var positioning = Positioning() // Object
@@ -104,6 +97,8 @@ struct Job {
             var notes = ""
             var attachment = ""
             var url = ""
+            var irregular = false
+            var irregular_note = ""
         }
         class Valuation {
             var id = 0
