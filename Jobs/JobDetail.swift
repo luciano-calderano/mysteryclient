@@ -124,7 +124,7 @@ class JobDetail: MYViewController {
     }
     
     @IBAction func tickTapped () {
-        openWeb(type: .ticketView)
+        openWeb(type: .ticketView, id: MYJob.shared.job.id)
     }
     
     @IBAction func strtTapped () {

@@ -36,6 +36,8 @@ class JobsHome: MYViewController {
     private func loadJobs () {
         getList(done: { (array) in
             var jobsArray = [Job]()
+            MYJob.shared.clearJobs()
+
             for dict in array {
                 let job = MYJob.shared.createJob(withDict: dict)
                 if job.id > 0 {

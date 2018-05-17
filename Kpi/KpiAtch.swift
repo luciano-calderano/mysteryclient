@@ -71,7 +71,11 @@ class KpiAtch: NSObject, UIImagePickerControllerDelegate, UINavigationController
         if type == .camera {
             picker.cameraCaptureMode = .photo
         }
-        mainVC.present(picker, animated: true, completion: nil)
+        let wheel = MYWheel()
+        wheel.start(mainVC.view)
+        mainVC.present(picker, animated: true) {
+            wheel.stop()
+        }
     }
 
 //MARK:- UIImagePickerControllerDelegate, UINavigationControllerDelegate

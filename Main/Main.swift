@@ -169,13 +169,17 @@ extension Main {
 
 extension Main: LoginViewDelegate {
     func loginView(_ view: LoginView, user: String, pass: String, save: Bool) {
+        let wheel = MYWheel()
+        wheel.start(view)
         User.shared.checkUser(saveCredential: save,
                               userName: user,
                               password: pass,
                               completion: { () in
+                                wheel.stop()
                                 view.removeFromSuperview()
                                 
         }) { (errorCode, message) in
+            wheel.stop()
             self.alert(errorCode, message: message, okBlock: nil)
         }
     }

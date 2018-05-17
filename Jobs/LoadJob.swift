@@ -25,20 +25,28 @@ class LoadJob {
         workingPath = Config.Path.doc + "\(MYJob.shared.job.id)"
         
         if fm.fileExists(atPath: workingPath) == false {
-            do {
-                try fm.createDirectory(atPath: workingPath,
-                                       withIntermediateDirectories: true,
-                                       attributes: nil)
-            } catch let error as NSError {
-                print("Unable to create directory \(error.debugDescription)")
+            if craateWorkingParh() {
+                return
             }
         }
         
-        if MYJob.shared.jobResult.execution_date.isEmpty {
+        if MYJob.shared.job.kpis.count == 0 {
             getDetail ()
         } else {
             openJobDetail()
         }
+    }
+    
+    private func craateWorkingParh() -> Bool {
+        do {
+            try fm.createDirectory(atPath: workingPath,
+                                   withIntermediateDirectories: true,
+                                   attributes: nil)
+        } catch let error as NSError {
+            self.delegate?.loadJobError(self, errorCode: "Unable to create directory", message: error.debugDescription)
+            return true
+        }
+        return false
     }
     
     private func getDetail () {

@@ -9,7 +9,6 @@
 // web: mysteryclient.mebius.it - User: utente_gen - Pw: novella44
 
 import Foundation
-import MYLib
 
 typealias JsonDict = Dictionary<String, Any>
 func Lng(_ key: String) -> String {
@@ -37,7 +36,6 @@ struct Config {
         static let result = Config.Path.doc + "result/"
     }
 
-    
     struct DateFmt {
         static let Ora           = "HH:mm"
         static let DataJson      = "yyyy-MM-dd"

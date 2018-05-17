@@ -126,16 +126,35 @@ class KpiQuestView: KpiBaseView {
     }
     
     @objc func atchRemove () {
-        let fileName = kpiQuestPath + currentResult.attachment
-        mainVC.alert(Lng("atchRemove"), message: "", cancelBlock: nil) {
-            (remove) in
-            do {
-                try FileManager.default.removeItem(atPath: fileName)
+        let imv = UIImageView()
+        imv.backgroundColor = UIColor.lightGray
+        imv.image = atchImage.image
+        imv.contentMode = .scaleAspectFit
+        imv.frame = UIScreen.main.bounds
+        imv.layer.borderColor = UIColor.white.cgColor
+        imv.layer.borderWidth = 5
+        mainVC.view.addSubview(imv)
+        
+        func showAlert() {
+            let fileName = kpiQuestPath + currentResult.attachment
+            mainVC.alert(Lng("atchRemove"), message: "", cancelBlock: {
+                (cancel) in
+                imv.removeFromSuperview()
+            }) {
+                (ok) in
+                imv.removeFromSuperview()
+                do {
+                    try FileManager.default.removeItem(atPath: fileName)
+                }
+                catch let error as NSError {
+                    print("removeItem atPath: \(error)")
+                }
+                self.showAtch()
             }
-            catch let error as NSError {
-                print("removeItem atPath: \(error)")
-            }
-            self.showAtch()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            showAlert()
         }
     }
     

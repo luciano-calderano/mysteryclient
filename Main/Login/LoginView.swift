@@ -40,6 +40,8 @@ class LoginView: UIView {
         versLabel.text = "Vers.\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"        
         checkImg = saveCredButton.image(for: .normal)
         saveCredButton.imageEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2)
+        userText.delegate = self
+        passText.delegate = self
         
         userView.layer.cornerRadius = userView.frame.size.height / 2
         passView.layer.cornerRadius = passView.frame.size.height / 2
@@ -49,8 +51,8 @@ class LoginView: UIView {
         let credential = User.shared.credential()
         userText.text = credential.user
         passText.text = credential.pass
-                userText.text = "utente_gen"
-                passText.text = "novella44"
+//                userText.text = "utente_gen"
+//                passText.text = "novella44"
         saveCred = !credential.user.isEmpty
         updateCheckCredential()
     }
