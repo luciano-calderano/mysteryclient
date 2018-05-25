@@ -34,6 +34,10 @@ class KpiBaseView: UIView {
     func initialize () {
     }
     
+    func getHeight () -> CGFloat {
+        return self.frame.size.height
+    }
+    
     func checkData(completion: @escaping (KpiResultType) -> ()) {
 //        return .err
     }

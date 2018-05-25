@@ -56,6 +56,11 @@ class KpiQuestView: KpiBaseView {
         addQuestSubview(type: currentKpi.type)
     }
     
+    override func getHeight() -> CGFloat {
+        
+        return atchView.frame.origin.y + 100
+    }
+
     override func checkData(completion: @escaping (KpiResultType) -> ()) {
         let responseValue = kpiQuestSubView.getValuation()
         var noteRequired = currentKpi.note_required

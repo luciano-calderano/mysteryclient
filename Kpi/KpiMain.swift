@@ -44,7 +44,7 @@ class KpiMain: MYViewController {
         }
         kpiView.mainVC = self
         kpiView.delegate = self
-        scroll.addSubviewWithConstraints(kpiView)
+        scroll.addSubview(kpiView)
         showPageNum()
         
         myKeyboard = MYKeyboard(vc: self, scroll: scroll)
@@ -61,7 +61,16 @@ class KpiMain: MYViewController {
     }
     
     override func headerViewSxTapped() {
-        self.navigationController?.popToRootViewController(animated: true)
+       self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        var rect = kpiView.frame
+        rect.size.height = kpiView.getHeight()
+        rect.size.width = scroll.frame.size.width
+        kpiView.frame = rect
+        scroll.contentSize = rect.size
     }
     
     // MARK: - Actions
