@@ -51,8 +51,8 @@ class LoginView: UIView {
         let credential = User.shared.credential()
         userText.text = credential.user
         passText.text = credential.pass
-//                userText.text = "utente_gen"
-//                passText.text = "novella44"
+                userText.text = "utente_gen"
+                passText.text = "novella44"
         saveCred = !credential.user.isEmpty
         updateCheckCredential()
     }
