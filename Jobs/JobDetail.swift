@@ -75,6 +75,9 @@ class JobDetail: MYViewController {
     }
     
     // MARK: - actions
+    @IBAction func euroTapped () {
+        alert("Descrizione compenso", message: MYJob.shared.job.fee_desc)
+    }
     
     @IBAction func mapsTapped () {
         let store = MYJob.shared.job.store
@@ -86,7 +89,6 @@ class JobDetail: MYViewController {
     @IBAction func descTapped () {
         let subView = JobDetailDesc.Instance()
         subView.frame = view.frame
-        subView.jobDesc.text = MYJob.shared.job.description
         view.addSubview(subView)
     }
     

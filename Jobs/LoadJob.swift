@@ -11,7 +11,7 @@ protocol LoadJobDelegate {
     func loadJobError(_ loadJob: LoadJob, errorCode: String, message: String)
 }
 
-import Foundation
+import UIKit
 
 class LoadJob {
     var delegate: LoadJobDelegate?
@@ -115,10 +115,17 @@ class LoadJob {
         request.loadAtch(url: urlString, ok: {
             (response) in
             let dest = self.workingPath + "/\(MYJob.shared.job.reference).\(kpiId).jpg"
-            do {
-                try response.write(to: URL.init(string: "file://" + dest)!)
-            } catch {
-                print("Unable to load data: \(error)")
+            print(dest)
+            if UIImage.init(data: response) == nil {
+                let s = String.init(data: response, encoding: .utf8)
+                print(s ?? "???")
+            }
+            else {
+                do {
+                    try response.write(to: URL.init(string: "file://" + dest)!)
+                } catch {
+                    print("Unable to load data: \(error)")
+                }
             }
         })
     }

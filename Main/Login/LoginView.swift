@@ -53,6 +53,9 @@ class LoginView: UIView {
         passText.text = credential.pass
                 userText.text = "utente_gen"
                 passText.text = "novella44"
+//        userText.text = "fc883"
+//        passText.text = "mebius01"
+
         saveCred = !credential.user.isEmpty
         updateCheckCredential()
     }

@@ -410,16 +410,29 @@
                                                             <constraint firstAttribute="bottom" secondItem="Q8w-Tp-Wyx" secondAttribute="bottom" constant="11" id="bVE-RH-Pxe"/>
                                                         </constraints>
                                                     </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Qk-BM-h2U">
+                                                        <rect key="frame" x="319" y="8" width="48" height="48"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="48" id="Fhp-NO-2e0"/>
+                                                            <constraint firstAttribute="height" constant="48" id="hLJ-s7-I9a"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button" backgroundImage="ico.euro"/>
+                                                        <connections>
+                                                            <action selector="euroTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="k2l-2z-tZV"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="cuA-Pf-pMu" firstAttribute="bottom" secondItem="W71-hN-Xg6" secondAttribute="bottom" constant="-5" id="0BU-r2-rn1"/>
                                                     <constraint firstAttribute="trailing" secondItem="ISX-2N-sif" secondAttribute="trailing" id="0NC-iA-BhC"/>
+                                                    <constraint firstItem="9Qk-BM-h2U" firstAttribute="top" secondItem="LpZ-Xy-liU" secondAttribute="top" constant="8" id="0do-zz-Qwo"/>
                                                     <constraint firstItem="R79-t4-NFN" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" id="0lJ-Hq-30R"/>
                                                     <constraint firstAttribute="trailing" secondItem="R79-t4-NFN" secondAttribute="trailing" id="75S-eI-aGP"/>
                                                     <constraint firstItem="cuA-Pf-pMu" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" constant="8" id="8Zb-D8-eOS"/>
                                                     <constraint firstAttribute="trailing" secondItem="W71-hN-Xg6" secondAttribute="trailing" id="9yb-5c-4gD"/>
                                                     <constraint firstItem="ReD-uP-KVj" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" id="AAJ-bF-IrH"/>
+                                                    <constraint firstAttribute="trailing" secondItem="9Qk-BM-h2U" secondAttribute="trailing" constant="8" id="Ax7-mT-0Ew"/>
                                                     <constraint firstAttribute="trailing" secondItem="cuA-Pf-pMu" secondAttribute="trailing" constant="8" id="RJM-pL-jlz"/>
                                                     <constraint firstItem="ISX-2N-sif" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" id="Y4I-Mc-CWy"/>
                                                     <constraint firstAttribute="height" constant="590" id="caC-ck-oNo"/>
@@ -534,6 +547,7 @@
     </scenes>
     <resources>
         <image name="ico.back" width="128" height="128"/>
+        <image name="ico.euro" width="64" height="64"/>
         <image name="ico.matita" width="80" height="80"/>
         <image name="ico.pinMap" width="256" height="256"/>
         <image name="ico.shop" width="104" height="104"/>
