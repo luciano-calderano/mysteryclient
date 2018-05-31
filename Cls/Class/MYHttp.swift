@@ -101,7 +101,7 @@ class MYHttp {
             return (isValid, dict)
         }
         let errorMessage = response.error == nil ? "Server error" :  (response.error?.localizedDescription)!
-        let dict = [ "err" : "Err. \(statusCode!)\n[ \(page) ]",  "msg" : errorMessage ]
+        let dict = [ "err" : "Err. \(statusCode ?? 0)\n[ \(page) ]",  "msg" : errorMessage ]
         return (false, dict)
     }
     
@@ -141,6 +141,7 @@ class MYHttp {
         }
     }
 }
+
 
 class MYUpload {
     class func startUpload() {

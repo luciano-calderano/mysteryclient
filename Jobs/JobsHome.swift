@@ -35,19 +35,27 @@ class JobsHome: MYViewController {
     
     private func loadJobs () {
         getList(done: { (array) in
+            func zipExists (id: Int) -> Bool {
+                let file = MYZip.getZipFilePath(id: "\(id)")
+                return FileManager.default.fileExists(atPath: file)
+            }
+
             var jobsArray = [Job]()
             MYJob.shared.clearJobs()
 
             for dict in array {
                 let job = MYJob.shared.createJob(withDict: dict)
                 if job.id > 0 {
-                    jobsArray.append(job)
+                    if zipExists(id: job.id) == false  {
+                        jobsArray.append(job)
+                    }
                 }
             }
             self.dataArray = jobsArray
             self.tableView.reloadData()
         })
     }
+    
 }
 
 // MARK: - Job List

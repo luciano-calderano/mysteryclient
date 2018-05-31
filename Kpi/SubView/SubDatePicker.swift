@@ -44,7 +44,7 @@ class SubDatePicker: KpiBaseSubView, UIPickerViewDelegate {
         default:
             kpiPicker.datePickerMode = .dateAndTime
         }
-        kpiPicker.minuteInterval = 15
+        kpiPicker.minuteInterval = 1
     }
     
     override func getValuation () -> KpiResponseValues {
