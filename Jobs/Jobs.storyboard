@@ -189,6 +189,17 @@
                                     <userDefinedRuntimeAttribute type="image" keyPath="sxImage" value="ico.back"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Qk-BM-h2U">
+                                <rect key="frame" x="323" y="24" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="Fhp-NO-2e0"/>
+                                    <constraint firstAttribute="height" constant="48" id="hLJ-s7-I9a"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="ico.euro"/>
+                                <connections>
+                                    <action selector="euroTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="k2l-2z-tZV"/>
+                                </connections>
+                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eqW-eh-1Cr">
                                 <rect key="frame" x="0.0" y="75" width="375" height="530"/>
                                 <subviews>
@@ -410,29 +421,16 @@
                                                             <constraint firstAttribute="bottom" secondItem="Q8w-Tp-Wyx" secondAttribute="bottom" constant="11" id="bVE-RH-Pxe"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Qk-BM-h2U">
-                                                        <rect key="frame" x="319" y="8" width="48" height="48"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="48" id="Fhp-NO-2e0"/>
-                                                            <constraint firstAttribute="height" constant="48" id="hLJ-s7-I9a"/>
-                                                        </constraints>
-                                                        <state key="normal" title="Button" backgroundImage="ico.euro"/>
-                                                        <connections>
-                                                            <action selector="euroTapped" destination="FC9-J1-Ozm" eventType="touchUpInside" id="k2l-2z-tZV"/>
-                                                        </connections>
-                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="cuA-Pf-pMu" firstAttribute="bottom" secondItem="W71-hN-Xg6" secondAttribute="bottom" constant="-5" id="0BU-r2-rn1"/>
                                                     <constraint firstAttribute="trailing" secondItem="ISX-2N-sif" secondAttribute="trailing" id="0NC-iA-BhC"/>
-                                                    <constraint firstItem="9Qk-BM-h2U" firstAttribute="top" secondItem="LpZ-Xy-liU" secondAttribute="top" constant="8" id="0do-zz-Qwo"/>
                                                     <constraint firstItem="R79-t4-NFN" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" id="0lJ-Hq-30R"/>
                                                     <constraint firstAttribute="trailing" secondItem="R79-t4-NFN" secondAttribute="trailing" id="75S-eI-aGP"/>
                                                     <constraint firstItem="cuA-Pf-pMu" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" constant="8" id="8Zb-D8-eOS"/>
                                                     <constraint firstAttribute="trailing" secondItem="W71-hN-Xg6" secondAttribute="trailing" id="9yb-5c-4gD"/>
                                                     <constraint firstItem="ReD-uP-KVj" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" id="AAJ-bF-IrH"/>
-                                                    <constraint firstAttribute="trailing" secondItem="9Qk-BM-h2U" secondAttribute="trailing" constant="8" id="Ax7-mT-0Ew"/>
                                                     <constraint firstAttribute="trailing" secondItem="cuA-Pf-pMu" secondAttribute="trailing" constant="8" id="RJM-pL-jlz"/>
                                                     <constraint firstItem="ISX-2N-sif" firstAttribute="leading" secondItem="LpZ-Xy-liU" secondAttribute="leading" id="Y4I-Mc-CWy"/>
                                                     <constraint firstAttribute="height" constant="590" id="caC-ck-oNo"/>
@@ -508,8 +506,10 @@
                             <constraint firstAttribute="trailing" secondItem="IC6-RO-MEG" secondAttribute="trailing" id="0Zx-IB-alE"/>
                             <constraint firstItem="LpZ-Xy-liU" firstAttribute="width" secondItem="Amj-dB-b6a" secondAttribute="width" id="6X8-9b-fST"/>
                             <constraint firstItem="rNs-30-P4x" firstAttribute="leading" secondItem="Amj-dB-b6a" secondAttribute="leading" id="QTV-aC-p0m"/>
+                            <constraint firstAttribute="trailing" secondItem="9Qk-BM-h2U" secondAttribute="trailing" constant="4" id="QY4-9M-PTD"/>
                             <constraint firstItem="eqW-eh-1Cr" firstAttribute="top" secondItem="rNs-30-P4x" secondAttribute="bottom" id="VJY-fk-96D"/>
                             <constraint firstItem="IC6-RO-MEG" firstAttribute="leading" secondItem="Amj-dB-b6a" secondAttribute="leading" id="XCv-z8-zzQ"/>
+                            <constraint firstItem="9Qk-BM-h2U" firstAttribute="top" secondItem="yWU-b2-IQc" secondAttribute="bottom" constant="4" id="eM9-9F-btA"/>
                             <constraint firstItem="eqW-eh-1Cr" firstAttribute="leading" secondItem="Amj-dB-b6a" secondAttribute="leading" id="iVa-B8-YdV"/>
                             <constraint firstAttribute="trailing" secondItem="eqW-eh-1Cr" secondAttribute="trailing" id="oun-9u-yw8"/>
                             <constraint firstItem="9J0-V0-Hk9" firstAttribute="top" secondItem="IC6-RO-MEG" secondAttribute="bottom" id="qSe-Qj-jFS"/>
@@ -526,6 +526,7 @@
                         <outlet property="contBtn" destination="njB-2Y-bKe" id="YVC-XT-8Ss"/>
                         <outlet property="dateBtn" destination="xfo-3m-nur" id="JSx-se-lV9"/>
                         <outlet property="descBtn" destination="gwQ-P8-eYu" id="ZqJ-Q3-KXJ"/>
+                        <outlet property="euroBtn" destination="9Qk-BM-h2U" id="DyW-xX-iG4"/>
                         <outlet property="header" destination="rNs-30-P4x" id="cqK-1z-6ae"/>
                         <outlet property="infoLabel" destination="cuA-Pf-pMu" id="5jK-MN-2XD"/>
                         <outlet property="nameLabel" destination="VrF-YZ-Gww" id="cAi-5p-q1a"/>

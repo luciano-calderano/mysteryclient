@@ -25,7 +25,8 @@ class JobDetail: MYViewController {
     @IBOutlet var alleBtn: MYButton!
     @IBOutlet var spreBtn: MYButton!
     @IBOutlet var dateBtn: MYButton!
-    
+    @IBOutlet var euroBtn: UIButton!
+
     @IBOutlet var contBtn: MYButton!
     @IBOutlet var tickBtn: MYButton!
     @IBOutlet var strtBtn: MYButton!
@@ -65,7 +66,6 @@ class JobDetail: MYViewController {
             
             btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: -(titleSize.width + imageSize.width) / 2, bottom: -(imageSize.height + spacing), right: 0)
         }
-        
         showData()
     }
     
