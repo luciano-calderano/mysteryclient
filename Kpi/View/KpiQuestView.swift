@@ -118,7 +118,11 @@ class KpiQuestView: KpiBaseView {
         if currentResult.attachment.isEmpty == false {
             let fileName = kpiQuestPath + currentResult.attachment
             let imageURL = URL(fileURLWithPath: fileName)
-            atchImage.image = UIImage(contentsOfFile: imageURL.path)
+            if let image = UIImage(contentsOfFile: imageURL.path) {
+                atchImage.image = image
+            } else {
+                atchImage.image = UIImage.init(named: "ico.warn")
+            }
         }
         
         if atchImage.image == nil {

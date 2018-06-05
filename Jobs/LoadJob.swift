@@ -92,6 +92,7 @@ class LoadJob {
     //MARK:- Irregular = true
     
     private func downloadResult () {
+        MYJob.shared.jobResult.results.removeAll()
         for kpi in MYJob.shared.job.kpis {
             let kpiResult = kpi.result
             let result = JobResult.KpiResult()
@@ -114,15 +115,21 @@ class LoadJob {
         
         request.loadAtch(url: urlString, ok: {
             (response) in
-            let dest = self.workingPath + "/\(MYJob.shared.job.reference).\(kpiId).jpg"
-            print(dest)
-            if UIImage.init(data: response) == nil {
-                let s = String.init(data: response, encoding: .utf8)
-                print(s ?? "???")
-            }
-            else {
+            do {
+                let dict = try JSONSerialization.jsonObject(with: response, options: []) as! JsonDict
+                print(dict)
+            } catch {
+                let dest = self.workingPath + "/\(MYJob.shared.job.reference).\(kpiId)."
+                var suffix = ""
+                print(dest)
+                if UIImage.init(data: response) == nil {
+                    suffix = "pdf"
+                }
+                else {
+                    suffix = "jpg"
+                }
                 do {
-                    try response.write(to: URL.init(string: "file://" + dest)!)
+                    try response.write(to: URL.init(string: "file://" + dest + suffix)!)
                 } catch {
                     print("Unable to load data: \(error)")
                 }
