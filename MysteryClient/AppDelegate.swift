@@ -55,19 +55,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func createWorkingPath () {
-        let fm = FileManager.default
-        
-        if fm.fileExists(atPath: Config.Path.result) {
-            return
+        let fm = FileManager.default  
+        for path in [Config.Path.zip, Config.Path.result] {
+            if fm.fileExists(atPath: path) {
+                continue
+            }
+            do {
+                try fm.createDirectory(atPath: path,
+                                       withIntermediateDirectories: true,
+                                       attributes: nil)
+            } catch let error as NSError {
+                print("Directory (result) error: \(error.debugDescription)")
+            }
         }
-        do {
-            try fm.createDirectory(atPath: Config.Path.result,
-                                   withIntermediateDirectories: true,
-                                   attributes: nil)
-        } catch let error as NSError {
-            print("Directory (result) error: \(error.debugDescription)")
-        }
-
     }
 }
 

@@ -14,7 +14,7 @@ class MYZip {
         return Config.File.zipPefix + id + ".zip"
     }
     class func getZipFilePath (id: String) -> String {
-        return Config.Path.doc + MYZip.getZipFileName(id: id)
+        return Config.Path.zip + MYZip.getZipFileName(id: id)
     }
     class func unzip(urlFile: URL, urlDest: URL) {
         try? Zip.unzipFile(urlFile, destination: urlDest, overwrite: true, password: nil)
@@ -38,15 +38,13 @@ class MYZip {
     class func createZipFileWithDict (_ dict: JsonDict) -> Bool {
         let jobId = String(MYJob.shared.job.id)
         let fm = FileManager.default
-        let jobPath = Config.Path.doc + jobId
         
         do {
-        let json = try JSONSerialization.data(withJSONObject: dict,
-                                              options: .prettyPrinted)
+            let json = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
             
-            try? json.write(to: URL.init(fileURLWithPath: jobPath + Config.File.json))
+            try? json.write(to: URL.init(fileURLWithPath: MYJob.currentJobPath + Config.File.json))
             
-            let filesToZip = try fm.contentsOfDirectory(at: URL.init(string: jobPath)!,
+            let filesToZip = try fm.contentsOfDirectory(at: URL.init(string: MYJob.currentJobPath)!,
                                                    includingPropertiesForKeys: nil,
                                                    options: [])
             
@@ -56,7 +54,7 @@ class MYZip {
                              password: nil,
                              progress: nil)
             
-            try? fm.removeItem(atPath: jobPath)
+            try? fm.removeItem(atPath: MYJob.currentJobPath)
             MYJob.shared.removeJobWithId(MYJob.shared.job.id)
             MYResult.shared.removeResultWithId(MYJob.shared.job.id)
             

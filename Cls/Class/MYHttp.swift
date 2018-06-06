@@ -147,15 +147,15 @@ class MYUpload {
     class func startUpload() {
         let me = MYUpload()
         
-        let fm = FileManager.default
         do {
-            let docUrl = URL.init(string: Config.Path.doc)!
-            let files = try fm.contentsOfDirectory(at: docUrl,
+            let zipPath = URL.init(string: Config.Path.zip)!
+            let files = try FileManager.default.contentsOfDirectory(at: zipPath,
                                                    includingPropertiesForKeys: nil,
-                                                   options:[])
-            
-            let results = files.filter{ $0.absoluteString.contains(Config.File.zipPefix) }
-            for file in results {
+                                                   options:[])            
+            for file in files {
+                if file.pathExtension != "zip" {
+                    continue
+                }
                 let data = try Data.init(contentsOf: file, options: .mappedIfSafe)
                 let fileName = file.absoluteString.components(separatedBy: Config.File.zipPefix).last
                 let id = fileName?.components(separatedBy: ".").first

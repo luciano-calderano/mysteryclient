@@ -11,7 +11,6 @@ import Foundation
 class SendJob {
     private let fm = FileManager.default
     private let jobId = String(MYJob.shared.job.id)
-    private let jobPath = Config.Path.doc + String(MYJob.shared.job.id)
 
     func createZipFileWithDict (_ dict: JsonDict) -> String {
         do {
@@ -25,7 +24,7 @@ class SendJob {
     
     private func writeJson (_ json: Data) -> String {
         do {
-            try json.write(to: URL.init(fileURLWithPath: jobPath + Config.File.json))
+            try json.write(to: URL.init(fileURLWithPath: MYJob.currentJobPath + Config.File.json))
             return readFiles ()
 
         } catch {
@@ -35,7 +34,7 @@ class SendJob {
 
     private func readFiles () -> String {
         do {
-            let filesToZip = try fm.contentsOfDirectory(at: URL.init(string: jobPath)!,
+            let filesToZip = try fm.contentsOfDirectory(at: URL.init(string: MYJob.currentJobPath)!,
                                                                 includingPropertiesForKeys: nil,
                                                                 options: [])
         
@@ -55,7 +54,7 @@ class SendJob {
 
     private func removeFiles () -> String {
         do {
-            try fm.removeItem(atPath: jobPath)
+            try fm.removeItem(atPath: MYJob.currentJobPath)
             MYJob.shared.removeJobWithId(MYJob.shared.job.id)
             MYResult.shared.removeResultWithId(MYJob.shared.job.id)
             return ""

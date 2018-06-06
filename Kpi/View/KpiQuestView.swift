@@ -26,7 +26,7 @@ class KpiQuestView: KpiBaseView {
     
     private var valueMandatoty = true
     private var kpiQuestSubView: KpiBaseSubView!
-    private let kpiQuestPath = Config.Path.doc + String(MYJob.shared.job.id) + "/"
+//    private let kpiQuestPath = Config.Path.doc + String(MYJob.shared.job.id) + "/"
     private var kpiAtch: KpiAtch?
     
     //MARK:-
@@ -116,7 +116,7 @@ class KpiQuestView: KpiBaseView {
     func showAtch () {
         atchImage.image = nil
         if currentResult.attachment.isEmpty == false {
-            let fileName = kpiQuestPath + currentResult.attachment
+            let fileName = MYJob.currentJobPath + currentResult.attachment
             let imageURL = URL(fileURLWithPath: fileName)
             if let image = UIImage(contentsOfFile: imageURL.path) {
                 atchImage.image = image
@@ -135,6 +135,7 @@ class KpiQuestView: KpiBaseView {
     }
     
     @objc func atchRemove () {
+        
         let imv = UIImageView()
         imv.backgroundColor = UIColor.lightGray
         imv.image = atchImage.image
@@ -145,7 +146,7 @@ class KpiQuestView: KpiBaseView {
         mainVC.view.addSubview(imv)
         
         func showAlert() {
-            let fileName = kpiQuestPath + currentResult.attachment
+            let fileName = MYJob.currentJobPath + currentResult.attachment
             mainVC.alert(Lng("atchRemove"), message: "", cancelBlock: {
                 (cancel) in
                 imv.removeFromSuperview()
@@ -261,11 +262,11 @@ extension KpiQuestView: UITextViewDelegate {
 extension KpiQuestView: KpiAtchDelegate {
     func kpiAtchSelectedImage(_ image: UIImage) {
         currentResult.attachment = "\(MYJob.shared.job.reference).\(currentKpi.id).jpg"
-        let fileName = kpiQuestPath + currentResult.attachment
+        let fileName = MYJob.currentJobPath + currentResult.attachment
         
         do {
             if let data = UIImageJPEGRepresentation(image, 0.7) {
-                try data.write(to: URL.init(string: "file://" + fileName)!)
+                try data.write(to: URL.init(string: Config.File.urlPrefix + fileName)!)
             }
         } catch {
         }

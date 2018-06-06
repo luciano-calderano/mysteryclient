@@ -6,12 +6,9 @@ extension Dictionary {
     
     init (fromFile: String) {
         self.init()
-        guard FileManager.default.fileExists(atPath: fromFile) else {
-            return
-        }
         do {
-            let url = URL.init(fileURLWithPath: fromFile)
-            let data = try Data.init(contentsOf:url)//
+            let url = URL.init(string: fromFile)
+            let data = try Data.init(contentsOf:url!)//
             
             let dict = try PropertyListSerialization.propertyList(from: data, options: .mutableContainersAndLeaves, format: nil) as! Dictionary<Key, Value>
             for key in dict.keys {

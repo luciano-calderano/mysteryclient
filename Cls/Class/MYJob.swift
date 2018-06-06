@@ -11,11 +11,12 @@ import Zip
 
 class MYJob {
     static let shared = MYJob()
-
+    static var currentJobPath = ""
+    
     var job = Job()
     var jobResult = JobResult()
     var kpiKeyList = [Int]() // Di comodo per evitare la ricerca del kpi.id nell'arrey dei kpi
-
+    
     func clearJobs () {
         let fm = FileManager.default
         do {
@@ -32,19 +33,15 @@ class MYJob {
     
     func loadJobs() -> [JsonDict] {
         var jobs = [JsonDict]()
-        let fm = FileManager.default
-        
         do {
-            let files = try fm.contentsOfDirectory(atPath: Config.Path.jobs)
+            let files = try FileManager.default.contentsOfDirectory(at: URL.init(string: Config.Path.jobs)!,
+                                                                    includingPropertiesForKeys: nil,
+                                                                    options:[])
             for file in files {
-                let array = file.components(separatedBy: ".") 
-                if array.count != 2 {
+                if file.pathExtension != Config.File.plist {
                     continue
                 }
-                if array[1] != "plist" {
-                    continue
-                }
-                let dict = JsonDict.init(fromFile: Config.Path.jobs + file)
+                let dict = JsonDict.init(fromFile: file.absoluteString)
                 jobs.append(dict)
             }
         }
@@ -64,13 +61,13 @@ class MYJob {
     
     func createJob(withDict dict: JsonDict) -> Job {
         _ = dict.saveToFile(self.getFileName(id: dict.int("id")))
-
+        
         var job = Job()
-
+        
         job.id = dict.int("id")
         job.reference = dict.string("reference")
         job.irregular = dict.bool("irregular")  // Boolean [0/1]
-
+        
         job.description = dict.string("description")
         job.additional_description = dict.string("additional_description")
         job.details = dict.string("details")
@@ -86,6 +83,8 @@ class MYJob {
         job.execution_start_time = dict.string("execution_start_time") // Time [hh:mm]
         job.execution_end_time = dict.string("execution_end_time") // Time [hh:mm]
         job.comment = dict.string("comment")
+        job.comment_min = dict.int("comment_min")
+        job.comment_max = dict.int("comment_max")
         job.learning_done = dict.bool("learning_done") // Boolean [0/1]
         job.learning_url = dict.string("learning_url")
         job.store_closed = dict.bool("store_closed") // Boolean [0/1]
@@ -170,14 +169,14 @@ class MYJob {
             kpi.result.url = result.string("url")
             kpi.result.irregular = result.bool("irregular")
             kpi.result.irregular_note = result.string("irregular_note")
-
+            
             array.append(kpi)
         }
         return array
     }
     
     private func getFileName (id: Int) -> String {
-        let fileName = Config.Path.jobs + String(id) + Config.File.plist
+        let fileName = Config.Path.jobs + "\(id)." + Config.File.plist
         return fileName
     }
 }

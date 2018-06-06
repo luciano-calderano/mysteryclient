@@ -35,6 +35,14 @@ class KpiLastView: KpiBaseView {
     }
     
     override func checkData(completion: @escaping (KpiResultType) -> ()) {
+        if finalText.text.count < MYJob.shared.job.comment_min {
+            completion(.errComment)
+            return
+        }
+        if MYJob.shared.job.comment_max > 0 && finalText.text.count > MYJob.shared.job.comment_max {
+            completion(.errComment)
+            return
+        }
         MYJob.shared.jobResult.comment = finalText.text!
         MYJob.shared.jobResult.compiled = 1
         MYJob.shared.jobResult.compilation_date = datePicker.date.toString(withFormat: Config.DateFmt.DataOraJson)

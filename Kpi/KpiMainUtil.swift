@@ -36,6 +36,7 @@ enum KpiResultType {
     case errValue
     case errNotes
     case errAttch
+    case errComment
     case err
 }
 

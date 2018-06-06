@@ -27,13 +27,15 @@ struct Config {
     struct File {
         static let json = "/job.json"
         static let zipPefix = "id_"
-        static let plist = ".plist"
+        static let plist = "plist"
+        static let urlPrefix = "file://"
     }
 
     struct Path {
         static let doc = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/"
         static let jobs = Config.Path.doc + "jobs/"
         static let result = Config.Path.doc + "result/"
+        static let zip = Config.Path.doc + "zip/"
     }
 
     struct DateFmt {

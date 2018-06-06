@@ -98,17 +98,19 @@ class KpiMain: MYViewController {
             nextKpi()
         case .last:
             sendKpiResult()
+        case .errComment:
+            let max = MYJob.shared.job.comment_max > 0 ? MYJob.shared.job.comment_max : 999
+            let s = "La lunghezza dell commento deve essere tra \(MYJob.shared.job.comment_min) e \(max) caratteri"
+            alert(Lng("error"), message: s)
         case .errValue:
             alert(Lng("error"), message: Lng("noValue"))
-            return
         case .errNotes:
             alert(Lng("error"), message: Lng("noNotes"))
-            return
         case .errAttch:
 //            alert(Lng("error"), message: Lng("noAttch"))
-            return
+            break
         case .err:
-            return
+            break
         }
     }
     

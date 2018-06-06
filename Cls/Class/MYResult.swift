@@ -14,12 +14,12 @@ class MYResult {
     var resultDict = JsonDict()
     
     func getFileName (withId id: String) -> String {
-        return Config.Path.result + id + Config.File.plist
+        return Config.Path.result + id + "." + Config.File.plist
     }
     
     func loadResult (jobId id: Int) -> JobResult {
         var result = JobResult()
-        let dict = JsonDict.init(fromFile: getFileName(withId: String(id)))
+        let dict = JsonDict.init(fromFile: Config.File.urlPrefix + getFileName(withId: String(id)))
         if dict.isEmpty {
             result.id = id
             return result

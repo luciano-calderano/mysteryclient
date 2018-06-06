@@ -28,6 +28,8 @@ struct Job {
     var execution_start_time = "" // Time [hh:mm]
     var execution_end_time = "" // Time [hh:mm]
     var comment = ""
+    var comment_min = 0
+    var comment_max = 0
     var attachments = [Attachment]()
     var kpis = [Kpi]()
     var learning_done = false

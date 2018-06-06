@@ -15,16 +15,15 @@ import UIKit
 
 class LoadJob {
     var delegate: LoadJobDelegate?
-    private var workingPath = ""
+//    private var workingPath = ""
     private let fm = FileManager.default
     
     func selectedJob (_ job: Job) {
+        MYJob.currentJobPath = Config.Path.doc + "\(job.id)"
         MYJob.shared.job = job
         MYJob.shared.jobResult = MYResult.shared.loadResult (jobId: MYJob.shared.job.id)
         
-        workingPath = Config.Path.doc + "\(MYJob.shared.job.id)"
-        
-        if fm.fileExists(atPath: workingPath) == false {
+        if fm.fileExists(atPath: MYJob.currentJobPath) == false {
             if craateWorkingParh() {
                 return
             }
@@ -39,7 +38,7 @@ class LoadJob {
     
     private func craateWorkingParh() -> Bool {
         do {
-            try fm.createDirectory(atPath: workingPath,
+            try fm.createDirectory(atPath: MYJob.currentJobPath,
                                    withIntermediateDirectories: true,
                                    attributes: nil)
         } catch let error as NSError {
@@ -119,7 +118,7 @@ class LoadJob {
                 let dict = try JSONSerialization.jsonObject(with: response, options: []) as! JsonDict
                 print(dict)
             } catch {
-                let dest = self.workingPath + "/\(MYJob.shared.job.reference).\(kpiId)."
+                let dest = MYJob.currentJobPath + "/\(MYJob.shared.job.reference).\(kpiId)."
                 var suffix = ""
                 print(dest)
                 if UIImage.init(data: response) == nil {
@@ -129,7 +128,7 @@ class LoadJob {
                     suffix = "jpg"
                 }
                 do {
-                    try response.write(to: URL.init(string: "file://" + dest + suffix)!)
+                    try response.write(to: URL.init(string: Config.File.urlPrefix + dest + suffix)!)
                 } catch {
                     print("Unable to load data: \(error)")
                 }
