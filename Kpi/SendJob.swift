@@ -10,7 +10,6 @@ import Foundation
 
 class SendJob {
     private let fm = FileManager.default
-    private let jobId = String(MYJob.shared.job.id)
 
     func createZipFileWithDict (_ dict: JsonDict) -> String {
         do {
@@ -45,7 +44,7 @@ class SendJob {
     }
 
     private func zipFiles (_ filesToZip: [URL]) -> String {
-        let zipFile = URL.init(fileURLWithPath: MYZip.getZipFilePath(id: jobId))
+        let zipFile = URL.init(fileURLWithPath: MYZip.getZipFilePath(id: MYJob.shared.job.id))
         if MYZip.zipFiles(filesToZip, toZipFile: zipFile) {
             return removeFiles()
         }

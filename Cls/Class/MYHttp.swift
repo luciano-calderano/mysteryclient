@@ -153,13 +153,12 @@ class MYUpload {
                                                    includingPropertiesForKeys: nil,
                                                    options:[])            
             for file in files {
-                if file.pathExtension != "zip" {
+                if file.pathExtension != Config.File.zip {
                     continue
                 }
                 let data = try Data.init(contentsOf: file, options: .mappedIfSafe)
-                let fileName = file.absoluteString.components(separatedBy: Config.File.zipPefix).last
-                let id = fileName?.components(separatedBy: ".").first
-                me.start(jobId: id!, data: data)
+                let id = file.deletingPathExtension().lastPathComponent
+                me.start(jobId: id, data: data)
             }
         }
         catch {
@@ -168,6 +167,7 @@ class MYUpload {
     }
     
     func start (jobId: String, data: Data) {
+        let id = Int(jobId)!
         let url = URL.init(string: Config.Url.put)!
         let headers = [
             "Authorization" : User.shared.token
@@ -178,7 +178,7 @@ class MYUpload {
             Alamofire.upload(multipartFormData: { (multipartFormData) in
                 multipartFormData.append(data,
                                          withName: "object_file",
-                                         fileName:  MYZip.getZipFileName(id: jobId),
+                                         fileName:  Config.File.idPrefix + MYZip.getZipFileName(id: id),
                                          mimeType: "multipart/form-data")
                 
                 let json = [
@@ -195,7 +195,7 @@ class MYUpload {
                     upload.responseJSON { response in
                         if let JSON = response.result.value {
                             print("Upload: Response.JSON: \(JSON)")
-                            MYZip.removeZipWithId(jobId)
+                            MYZip.removeZipWithId(id)
                         }
                     }
                 case .failure(let encodingError):

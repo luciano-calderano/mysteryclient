@@ -13,13 +13,13 @@ class MYResult {
 
     var resultDict = JsonDict()
     
-    func getFileName (withId id: String) -> String {
-        return Config.Path.result + id + "." + Config.File.plist
+    func getFileName (withId id: Int) -> String {
+        return Config.Path.result + "\(id)." + Config.File.plist
     }
     
     func loadResult (jobId id: Int) -> JobResult {
         var result = JobResult()
-        let dict = JsonDict.init(fromFile: Config.File.urlPrefix + getFileName(withId: String(id)))
+        let dict = JsonDict.init(fromFile: Config.File.urlPrefix + getFileName(withId: id))
         if dict.isEmpty {
             result.id = id
             return result
@@ -102,13 +102,12 @@ class MYResult {
             "results"                   : resultArray,
             "positioning"               : dictPos
             ] as JsonDict
-        let id = String(result.id)
-        _ = self.resultDict.saveToFile(self.getFileName(withId: id))
+        _ = self.resultDict.saveToFile(self.getFileName(withId: result.id))
     }
     
     func removeResultWithId (_ id: Int) {
         do {
-            try? FileManager.default.removeItem(atPath: self.getFileName(withId: String(id)))
+            try? FileManager.default.removeItem(atPath: self.getFileName(withId: id))
         }
     }
 }

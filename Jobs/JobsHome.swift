@@ -36,7 +36,7 @@ class JobsHome: MYViewController {
     private func loadJobs () {
         getList(done: { (array) in
             func zipExists (id: Int) -> Bool {
-                let file = MYZip.getZipFilePath(id: "\(id)")
+                let file = MYZip.getZipFilePath(id: id)
                 return FileManager.default.fileExists(atPath: file)
             }
 

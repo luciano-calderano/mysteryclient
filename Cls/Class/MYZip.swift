@@ -10,17 +10,17 @@ import Foundation
 import Zip
 
 class MYZip {
-    class func getZipFileName (id: String) -> String {
-        return Config.File.zipPefix + id + ".zip"
+    class func getZipFileName (id: Int) -> String {
+        return "\(id)." + Config.File.zip
     }
-    class func getZipFilePath (id: String) -> String {
+    class func getZipFilePath (id: Int) -> String {
         return Config.Path.zip + MYZip.getZipFileName(id: id)
     }
     class func unzip(urlFile: URL, urlDest: URL) {
         try? Zip.unzipFile(urlFile, destination: urlDest, overwrite: true, password: nil)
     }
     
-    class func removeZipWithId (_ id: String) {
+    class func removeZipWithId (_ id: Int) {
         do {
             try? FileManager.default.removeItem(atPath: MYZip.getZipFilePath(id: id))
         }
@@ -36,7 +36,6 @@ class MYZip {
     }
     
     class func createZipFileWithDict (_ dict: JsonDict) -> Bool {
-        let jobId = String(MYJob.shared.job.id)
         let fm = FileManager.default
         
         do {
@@ -48,7 +47,7 @@ class MYZip {
                                                    includingPropertiesForKeys: nil,
                                                    options: [])
             
-            let zipFile = URL.init(fileURLWithPath: MYZip.getZipFilePath(id: jobId))
+            let zipFile = URL.init(fileURLWithPath: MYZip.getZipFilePath(id: MYJob.shared.job.id))
             try Zip.zipFiles(paths: filesToZip,
                              zipFilePath: zipFile,
                              password: nil,
