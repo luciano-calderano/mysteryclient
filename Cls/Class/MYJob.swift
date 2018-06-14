@@ -15,7 +15,7 @@ class MYJob {
     
     var job = Job()
     var jobResult = JobResult()
-    var kpiKeyList = [Int]() // Di comodo per evitare la ricerca del kpi.id nell'arrey dei kpi
+    var kpiKeyList = [Int]() // Di comodo per evitare la ricerca del kpi.id nell'array dei kpi
     
     func clearJobs () {
         let fm = FileManager.default

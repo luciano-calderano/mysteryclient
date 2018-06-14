@@ -116,7 +116,7 @@ class KpiQuestView: KpiBaseView {
     func showAtch () {
         atchImage.image = nil
         if currentResult.attachment.isEmpty == false {
-            let fileName = MYJob.currentJobPath + currentResult.attachment
+            let fileName = MYJob.currentJobPath + "/" + currentResult.attachment
             let imageURL = URL(fileURLWithPath: fileName)
             if let image = UIImage(contentsOfFile: imageURL.path) {
                 atchImage.image = image
