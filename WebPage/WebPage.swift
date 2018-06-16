@@ -64,7 +64,8 @@ class WebPage: MYViewController {
         myWheel.start(container)
 
         func hasToekn () {
-            var request = URLRequest(url: URL(string: page)!)
+            let urlPage = page.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+            var request = URLRequest(url: URL(string: urlPage!)!)
             request.setValue(User.shared.token, forHTTPHeaderField: "Authorization")
             webView.load(request)
         }
