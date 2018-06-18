@@ -96,12 +96,12 @@ class MYHttp {
             
             let isValid = dict.string("status") == "ok"
             if isValid == false {
-                dict = [ "err" : "Err. \(dict.string("code"))\n[ \(page) ]", "msg" : dict.string("message") ]
+                dict = [ "err" : "Server error \(dict.string("code"))\n[ \(page) ]", "msg" : dict.string("message") ]
             }
             return (isValid, dict)
         }
         let errorMessage = response.error == nil ? "Server error" :  (response.error?.localizedDescription)!
-        let dict = [ "err" : "Err. \(statusCode ?? 0)\n[ \(page) ]",  "msg" : errorMessage ]
+        let dict = [ "err" : "Server error \(statusCode ?? 0)\n[ \(page) ]",  "msg" : errorMessage ]
         return (false, dict)
     }
     
