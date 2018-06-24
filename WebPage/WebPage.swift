@@ -38,12 +38,16 @@ class WebPage: MYViewController {
             }
             vc.page = page
         }
+        if type == .register {
+            vc.isSignUp = true;
+        }
         return vc
     }
     
     private var webView = WKWebView()
     @IBOutlet private var container: UIImageView!
 
+    var isSignUp = false;
     var page = ""    
     private var myWheel = MYWheel()
     
@@ -63,13 +67,19 @@ class WebPage: MYViewController {
         }
         myWheel.start(container)
 
+        if isSignUp {
+            let urlPage = page.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+            let request = URLRequest(url: URL(string: urlPage!)!)
+            webView.load(request)
+            return;
+        }
+        
         func hasToekn () {
             let urlPage = page.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
             var request = URLRequest(url: URL(string: urlPage!)!)
             request.setValue(User.shared.token, forHTTPHeaderField: "Authorization")
             webView.load(request)
         }
-        
         User.shared.getUserToken(completion: {
             hasToekn()
         }) {
