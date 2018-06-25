@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.1.3</string>
 	<key>CFBundleVersion</key>
-	<string>180623</string>
+	<string>180625</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -30,11 +30,11 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Uso foto?</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>La geolocalizzazione serve per poter validare  che l&apos;incarico sia stato effettivamente svolto en luogo richiesto.</string>
+	<string>La geo localizzazione è necessaria per poter verificare che l'incarico è stato svolto nel posto e nell'orario  corretti. L'uso della localizzazione è spiegato correttamente nella nostra informativa privacy</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>La geolocalizzazione serve per poter validare  che l&apos;incarico sia stato effettivamente svolto en luogo richiesto.</string>
+	<string>La geo localizzazione è necessaria per poter verificare che l'incarico è stato svolto nel posto e nell'orario  corretti. L'uso della localizzazione è spiegato correttamente nella nostra informativa privacy</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>L&apos;app vorrebbe usare il contenuto della galleria per permetterti di selezionare una foto.</string>
+	<string>L'app vorrebbe usare il contenuto della galleria per permetterti di selezionare una foto.</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
