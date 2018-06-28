@@ -16,7 +16,7 @@ class Main: MYViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Config.Path.doc)
-
+        
         let imv = UIImageView()
         let img = UIImage.init(named: "back")
         imv.image = img
@@ -44,14 +44,12 @@ class Main: MYViewController {
         rect.origin.y = (header?.frame.origin.y)! + (header?.frame.size.height)!
         rect.size.height -= rect.origin.y
         menuView.frame = rect
-
-//        checkUser()
     }
     
     override func headerViewSxTapped() {
         menuVisible(menuView.isHidden)
     }
-
+    
     private func checkUser () {
         if User.shared.token.isEmpty {
             let loginView = LoginView.Instance()
@@ -165,7 +163,7 @@ extension Main {
     }
 }
 
-    //MARK: -
+//MARK: -
 
 extension Main: LoginViewDelegate {
     func loginView(_ view: LoginView, user: String, pass: String, save: Bool) {
@@ -184,7 +182,8 @@ extension Main: LoginViewDelegate {
         }
     }
     func loginViewSignUp(_ view: LoginView) {
-        openWeb(type: .register, title: "signUp")
+        alert("Attenzione.", message: "La registrazione via app è momentaneamente sospesa,\npuò essere effettuata sul nostro sito web.")
+        //        openWeb(type: .register, title: "signUp")
     }
     func loginViewPassForgotten(_ view: LoginView) {
         openWeb(type: .recover, title: "passForg")
@@ -197,7 +196,7 @@ extension Main: LoginViewDelegate {
     }
 }
 
-    //MARK: -
+//MARK: -
 
 extension Main: MenuViewDelegate {
     func menuSelectedItem(_ item: MenuItem) {
