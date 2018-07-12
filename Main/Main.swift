@@ -182,8 +182,7 @@ extension Main: LoginViewDelegate {
         }
     }
     func loginViewSignUp(_ view: LoginView) {
-        alert("Attenzione.", message: "La registrazione via app è momentaneamente sospesa,\npuò essere effettuata sul nostro sito web.")
-        //        openWeb(type: .register, title: "signUp")
+        openWeb(type: .register, title: "signUp")
     }
     func loginViewPassForgotten(_ view: LoginView) {
         openWeb(type: .recover, title: "passForg")

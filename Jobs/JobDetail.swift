@@ -54,17 +54,17 @@ class JobDetail: MYViewController {
         }
         
         for btn in [strtBtn, stopBtn] as! [MYButton] {
-            let ico = btn.image(for: .normal)?.resize(16)
-            btn.setImage(ico, for: .normal)
-            
-            let spacing: CGFloat = 10
-            let titleSize = btn.titleLabel!.frame.size
-            let imageSize = btn.imageView!.frame.size
-            let center = btn.frame.size.width / 2
-            
-            btn.imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: center - imageSize.width/2, bottom: 0, right: -titleSize.width)
-            
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: -(titleSize.width + imageSize.width) / 2, bottom: -(imageSize.height + spacing), right: 0)
+            btn.titleLabel?.lineBreakMode = .byWordWrapping;
+            btn.titleLabel?.textAlignment = .center;
+//            let ico = btn.image(for: .normal)?.resize(16)
+//            btn.setImage(ico, for: .normal)
+//            
+//            let spacing: CGFloat = 10
+//            let titleSize = btn.titleLabel!.frame.size
+//            let imageSize = btn.imageView!.frame.size
+//            let center = btn.frame.size.width / 2
+//            
+////            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: -(titleSize.width + imageSize.width) / 2, bottom: -(imageSize.height + spacing), right: 0)
         }
         showData()
     }
@@ -131,9 +131,9 @@ class JobDetail: MYViewController {
     
     @IBAction func strtTapped () {
         locationManager.startUpdatingLocation()
+        MYJob.shared.jobResult.positioning.start = true
         executionTime()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            MYJob.shared.jobResult.positioning.start = true
             MYJob.shared.jobResult.positioning.start_date = Date().toString(withFormat: Config.DateFmt.DataOraJson)
             MYJob.shared.jobResult.positioning.start_lat = self.locationValue.latitude
             MYJob.shared.jobResult.positioning.start_lng = self.locationValue.longitude
@@ -144,10 +144,9 @@ class JobDetail: MYViewController {
     }
     @IBAction func stopTapped () {
         locationManager.startUpdatingLocation()
+        MYJob.shared.jobResult.positioning.end = true
         executionTime()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            
-            MYJob.shared.jobResult.positioning.end = true
             MYJob.shared.jobResult.positioning.end_date = Date().toString(withFormat: Config.DateFmt.DataOraJson)
             MYJob.shared.jobResult.positioning.end_lat = self.locationValue.latitude
             MYJob.shared.jobResult.positioning.end_lng = self.locationValue.longitude
@@ -191,6 +190,8 @@ class JobDetail: MYViewController {
         var title = ""
         if  MYJob.shared.jobResult.execution_date.isEmpty == false {
             title = "kpiCont"
+        } else if MYJob.shared.job.irregular == true {
+            title = "kpiIrre"
         } else if MYJob.shared.job.learning_done == false {
             title = "learning"
         } else {
@@ -203,14 +204,17 @@ class JobDetail: MYViewController {
         strtBtn.isEnabled = false
         stopBtn.isEnabled = false
         strtBtn.backgroundColor = .lightGray
+        strtBtn.setTitleColor(UIColor.black, for: .normal);
         stopBtn.backgroundColor = .lightGray
-        
+        stopBtn.setTitleColor(UIColor.black, for: .normal);
+
         if MYJob.shared.jobResult.positioning.start == false {
             strtBtn.isEnabled = true
-            strtBtn.backgroundColor = UIColor.white
+            strtBtn.backgroundColor = UIColor.red
+            strtBtn.setTitleColor(UIColor.white, for: .normal);
         } else if MYJob.shared.jobResult.positioning.end == false {
             stopBtn.isEnabled = true
-            stopBtn.backgroundColor = UIColor.white
+//            stopBtn.backgroundColor = UIColor.white
         }
     }
 }
@@ -221,8 +225,7 @@ extension JobDetail {
         if urlPage.isEmpty == false {
             ctrl.page = urlPage
         }
-        navigationController?.show(ctrl, sender: self)
-        
+        navigationController?.show(ctrl, sender: self)        
         //        var page = urlPage
         //        if page.isEmpty {
         //            page = Config.Url.home + type.rawValue

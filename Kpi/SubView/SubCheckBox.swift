@@ -43,8 +43,8 @@ class SubCheckBox: KpiBaseSubView {
         super.awakeFromNib()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.layer.borderColor = UIColor.lightGray.cgColor
-        tableView.layer.borderWidth = 1
+//        tableView.layer.borderColor = UIColor.lightGray.cgColor
+//        tableView.layer.borderWidth = 1
         addSubviewWithConstraints(tableView)
         SubCheckBoxCell.register(tableView: tableView)
     }

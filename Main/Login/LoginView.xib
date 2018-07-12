@@ -82,8 +82,26 @@
                                 <constraint firstAttribute="trailing" secondItem="UeD-H4-mP7" secondAttribute="trailing" constant="16" id="vs0-wG-owC"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="121-Cd-OJR" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
+                            <rect key="frame" x="153.5" y="220" width="132.5" height="40"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="unM-N1-maG"/>
+                            </constraints>
+                            <state key="normal" title="#signUp">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="3"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="signUpTapped" destination="iN0-l3-epB" eventType="touchUpInside" id="qsq-yY-aac"/>
+                            </connections>
+                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPv-yS-TDv" customClass="MYButton" customModule="MysteryClient" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="220" width="288" height="40"/>
+                            <rect key="frame" x="0.0" y="220" width="132.5" height="40"/>
                             <color key="backgroundColor" red="0.67843137249999996" green="0.81960784310000001" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="5Kl-vd-Zpm"/>
@@ -148,11 +166,13 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="121-Cd-OJR" secondAttribute="trailing" constant="2" id="1qk-Yk-xbD"/>
                         <constraint firstAttribute="trailing" secondItem="PmT-jB-8NB" secondAttribute="trailing" constant="28" id="6Zq-p3-NYN"/>
                         <constraint firstItem="w51-hS-sFG" firstAttribute="top" secondItem="fAs-cW-YZ5" secondAttribute="bottom" constant="9" id="7fc-sm-LaR"/>
                         <constraint firstAttribute="height" constant="346" id="8HL-XA-nfp"/>
                         <constraint firstItem="Knv-bS-dHi" firstAttribute="top" secondItem="w51-hS-sFG" secondAttribute="bottom" constant="13" id="Axs-Bl-AYu"/>
                         <constraint firstItem="XPv-yS-TDv" firstAttribute="leading" secondItem="Cmo-ic-35S" secondAttribute="leading" id="CKp-Lu-ANM"/>
+                        <constraint firstItem="121-Cd-OJR" firstAttribute="width" secondItem="XPv-yS-TDv" secondAttribute="width" id="HZp-1W-81p"/>
                         <constraint firstAttribute="trailing" secondItem="w51-hS-sFG" secondAttribute="trailing" constant="2" id="HzH-sv-Rhu"/>
                         <constraint firstAttribute="trailing" secondItem="fAs-cW-YZ5" secondAttribute="trailing" constant="2" id="JZC-HQ-iWR"/>
                         <constraint firstItem="fAs-cW-YZ5" firstAttribute="top" secondItem="Cmo-ic-35S" secondAttribute="top" id="NBA-JC-2dM"/>
@@ -165,9 +185,10 @@
                         </constraint>
                         <constraint firstItem="PmT-jB-8NB" firstAttribute="leading" secondItem="Knv-bS-dHi" secondAttribute="trailing" constant="10" id="cme-2i-XPp"/>
                         <constraint firstItem="fAs-cW-YZ5" firstAttribute="leading" secondItem="Cmo-ic-35S" secondAttribute="leading" id="fBK-px-afo"/>
+                        <constraint firstItem="121-Cd-OJR" firstAttribute="leading" secondItem="XPv-yS-TDv" secondAttribute="trailing" constant="21" id="fXz-77-gvm"/>
                         <constraint firstAttribute="width" constant="288" id="gZc-E2-x2Y"/>
-                        <constraint firstAttribute="trailing" secondItem="XPv-yS-TDv" secondAttribute="trailing" id="kM3-lY-gQh"/>
                         <constraint firstAttribute="trailing" secondItem="zbu-mN-l60" secondAttribute="trailing" id="ns1-0B-NPW"/>
+                        <constraint firstItem="121-Cd-OJR" firstAttribute="top" secondItem="w51-hS-sFG" secondAttribute="bottom" constant="115" id="oZe-bz-O2I"/>
                         <constraint firstItem="PmT-jB-8NB" firstAttribute="top" secondItem="w51-hS-sFG" secondAttribute="bottom" constant="12" id="zjr-zV-fLp"/>
                     </constraints>
                 </view>

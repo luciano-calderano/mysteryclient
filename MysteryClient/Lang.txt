@@ -23,8 +23,8 @@ jobDate=Cambia data
 jobCont=Continua compilazione
 jobTick=Apri un ticket
 
-timerStart=Start tempo
-timerStop=Stop tempo
+timerStart=Sto per entrare nel punto vendita da verificare
+timerStop=Ho finito la verifica
 
 rifNum=Riferimento
 verIni=Inizio verifica
@@ -32,6 +32,7 @@ verEnd=Fine verifica
 
 learning=Vai al learning
 kpiInit=Compila incarico
+kpiIrre=Ricompila incarico
 kpiCont=Continua compilazione
 cancel=Annulla
 

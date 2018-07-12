@@ -40,8 +40,8 @@ class SubRadio: KpiBaseSubView {
     override func awakeFromNib() {
         super.awakeFromNib()
         SubRadioCell.register(tableView: tableView)
-        tableView.layer.borderColor = UIColor.lightGray.cgColor
-        tableView.layer.borderWidth = 1
+//        tableView.layer.borderColor = UIColor.lightGray.cgColor
+//        tableView.layer.borderWidth = 1
     }
     
     override func getValuation () -> KpiResponseValues {
