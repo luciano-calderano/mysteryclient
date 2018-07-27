@@ -1,0 +1,25 @@
+{
+  "name": "LcLib",
+  "platforms": {
+    "ios": "9.0"
+  },
+  "summary": "LcLib - Utilità standard.",
+  "requires_arc": true,
+  "swift_version": "4.0",
+  "version": "0.0.1",
+  "license": {
+    "type": "Apache License, Version 2.0",
+    "text": "Licensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n"
+  },
+  "authors": {
+    "Luciano C.": "luciano.c@virgilio.it"
+  },
+  "homepage": "https://github.com/lucianocalderano",
+  "source": {
+    "git": "https://github.com/lucianocalderano/LcLib.git",
+    "tag": "0.0.1"
+  },
+  "frameworks": "UIKit",
+  "source_files": "LcLib/**/*.{swift}",
+  "resources": ""
+}

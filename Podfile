@@ -5,6 +5,6 @@ use_frameworks!
 target 'MysteryClient' do
     pod 'Alamofire', '~> 4.4'
     pod 'Zip', '~> 1.1'
-#    pod 'LcLib' , :git => 'https://github.com/lucianocalderano/Podspecs.git'
+    pod 'LcLib', :git => 'https://github.com/lucianocalderano/LcLib.git'
 end
 

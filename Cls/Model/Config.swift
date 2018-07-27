@@ -9,6 +9,7 @@
 // web: mysteryclient.mebius.it - User: utente_gen - Pw: novella44
 
 import Foundation
+import LcLib
 
 typealias JsonDict = Dictionary<String, Any>
 func Lng(_ key: String) -> String {
