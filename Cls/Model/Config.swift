@@ -26,7 +26,7 @@ struct Config {
     }
 
     struct File {
-        static let json = "/job.json"
+        static let json = "job.json"
         static let zip = "zip"
         static let plist = "plist"
         static let idPrefix = "id_"

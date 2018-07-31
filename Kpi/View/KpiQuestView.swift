@@ -116,7 +116,7 @@ class KpiQuestView: KpiBaseView {
     func showAtch () {
         atchImage.image = nil
         if currentResult.attachment.isEmpty == false {
-            let fileName = MYJob.currentJobPath + "/" + currentResult.attachment
+            let fileName = MYJob.currentJobPath + currentResult.attachment
             let imageURL = URL(fileURLWithPath: fileName)
             if let image = UIImage(contentsOfFile: imageURL.path) {
                 atchImage.image = image
@@ -269,6 +269,8 @@ extension KpiQuestView: KpiAtchDelegate {
                 try data.write(to: URL.init(string: Config.File.urlPrefix + fileName)!)
             }
         } catch {
+            print("errore salvataggio file " + currentResult.attachment)
+            currentResult.attachment = "";
         }
         showAtch()
     }
